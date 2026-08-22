@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>引っ越し業者 比較レポート（蒲田→押上・9〜11月想定）</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-1-soft:  #cde2fb;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+    --tier-god:       #6b46c1;
+    --tier-god-bg:    #f1eafc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-1-soft:  #184f95;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+      --tier-god:       #b79cf5;
+      --tier-god-bg:    #251c3d;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page-plane); color: var(--text-primary); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
+  header.title-block { margin-bottom: 20px; }
+  h1 { font-size: 1.65rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .meta { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
+  h2 { font-size: 1.2rem; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
+  h3 { font-size: 1.02rem; margin: 24px 0 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  h4 { font-size: 0.85rem; margin: 16px 0 8px; color: var(--text-secondary); letter-spacing: 0.02em; }
+  p { line-height: 1.8; color: var(--text-primary); }
+  ul, ol { line-height: 1.85; padding-left: 1.3em; margin: 6px 0; }
+  li { margin-bottom: 5px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; background: var(--surface-1); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--gridline); vertical-align: top; }
+  thead th { color: var(--text-secondary); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.02em; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--chip-bg); }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--series-1); }
+  .badge-good { background: var(--accent-good-bg); color: var(--accent-good); }
+  .badge-muted { background: var(--gridline); color: var(--text-muted); }
+  .badge-warn { background: var(--accent-warn-bg); color: var(--accent-warn); }
+  .badge-god { background: var(--tier-god-bg); color: var(--tier-god); }
+  .insight { margin-top: 12px; padding: 12px 16px; background: var(--chip-bg); border-left: 3px solid var(--series-1); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
+  .insight b { color: var(--text-primary); }
+  .insight.warn { border-left-color: var(--accent-warn); background: var(--accent-warn-bg); }
+  .insight.good { border-left-color: var(--accent-good); background: var(--accent-good-bg); }
+  .note { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.8; margin-top: 10px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 6px; margin-top: 14px; margin-bottom: 8px; }
+  .toc a { font-size: 0.8rem; color: var(--series-1); background: var(--chip-bg); padding: 5px 10px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--gridline); color: var(--text-muted); font-size: 0.8rem; line-height: 1.9; }
+  footer a { color: var(--series-1); }
+  footer ol { padding-left: 1.4em; }
+  footer li { margin-bottom: 4px; }
+  ol.steps { line-height: 2; padding-left: 1.3em; }
+
+  .price-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .price-bar-label { width: 148px; flex-shrink: 0; font-size: 0.83rem; font-weight: 700; color: var(--text-primary); }
+  .price-bar-track { flex: 1; background: var(--gridline); border-radius: 6px; height: 24px; position: relative; }
+  .price-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; border: 1px solid var(--border); }
+  .price-bar-value { font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
+  .heat-1 { background: #cde2fb; color: #0b0b0b; }
+  .heat-2 { background: #9cc4ef; color: #0b0b0b; }
+  .heat-3 { background: #5f96de; color: #ffffff; }
+  .heat-4 { background: #1f5fb0; color: #ffffff; }
+  .heat-target { background: #57c98a; color: #ffffff; border-color: rgba(0,0,0,0.15); }
+
+  .reco-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+  .reco-chip { background: var(--page-plane); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; flex: 1 1 260px; }
+  .reco-chip .name { font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+  .reco-chip .note-sm { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.75; }
+  .reco-chip .note-sm b { color: var(--text-primary); }
+
+  .src { font-size: 0.7rem; color: var(--series-1); text-decoration: none; font-weight: 700; margin-left: 4px; white-space: nowrap; }
+  .src:hover { text-decoration: underline; }
+  .update-badge { display:inline-block; font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:999px; background: var(--accent-good-bg); color: var(--accent-good); margin-left:8px; vertical-align:middle; }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <header class="title-block">
+    <h1>引っ越し業者 比較レポート<span class="update-badge">蒲田→押上・9〜11月版</span></h1>
+    <div class="meta">
+      作成日：2026年8月17日／情報更新日：2026年8月17日（Web検索により最新の一次情報を確認し裏付けを強化）<br>
+      前提条件：夫婦2人・2LDK相当の家財量／<b>蒲田（大田区）→押上（墨田区）</b>への移動／新居はマンション<b>2〜10階・エレベーターあり</b>／引っ越し予定時期は<b>2027年9月〜11月</b>を想定<br>
+      調査方法：引越し侍・SUUMO引越し見積もり・価格.com引っ越し等の一次情報（公式サイト・料金相場ページ・口コミ集計）を実際にWeb検索して確認し、各数値に出典リンクを付記
+    </div>
+    <div class="toc">
+      <a href="#price">費用相場</a>
+      <a href="#our-case">想定ケースの目安</a>
+      <a href="#companies">業者比較</a>
+      <a href="#portals">一括見積もりサイト</a>
+      <a href="#tips">費用を抑えるコツ</a>
+      <a href="#schedule">おすすめスケジュール</a>
+      <a href="#ref">出典</a>
+      <a href="引っ越し事前準備ガイド.html" style="background:var(--accent-good-bg); color:var(--accent-good);">→ 事前準備ガイドはこちら</a>
+    </div>
+  </header>
+
+  <h2 id="price">引っ越し費用相場（9〜11月・近距離・エレベーターあり基準）</h2>
+  <div class="card">
+    <p style="margin-top:0;">今回のご条件は、（1）9〜11月という<b>年間で比較的費用を抑えやすい時期</b>、（2）蒲田→押上という<b>都内近距離の移動</b>、（3）両物件とも<b>エレベーターあり</b>、という3点で費用面に有利に働く要素が揃っています。それぞれの根拠データを整理します。</p>
+
+    <h4>① 時期：月別の費用相場（引越し侍・2026年データ）<a class="src" href="https://hikkoshizamurai.jp/price/timing/" target="_blank" rel="noopener">出典</a></h4>
+    <div style="margin-top:10px;">
+      <div class="price-bar-row">
+        <div class="price-bar-label">3月（年間最高値）</div>
+        <div class="price-bar-track"><div class="price-bar-fill heat-4" style="width:100%;"><span class="price-bar-value">家族 約24.4万円</span></div></div>
+      </div>
+      <div class="price-bar-row">
+        <div class="price-bar-label">9月</div>
+        <div class="price-bar-track"><div class="price-bar-fill heat-target" style="width:52%;"><span class="price-bar-value">家族 約12.8万円</span></div></div>
+      </div>
+      <div class="price-bar-row">
+        <div class="price-bar-label">10月（年間最安）</div>
+        <div class="price-bar-track"><div class="price-bar-fill heat-target" style="width:44%;"><span class="price-bar-value">家族 約10.7万円</span></div></div>
+      </div>
+      <div class="price-bar-row">
+        <div class="price-bar-label">11月</div>
+        <div class="price-bar-track"><div class="price-bar-fill heat-target" style="width:47%;"><span class="price-bar-value">家族 約11.4万円</span></div></div>
+      </div>
+    </div>
+    <p class="note">9〜11月はいずれも年間平均を下回る水準で、特に10月は単身・家族ともに<b>年間で最も安い月</b>です。3月（繁忙期ピーク）と比べると、家族向けで<b>2倍以上の開き</b>があります。なお上記「家族」は世帯人数を区切らない全国集計のため、2人家族・近距離移動の実額はこれより下振れしやすい点に留意してください（下記②参照）。</p>
+
+    <h4>② 距離：近距離（15km未満）の世帯構成別相場（SUUMO引越し見積もり）<a class="src" href="https://hikkoshi.suumo.jp/oyakudachi/8092.html" target="_blank" rel="noopener">出典</a></h4>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>世帯構成</th><th>通常期（5月〜1月）平均</th><th>繁忙期（2月〜4月）平均</th></tr></thead>
+        <tbody>
+          <tr><td>単身（荷物少なめ）</td><td>約5.0万円</td><td>約5.5万円</td></tr>
+          <tr><td>単身（荷物多め）</td><td>約6.4万円</td><td>約7.7万円</td></tr>
+          <tr><td>2人家族</td><td>約8.6万円</td><td>約11.1万円</td></tr>
+          <tr><td>3人家族</td><td>約10.6万円</td><td>約14.5万円</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">蒲田（大田区）〜押上（墨田区）間は直線距離でおよそ<b>18〜19km</b>（実際の走行距離はやや上振れする可能性がありますが、いずれにせよ都道府県をまたがない近距離移動です）。近距離の引っ越しは「距離」ではなく「作業時間」で料金が決まる時間制運賃が主流のため、上表の「15km未満」の水準に近い金額感が目安になります。9〜11月は表の「通常期」に含まれるため、<b>2人家族で約8.6万円</b>が中心的な目安です。</p>
+
+    <h4>③ 建物条件：エレベーターの有無による料金差<a class="src" href="https://www.chintaistyle.jp/article/hikkoshi-elevater-ryoukin/" target="_blank" rel="noopener">出典</a></h4>
+    <p style="margin-bottom:6px;">エレベーターなしの場合、1階につき1,000〜2,000円程度の階段作業割増が発生するのが一般的で、旧居・新居の両方にエレベーターがないと合計で数千円〜1万円弱の追加費用になるケースがあります。今回は<b>新居が2〜10階でもエレベーターあり</b>のため、この種の階段作業割増は基本的に発生しない見込みです。</p>
+
+    <p class="note">※いずれも荷物量・平日休日・オプション有無・当日の交通事情等によって変動する「目安」です。実際の金額は必ず見積もりで確認してください。</p>
+  </div>
+
+  <h2 id="our-case">たいやき様のケースにおける費用目安</h2>
+  <div class="card">
+    <p style="margin-top:0;">蒲田→押上・2人家族（2LDK相当）・9〜11月・エレベーターありという条件を重ね合わせると、次の点が費用面でのポイントになります。</p>
+    <ul>
+      <li><b>時期による節約効果：</b>9〜11月は繁忙期（2〜4月）と比べて2人家族で2〜3割程度安い水準が期待できます。特に10月は年間最安月にあたります。</li>
+      <li><b>距離による節約効果：</b>蒲田→押上は都内近距離（直線約18〜19km）のため、遠距離加算はほぼ発生しません。</li>
+      <li><b>エレベーターによる節約効果：</b>2〜10階でもエレベーターありのため、階段作業に伴う追加料金（1階あたり1,000〜2,000円程度）が基本的に不要です。</li>
+      <li><b>現実的な目安レンジ：</b>上記を踏まえると、2人家族・近距離・通常期の目安である<b>約8.6万円</b>（SUUMO近距離データ）を中心に、<b>おおよそ8万円〜15万円程度</b>を一旦のレンジとして見ておくのが妥当と考えられます。上振れ要因は主に「荷物量が多い」「土日・休日を指定する」「訪問見積もりで想定より荷物が多いと判明する」場合です。</li>
+    </ul>
+    <div class="insight good"><b>好材料：</b>9〜11月は各社の繁忙期限定の割引縮小（例：アート引越センターは通常「基本料金25%OFF」だが、最繁忙期の3月20日〜4月10日はこれが10%に縮小）の対象外となる時期です。つまり<b>通常の割引率がそのまま適用されやすい</b>ため、繁忙期に引っ越すケースと比べて割引面でも有利です<a class="src" href="https://hikkoshi.suumo.jp/069571000/" target="_blank" rel="noopener">出典</a>。</div>
+    <div class="insight"><b>検討ポイント：</b>9〜11月という3ヶ月の幅があるため、早い段階で候補月・候補週を絞り込めると、業者側の日程調整の余地が広がり、平日・フリー便（時間指定なし）を選びやすくなります。特に月末・月初は転勤や契約更新のタイミングと重なりやすく相対的に混みやすいため、可能であれば月の中旬を狙うと選択肢が広がりやすいです。</div>
+  </div>
+
+  <h2 id="companies">主要引っ越し業者の比較</h2>
+  <div class="card table-scroll">
+    <table>
+      <thead>
+        <tr><th>業者</th><th>特徴</th><th>料金感・評価</th><th>強み・注意点</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>サカイ引越センター</b><br><span class="badge badge-good">総合4.22/5.0</span></td>
+          <td>1971年創業、業界最大級の取扱実績（全国200支社以上・年間80万件以上）。「10分間サービス」（コンセント抜き・洗濯機取り外し等を10分で対応）や無料ダンボール回収（最大50箱）など実用的なサービスが充実。</td>
+          <td>口コミベースの相場は平均3.7万円、レンジは1.4万円〜10万円と幅広い（単身プラン目安1.75万円〜）。レビュー8.7万件超で総合満足度4.22/5.0（接客4.26・作業4.28）。</td>
+          <td>丁寧な作業・接客に定評があり第一候補に挙がりやすい。<b>注意点：</b>大手ゆえ料金は相対的に高めとの指摘あり。9〜11月は比較的予約も取りやすい時期。</td>
+        </tr>
+        <tr>
+          <td><b>アート引越センター</b><br><span class="badge badge-good">総合4.19/5.0</span></td>
+          <td>1976年創業。学生・女性向けプランなどターゲット別プランが充実。オリジナル資材「エコ楽ボックス」で梱包効率が高く、家電リサイクル法対象品の引き取りにも対応。</td>
+          <td>単身（荷物小）約2.7万〜8万円、ファミリー（3人）約8万〜30万円が目安。総合評価4.19/5.0。基本料金<b>25%OFF</b>は通常適用され、9〜11月は繁忙期限定の割引縮小（10%への縮小）の対象外。</td>
+          <td>プランの柔軟性・きめ細やかなサービスを重視する人向け。顧客満足度で3年連続1位の受賞歴あり。<b>注意点：</b>事前説明と実際の作業内容に食い違いがあったという口コミも一部報告あり。</td>
+        </tr>
+        <tr>
+          <td><b>日本通運（日通）</b><br><span class="badge badge-muted">71.8点/12社中7位</span></td>
+          <td>総合物流企業としての実績・信頼性。1989年に業界で初めて専用ボックス方式の「単身パック」を導入した先駆者。家族向けは荷造りレベルに応じたプラン選択が可能。</td>
+          <td>単身パックLは3.08万円〜と遠距離では競争力あり。一方、実際の見積もり比較例ではトラック貸切の家族向けプランがサカイより約5.4万円高く出たケースも報告されている。</td>
+          <td>実績・信頼性を最優先したい人向け。<b>注意点：</b>「料金が割高」「値引き交渉に応じにくい」という口コミが複数あり、他社と併せて見積もりを取り比較するのが必須。</td>
+        </tr>
+        <tr>
+          <td><b>アリさんマークの引越社</b></td>
+          <td>1971年創業の老舗。全作業員が名札で身元を開示する「身元保証制度」を導入し、直近10年で182万件の実績。長距離では独自の「モーダルシフト」でコスト削減する取り組みも。</td>
+          <td>10%割引クーポンやシニア割引など各種キャンペーンを実施。「ご予算に合わせたプラン提案」を掲げる。</td>
+          <td>価格と作業品質のバランスを重視する人向け。社員教育・身元保証制度により作業品質の安定感に定評。</td>
+        </tr>
+        <tr>
+          <td><b>アートセッティングデリバリー（旧ヤマトホームコンビニエンス）</b></td>
+          <td>2024年8月にアート引越センターが完全子会社化を決定、2025年1月に現社名へ改称。専用ボックス便「わたしの引越」など<b>単身者向けサービスが主力</b>で、Web完結・訪問見積もり不要が特徴。</td>
+          <td>専用ボックス1本23,100円〜（距離により変動。例：東京→さいたま24,200円、東京→大阪33,000円、東京→福岡44,000円、いずれも平日・時間帯指定は+1,100円）。</td>
+          <td><b>夫婦2人・2LDK規模の家族引っ越しは同社の主戦場ではなく</b>、グループ会社のアート引越センターに案内される体制。単身の別送分がある場合の選択肢として検討の余地あり。</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">料金感・評価は各社公式サイト・比較サイトの公開情報（口コミ集計・料金相場ページ）に基づく傾向であり、実際の金額は物件の階数・荷物量・当日の混雑状況等で変動します。同条件で複数社から見積もりを取ることが最も確実な比較方法です。</p>
+  </div>
+
+  <h2 id="portals">一括見積もりサイトの活用</h2>
+  <div class="card">
+    <p style="margin-top:0;">1社ずつ個別に問い合わせるより、一括見積もりサイトを使って複数社を横並びで比較する方が、料金交渉の材料（他社見積額）を持てる分、費用を抑えやすくなります。一方で、共通のデメリットとして「営業電話が多くなりやすい」点が各サイトのレビューで指摘されています。</p>
+    <div class="reco-grid">
+      <div class="reco-chip">
+        <div class="name">SUUMO引越し見積もり<a class="src" href="https://hikkoshi.suumo.jp/" target="_blank" rel="noopener">公式</a></div>
+        <div class="note-sm">電話番号の入力が<b>任意</b>。入力しなければ営業電話は基本的にかかってこないとの口コミが多数。ただし電話番号を入力した場合は他社同様に電話・メールが増えるとの報告もあるため、<b>未入力での申込みが推奨</b>。</div>
+      </div>
+      <div class="reco-chip">
+        <div class="name">引越し侍<a class="src" href="https://hikkoshizamurai.jp/" target="_blank" rel="noopener">公式</a></div>
+        <div class="note-sm">提携業者数<b>375社以上</b>（2024年11月時点・業界最大級）、口コミ8万件超を蓄積。ただし電話番号の登録が必須のため、営業電話は避けにくい。</div>
+      </div>
+      <div class="reco-chip">
+        <div class="name">価格.com 引っ越し<a class="src" href="https://hikkoshi.kakaku.com/" target="_blank" rel="noopener">公式</a></div>
+        <div class="note-sm">運営はカカクコム（東証プライム上場）。提携業者数は110社以上（引越し侍より少なめ）だが、Pマーク取得済みで個人情報管理の安心感があり、口コミの蓄積も豊富。</div>
+      </div>
+    </div>
+    <div class="insight"><b>示唆：</b>営業電話を避けたい場合は、電話番号を空欄のまま申し込めるSUUMO引越し見積もりを軸に使う、または依頼後に「電話ではなくメールでの連絡希望」と明記しておくと、電話の頻度を抑えられたという口コミが複数見られます。比較の網羅性を重視する場合は、提携業者数が多い引越し侍を併用するのも一案です。</div>
+  </div>
+
+  <h2 id="tips">費用を抑える・満足度を上げるポイント</h2>
+  <div class="card">
+    <ul>
+      <li><b>9〜11月という「安い時期」を最大限活かす：</b>この期間は年間平均を2〜3割程度下回る水準です。特に月末・月初を避け、月の中旬に寄せると業者側の空き枠が確保しやすく、平日・フリー便も選びやすくなります。</li>
+      <li><b>複数社比較：</b>3〜5社程度から見積もりを取り、他社の金額を交渉材料にするのが基本。ただし予算額を先に伝えない方が下がりやすいという実務上のコツも紹介されている。</li>
+      <li><b>訪問見積もりを優先：</b>2LDK規模で荷物量が多い場合、電話・Webだけの見積もりだと当日の追加料金が発生しやすい。荷物量を正確に把握してもらえる訪問見積もりの方が、最終的な金額のブレが小さくなりやすい。</li>
+      <li><b>平日・フリー便（時間指定なし）を選ぶ：</b>土日祝や午前便より、平日・フリー便の方が料金が下がりやすい傾向。9〜11月は繁忙期のような曜日制約が緩いため、平日を選びやすいのも利点。</li>
+      <li><b>エレベーターありのメリットを見積もりで確認：</b>今回は新居・旧居ともにエレベーターがある前提のため、階段作業割増（1階あたり1,000〜2,000円程度）が発生しないか、見積もり時に念のため確認しておくと安心。</li>
+      <li><b>荷物量を減らす：</b>段ボールの数・大型家具の量を減らすほど、トラックサイズ・作業員数が下がり料金も下がりやすい。不要な家具を事前に処分しておくと有利。</li>
+      <li><b>付帯サービスも比較軸に：</b>無料ダンボール回収、家電リサイクル引き取り、荷造り・荷解き代行など、金額だけでなく「何が含まれるか」を横並びで確認する。</li>
+    </ul>
+  </div>
+
+  <h2 id="schedule">おすすめの進め方（9〜11月の引っ越しに向けて）</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><b>新居の契約が固まり次第：</b>9〜11月のうち候補となる月・週の目星をつけ、一括見積もりサイトで3〜5社に概算見積もりを依頼する。</li>
+      <li><b>契約確定後、引っ越し日が決まり次第：</b>候補2〜3社に訪問見積もりを依頼し、荷物量を正確に把握してもらった上で最終見積もりを比較する。エレベーターの有無・サイズ（新居側）も併せて伝えておくとスムーズ。</li>
+      <li><b>候補月を絞り込む：</b>9〜11月は繁忙期のような予約殺到はないものの、人気の週末は埋まりやすいため、遅くとも1〜1.5ヶ月前までに業者を確定させておくと安心。</li>
+      <li><b>費用を少しでも抑えたい場合：</b>月の中旬・平日・フリー便を優先的に候補にし、複数社の見積もりを比較したうえで最終決定する。</li>
+    </ol>
+  </div>
+
+  <footer id="ref">
+    本レポートは、以下の一次情報（2026年8月時点でWeb検索により確認）を横断的に参照して作成しました。料金・キャンペーン内容・サービス仕様は変更される可能性があるため、実際の依頼前に必ず各社・各サイトの最新情報をご確認ください。蒲田〜押上間の距離は緯度経度からの直線距離による概算であり、実際の走行距離とは異なる場合があります。
+    <ol>
+      <li><a href="https://hikkoshizamurai.jp/price/timing/" target="_blank" rel="noopener">引越し侍「引っ越し費用が安い時期はいつ？2026年最新の料金相場」（月別の費用相場）</a></li>
+      <li><a href="https://hikkoshi.suumo.jp/oyakudachi/8092.html" target="_blank" rel="noopener">SUUMO引越し見積もり「同一市内など近距離の引越し見積もり相場は安い？」（近距離・世帯別データ）</a></li>
+      <li><a href="https://www.chintaistyle.jp/article/hikkoshi-elevater-ryoukin/" target="_blank" rel="noopener">賃貸スタイルコラム「引っ越しの際エレベーターの有無で料金は変わるの？」</a></li>
+      <li><a href="https://hikkoshi.suumo.jp/soba/" target="_blank" rel="noopener">SUUMO引越し見積もり「引っ越し料金の費用・相場はいくら？」（世帯構成別の平均費用）</a></li>
+      <li><a href="https://hikkoshi.suumo.jp/103807005/" target="_blank" rel="noopener">SUUMO引越し見積もり「サカイ引越センターの口コミ・評判と料金相場」</a></li>
+      <li><a href="https://hikkoshi.suumo.jp/069571000/" target="_blank" rel="noopener">SUUMO引越し見積もり「アート引越センターの口コミ・評判と料金相場」</a></li>
+      <li><a href="https://diamond-fudosan.jp/articles/-/1111791" target="_blank" rel="noopener">DIAMOND不動産研究所「日本通運（日通）の引越し料金は高いのか？」</a></li>
+      <li><a href="https://www.2626.co.jp/" target="_blank" rel="noopener">アリさんマークの引越社 公式サイト</a></li>
+      <li><a href="https://diamond-fudosan.jp/articles/-/1112202" target="_blank" rel="noopener">DIAMOND不動産研究所「ヤマトホームコンビニエンス（アートセッティングデリバリー）と日通の単身パック比較」</a></li>
+      <li><a href="https://www.yinlips.com/compare/suumo/" target="_blank" rel="noopener">引越しチェキ！「SUUMO引越し見積もり詳細と口コミ評判｜電話は本当にない？」</a></li>
+      <li><a href="https://diamond-fudosan.jp/articles/-/1111602" target="_blank" rel="noopener">DIAMOND不動産研究所「引越し侍の評判は？」（提携業者数・メリット/デメリット）</a></li>
+      <li><a href="https://sumai-kyokasho.net/kakaku-com-hikkoshi/" target="_blank" rel="noopener">住まいの教科書「価格.com引越し辛口レビュー」（提携業者数・特徴）</a></li>
+    </ol>
+  </footer>
+
+</div>
+</body>
+</html>

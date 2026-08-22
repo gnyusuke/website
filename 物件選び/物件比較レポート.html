@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>物件比較レポート | 引っ越し先候補</title>
+<style>
+  :root{
+    --bg:#f6f5f2;
+    --card:#ffffff;
+    --ink:#2b2b28;
+    --sub:#6b6b64;
+    --line:#e6e3dc;
+    --accent:#7a6a53;
+
+    --good:#e5f1e6;
+    --good-ink:#2e6b3e;
+    --ok:#fdf3df;
+    --ok-ink:#8a6a1f;
+    --warn:#fbe9e7;
+    --warn-ink:#a94442;
+    --chip:#efece4;
+
+    --t1-bg:#fbf3d9;
+    --t1-ink:#93731a;
+    --t1-line:#e6cd8a;
+    --t2-bg:#e7eef2;
+    --t2-ink:#3f6a82;
+    --t2-line:#bcd3de;
+    --t3-bg:#f1e9df;
+    --t3-ink:#8a6a4a;
+    --t3-line:#ddc9ae;
+    --out-bg:#f2ecec;
+    --out-ink:#96706f;
+    --out-line:#ddc9c8;
+    --un-bg:#f4f4f2;
+    --un-ink:#8c8c85;
+    --un-line:#d8d6cf;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.65;
+  }
+  header{
+    padding:32px 40px 18px;
+    max-width:1400px;
+    margin:0 auto;
+  }
+  h1{
+    font-size:24px;
+    margin:0 0 6px;
+    letter-spacing:0.02em;
+  }
+  .sub{
+    color:var(--sub);
+    font-size:13.5px;
+    margin:0;
+  }
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:16px;
+  }
+  .chip{
+    background:var(--chip);
+    color:var(--ink);
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12.5px;
+    white-space:nowrap;
+  }
+
+  nav.toc{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 40px 20px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  nav.toc a{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    text-decoration:none;
+    font-size:12.5px;
+    font-weight:600;
+    padding:6px 13px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    color:var(--ink);
+    background:var(--card);
+  }
+  nav.toc a:hover{background:var(--chip);}
+  nav.toc a .dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+
+  main{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 40px 20px;
+  }
+
+  /* -- Pickレター -- */
+  .pick-box{
+    background:var(--t1-bg);
+    border:1px solid var(--t1-line);
+    border-radius:12px;
+    padding:20px 24px;
+    margin-bottom:36px;
+  }
+  .pick-box .pick-label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    color:var(--t1-ink);
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .pick-box h2{
+    margin:0 0 8px;
+    font-size:19px;
+    color:var(--ink);
+  }
+  .pick-box p{
+    margin:0;
+    font-size:13.5px;
+    color:#4a4235;
+  }
+
+  section.tier{
+    margin-bottom:40px;
+    scroll-margin-top:20px;
+  }
+  .tier-heading{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    margin-bottom:16px;
+  }
+  .tier-heading h2{
+    font-size:17px;
+    margin:0;
+  }
+  .tier-heading .count{
+    font-size:12px;
+    color:var(--sub);
+  }
+  .tier-badge{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    padding:3px 11px;
+    border-radius:20px;
+    letter-spacing:0.03em;
+  }
+  .tier-badge.t1{background:var(--t1-bg);color:var(--t1-ink);border:1px solid var(--t1-line);}
+  .tier-badge.t2{background:var(--t2-bg);color:var(--t2-ink);border:1px solid var(--t2-line);}
+  .tier-badge.t3{background:var(--t3-bg);color:var(--t3-ink);border:1px solid var(--t3-line);}
+  .tier-badge.out{background:var(--out-bg);color:var(--out-ink);border:1px solid var(--out-line);}
+  .tier-badge.un{background:var(--un-bg);color:var(--un-ink);border:1px dashed var(--un-line);}
+
+  .cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));
+    gap:16px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 20px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card.t1{border-left:4px solid var(--t1-ink);}
+  .card.t2{border-left:4px solid var(--t2-ink);}
+  .card.t3{border-left:4px solid var(--t3-ink);}
+  .card.out{border-left:4px solid var(--out-ink); opacity:0.88;}
+  .card.un{border-left:4px dashed var(--un-ink);}
+
+  .card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .card-head .name{
+    font-size:15.5px;
+    font-weight:700;
+  }
+  .card-head .room{
+    font-size:12px;
+    color:var(--sub);
+    font-weight:400;
+    display:block;
+    margin-top:2px;
+  }
+  .card .stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px 14px;
+    font-size:12.5px;
+    margin-bottom:12px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+  }
+  .card .stats div span.label{
+    color:var(--sub);
+    margin-right:4px;
+  }
+  .card .stats div span.val{
+    font-weight:600;
+  }
+  .card .comment{
+    background:#faf9f6;
+    border-radius:8px;
+    padding:10px 12px;
+    font-size:13px;
+    color:#3d3a34;
+    margin-bottom:8px;
+    white-space:pre-line;
+  }
+  .card .comment .quote-label{
+    display:block;
+    font-size:10.5px;
+    color:var(--sub);
+    font-weight:600;
+    margin-bottom:4px;
+    letter-spacing:0.03em;
+  }
+  .card .factnote{
+    font-size:12px;
+    color:var(--sub);
+  }
+  .card .factnote b{color:var(--ink);}
+
+  a.link{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);}
+  a.link:hover{opacity:0.75;}
+
+  /* -- table -- */
+  .toolbar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+    margin:8px 0 14px;
+  }
+  .toolbar button{
+    background:var(--card);
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:7px 14px;
+    border-radius:8px;
+    font-size:13px;
+    cursor:pointer;
+  }
+  .toolbar button:hover{background:var(--chip);}
+  .toolbar button.active{
+    background:var(--accent);
+    color:#fff;
+    border-color:var(--accent);
+  }
+  .table-wrap{
+    overflow-x:auto;
+  }
+  table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:1360px;
+    background:var(--card);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 1px 3px rgba(0,0,0,0.05);
+  }
+  thead th{
+    background:#2b2b28;
+    color:#f6f5f2;
+    text-align:left;
+    padding:12px 10px;
+    font-size:12.5px;
+    font-weight:600;
+    white-space:nowrap;
+    cursor:pointer;
+    user-select:none;
+    position:sticky;
+    top:0;
+  }
+  thead th:hover{background:#3a3a35;}
+  thead th.sorted::after{content:" ▾";font-size:10px;opacity:0.7;}
+  tbody tr{
+    border-bottom:1px solid var(--line);
+    transition:background 0.15s;
+  }
+  tbody tr:hover{background:#faf9f6;}
+  tbody td{
+    padding:11px 10px;
+    font-size:13px;
+    vertical-align:top;
+  }
+  td.name{font-weight:600;min-width:170px;}
+  td.name .room{display:block;font-weight:400;color:var(--sub);font-size:12px;margin-top:2px;}
+  td.rent{white-space:nowrap;font-weight:600;}
+  td.total{white-space:nowrap;font-weight:600;color:var(--accent);}
+  td.rent-set{white-space:nowrap;color:var(--sub);}
+  td.fee-set{white-space:nowrap;color:var(--sub);}
+  td.total-set{white-space:nowrap;font-weight:600;}
+
+  tr.benchmark-row{background:var(--chip);}
+  tr.benchmark-row:hover{background:var(--chip);}
+  tr.benchmark-row td{color:var(--sub);}
+  tr.benchmark-row td.name{font-weight:600;color:var(--ink);}
+  tr.benchmark-row td.name .room{color:var(--sub);}
+  tr.benchmark-row td.total-set{color:var(--accent);font-weight:700;}
+  tr.benchmark-row td.rent{font-weight:600;color:var(--ink);}
+  tr.benchmark-row + tr:not(.benchmark-row){border-top:2px dashed var(--line);}
+  td.small{color:var(--sub);font-size:12px;}
+  td.note{min-width:220px;font-size:12px;color:var(--sub);}
+  td.tiercell{white-space:nowrap;}
+
+  tr.budget-good td.rent{color:var(--good-ink);}
+  tr.budget-ok td.rent{color:var(--ok-ink);}
+  tr.budget-warn td.rent{color:var(--warn-ink);}
+
+  .badge{
+    display:inline-block;
+    font-size:10.5px;
+    padding:2px 7px;
+    border-radius:20px;
+    background:#efece4;
+    color:var(--sub);
+    margin-top:4px;
+  }
+  .badge.under2ldk{background:var(--warn);color:var(--warn-ink);}
+
+  /* -- 家賃分析／内見チェック -- */
+  .bench-box{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:16px 20px;
+    margin-bottom:20px;
+    font-size:12.5px;
+    color:var(--sub);
+  }
+  .bench-box b{color:var(--ink);}
+  .bench-box .bench-nums{
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    margin:10px 0 6px;
+  }
+  .bench-box .bench-nums div{font-size:13px;color:var(--ink);}
+  .bench-box .bench-nums span.big{font-weight:700;font-size:16px;color:var(--accent);margin-right:4px;}
+
+  .rate-badge{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    padding:3px 11px;
+    border-radius:20px;
+    letter-spacing:0.02em;
+    white-space:nowrap;
+  }
+  .rate-badge.cheap{background:var(--good);color:var(--good-ink);}
+  .rate-badge.mid{background:var(--t2-bg);color:var(--t2-ink);}
+  .rate-badge.high{background:var(--warn);color:var(--warn-ink);}
+
+  .acard{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 22px;
+    margin-bottom:14px;
+  }
+  .acard .ahead{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:10px;
+  }
+  .acard .ahead .name{font-size:15px;font-weight:700;}
+  .acard .ahead .room{font-size:12px;color:var(--sub);font-weight:400;margin-left:6px;}
+  .acard h4{
+    font-size:11.5px;
+    color:var(--sub);
+    margin:14px 0 6px;
+    letter-spacing:0.04em;
+  }
+  .acard h4:first-of-type{margin-top:0;}
+  .acard .analysis-line{
+    font-size:13px;
+    margin-bottom:4px;
+  }
+  .acard .analysis-line .num{font-weight:600;}
+  .acard .why{
+    font-size:12.5px;
+    color:#3d3a34;
+    background:#faf9f6;
+    border-radius:8px;
+    padding:9px 12px;
+  }
+  .acard ul.checklist{
+    margin:0;
+    padding-left:18px;
+    font-size:12.5px;
+    color:#3d3a34;
+  }
+  .acard ul.checklist li{margin-bottom:4px;}
+
+  /* -- 費用グラフ -- */
+  .chart-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 20px 14px;
+    margin-bottom:6px;
+  }
+  .chart-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 16px;
+    margin-bottom:10px;
+  }
+  .legend-chip{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:11.5px;
+    color:var(--ink);
+    cursor:pointer;
+    user-select:none;
+    padding:3px 8px;
+    border-radius:20px;
+    background:#faf9f6;
+  }
+  .legend-chip:hover{background:var(--chip);}
+  .legend-chip.off{color:var(--sub);opacity:0.45;text-decoration:line-through;}
+  .legend-line{
+    width:14px;height:3px;border-radius:2px;display:inline-block;
+  }
+  .chart-tooltip{
+    position:absolute;
+    z-index:5;
+    background:#2b2b28;
+    color:#f6f5f2;
+    border-radius:8px;
+    padding:9px 12px;
+    font-size:11.5px;
+    line-height:1.5;
+    pointer-events:none;
+    box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    min-width:150px;
+    max-width:280px;
+  }
+  .chart-tooltip .tt-title{
+    font-weight:700;
+    font-size:11.5px;
+    margin-bottom:5px;
+    color:#fff;
+  }
+  .chart-tooltip .tt-row{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    white-space:nowrap;
+  }
+  .chart-tooltip .tt-key{
+    width:10px;height:3px;border-radius:2px;flex:0 0 auto;display:inline-block;
+  }
+  .chart-tooltip .tt-name{
+    flex:1 1 auto;
+    color:#d8d6cf;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .chart-tooltip .tt-val{
+    color:#fff;
+    font-weight:700;
+    margin-left:8px;
+  }
+
+  footer{
+    max-width:1400px;
+    margin:10px auto 50px;
+    padding:0 40px;
+    color:var(--sub);
+    font-size:12px;
+  }
+  h2.section-title{
+    font-size:17px;
+    margin:0 0 4px;
+  }
+  p.section-desc{
+    font-size:12.5px;
+    color:var(--sub);
+    margin:0 0 14px;
+  }
+  @media (max-width:800px){
+    header,nav.toc,main,footer{padding-left:16px;padding-right:16px;}
+    .card .stats{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>物件比較レポート</h1>
+  <p class="sub">「引っ越し」フォルダ内の問い合わせ結果（3社・13物件）に、たいやきさんのTier評価コメントを反映しました。作成日: 2026-08-17（Tier反映版）</p>
+
+  <div class="meta-row">
+    <span class="chip">希望予算：25万円以内 / 上限30万円</span>
+    <span class="chip">必須：2LDK以上</span>
+    <span class="chip">エリア：墨田区 押上・錦糸町・向島周辺</span>
+  </div>
+</header>
+
+<nav class="toc">
+  <a href="#preview"><span class="dot" style="background:#3f6a82"></span>内見前分析（家賃相場×チェックポイント）</a>
+  <a href="#tier1"><span class="dot" style="background:var(--t1-ink)"></span>Tier1（1件）</a>
+  <a href="#tier2"><span class="dot" style="background:var(--t2-ink)"></span>Tier2（3件）</a>
+  <a href="#tier3"><span class="dot" style="background:var(--t3-ink)"></span>Tier3（2件）</a>
+  <a href="#out"><span class="dot" style="background:var(--out-ink)"></span>圏外（3件）</a>
+  <a href="#unrated"><span class="dot" style="background:var(--un-ink)"></span>未評価（4件）</a>
+  <a href="#costtable"><span class="dot" style="background:var(--accent)"></span>費用ベース比較表</a>
+  <a href="#fulltable"><span class="dot" style="background:var(--accent)"></span>詳細比較表</a>
+</nav>
+
+<main>
+
+  <div class="pick-box">
+    <div class="pick-label">現時点の本命候補</div>
+    <h2>シーズンフラッツ押上フィオーレ（Tier1）</h2>
+    <p>収納の多さと無駄のない間取りが評価されての単独Tier1。新築で空き号室も多く（253,000〜285,000円/月）、内見の優先候補にしやすい状態です。「1部屋が4畳」の点は、A・Bどちらのタイプも洋室のひとつが4.0帖のため、この部屋の使い道（寝室／ワークスペース／将来の子ども部屋）を内見時にイメージできるかが判断ポイントになりそうです。</p>
+  </div>
+
+  <!-- ============ 内見前分析 ============ -->
+  <section id="preview" style="margin-bottom:40px;">
+    <h2 class="section-title">内見前分析：家賃相場 × 内見チェックポイント</h2>
+    <p class="section-desc">内見予定のTier1〜3・計7物件（Mill押上は2部屋、グランハイツ錦糸町は2部屋を1枠として集計）について、駅の家賃相場との比較と内見時の確認ポイントをまとめました。</p>
+
+    <div class="bench-box">
+      <b>比較のものさし：駅別2LDK平均家賃</b>（賃料のみ・管理費等は含まず、駅徒歩10分以内の平均。LIFULL HOME'S調べ、取得日2026/8/17）
+      <div class="bench-nums">
+        <div><span class="big">267,700円</span>押上駅 2LDK平均</div>
+        <div><span class="big">251,900円</span>錦糸町駅 2LDK平均</div>
+        <div><span class="big">約60㎡</span>押上駅2LDK物件の目安専有面積<br><span style="font-size:11px;">（本プロジェクトの過去調査における2LDK実例4件の平均。㎡単価の目安算出に使用）</span></div>
+      </div>
+      <div>上記から逆算した押上駅2LDKの㎡単価の目安は<b>約4,460円/㎡</b>。以下の分析ではこの目安値を「相場」として、各物件の総額（表面上の割安感）と㎡単価（広さを揃えた実質的な割安感）の両方から見ています。総額だけで見ると安く見えても、単価では相場並み、というケースがあるため、両方の視点で確認するのがポイントです。</div>
+    </div>
+
+    <div class="acard">
+      <div class="ahead">
+        <div><span class="name">シーズンフラッツ押上フィオーレ</span><span class="room">Tier1</span></div>
+        <span class="rate-badge mid">相場並み〜やや割安</span>
+      </div>
+      <h4>家賃分析</h4>
+      <div class="analysis-line">総額：253,000〜285,000円（押上平均267,700円比 <span class="num">-5%〜+6%</span>）</div>
+      <div class="analysis-line">㎡単価：約4,700〜5,300円/㎡（相場目安4,460円/㎡比 <span class="num">+5%〜+19%</span>）</div>
+      <div class="why">価格表を見ると2階(253,000円)から12階(285,000円)まで階数に応じてほぼ一直線に賃料が上がっており、典型的な「階数プレミアム」型の値付け。新築であることを踏まえれば低層階は相場並み〜やや割安、高層階は眺望・採光への上乗せと考えるのが妥当。全22戸中まだ複数号室が空いており、価格交渉より号室選び（階数）で予算調整できるのが特徴。</div>
+      <h4>内見チェックポイント</h4>
+      <ul class="checklist">
+        <li>4畳の洋室にベッド・収納家具が実際に収まるか採寸する（この部屋の用途＝寝室／ワークスペース／将来の子ども部屋、を内見しながらイメージ）</li>
+        <li>低層階（2〜4F）と高層階（10F以上）を両方見て、価格差に見合う採光・眺望の違いを体感する</li>
+        <li>収納（WIC・クローゼット）の奥行きと数を実測</li>
+        <li>フリーレント2ヶ月・短期解約違約金の条件を契約書ベースで再確認</li>
+      </ul>
+    </div>
+
+    <div class="acard">
+      <div class="ahead">
+        <div><span class="name">YHT押上</span><span class="room">Tier2</span></div>
+        <span class="rate-badge cheap">割安</span>
+      </div>
+      <h4>家賃分析</h4>
+      <div class="analysis-line">総額：270,000円（押上平均267,700円比 <span class="num">+1%</span>＝ほぼ同額）</div>
+      <div class="analysis-line">㎡単価：約4,130円/㎡（相場目安4,460円/㎡比 <span class="num">-7%</span>）</div>
+      <div class="why">総額はほぼ相場通りだが、65.43㎡という広さ（相場目安の60㎡より1割以上広い）を考えると㎡単価では明確に割安。駅徒歩2分・築2年という好条件にもかかわらず単価が抑えられているのは、4〜6階建の小規模ビルで大規模物件のような共用施設（ジム等）を持たないぶん、コストが価格に転嫁されていないためと考えられる。「値段も適正」というコメントは単価分析でも裏付けられる。</div>
+      <h4>内見チェックポイント</h4>
+      <ul class="checklist">
+        <li>資料上の「退去予定2026/7/31」は経過済みのため、現況が本当に空室か・入居可能時期を最新確認</li>
+        <li>サービスルーム（納戸的な部屋）の採光・用途（コメントで使い勝手が判断材料と指摘済み）</li>
+        <li>駅徒歩2分ゆえの騒音（電車・人通り・夜間の明るさ）を昼夜どちらかで体感できると理想</li>
+        <li>共用施設がない分、宅配ボックス・ゴミ置き場など日常動線に不便がないか確認</li>
+      </ul>
+    </div>
+
+    <div class="acard">
+      <div class="ahead">
+        <div><span class="name">スカイメゾン押上402</span><span class="room">Tier2</span></div>
+        <span class="rate-badge high">やや割高</span>
+      </div>
+      <h4>家賃分析</h4>
+      <div class="analysis-line">総額：274,000円（押上平均267,700円比 <span class="num">+2%</span>）</div>
+      <div class="analysis-line">㎡単価：約5,070円/㎡（相場目安4,460円/㎡比 <span class="num">+14%</span>）</div>
+      <div class="why">総額はほぼ相場並みだが、54.0㎡というコンパクトな面積のため単価では相場を1割以上上回る。新築（2026年7月築）・押上駅徒歩3分／スカイツリー駅徒歩1分という好立地プレミアムがそのまま単価に乗っている状態で、「普通、特別いいポイントもない」というコメント通り、突出した強みの割引はない価格設定。</div>
+      <h4>内見チェックポイント</h4>
+      <ul class="checklist">
+        <li>竣工前（2026年7月予定）のため、モデルルームの有無・実際の完成イメージとの差を確認</li>
+        <li>南向きの実際の採光時間帯（午前/午後どちらが明るいか）</li>
+        <li>54.0㎡でLDK13.5帖＋洋室5.5帖×2が確保できているか、家具配置イメージを持って採寸</li>
+      </ul>
+    </div>
+
+    <div class="acard">
+      <div class="ahead">
+        <div><span class="name">フロンティアレジデンス錦糸公園 515号室</span><span class="room">Tier2</span></div>
+        <span class="rate-badge mid">表面は割高／実質は相場並み</span>
+      </div>
+      <h4>家賃分析</h4>
+      <div class="analysis-line">総額（表面）：284,000円（押上平均比 <span class="num">+6%</span> ／ 錦糸町平均251,900円比 <span class="num">+13%</span>）</div>
+      <div class="analysis-line">総額（フリーレント3ヶ月・礼金なし込みの実質）：約263,500円（押上平均比 <span class="num">-2%</span>）</div>
+      <div class="analysis-line">㎡単価（表面）：約5,140円/㎡（相場目安比 <span class="num">+15%</span>）</div>
+      <div class="why">表面価格は相場を1〜2割上回るが、これはフィットネスルーム・スタディルーム・キッズルーム・シェアキッチンなど共用施設の充実度に対する対価と見られる。前回試算の通り、フリーレント・礼金なしを織り込むと実質負担は相場並み〜やや下回る水準まで下がるため、「初期費用・キャッシュフロー重視なら割安、単純な月額比較では割高」という二面性がある物件。</div>
+      <h4>内見チェックポイント</h4>
+      <ul class="checklist">
+        <li>共用施設（ジム・スタディルーム等）の利用条件（無料か追加料金か、予約制か）</li>
+        <li>押上駅徒歩10分・錦糸町駅徒歩13分の実際のルート（坂道・信号待ちの体感時間）</li>
+        <li>1年未満解約時の違約金（賃料1ヶ月分＋フリーレント分）の条件を再確認</li>
+        <li><b>申込期限が2026/8/31までの限定条件</b>のため、他物件より優先して早めに内見日程を確保</li>
+      </ul>
+    </div>
+
+    <div class="acard">
+      <div class="ahead">
+        <div><span class="name">Mill押上（0202号室／0201号室）</span><span class="room">Tier3</span></div>
+        <span class="rate-badge mid">総額は割安に見えるが単価は相場並み</span>
+      </div>
+      <h4>家賃分析</h4>
+      <div class="analysis-line">0202号室：240,000円・52.68㎡（押上平均比 <span class="num">-10%</span> ／ ㎡単価約4,560円/㎡＝相場目安比 <span class="num">+2%</span>）</div>
+      <div class="analysis-line">0201号室：260,000円・61.56㎡（押上平均比 <span class="num">-3%</span> ／ ㎡単価約4,220円/㎡＝相場目安比 <span class="num">-5%</span>）</div>
+      <div class="why">総額だけ見るとどちらも相場より安く映るが、㎡単価で見ると0202号室はほぼ相場通り、0201号室のみやや割安という結果に。安さの主因は「押上駅まで徒歩10分」という距離と、0202号室については面積の小ささそのものであり、値引きされているわけではない。「収納が少なそう、専有面積も狭い」というコメントは単価分析でも裏付けられる形。同じ建物でも部屋によって印象が変わりやすい典型例。</div>
+      <h4>内見チェックポイント</h4>
+      <ul class="checklist">
+        <li>収納スペース（クローゼット等）の実寸を両号室で比較</li>
+        <li>エレベーターの基数・待ち時間（コメントの「1フロア1台説」の真偽を確認）</li>
+        <li>押上駅までの徒歩10分ルート上の生活動線（スーパー・小児科等）</li>
+        <li>0201号室は敷金・礼金がそれぞれ26万円と高めなので、初期費用の総額を事前に試算</li>
+      </ul>
+    </div>
+
+    <div class="acard">
+      <div class="ahead">
+        <div><span class="name">グランハイツ錦糸町（703号室／804号室）</span><span class="room">Tier3</span></div>
+        <span class="rate-badge cheap">総額は割安だが単価は相場並み（築年の値引きは限定的）</span>
+      </div>
+      <h4>家賃分析</h4>
+      <div class="analysis-line">703号室：233,000円・2LDK 52.53㎡（押上平均比 <span class="num">-13%</span> ／ ㎡単価約4,440円/㎡＝相場目安比 <span class="num">-1%</span>）</div>
+      <div class="analysis-line">804号室：228,000円・1SLDK 51.67㎡（押上平均比 <span class="num">-15%</span> ／ ㎡単価約4,410円/㎡＝相場目安比 <span class="num">-1%</span>）</div>
+      <div class="why">総額は候補中もっとも相場を下回るが、㎡単価で見るとほぼ相場通り。押上駅徒歩5分という好立地の効果でこの築19年物件でも単価が大きく崩れておらず、「築古だから極端に安い」わけではないことが分かる。逆に言えば、リノベーション済みでも新築のような単価プレミアムは発生していない、ということでもあり、「特別良くない」というコメントとも整合する。</div>
+      <h4>内見チェックポイント</h4>
+      <ul class="checklist">
+        <li>バルコニーへ出るための動線（居室を通る間取りの実際の使い勝手・プライバシー面の支障）</li>
+        <li>リノベ箇所とそうでない箇所の見分け（特に給湯器・水回り等の設備年数）</li>
+        <li>共益費が号室により6,000〜12,000円と幅があるため、対象号室の実際の共益費を確認</li>
+        <li>角部屋（404・905・703・804・903号室）は二面採光とのことなので、実際の採光を確認</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ Tier1 ============ -->
+  <section class="tier" id="tier1">
+    <div class="tier-heading">
+      <span class="tier-badge t1">Tier 1</span>
+      <h2>最有力</h2>
+      <span class="count">1件</span>
+    </div>
+    <div class="cards">
+
+      <div class="card t1">
+        <div class="card-head">
+          <div>
+            <div class="name">シーズンフラッツ押上フィオーレ</div>
+            <span class="room">新築 / 複数号室空きあり（賃貸住宅サービス）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">賃料</span><span class="val">253,000〜285,000円</span></div>
+          <div><span class="label">月額合計</span><span class="val">273,000〜305,000円</span></div>
+          <div><span class="label">間取り</span><span class="val">2LDK / 2LDK+S・53.76㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩4分</span></div>
+          <div><span class="label">築年</span><span class="val">2026年2月（新築）</span></div>
+          <div><span class="label">敷/礼</span><span class="val">0ヶ月+FR2ヶ月</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          収納は多そう。また、間取りとしてもデッドスペースが少ないように見える。ただ、1部屋が4畳なのは気がかりか。
+        </div>
+        <div class="factnote">Aタイプ・Bタイプいずれも洋室4.0帖が1室あり（もう1室は5.5帖/4.0帖）。空き号室は1201(280,000)/1202(285,000)/1101(275,000)/801(257,000)/601(256,000)/602(259,000,+S)/501(255,000)/401(255,000)/301・201(253,000)と選択肢が多い。地上12階建、フリーレント2ヶ月・インターネット無料。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ Tier2 ============ -->
+  <section class="tier" id="tier2">
+    <div class="tier-heading">
+      <span class="tier-badge t2">Tier 2</span>
+      <h2>次点候補</h2>
+      <span class="count">3件</span>
+    </div>
+    <div class="cards">
+
+      <div class="card t2">
+        <div class="card-head">
+          <div>
+            <div class="name">YHT押上</div>
+            <span class="room">401号室（賃貸住宅サービス）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">賃料</span><span class="val">270,000円</span></div>
+          <div><span class="label">月額合計</span><span class="val">285,500円</span></div>
+          <div><span class="label">間取り</span><span class="val">2LDK相当・65.43㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩2分</span></div>
+          <div><span class="label">築年</span><span class="val">2024年2月</span></div>
+          <div><span class="label">敷/礼</span><span class="val">0ヶ月/1ヶ月</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          広い。ベッドルームは今より大きく、もう一部屋も大きく変わらず利用できそう。値段も適正（ちょっと高いが）→サービスルームの使い勝手次第
+        </div>
+        <div class="factnote">資料上の現況欄に「退去予定 2026/7/31」とあり、これは今日時点（8/17）で既に経過済みのため、現在は空室になっている可能性が高いです（要最新状況確認）。駅徒歩2分の立地は数値上も候補中トップ。</div>
+      </div>
+
+      <div class="card t2">
+        <div class="card-head">
+          <div>
+            <div class="name">スカイメゾン押上402</div>
+            <span class="room">302・402号室（匠エステート）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">賃料</span><span class="val">274,000円</span></div>
+          <div><span class="label">月額合計</span><span class="val">289,000円</span></div>
+          <div><span class="label">間取り</span><span class="val">2LDK・54.0㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩3分</span></div>
+          <div><span class="label">築年</span><span class="val">2026年7月（新築）</span></div>
+          <div><span class="label">敷/礼</span><span class="val">1ヶ月/1ヶ月</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          普通。悪くはないけど特別いいポイントもない→南向きかつ部屋の広さはそれなり。
+        </div>
+        <div class="factnote">3沿線利用可・スカイツリー駅前・南向き。ネット無料。突出した魅力はないが弱点も見当たらない「安全牌」枠。</div>
+      </div>
+
+      <div class="card t2">
+        <div class="card-head">
+          <div>
+            <div class="name">フロンティアレジデンス錦糸公園</div>
+            <span class="room">515号室（賃貸住宅サービス）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">賃料</span><span class="val">284,000円</span></div>
+          <div><span class="label">月額合計</span><span class="val">299,000円</span></div>
+          <div><span class="label">間取り</span><span class="val">2LDK+SIC・55.26㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩10分</span></div>
+          <div><span class="label">築年</span><span class="val">2025年1月</span></div>
+          <div><span class="label">敷/礼</span><span class="val">1ヶ月/無 + フリーレント3ヶ月</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          徒歩10分であるという点を除けば施設とかは100点。フリーレントおよび礼金がない点を考慮すると実質家賃も抑えられると考えられる。
+        </div>
+        <div class="factnote">試算：契約期間2年(24ヶ月)・フリーレント3ヶ月・礼金なしを織り込むと、実質負担は月あたり約263,500円（賃料284,000円を21ヶ月分＋管理費15,000円を24ヶ月分、で均した概算）まで下がり、月額合計299,000円より2万円強お得。礼金なしのため初期費用も1ヶ月分(28.4万円相当)抑えられる。フィットネスルーム・スタディルーム等の共用設備あり、全315邸の大規模レジデンス。<br><b>要注意：</b>資料記載の申込条件は「2026/8/31までの申込限定」。1年未満での解約には違約金（賃料1ヶ月分＋フリーレント分）がある点も確認を。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ Tier3 ============ -->
+  <section class="tier" id="tier3">
+    <div class="tier-heading">
+      <span class="tier-badge t3">Tier 3</span>
+      <h2>候補ではあるが優先度は下げる</h2>
+      <span class="count">2件</span>
+    </div>
+    <div class="cards">
+
+      <div class="card t3">
+        <div class="card-head">
+          <div>
+            <div class="name">Mill押上</div>
+            <span class="room">2社から別号室で案内あり</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">0202号室</span><span class="val">240,000円・52.68㎡</span></div>
+          <div><span class="label">0201号室</span><span class="val">260,000円・61.56㎡</span></div>
+          <div><span class="label">間取り</span><span class="val">2LDK</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩10分</span></div>
+          <div><span class="label">築年</span><span class="val">2024年9月</span></div>
+          <div><span class="label">問い合わせ元</span><span class="val">賃貸住宅サービス／匠エステート</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          収納が少なさそう。また、専有面積も狭い。ただ、エレベーターが1フロア1個説ある（まずなさそうだけど）
+        </div>
+        <div class="factnote">0202号室（賃貸住宅サービス案内・52.68㎡・240,000円）は面積面でコメントに近い狭さ。0201号室（匠エステート案内・61.56㎡・260,000円）は同建物ながら面積は広め・価格も上がる。どちらも押上駅まで徒歩10分とTier1/2よりやや遠い。</div>
+      </div>
+
+      <div class="card t3">
+        <div class="card-head">
+          <div>
+            <div class="name">グランハイツ錦糸町</div>
+            <span class="room">703号室・804号室ほか（賃貸住宅サービス）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">703号室</span><span class="val">233,000円・2LDK 52.53㎡</span></div>
+          <div><span class="label">804号室</span><span class="val">228,000円・1SLDK 51.67㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩5分</span></div>
+          <div><span class="label">築年</span><span class="val">2007年2月（リノベ済）</span></div>
+          <div><span class="label">共益費</span><span class="val">6,000〜12,000円</span></div>
+          <div><span class="label">敷/礼</span><span class="val">1ヶ月/1ヶ月</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          リノベしたけど古くはある。特別良くない。広さは良いが、どちらかの部屋を通らないとバルコニーに行けない。
+        </div>
+        <div class="factnote">築17年超で、704・905・703・804・903号室は角部屋・二面採光。ただし間取り図上、バルコニーへは居室のいずれかを経由する動線になっている点はコメントの通り。1K室（117,000〜122,000円）は2LDK要件を満たさないため対象外。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 圏外 ============ -->
+  <section class="tier" id="out">
+    <div class="tier-heading">
+      <span class="tier-badge out">圏外</span>
+      <h2>今回は見送り</h2>
+      <span class="count">3件</span>
+    </div>
+    <div class="cards">
+
+      <div class="card out">
+        <div class="card-head">
+          <div>
+            <div class="name">D's VARIE向島レジデンス</div>
+            <span class="room">0202号室（賃貸住宅サービス）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">賃料</span><span class="val">250,000円</span></div>
+          <div><span class="label">月額合計</span><span class="val">260,000円</span></div>
+          <div><span class="label">間取り</span><span class="val">2LDK・55.25㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上/スカイツリー 徒歩12分</span></div>
+          <div><span class="label">築年</span><span class="val">1994年8月</span></div>
+          <div><span class="label">敷/礼</span><span class="val">1ヶ月/0ヶ月</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          安い。間取りは十分だが、徒歩12分は遠い→Millの下位互換感
+        </div>
+        <div class="factnote">価格の安さは魅力だが、駅距離・築年ともにTier3のMill押上より条件が劣るため見送り、という評価に整合。</div>
+      </div>
+
+      <div class="card out">
+        <div class="card-head">
+          <div>
+            <div class="name">フロンティアレジデンス錦糸公園</div>
+            <span class="room">205号室（賃貸住宅サービス）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">賃料</span><span class="val">293,000円</span></div>
+          <div><span class="label">月額合計</span><span class="val">308,000円</span></div>
+          <div><span class="label">間取り</span><span class="val">2LDK+2WIC+SIC・57.51㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩10分</span></div>
+          <div><span class="label">築年</span><span class="val">2025年1月</span></div>
+          <div><span class="label">敷/礼</span><span class="val">1ヶ月/無</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          なし。高すぎ。
+        </div>
+        <div class="factnote">月額合計308,000円で上限30万円を超過。同建物の515号室はフリーレント・礼金なしを考慮した実質負担額の低さが評価され、Tier2に格上げ済み（上記参照）。</div>
+      </div>
+
+      <div class="card out">
+        <div class="card-head">
+          <div>
+            <div class="name">エクセレントシティ押上</div>
+            <span class="room">203号室（匠エステート）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">賃料</span><span class="val">250,000円</span></div>
+          <div><span class="label">月額合計</span><span class="val">260,000円</span></div>
+          <div><span class="label">間取り</span><span class="val">2SLDK・64.26㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩7〜8分</span></div>
+          <div><span class="label">築年</span><span class="val">2015年8月</span></div>
+          <div><span class="label">契約</span><span class="val">定期借家3年</span></div>
+        </div>
+        <div class="comment">
+          <span class="quote-label">たいやきさんの評価</span>
+          定期借家なのでなし。
+        </div>
+        <div class="factnote">価格・広さだけ見ればTier1/2と遜色ないが、定期借家（更新なし・3年で契約終了）のため長期居住を前提にできず除外、という判断に合致。</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 未評価 ============ -->
+  <section class="tier" id="unrated">
+    <div class="tier-heading">
+      <span class="tier-badge un">未評価</span>
+      <h2>まだコメントをいただいていない物件</h2>
+      <span class="count">4件</span>
+    </div>
+    <div class="cards">
+
+      <div class="card un">
+        <div class="card-head">
+          <div>
+            <div class="name">ES-Grande錦糸町</div>
+            <span class="room">401号室（賃貸住宅サービス）</span>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span class="label">賃料</span><span class="val">295,000円</span></div>
+          <div><span class="label">月額合計</span><span class="val">315,000円</span></div>
+          <div><span class="label">間取り</span><span class="val">3LDK・65.08㎡</span></div>
+          <div><span class="label">立地</span><span class="val">押上 徒歩7分</span></div>
+          <div><span class="label">築年</span><span class="val">1997年1月</span></div>
+          <div><span class="label">敷/礼</span><span class="val">0ヶ月/0ヶ月</span></div>
+        </div>
+        <div class="factnote">3LDKで要件（2LDK以上）は満たすが、月額合計315,000円は上限30万円を超過。フルリフォーム済み・角部屋。</div>
+      </div>
+
+      <div class="card un">
+        <div class="card-head">
+          <div>
+            <div class="name">ザ・パークハビオ本所吾妻橋</div>
+            <span class="room">ハウスパートナー押上</span>
+          </div>
+        </div>
+        <div class="factnote">資料が物件名とリンクのみで、リンク先の自動取得もロボット制限で失敗したため詳細未取得です。<a class="link" href="https://s.e-vision.co.jp/ttu4hst" target="_blank" rel="noopener">詳細リンクを開く</a></div>
+      </div>
+
+      <div class="card un">
+        <div class="card-head">
+          <div>
+            <div class="name">Encore Manor</div>
+            <span class="room">ハウスパートナー押上</span>
+          </div>
+        </div>
+        <div class="factnote">資料が物件名とリンクのみで、リンク先の自動取得もロボット制限で失敗したため詳細未取得です。<a class="link" href="https://s.e-vision.co.jp/oq1qki7" target="_blank" rel="noopener">詳細リンクを開く</a></div>
+      </div>
+
+      <div class="card un">
+        <div class="card-head">
+          <div>
+            <div class="name">パレステージ曳舟II</div>
+            <span class="room">ハウスパートナー押上</span>
+          </div>
+        </div>
+        <div class="factnote">資料が物件名とリンクのみで、リンク先の自動取得もロボット制限で失敗したため詳細未取得です。<a class="link" href="https://s.e-vision.co.jp/yp3qzoj" target="_blank" rel="noopener">詳細リンクを開く</a></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 費用ベース比較 ============ -->
+  <section id="costtable" style="margin-bottom:40px;">
+    <h2 class="section-title">費用ベース比較：初期費用 × 居住年数別コスト</h2>
+    <p class="section-desc">内見予定のTier1〜3の物件について、①初期費用（敷金・礼金）そのものの比較と、②2年で区切らず1〜10年の居住年数に応じてコストがどう変化するかの2つの切り口でまとめました。</p>
+
+    <div class="bench-box">
+      <b>算出方法・前提条件</b>
+      <ul class="checklist" style="margin-top:8px;">
+        <li>賃貸借契約は2年ごとに更新するものとして計算。更新料は資料に記載がある物件はその金額、記載がない物件（フロンティア515号室）は市場標準の「新賃料1ヶ月分」を仮定して算入しています（YHT押上・スカイメゾン押上は更新料に加えて更新事務手数料20,000円も資料に明記があるため算入）</li>
+        <li>フリーレントは入居時の賃料部分にのみ適用し、管理費・共益費は満額発生するものとして計算</li>
+        <li><b>敷金</b>は退去時に返還される前提のため、グラフ②（年数別コスト推移）のランニングコストからは除外し、グラフ①（初期費用）にのみ「参考」として計上。<b>礼金</b>は返還されない実質コストとして両方に算入</li>
+        <li>グランハイツ錦糸町は資料上の共益費が「6,000〜12,000円」のレンジ表記のみだったため、2LDK/1SLDKタイプの上限12,000円を仮定</li>
+        <li>仲介手数料・保証会社利用料・火災保険料・鍵交換代などの諸費用は物件間でデータの粒度が揃わなかったため対象外。実際の初期費用はここに記載の金額に加えて、概ね賃料1〜1.5ヶ月分程度が上乗せされる可能性があります</li>
+        <li>シーズンフラッツ押上フィオーレは号室により253,000〜285,000円の幅がありますが、グラフでは低層階の代表額（253,000円）で1本の線として表示しています（高層階の数値はページ下部の表に別掲）</li>
+      </ul>
+    </div>
+
+    <h3 style="font-size:15px;margin:0 0 4px;">① 初期費用の比較（敷金・礼金）</h3>
+    <p class="section-desc">入居時に必要な現金の目安です。グレー部分は退去時に返る敷金（参考）、色付き部分は返らない礼金（実質コスト）。ホバーで内訳を確認できます。</p>
+    <div class="chart-card">
+      <div id="initialChartWrap" style="position:relative;"></div>
+    </div>
+
+    <h3 style="font-size:15px;margin:28px 0 4px;">② 居住年数別：実質月額の推移（1〜10年）</h3>
+    <p class="section-desc">「その時点までに払った総額 ÷ 経過月数」を各年でプロットしたものです。フリーレント・礼金なしの物件は序盤で下がり、礼金・更新料の負担が大きい物件は長く住むほど下がりにくいことが見えてきます。グラフ内の凡例クリックで表示・非表示を切り替えられます。</p>
+    <div class="chart-card">
+      <div class="chart-legend" id="lineLegend"></div>
+      <div id="lineChartWrap" style="position:relative;"></div>
+    </div>
+
+    <h3 style="font-size:15px;margin:28px 0 4px;">年数別チェックポイント表</h3>
+    <p class="section-desc">グラフの数値に加えて、内訳の元になっている設定家賃・管理費共益費・その合計（設定合計家賃）も確認できます。冒頭の色付き3行（26万円／28万円／30万円）は、実際の物件と同じ前提（敷金1ヶ月・礼金1ヶ月・2年毎の更新料1ヶ月、フリーレントなし）で試算した「基準ライン」です。各物件の実質月額をこの基準と見比べることで、割安/割高感がつかみやすくなります。列見出しクリックでソートできます（実質月額の列で並べ替えると、基準ラインが実際の物件の間に並ぶので比較しやすくなります）。</p>
+    <div class="table-wrap">
+    <table id="costTable">
+      <thead>
+        <tr>
+          <th data-key="name">物件名</th>
+          <th data-key="rent">設定家賃</th>
+          <th data-key="fee">管理費<br>共益費</th>
+          <th data-key="totalset">設定合計家賃<br>（家賃+管理費）</th>
+          <th data-key="initial">初期費用<br>（敷金+礼金）</th>
+          <th data-key="y1">1年目<br>実質月額</th>
+          <th data-key="y2">2年目<br>実質月額</th>
+          <th data-key="y5">5年目<br>実質月額</th>
+          <th data-key="y10">10年目<br>実質月額</th>
+          <th data-key="note">備考</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="benchmark-row" data-initial="520000" data-y1="281667" data-y2="270833" data-y5="273000" data-y10="270833" data-totalset="260000">
+          <td class="name">【基準】家賃+管理費 260,000円<span class="room">敷金・礼金各1ヶ月、更新料1ヶ月（2年毎）を想定</span></td>
+          <td class="rent-set">—</td>
+          <td class="fee-set">—</td>
+          <td class="total-set">260,000円</td>
+          <td class="total">520,000円</td>
+          <td class="rent">281,667円</td>
+          <td class="rent">270,833円</td>
+          <td class="rent">273,000円</td>
+          <td class="rent">270,833円</td>
+          <td class="note">基準ライン。フリーレントや礼金無料などの割引は一切なく、実在の物件と同じ条件（敷金1ヶ月・礼金1ヶ月・2年毎の更新料1ヶ月）で試算した「標準的な家賃26万円の物件」の実質月額です。各物件の実質月額がこの基準より低ければ割安、高ければ割高と読めます。</td>
+        </tr>
+
+        <tr class="benchmark-row" data-initial="560000" data-y1="303333" data-y2="291667" data-y5="294000" data-y10="291667" data-totalset="280000">
+          <td class="name">【基準】家賃+管理費 280,000円<span class="room">敷金・礼金各1ヶ月、更新料1ヶ月（2年毎）を想定</span></td>
+          <td class="rent-set">—</td>
+          <td class="fee-set">—</td>
+          <td class="total-set">280,000円</td>
+          <td class="total">560,000円</td>
+          <td class="rent">303,333円</td>
+          <td class="rent">291,667円</td>
+          <td class="rent">294,000円</td>
+          <td class="rent">291,667円</td>
+          <td class="note">基準ライン（28万円）。条件は26万円ラインと同じ（敷金1ヶ月・礼金1ヶ月・2年毎の更新料1ヶ月、フリーレントなし）。以下同様に、実質月額との比較のものさしとして使えます。</td>
+        </tr>
+
+        <tr class="benchmark-row" data-initial="600000" data-y1="325000" data-y2="312500" data-y5="315000" data-y10="312500" data-totalset="300000">
+          <td class="name">【基準】家賃+管理費 300,000円<span class="room">敷金・礼金各1ヶ月、更新料1ヶ月（2年毎）を想定</span></td>
+          <td class="rent-set">—</td>
+          <td class="fee-set">—</td>
+          <td class="total-set">300,000円</td>
+          <td class="total">600,000円</td>
+          <td class="rent">325,000円</td>
+          <td class="rent">312,500円</td>
+          <td class="rent">315,000円</td>
+          <td class="rent">312,500円</td>
+          <td class="note">基準ライン（30万円）。条件は26万円ラインと同じ（敷金1ヶ月・礼金1ヶ月・2年毎の更新料1ヶ月、フリーレントなし）。以下同様に、実質月額との比較のものさしとして使えます。</td>
+        </tr>
+
+        <tr data-initial="253000" data-y1="230833" data-y2="251917" data-y5="273000" data-y10="277217" data-rent="253000" data-fee="20000" data-totalset="273000">
+          <td class="name">シーズンフラッツ押上フィオーレ<span class="room">低層階（201・301号室想定）</span></td>
+          <td class="rent-set">253,000円</td>
+          <td class="fee-set">20,000円</td>
+          <td class="total-set">273,000円</td>
+          <td class="total">253,000円</td>
+          <td class="rent">230,833円</td>
+          <td class="rent">251,917円</td>
+          <td class="rent">273,000円</td>
+          <td class="rent">277,217円</td>
+          <td class="note">初期費用は敷金1ヶ月分（253,000円）のみ・礼金なしで候補中でも軽い部類。年数が経つほど更新料の分だけ実質月額はじわじわ上昇するが、10年でも候補中では低い水準を維持。</td>
+        </tr>
+
+        <tr data-initial="285000" data-y1="257500" data-y2="281250" data-y5="305000" data-y10="309750" data-rent="285000" data-fee="20000" data-totalset="305000">
+          <td class="name">シーズンフラッツ押上フィオーレ<span class="room">高層階（1202号室想定）</span></td>
+          <td class="rent-set">285,000円</td>
+          <td class="fee-set">20,000円</td>
+          <td class="total-set">305,000円</td>
+          <td class="total">285,000円</td>
+          <td class="rent">257,500円</td>
+          <td class="rent">281,250円</td>
+          <td class="rent">305,000円</td>
+          <td class="rent">309,750円</td>
+          <td class="note">初期費用は低層階と同じく敷金1ヶ月分（この号室では285,000円）・礼金なし。賃料が高い分、長期で見ると実質月額は候補中でも高めの部類に入る。</td>
+        </tr>
+
+        <tr data-initial="270000" data-y1="308000" data-y2="296750" data-y5="299667" data-y10="297417" data-rent="270000" data-fee="15500" data-totalset="285500">
+          <td class="name">YHT押上<span class="room">401号室</span></td>
+          <td class="rent-set">270,000円</td>
+          <td class="fee-set">15,500円</td>
+          <td class="total-set">285,500円</td>
+          <td class="total">270,000円</td>
+          <td class="rent">308,000円</td>
+          <td class="rent">296,750円</td>
+          <td class="rent">299,667円</td>
+          <td class="rent">297,417円</td>
+          <td class="note">実質月額は2年目以降ほぼ297,000〜300,000円で安定。短期・長期どちらでも順位はあまり変わらない。</td>
+        </tr>
+
+        <tr data-initial="548000" data-y1="311833" data-y2="300417" data-y5="303367" data-y10="301083" data-rent="274000" data-fee="15000" data-totalset="289000">
+          <td class="name">スカイメゾン押上402<span class="room">302・402号室</span></td>
+          <td class="rent-set">274,000円</td>
+          <td class="fee-set">15,000円</td>
+          <td class="total-set">289,000円</td>
+          <td class="total">548,000円</td>
+          <td class="rent">311,833円</td>
+          <td class="rent">300,417円</td>
+          <td class="rent">303,367円</td>
+          <td class="rent">301,083円</td>
+          <td class="note">初期費用が候補中最大（548,000円）。実質月額も一貫して候補中トップクラスの高さで、短期・長期どちらでも重い部類。</td>
+        </tr>
+
+        <tr data-initial="284000" data-y1="228000" data-y2="263500" data-y5="294267" data-y10="301367" data-rent="284000" data-fee="15000" data-totalset="299000">
+          <td class="name">フロンティアレジデンス錦糸公園<span class="room">515号室</span></td>
+          <td class="rent-set">284,000円</td>
+          <td class="fee-set">15,000円</td>
+          <td class="total-set">299,000円</td>
+          <td class="total">284,000円</td>
+          <td class="rent">228,000円</td>
+          <td class="rent">263,500円</td>
+          <td class="rent">294,267円</td>
+          <td class="rent">301,367円</td>
+          <td class="note">1年目は候補中最安（228,000円）だが、フリーレントの効果が薄まる5年目以降は候補中でも高めに逆転する。短期滞在ほど有利な物件。</td>
+        </tr>
+
+        <tr data-initial="480000" data-y1="275000" data-y2="265000" data-y5="267000" data-y10="265000" data-rent="240000" data-fee="15000" data-totalset="255000">
+          <td class="name">Mill押上<span class="room">0202号室・2LDK 52.68㎡</span></td>
+          <td class="rent-set">240,000円</td>
+          <td class="fee-set">15,000円</td>
+          <td class="total-set">255,000円</td>
+          <td class="total">480,000円</td>
+          <td class="rent">275,000円</td>
+          <td class="rent">265,000円</td>
+          <td class="rent">267,000円</td>
+          <td class="rent">265,000円</td>
+          <td class="note">実質月額は2年目以降ずっと265,000〜267,000円で非常に安定。長期居住なら候補中でも中位〜やや割安。</td>
+        </tr>
+
+        <tr data-initial="520000" data-y1="296667" data-y2="285833" data-y5="288000" data-y10="285833" data-rent="260000" data-fee="15000" data-totalset="275000">
+          <td class="name">Mill押上<span class="room">0201号室・2LDK 61.56㎡</span></td>
+          <td class="rent-set">260,000円</td>
+          <td class="fee-set">15,000円</td>
+          <td class="total-set">275,000円</td>
+          <td class="total">520,000円</td>
+          <td class="rent">296,667円</td>
+          <td class="rent">285,833円</td>
+          <td class="rent">288,000円</td>
+          <td class="rent">285,833円</td>
+          <td class="note">0202号室より初期費用・実質月額とも高いが、面積の広さを考えると長期居住では検討の余地あり。</td>
+        </tr>
+
+        <tr data-initial="466000" data-y1="264417" data-y2="254708" data-y5="256650" data-y10="254708" data-rent="233000" data-fee="12000" data-totalset="245000">
+          <td class="name">グランハイツ錦糸町<span class="room">703号室・2LDK 52.53㎡</span></td>
+          <td class="rent-set">233,000円</td>
+          <td class="fee-set">12,000円</td>
+          <td class="total-set">245,000円</td>
+          <td class="total">466,000円</td>
+          <td class="rent">264,417円</td>
+          <td class="rent">254,708円</td>
+          <td class="rent">256,650円</td>
+          <td class="rent">254,708円</td>
+          <td class="note">2LDKで条件を満たす中では、短期・長期どちらで見ても実質月額が最安クラスで安定している。</td>
+        </tr>
+
+        <tr data-initial="456000" data-y1="259000" data-y2="249500" data-y5="251400" data-y10="249500" data-rent="228000" data-fee="12000" data-totalset="240000">
+          <td class="name">グランハイツ錦糸町<span class="room">804号室・1SLDK 51.67㎡</span></td>
+          <td class="rent-set">228,000円</td>
+          <td class="fee-set">12,000円</td>
+          <td class="total-set">240,000円</td>
+          <td class="total">456,000円</td>
+          <td class="rent">259,000円</td>
+          <td class="rent">249,500円</td>
+          <td class="rent">251,400円</td>
+          <td class="rent">249,500円</td>
+          <td class="note">候補中もっとも実質月額が低い水準で、10年住んでもほぼ同じ。ただし1SLDKで部屋数はやや少なめ。</td>
+        </tr>
+
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    // ---- 費用ベース比較：共通データ（賃料・管理費・フリーレント・礼金・更新料・敷金） ----
+    var COST_SERIES = [
+      {key:'season', label:'シーズンフラッツ押上フィオーレ（低層階代表 253,000円）', short:'シーズンフラッツ（低層階）', rent:253000, fee:20000, freerent:2, keymoney:0, deposit:253000, renewal:253000, color:'#2a78d6'},
+      {key:'yht', label:'YHT押上（401号室）', short:'YHT押上401', rent:270000, fee:15500, freerent:0, keymoney:270000, deposit:0, renewal:290000, color:'#eb6834'},
+      {key:'sky', label:'スカイメゾン押上402（302・402号室）', short:'スカイメゾン押上402', rent:274000, fee:15000, freerent:0, keymoney:274000, deposit:274000, renewal:294000, color:'#1baf7a'},
+      {key:'frontier', label:'フロンティアレジデンス錦糸公園515号室', short:'フロンティア錦糸公園515', rent:284000, fee:15000, freerent:3, keymoney:0, deposit:284000, renewal:284000, color:'#eda100'},
+      {key:'mill02', label:'Mill押上0202号室', short:'Mill押上0202', rent:240000, fee:15000, freerent:0, keymoney:240000, deposit:240000, renewal:240000, color:'#e87ba4'},
+      {key:'mill01', label:'Mill押上0201号室', short:'Mill押上0201', rent:260000, fee:15000, freerent:0, keymoney:260000, deposit:260000, renewal:260000, color:'#008300'},
+      {key:'gh703', label:'グランハイツ錦糸町703号室', short:'グランハイツ錦糸町703', rent:233000, fee:12000, freerent:0, keymoney:233000, deposit:233000, renewal:233000, color:'#4a3aa7'},
+      {key:'gh804', label:'グランハイツ錦糸町804号室', short:'グランハイツ錦糸町804', rent:228000, fee:12000, freerent:0, keymoney:228000, deposit:228000, renewal:228000, color:'#e34948'}
+    ];
+    var GRAY = '#c3c2b7';
+
+    function renewalCount(y){ return Math.max(0, Math.floor((y-1)/2)); }
+    function effMonth(s, y){
+      var rentCost = s.rent*(12*y - s.freerent);
+      var feeCost = s.fee*12*y;
+      var renewCost = s.renewal*renewalCount(y);
+      var total = rentCost+feeCost+renewCost+s.keymoney;
+      return total/(12*y);
+    }
+    function yen(n){ return '¥' + Math.round(n).toLocaleString('ja-JP'); }
+
+    // ---- ① 初期費用バーチャート ----
+    (function(){
+      var wrap = document.getElementById('initialChartWrap');
+      var items = COST_SERIES.map(function(s){ return {s:s, total:s.deposit+s.keymoney}; });
+      items.sort(function(a,b){ return a.total-b.total; });
+
+      var W = 860, rowH = 42, padTop = 10, padBottom = 30, padLeft = 200, padRight = 90;
+      var H = padTop + items.length*rowH + padBottom;
+      var maxVal = Math.max.apply(null, items.map(function(i){ return i.total; })) * 1.08 || 1;
+      var plotW = W - padLeft - padRight;
+      function x(v){ return padLeft + (v/maxVal)*plotW; }
+
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(svgNS,'svg');
+      svg.setAttribute('viewBox','0 0 '+W+' '+H);
+      svg.setAttribute('width','100%');
+      svg.style.display='block';
+      svg.style.font='12px "Hiragino Sans","Yu Gothic",sans-serif';
+
+      // gridlines（きりのいい数値でステップを決める）
+      var niceSteps = [10000,20000,25000,50000,100000,200000];
+      var step = niceSteps[niceSteps.length-1];
+      for(var ns=0; ns<niceSteps.length; ns++){
+        if (maxVal/niceSteps[ns] <= 6) { step = niceSteps[ns]; break; }
+      }
+      for(var v=0; v<=maxVal; v+=step){
+        var gx = x(v);
+        var gl = document.createElementNS(svgNS,'line');
+        gl.setAttribute('x1',gx); gl.setAttribute('x2',gx);
+        gl.setAttribute('y1',padTop-4); gl.setAttribute('y2',H-padBottom+4);
+        gl.setAttribute('stroke','#e1e0d9'); gl.setAttribute('stroke-width','1');
+        svg.appendChild(gl);
+        var gt = document.createElementNS(svgNS,'text');
+        gt.setAttribute('x',gx); gt.setAttribute('y',H-padBottom+18);
+        gt.setAttribute('text-anchor','middle'); gt.setAttribute('fill','#898781');
+        gt.textContent = Math.round(v/10000)+'万円';
+        svg.appendChild(gt);
+      }
+
+      var tooltip = document.createElement('div');
+      tooltip.className = 'chart-tooltip';
+      tooltip.style.display = 'none';
+      wrap.appendChild(tooltip);
+
+      items.forEach(function(item, idx){
+        var s = item.s;
+        var cy = padTop + idx*rowH + rowH/2;
+        var barH = 22;
+        var by = cy - barH/2;
+
+        var label = document.createElementNS(svgNS,'text');
+        label.setAttribute('x', padLeft-10); label.setAttribute('y', cy+4);
+        label.setAttribute('text-anchor','end'); label.setAttribute('fill','#2b2b28');
+        label.setAttribute('font-weight','600');
+        label.textContent = s.short;
+        svg.appendChild(label);
+
+        var group = document.createElementNS(svgNS,'g');
+        group.style.cursor = 'pointer';
+
+        var depW = x(s.deposit) - padLeft;
+        var keyW = x(item.total) - x(s.deposit);
+
+        if (s.deposit > 0) {
+          var depRect = document.createElementNS(svgNS,'rect');
+          depRect.setAttribute('x', padLeft); depRect.setAttribute('y', by);
+          depRect.setAttribute('width', Math.max(depW,0)); depRect.setAttribute('height', barH);
+          depRect.setAttribute('rx', 4); depRect.setAttribute('fill', GRAY);
+          group.appendChild(depRect);
+        }
+        if (s.keymoney > 0 || item.total === 0) {
+          var keyRect = document.createElementNS(svgNS,'rect');
+          var kx = s.deposit>0 ? x(s.deposit) : padLeft;
+          keyRect.setAttribute('x', kx); keyRect.setAttribute('y', by);
+          keyRect.setAttribute('width', Math.max(keyW,0)); keyRect.setAttribute('height', barH);
+          keyRect.setAttribute('rx', 4); keyRect.setAttribute('fill', s.color);
+          group.appendChild(keyRect);
+        }
+
+        var valText = document.createElementNS(svgNS,'text');
+        valText.setAttribute('x', x(item.total)+8); valText.setAttribute('y', cy+4);
+        valText.setAttribute('fill','#2b2b28'); valText.setAttribute('font-weight','700');
+        valText.textContent = item.total===0 ? '0円' : yen(item.total).replace('¥','')+'円';
+        svg.appendChild(valText);
+
+        var hit = document.createElementNS(svgNS,'rect');
+        hit.setAttribute('x', padLeft); hit.setAttribute('y', by-4);
+        hit.setAttribute('width', plotW); hit.setAttribute('height', barH+8);
+        hit.setAttribute('fill','transparent');
+        group.appendChild(hit);
+
+        group.addEventListener('mousemove', function(ev){
+          var rect = wrap.getBoundingClientRect();
+          tooltip.style.display='block';
+          tooltip.style.left = (ev.clientX-rect.left+14)+'px';
+          tooltip.style.top = (ev.clientY-rect.top-10)+'px';
+          tooltip.innerHTML =
+            '<div class="tt-title"></div>'+
+            '<div class="tt-row"><span class="tt-key" style="background:'+GRAY+'"></span><span class="tt-name"></span><b class="tt-val"></b></div>'+
+            '<div class="tt-row"><span class="tt-key" style="background:'+s.color+'"></span><span class="tt-name">礼金（実質コスト）</span><b class="tt-val"></b></div>'+
+            '<div class="tt-row" style="border-top:1px solid #e1e0d9;margin-top:4px;padding-top:4px;"><span class="tt-name">合計</span><b class="tt-val"></b></div>';
+          tooltip.querySelector('.tt-title').textContent = s.label;
+          var rows = tooltip.querySelectorAll('.tt-row');
+          rows[0].querySelector('.tt-name').textContent = '敷金（参考・返還前提）';
+          rows[0].querySelector('.tt-val').textContent = Math.round(s.deposit).toLocaleString('ja-JP')+'円';
+          rows[1].querySelector('.tt-val').textContent = Math.round(s.keymoney).toLocaleString('ja-JP')+'円';
+          rows[2].querySelector('.tt-val').textContent = Math.round(item.total).toLocaleString('ja-JP')+'円';
+        });
+        group.addEventListener('mouseleave', function(){ tooltip.style.display='none'; });
+
+        svg.appendChild(group);
+      });
+
+      wrap.appendChild(svg);
+
+      var legendRow = document.createElement('div');
+      legendRow.style.cssText = 'display:flex;gap:18px;margin-top:10px;font-size:11.5px;color:#6b6b64;flex-wrap:wrap;';
+      legendRow.innerHTML =
+        '<span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:3px;background:'+GRAY+';display:inline-block;"></span>敷金（参考・退去時に返還想定）</span>'+
+        '<span style="display:inline-flex;align-items:center;gap:5px;"><span style="width:12px;height:12px;border-radius:3px;background:#7a6a53;display:inline-block;"></span>礼金（返還されない実質コスト）</span>';
+      wrap.appendChild(legendRow);
+    })();
+
+    // ---- ② 居住年数別 実質月額 折れ線グラフ ----
+    (function(){
+      var wrap = document.getElementById('lineChartWrap');
+      var legendEl = document.getElementById('lineLegend');
+      var years = [1,2,3,4,5,6,7,8,9,10];
+
+      var W = 900, H = 400, padLeft=64, padRight=20, padTop=16, padBottom=36;
+      var plotW = W-padLeft-padRight, plotH = H-padTop-padBottom;
+
+      var allVals = [];
+      var data = COST_SERIES.map(function(s){
+        var pts = years.map(function(y){ var v=effMonth(s,y); allVals.push(v); return {y:y, v:v}; });
+        return {s:s, pts:pts, visible:true};
+      });
+
+      var minV = Math.floor(Math.min.apply(null,allVals)/10000)*10000 - 10000;
+      var maxV = Math.ceil(Math.max.apply(null,allVals)/10000)*10000 + 10000;
+
+      function xPix(y){ return padLeft + (y-1)/(years.length-1)*plotW; }
+      function yPix(v){ return padTop + (maxV-v)/(maxV-minV)*plotH; }
+
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(svgNS,'svg');
+      svg.setAttribute('viewBox','0 0 '+W+' '+H);
+      svg.setAttribute('width','100%');
+      svg.style.display='block';
+      svg.style.font='12px "Hiragino Sans","Yu Gothic",sans-serif';
+
+      // y gridlines
+      var step = 20000;
+      for(var v=Math.ceil(minV/step)*step; v<=maxV; v+=step){
+        var gy = yPix(v);
+        var gl = document.createElementNS(svgNS,'line');
+        gl.setAttribute('x1',padLeft); gl.setAttribute('x2',W-padRight);
+        gl.setAttribute('y1',gy); gl.setAttribute('y2',gy);
+        gl.setAttribute('stroke','#e1e0d9'); gl.setAttribute('stroke-width','1');
+        svg.appendChild(gl);
+        var gt = document.createElementNS(svgNS,'text');
+        gt.setAttribute('x',padLeft-8); gt.setAttribute('y',gy+4);
+        gt.setAttribute('text-anchor','end'); gt.setAttribute('fill','#898781');
+        gt.textContent = Math.round(v/10000)+'万円';
+        svg.appendChild(gt);
+      }
+      // x ticks
+      years.forEach(function(y){
+        var gx = xPix(y);
+        var gt = document.createElementNS(svgNS,'text');
+        gt.setAttribute('x',gx); gt.setAttribute('y',H-padBottom+20);
+        gt.setAttribute('text-anchor','middle'); gt.setAttribute('fill','#898781');
+        gt.textContent = y+'年';
+        svg.appendChild(gt);
+      });
+
+      var linesGroup = document.createElementNS(svgNS,'g');
+      svg.appendChild(linesGroup);
+
+      data.forEach(function(d){
+        var path = document.createElementNS(svgNS,'path');
+        var dAttr = d.pts.map(function(p,i){ return (i===0?'M':'L')+xPix(p.y).toFixed(1)+','+yPix(p.v).toFixed(1); }).join(' ');
+        path.setAttribute('d', dAttr);
+        path.setAttribute('fill','none');
+        path.setAttribute('stroke', d.s.color);
+        path.setAttribute('stroke-width','2');
+        path.setAttribute('stroke-linejoin','round');
+        path.setAttribute('stroke-linecap','round');
+        path.dataset.key = d.s.key;
+        linesGroup.appendChild(path);
+        d.pathEl = path;
+
+        var endDot = document.createElementNS(svgNS,'circle');
+        endDot.setAttribute('cx', xPix(10)); endDot.setAttribute('cy', yPix(d.pts[9].v));
+        endDot.setAttribute('r','4'); endDot.setAttribute('fill', d.s.color);
+        endDot.setAttribute('stroke','#fff'); endDot.setAttribute('stroke-width','2');
+        endDot.dataset.key = d.s.key;
+        linesGroup.appendChild(endDot);
+        d.dotEl = endDot;
+      });
+
+      // crosshair
+      var crosshair = document.createElementNS(svgNS,'line');
+      crosshair.setAttribute('y1',padTop); crosshair.setAttribute('y2',H-padBottom);
+      crosshair.setAttribute('stroke','#c3c2b7'); crosshair.setAttribute('stroke-width','1');
+      crosshair.style.display='none';
+      svg.appendChild(crosshair);
+
+      var hitRect = document.createElementNS(svgNS,'rect');
+      hitRect.setAttribute('x',padLeft); hitRect.setAttribute('y',padTop);
+      hitRect.setAttribute('width',plotW); hitRect.setAttribute('height',plotH);
+      hitRect.setAttribute('fill','transparent');
+      svg.appendChild(hitRect);
+
+      wrap.appendChild(svg);
+
+      var tooltip = document.createElement('div');
+      tooltip.className = 'chart-tooltip';
+      tooltip.style.display = 'none';
+      wrap.appendChild(tooltip);
+
+      hitRect.addEventListener('mousemove', function(ev){
+        var rect = svg.getBoundingClientRect();
+        var relX = (ev.clientX-rect.left) / rect.width * W;
+        var yr = Math.round(1 + (relX-padLeft)/plotW*(years.length-1));
+        yr = Math.max(1, Math.min(10, yr));
+        crosshair.style.display='block';
+        crosshair.setAttribute('x1', xPix(yr)); crosshair.setAttribute('x2', xPix(yr));
+
+        var rows = data.filter(function(d){return d.visible;}).map(function(d){
+          return {label:d.s.label, color:d.s.color, val:d.pts[yr-1].v};
+        }).sort(function(a,b){ return a.val-b.val; });
+
+        var html = '<div class="tt-title">'+yr+'年住んだ場合の実質月額</div>';
+        rows.forEach(function(r){
+          html += '<div class="tt-row"><span class="tt-key" style="background:'+r.color+'"></span><span class="tt-name">'+r.label+'</span><b class="tt-val">'+Math.round(r.val).toLocaleString('ja-JP')+'円</b></div>';
+        });
+        tooltip.innerHTML = html;
+
+        var wrapRect = wrap.getBoundingClientRect();
+        tooltip.style.display='block';
+        var left = ev.clientX-wrapRect.left+14;
+        if (left + 260 > wrapRect.width) left = ev.clientX-wrapRect.left-274;
+        tooltip.style.left = left+'px';
+        tooltip.style.top = '4px';
+      });
+      hitRect.addEventListener('mouseleave', function(){
+        crosshair.style.display='none';
+        tooltip.style.display='none';
+      });
+
+      // legend (toggleable)
+      data.forEach(function(d){
+        var chip = document.createElement('span');
+        chip.className = 'legend-chip';
+        chip.innerHTML = '<span class="legend-line" style="background:'+d.s.color+'"></span>'+d.s.label;
+        chip.addEventListener('click', function(){
+          d.visible = !d.visible;
+          chip.classList.toggle('off', !d.visible);
+          d.pathEl.style.display = d.visible ? '' : 'none';
+          d.dotEl.style.display = d.visible ? '' : 'none';
+        });
+        legendEl.appendChild(chip);
+      });
+    })();
+  })();
+  </script>
+
+  <!-- ============ 詳細比較表 ============ -->
+  <section id="fulltable">
+    <h2 class="section-title">詳細比較表（全13物件）</h2>
+    <p class="section-desc">列見出しクリックでソート、ボタンでTier・不動産会社別に絞り込みできます。</p>
+
+    <div class="toolbar">
+      <button data-filter="all" class="active">すべて表示</button>
+      <button data-filter="tier1">Tier1</button>
+      <button data-filter="tier2">Tier2</button>
+      <button data-filter="tier3">Tier3</button>
+      <button data-filter="out">圏外</button>
+      <button data-filter="unrated">未評価</button>
+      <button data-filter="agent1">賃貸住宅サービス</button>
+      <button data-filter="agent2">匠エステート</button>
+      <button data-filter="agent3">ハウスパートナー押上</button>
+    </div>
+
+    <div class="table-wrap">
+    <table id="propTable">
+      <thead>
+        <tr>
+          <th data-key="tier">Tier</th>
+          <th data-key="name">物件名</th>
+          <th data-key="rent">賃料</th>
+          <th data-key="fee">管理費等</th>
+          <th data-key="total">月額合計<br>(賃料+管理費等)</th>
+          <th data-key="deposit">敷金/礼金</th>
+          <th data-key="layout">間取り</th>
+          <th data-key="area">専有面積</th>
+          <th data-key="address">所在地</th>
+          <th data-key="access">最寄駅・徒歩</th>
+          <th data-key="built">築年</th>
+          <th data-key="agent">問い合わせ先</th>
+          <th data-key="note">備考</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr class="budget-ok" data-agent="agent1" data-rent="253000" data-total="273000" data-layout="2LDK" data-tier="tier1">
+          <td class="tiercell"><span class="tier-badge t1">Tier1</span></td>
+          <td class="name">シーズンフラッツ押上フィオーレ<span class="room">新築 / 複数号室空きあり</span></td>
+          <td class="rent">253,000〜285,000円</td>
+          <td class="small">管理費 20,000円</td>
+          <td class="total">273,000〜305,000円</td>
+          <td class="small">礼金0ヶ月・敷金1ヶ月<br>+FR2ヶ月(フリーレント)</td>
+          <td>2LDK / 2LDK+S<span class="badge">53.76㎡タイプ</span></td>
+          <td>53.76㎡</td>
+          <td class="small">墨田区押上</td>
+          <td class="small">押上 徒歩4分<br>錦糸町 徒歩14分</td>
+          <td class="small">2026年2月(新築)</td>
+          <td class="small">賃貸住宅サービスFC<br>押上スカイツリー前店</td>
+          <td class="note">収納多め・デッドスペース少なめとの評価。1部屋4畳が気がかりとのコメントあり。空き号室例：1201(280,000)/1202(285,000)/1101(275,000)/801(257,000)/601(256,000)/602(259,000,+S)/501(255,000)/401(255,000)/301・201(253,000)。</td>
+        </tr>
+
+        <tr class="budget-ok" data-agent="agent1" data-rent="270000" data-total="285500" data-layout="2LDK" data-tier="tier2">
+          <td class="tiercell"><span class="tier-badge t2">Tier2</span></td>
+          <td class="name">YHT押上<span class="room">401号室</span></td>
+          <td class="rent">270,000円</td>
+          <td class="small">共益費 15,500円</td>
+          <td class="total">285,500円</td>
+          <td class="small">敷金0ヶ月・礼金1ヶ月</td>
+          <td>2LDK相当</td>
+          <td>65.43㎡</td>
+          <td class="small">墨田区押上1丁目24-5</td>
+          <td class="small">押上 徒歩2分<br>とうきょうスカイツリー 徒歩6分</td>
+          <td class="small">2024年2月</td>
+          <td class="small">賃貸住宅サービスFC<br>押上スカイツリー前店</td>
+          <td class="note">広さ・値段は適正との評価。サービスルームの使い勝手が判断材料。現況の退去予定日(2026/7/31)は経過済みのため現在の空室状況は要確認。</td>
+        </tr>
+
+        <tr class="budget-ok" data-agent="agent2" data-rent="274000" data-total="289000" data-layout="2LDK" data-tier="tier2">
+          <td class="tiercell"><span class="tier-badge t2">Tier2</span></td>
+          <td class="name">スカイメゾン押上402<span class="room">302・402号室</span></td>
+          <td class="rent">274,000円</td>
+          <td class="small">管理費 15,000円</td>
+          <td class="total">289,000円</td>
+          <td class="small">敷金1ヶ月・礼金1ヶ月</td>
+          <td>2LDK</td>
+          <td>54.0㎡</td>
+          <td class="small">墨田区押上2-4-6</td>
+          <td class="small">押上 徒歩3分<br>東京スカイツリー 徒歩1分</td>
+          <td class="small">2026年7月(新築)</td>
+          <td class="small">匠エステート</td>
+          <td class="note">「普通、特別良いポイントもない」との評価。南向き・3沿線利用可、ネット無料。</td>
+        </tr>
+
+        <tr class="budget-good" data-agent="agent1" data-rent="240000" data-total="255000" data-layout="2LDK" data-tier="tier3">
+          <td class="tiercell"><span class="tier-badge t3">Tier3</span></td>
+          <td class="name">Mill押上<span class="room">0202号室</span></td>
+          <td class="rent">240,000円</td>
+          <td class="small">共益費 15,000円</td>
+          <td class="total">255,000円</td>
+          <td class="small">敷金1ヶ月・礼金1ヶ月</td>
+          <td>2LDK</td>
+          <td>52.68㎡</td>
+          <td class="small">墨田区向島1丁目24-16</td>
+          <td class="small">押上 徒歩10分<br>本所吾妻橋 徒歩5分</td>
+          <td class="small">2024年9月</td>
+          <td class="small">賃貸住宅サービスFC<br>押上スカイツリー前店</td>
+          <td class="note">収納少なめ・面積が狭いとの評価。同建物の0201号室(匠エステート案内)は61.56㎡・260,000円で面積は広め。</td>
+        </tr>
+
+        <tr class="budget-good" data-agent="agent2" data-rent="260000" data-total="275000" data-layout="2LDK" data-tier="tier3">
+          <td class="tiercell"><span class="tier-badge t3">Tier3</span></td>
+          <td class="name">Mill押上<span class="room">0201号室</span></td>
+          <td class="rent">260,000円</td>
+          <td class="small">管理費・共益費 15,000円</td>
+          <td class="total">275,000円</td>
+          <td class="small">敷金26万円・礼金26万円</td>
+          <td>2LDK</td>
+          <td>61.56㎡</td>
+          <td class="small">墨田区向島1丁目24-16</td>
+          <td class="small">押上 徒歩10分<br>本所吾妻橋 徒歩5分</td>
+          <td class="small">2024年9月</td>
+          <td class="small">匠エステート</td>
+          <td class="note">0202号室と同建物・別号室。南西向き、2階部分。入居可能：2026年10月下旬。</td>
+        </tr>
+
+        <tr class="budget-warn" data-agent="agent1" data-rent="233000" data-total="123000" data-layout="2LDK" data-tier="tier3">
+          <td class="tiercell"><span class="tier-badge t3">Tier3</span></td>
+          <td class="name">グランハイツ錦糸町<span class="room">複数号室（1K〜2LDK）</span></td>
+          <td class="rent">117,000〜233,000円</td>
+          <td class="small">共益費 6,000〜12,000円</td>
+          <td class="total">123,000〜245,000円</td>
+          <td class="small">敷金1ヶ月・礼金1ヶ月</td>
+          <td>1K / 1SLDK / 2LDK<span class="badge under2ldk">1K室は要件未達</span></td>
+          <td>25.12〜52.53㎡</td>
+          <td class="small">墨田区横川3-11-16</td>
+          <td class="small">押上 徒歩5分<br>錦糸町 徒歩10分</td>
+          <td class="small">2007年2月</td>
+          <td class="small">賃貸住宅サービスFC<br>押上スカイツリー前店</td>
+          <td class="note">リノベ済だが築古との評価。どちらかの居室を通らないとバルコニーに出られない動線。2LDK/1SLDKで条件を満たすのは703号室(233,000円)・804号室(228,000円)程度。</td>
+        </tr>
+
+        <tr class="budget-good" data-agent="agent1" data-rent="250000" data-total="260000" data-layout="2LDK" data-tier="out">
+          <td class="tiercell"><span class="tier-badge out">圏外</span></td>
+          <td class="name">D's VARIE向島レジデンス<span class="room">0202号室</span></td>
+          <td class="rent">250,000円</td>
+          <td class="small">管理費 10,000円</td>
+          <td class="total">260,000円</td>
+          <td class="small">敷金1ヶ月・礼金0ヶ月</td>
+          <td>2LDK（サービスルーム付）</td>
+          <td>55.25㎡</td>
+          <td class="small">墨田区向島2丁目7-1</td>
+          <td class="small">とうきょうスカイツリー 徒歩12分<br>押上 徒歩12分</td>
+          <td class="small">1994年8月</td>
+          <td class="small">賃貸住宅サービスFC<br>押上スカイツリー前店</td>
+          <td class="note">「安いが徒歩12分は遠い、Millの下位互換感」との評価で見送り。ペット飼育OK。</td>
+        </tr>
+
+        <tr class="budget-warn" data-agent="agent1" data-rent="293000" data-total="308000" data-layout="2LDK" data-tier="out">
+          <td class="tiercell"><span class="tier-badge out">圏外</span></td>
+          <td class="name">フロンティアレジデンス錦糸公園<span class="room">205号室</span></td>
+          <td class="rent">293,000円</td>
+          <td class="small">管理費 15,000円</td>
+          <td class="total">308,000円</td>
+          <td class="small">敷金1ヶ月・礼金無</td>
+          <td>2LDK+2WIC+SIC</td>
+          <td>57.51㎡</td>
+          <td class="small">墨田区横川五丁目6-4</td>
+          <td class="small">押上 徒歩10分<br>錦糸町 徒歩13分</td>
+          <td class="small">2025年1月</td>
+          <td class="small">賃貸住宅サービスFC<br>押上スカイツリー前店</td>
+          <td class="note">「高すぎる」との評価。月額合計308,000円で上限30万円を超過。</td>
+        </tr>
+
+        <tr class="budget-ok" data-agent="agent1" data-rent="284000" data-total="299000" data-layout="2LDK" data-tier="tier2">
+          <td class="tiercell"><span class="tier-badge t2">Tier2</span></td>
+          <td class="name">フロンティアレジデンス錦糸公園<span class="room">515号室</span></td>
+          <td class="rent">284,000円</td>
+          <td class="small">管理費 15,000円</td>
+          <td class="total">299,000円</td>
+          <td class="small">敷金1ヶ月・礼金無<br>+フリーレント3ヶ月</td>
+          <td>2LDK+SIC</td>
+          <td>55.26㎡</td>
+          <td class="small">墨田区横川五丁目6-4</td>
+          <td class="small">押上 徒歩10分<br>錦糸町 徒歩13分</td>
+          <td class="small">2025年1月</td>
+          <td class="small">賃貸住宅サービスFC<br>押上スカイツリー前店</td>
+          <td class="note">「徒歩10分を除けば施設は100点。フリーレント・礼金なしで実質家賃は抑えられる」との評価でTier2に格上げ。実質負担は概算で月263,500円程度。申込は2026/8/31までの期間限定条件あり。</td>
+        </tr>
+
+        <tr class="budget-good" data-agent="agent2" data-rent="250000" data-total="260000" data-layout="2SLDK" data-tier="out">
+          <td class="tiercell"><span class="tier-badge out">圏外</span></td>
+          <td class="name">エクセレントシティ押上<span class="room">203号室</span></td>
+          <td class="rent">250,000円</td>
+          <td class="small">共益費 10,000円</td>
+          <td class="total">260,000円</td>
+          <td class="small">敷金2ヶ月・礼金1ヶ月</td>
+          <td>2SLDK</td>
+          <td>64.26㎡</td>
+          <td class="small">墨田区押上3-7-9</td>
+          <td class="small">押上 徒歩7〜8分</td>
+          <td class="small">2015年8月</td>
+          <td class="small">匠エステート</td>
+          <td class="note">「定期借家なのでなし」との評価。定期借家3年（更新なし）。入居可能日2026/12/06。</td>
+        </tr>
+
+        <tr class="budget-warn" data-agent="agent1" data-rent="295000" data-total="315000" data-layout="3LDK" data-tier="unrated">
+          <td class="tiercell"><span class="tier-badge un">未評価</span></td>
+          <td class="name">ES-Grande錦糸町<span class="room">401号室</span></td>
+          <td class="rent">295,000円</td>
+          <td class="small">共益費 20,000円</td>
+          <td class="total">315,000円</td>
+          <td class="small">敷金0ヶ月・礼金0ヶ月</td>
+          <td>3LDK<span class="badge">要件以上</span></td>
+          <td>65.08㎡</td>
+          <td class="small">墨田区横川4丁目5-4</td>
+          <td class="small">押上 徒歩7分<br>錦糸町 徒歩10分</td>
+          <td class="small">1997年1月</td>
+          <td class="small">賃貸住宅サービスFC<br>押上スカイツリー前店</td>
+          <td class="note">まだTierコメントなし。フルリフォーム済み・角部屋。3LDKで面積広め、月額合計は上限を超過。</td>
+        </tr>
+
+        <tr class="budget-warn" data-agent="agent3" data-rent="" data-total="" data-layout="" data-tier="unrated">
+          <td class="tiercell"><span class="tier-badge un">未評価</span></td>
+          <td class="name">ザ・パークハビオ本所吾妻橋</td>
+          <td class="rent">要問い合わせ</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">ハウスパートナー押上</td>
+          <td class="note">詳細ページは自動取得不可でした。<a class="link" href="https://s.e-vision.co.jp/ttu4hst" target="_blank" rel="noopener">詳細リンクを開く</a></td>
+        </tr>
+
+        <tr class="budget-warn" data-agent="agent3" data-rent="" data-total="" data-layout="" data-tier="unrated">
+          <td class="tiercell"><span class="tier-badge un">未評価</span></td>
+          <td class="name">Encore Manor</td>
+          <td class="rent">要問い合わせ</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">ハウスパートナー押上</td>
+          <td class="note">詳細ページは自動取得不可でした。<a class="link" href="https://s.e-vision.co.jp/oq1qki7" target="_blank" rel="noopener">詳細リンクを開く</a></td>
+        </tr>
+
+        <tr class="budget-warn" data-agent="agent3" data-rent="" data-total="" data-layout="" data-tier="unrated">
+          <td class="tiercell"><span class="tier-badge un">未評価</span></td>
+          <td class="name">パレステージ曳舟II</td>
+          <td class="rent">要問い合わせ</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td>—</td>
+          <td>—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">—</td>
+          <td class="small">ハウスパートナー押上</td>
+          <td class="note">詳細ページは自動取得不可でした。<a class="link" href="https://s.e-vision.co.jp/yp3qzoj" target="_blank" rel="noopener">詳細リンクを開く</a></td>
+        </tr>
+
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>※「引っ越し」フォルダ内の3社（賃貸住宅サービスFC押上スカイツリー前店／匠エステート／ハウスパートナー押上）から届いた物件資料・PDFを基に作成し、たいやきさんのTier評価コメントを反映しました。金額・空室状況は資料取得時点（2026年8月中旬）のもので、変動する可能性があります。ハウスパートナー押上の3件はリンク先ページの自動取得ができなかったため、賃料等の詳細・Tier評価とも未反映です。ご確認の上、必要な場合は各社へお問い合わせください。</p>
+  <p>※「内見前分析」の家賃相場（駅別2LDK平均家賃）は <a class="link" href="https://www.homes.co.jp/chintai/tokyo/oshiage_04905-st/price/" target="_blank" rel="noopener">LIFULL HOME'S 押上駅の家賃相場</a>／<a class="link" href="https://www.homes.co.jp/chintai/tokyo/kinshicho_00207-st/price/" target="_blank" rel="noopener">錦糸町駅の家賃相場</a>（いずれも取得日2026年8月17日、駅徒歩10分以内・賃料のみで管理費等は含まず）を基準にしています。㎡単価の目安専有面積（約60㎡）は、本プロジェクトで過去に実施した押上駅の物件調査（2026年8月15日、<a class="link" href="https://suumo.jp/chintai/soba/tokyo/ek_06820/" target="_blank" rel="noopener">SUUMO</a>掲載情報の2LDK実例）を基にした概算であり、実際の平均値とは誤差がある可能性があります。あくまで内見前の目安としてご活用ください。</p>
+</footer>
+
+<script>
+  // 汎用ソート初期化（data-key属性を持つth全てに適用。対応するdata-*属性が行にあれば数値ソート、なければテキスト解析）
+  function initSortableTable(table) {
+    if (!table) return;
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    let sortState = {};
+    table.querySelectorAll('thead th').forEach(th => {
+      th.addEventListener('click', () => {
+        const key = th.dataset.key;
+        const asc = !(sortState[key] === 'asc');
+        table.querySelectorAll('thead th').forEach(h => h.classList.remove('sorted'));
+        th.classList.add('sorted');
+        sortState = {}; sortState[key] = asc ? 'asc' : 'desc';
+
+        const idx = Array.from(th.parentNode.children).indexOf(th);
+        const visibleRows = rows.slice();
+        visibleRows.sort((a, b) => {
+          // 範囲表記(〜)を含む列は data-* の数値属性を優先して使う
+          if (key in a.dataset || key in b.dataset) {
+            let an = parseFloat(a.dataset[key]);
+            let bn = parseFloat(b.dataset[key]);
+            if (isNaN(an)) an = asc ? Infinity : -Infinity;
+            if (isNaN(bn)) bn = asc ? Infinity : -Infinity;
+            return asc ? an - bn : bn - an;
+          }
+          let av = a.children[idx].innerText.trim();
+          let bv = b.children[idx].innerText.trim();
+          const an = parseFloat(av.replace(/[^0-9.]/g, ''));
+          const bn = parseFloat(bv.replace(/[^0-9.]/g, ''));
+          if (!isNaN(an) && !isNaN(bn) && (/[0-9]/.test(av))) {
+            return asc ? an - bn : bn - an;
+          }
+          return asc ? av.localeCompare(bv, 'ja') : bv.localeCompare(av, 'ja');
+        });
+        visibleRows.forEach(r => tbody.appendChild(r));
+      });
+    });
+    return rows;
+  }
+
+  const propRows = initSortableTable(document.getElementById('propTable'));
+  initSortableTable(document.getElementById('costTable'));
+
+  // Filtering（詳細比較表のみ）
+  const buttons = document.querySelectorAll('.toolbar button');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      propRows.forEach(r => {
+        let show = true;
+        if (f === 'agent1' || f === 'agent2' || f === 'agent3') {
+          show = r.dataset.agent === f;
+        } else if (f === 'tier1' || f === 'tier2' || f === 'tier3' || f === 'out' || f === 'unrated') {
+          show = r.dataset.tier === f;
+        }
+        r.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
