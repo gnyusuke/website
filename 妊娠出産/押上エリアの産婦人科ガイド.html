@@ -1,0 +1,372 @@
+<title>押上エリアの産婦人科ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4EA;
+    --surface:#FFFFFF;
+    --surface-2:#E8ECDD;
+    --ink:#1E2A20;
+    --ink-soft:#57685A;
+    --ink-faint:#8B9A85;
+    --border:#DBE2CD;
+    --primary:#2F5D45;
+    --primary-soft:#DCE8DD;
+    --accent:#B07F33;
+    --accent-soft:#F1E3C6;
+    --accent2:#8C5A46;
+    --accent2-soft:#EDDCD3;
+    --good:#3F7D52;
+    --warn:#93691F;
+    --shadow: 0 1px 2px rgba(30,42,32,0.06), 0 8px 24px -12px rgba(30,42,32,0.18);
+    --font-display:'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --font-body:'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12160F; --surface:#191F16; --surface-2:#212A1C;
+      --ink:#E7ECDF; --ink-soft:#A9B79F; --ink-faint:#71806B; --border:#2B3527;
+      --primary:#79B591; --primary-soft:#243328;
+      --accent:#DCAB63; --accent-soft:#3A2F1C;
+      --accent2:#CC9179; --accent2-soft:#332420;
+      --good:#79B591; --warn:#D9AE5E;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12160F; --surface:#191F16; --surface-2:#212A1C;
+    --ink:#E7ECDF; --ink-soft:#A9B79F; --ink-faint:#71806B; --border:#2B3527;
+    --primary:#79B591; --primary-soft:#243328;
+    --accent:#DCAB63; --accent-soft:#3A2F1C;
+    --accent2:#CC9179; --accent2-soft:#332420;
+    --good:#79B591; --warn:#D9AE5E;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:16px; line-height:1.8; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; } }
+  .page{ max-width:880px; margin:0 auto; padding:0 20px 96px; }
+  a{ color:inherit; }
+  a:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+
+  .hero{ padding:60px 0 36px; border-bottom:1px solid var(--border); }
+  .eyebrow{ font-weight:700; font-size:0.78rem; letter-spacing:0.16em; color:var(--accent); text-transform:uppercase; margin:0 0 16px; }
+  .hero h1{ font-family:var(--font-display); font-weight:800; font-size:clamp(2rem, 5vw, 2.8rem); line-height:1.35; margin:0 0 18px; text-wrap:balance; }
+  .lede{ max-width:38em; color:var(--ink-soft); font-size:1.05rem; margin:0; }
+
+  .nav{ position:sticky; top:0; z-index:10; display:flex; gap:4px; overflow-x:auto; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(6px); padding:14px 0; margin-bottom:8px; border-bottom:1px solid var(--border); scrollbar-width:none; }
+  .nav::-webkit-scrollbar{ display:none; }
+  .nav a{ flex:0 0 auto; text-decoration:none; font-size:0.85rem; font-weight:500; color:var(--ink-soft); padding:7px 14px; border-radius:999px; white-space:nowrap; }
+  .nav a:hover{ background:var(--surface-2); color:var(--ink); }
+
+  .section{ padding:52px 0; border-bottom:1px solid var(--border); }
+  .section:last-of-type{ border-bottom:none; }
+  .section-head{ margin-bottom:26px; }
+  .section-head h2{ font-family:var(--font-display); font-weight:700; font-size:1.5rem; margin:0 0 10px; text-wrap:balance; }
+  .section-head p{ color:var(--ink-soft); max-width:42em; margin:0; }
+
+  .premise-box{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 22px; box-shadow:var(--shadow); }
+  .premise-box dl{ display:grid; grid-template-columns:auto 1fr; gap:8px 18px; margin:0; }
+  .premise-box dt{ color:var(--ink-faint); font-size:0.82rem; white-space:nowrap; }
+  .premise-box dd{ margin:0; font-weight:500; }
+
+  .point-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:14px; }
+  .point-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+  .point-card .pc-num{ font-family:var(--font-display); font-weight:800; color:var(--accent); font-size:1rem; margin-bottom:6px; }
+  .point-card h4{ margin:0 0 6px; font-family:var(--font-display); font-size:1rem; }
+  .point-card p{ margin:0; color:var(--ink-soft); font-size:0.9rem; }
+
+  /* compare table */
+  .table-wrap{ overflow-x:auto; border:1px solid var(--border); border-radius:10px; margin:20px 0 8px; }
+  table.cmp{ width:100%; border-collapse:collapse; font-size:0.87rem; min-width:680px; }
+  table.cmp th, table.cmp td{ padding:12px 16px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top; }
+  table.cmp thead th{ font-size:0.74rem; color:var(--ink-faint); font-weight:700; letter-spacing:0.03em; background:var(--surface-2); }
+  table.cmp tbody tr:last-child td{ border-bottom:none; }
+  table.cmp td.name{ font-weight:700; white-space:nowrap; }
+  table.cmp tbody tr:hover{ background:var(--surface-2); }
+
+  /* clinic cards */
+  .clinic-card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px 26px; box-shadow:var(--shadow); margin-bottom:20px; }
+  .clinic-card:last-child{ margin-bottom:0; }
+  .cc-head{ display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 16px; margin-bottom:6px; }
+  .cc-head h3{ margin:0; font-family:var(--font-display); font-size:1.2rem; }
+  .cc-rank{ font-size:0.74rem; font-weight:700; letter-spacing:0.04em; color:var(--accent); background:var(--accent-soft); padding:3px 11px; border-radius:999px; white-space:nowrap; }
+  .cc-sub{ color:var(--ink-faint); font-size:0.85rem; margin-bottom:16px; }
+  .cc-detail{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px; margin-bottom:14px; }
+  .cd-item .cd-label{ font-size:0.74rem; color:var(--ink-faint); font-weight:700; margin-bottom:3px; }
+  .cd-item .cd-value{ font-size:0.92rem; }
+  .clinic-card p.cc-text{ margin:10px 0 0; color:var(--ink-soft); font-size:0.93rem; }
+  .cc-text + .cc-text{ margin-top:8px; }
+
+  .excluded-list{ display:flex; flex-direction:column; gap:10px; }
+  .excluded-item{ background:var(--surface-2); border-radius:10px; padding:12px 16px; font-size:0.9rem; }
+  .excluded-item strong{ color:var(--ink); }
+
+  .callout{ margin-top:24px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 22px; box-shadow:var(--shadow); }
+  .callout h3{ font-family:var(--font-display); font-size:1rem; margin:0 0 12px; }
+  .callout ul{ margin:0; padding-left:1.2em; color:var(--ink-soft); font-size:0.92rem; }
+  .callout li{ margin-bottom:8px; }
+  .callout li:last-child{ margin-bottom:0; }
+  .callout li strong{ color:var(--ink); }
+
+  .checklist{ display:flex; flex-direction:column; gap:10px; }
+  .cl-item{ display:flex; gap:10px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; font-size:0.92rem; }
+  .cl-box{ flex:0 0 auto; width:16px; height:16px; border:2px solid var(--primary); border-radius:4px; margin-top:2px; }
+
+  .page-footer{ padding-top:44px; color:var(--ink-faint); font-size:0.85rem; }
+  .page-footer p{ max-width:46em; margin:0 0 10px; }
+</style>
+<div class="gnav-crumb">
+  <a href="../index.html">🏠 資料まとめトップ</a>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-cat">妊娠出産</span>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-here">押上エリアの産婦人科ガイド</span>
+</div>
+<style id="gnav-crumb-style">
+.gnav-crumb{font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12.5px;line-height:1.4;padding:10px 20px;background:#2b2b28;color:#d8d5cc;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.gnav-crumb a{color:#f3ede0;text-decoration:none;font-weight:600;white-space:nowrap;}
+.gnav-crumb a:hover{text-decoration:underline;}
+.gnav-crumb-sep{opacity:.5;}
+.gnav-crumb-cat{opacity:.85;white-space:nowrap;}
+.gnav-crumb-here{opacity:.65;white-space:nowrap;}
+</style>
+
+
+<div class="page">
+
+  <header class="hero">
+    <p class="eyebrow">2026年10月ごろ 押上引っ越し想定</p>
+    <h1>押上エリアの産婦人科ガイド</h1>
+    <p class="lede">押上(東京都墨田区)に引っ越す前提で、里帰り出産(妊婦健診は東京・分娩は福岡)に対応しやすい産婦人科を調べました。「分娩まで診てもらう病院」ではなく「途中まで安心して通える、紹介状もスムーズなクリニック」という基準で選んでいます。</p>
+  </header>
+
+  <nav class="nav">
+    <a href="#premise">前提条件</a>
+    <a href="#points">選び方のポイント</a>
+    <a href="#compare">比較表</a>
+    <a href="#clinics">クリニック詳細</a>
+    <a href="#excluded">対象外にした施設</a>
+    <a href="#action">次にやること</a>
+  </nav>
+
+  <section id="premise" class="section">
+    <div class="section-head">
+      <h2>前提条件</h2>
+    </div>
+    <div class="premise-box">
+      <dl>
+        <dt>居住予定</dt><dd>2026年10月ごろ、東京都墨田区押上に転居(想定)</dd>
+        <dt>出産方針</dt><dd>里帰り出産。妊婦健診は東京(押上)で受け、32〜35週ごろに福岡へ帰省、出産は福岡の産院</dd>
+        <dt>転居時の妊娠週数</dt><dd>2026年10月は妊娠10〜14週ごろ(妊娠3〜4ヶ月)に相当</dd>
+        <dt>東京での通院期間の目安</dt><dd>転居直後(10〜14週)から、里帰り前(32週前後)までの約4〜5ヶ月間</dd>
+      </dl>
+    </div>
+  </section>
+
+  <section id="points" class="section">
+    <div class="section-head">
+      <h2>選び方のポイント</h2>
+      <p>「分娩できるかどうか」よりも、里帰りする人にとって本当に大事な基準は次の4つでした。</p>
+    </div>
+    <div class="point-grid">
+      <div class="point-card">
+        <div class="pc-num">01</div>
+        <h4>里帰り出産の実績・仕組み</h4>
+        <p>紹介状の発行はどこでも可能だが、「何週まで診てもらえて、いつ・どう引き継ぐか」が明確なクリニックだと安心感が違う。</p>
+      </div>
+      <div class="point-card">
+        <div class="pc-num">02</div>
+        <h4>押上からのアクセス</h4>
+        <p>妊婦健診は初期〜中期だけで10回以上通うことになる。つわり中でも通いやすい距離・所要時間かは重要。</p>
+      </div>
+      <div class="point-card">
+        <div class="pc-num">03</div>
+        <h4>出生前診断(NIPTなど)への対応</h4>
+        <p>受けるかどうかは別として、院内で完結するか外部紹介になるかで手間が変わる。</p>
+      </div>
+      <div class="point-card">
+        <div class="pc-num">04</div>
+        <h4>緊急時のバックアップ体制</h4>
+        <p>切迫早産や出血など、健診と健診の間に何かあったときにすぐ相談できる体制があるか。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="compare" class="section">
+    <div class="section-head">
+      <h2>候補の比較</h2>
+      <p>押上駅から通える範囲で、実際に妊婦健診に対応している施設を4つに絞りました。</p>
+    </div>
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>施設名</th><th>押上からのアクセス</th><th>タイプ</th><th>里帰り出産への対応</th><th>口コミ評価</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="name">錦糸町駅前レディースクリニック</td>
+            <td>半蔵門線1駅+徒歩1分(電車で約10分)</td>
+            <td>クリニック(分娩なし)</td>
+            <td>妊娠12週未満〜32・33週まで健診、34週から出産予定病院へ移行。夜間・休日バックアップあり</td>
+            <td>3.45/5(6件)</td>
+          </tr>
+          <tr>
+            <td class="name">賛育会病院</td>
+            <td>徒歩20分強、または電車1駅+徒歩8分</td>
+            <td>総合病院(分娩あり)</td>
+            <td>里帰り出産の対応をサービスとして明記</td>
+            <td>4.6/5(63件)〜3.25/5(46件)※サイトにより差</td>
+          </tr>
+          <tr>
+            <td class="name">のぞみ女性クリニック</td>
+            <td>とうきょうスカイツリー駅徒歩3分(押上と同エリア)</td>
+            <td>クリニック(分娩なし)</td>
+            <td>個別要確認(産科対応はあるが情報少)</td>
+            <td>3.40/5(1件、母数少)</td>
+          </tr>
+          <tr>
+            <td class="name">あんずレディースクリニック</td>
+            <td>本所吾妻橋駅徒歩1分(押上から徒歩約12〜15分、または都営浅草線1駅)</td>
+            <td>クリニック(分娩なし)</td>
+            <td>分娩希望者は葛飾赤十字産院・東京リバーサイド病院等へ紹介(里帰り出産特有の案内は要問い合わせ)</td>
+            <td>3.40/5(11件)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="clinics" class="section">
+    <div class="section-head">
+      <h2>クリニック詳細</h2>
+    </div>
+
+    <div class="clinic-card">
+      <div class="cc-head">
+        <h3>錦糸町駅前レディースクリニック</h3>
+        <span class="cc-rank">総合的に一番おすすめ</span>
+      </div>
+      <div class="cc-sub">東京都墨田区江東橋4-27-14 楽天地ビル7階 ／ 総武線・半蔵門線 錦糸町駅 徒歩1分</div>
+      <div class="cc-detail">
+        <div class="cd-item"><div class="cd-label">診療時間</div><div class="cd-value">月・土 9:00-12:30/14:00-18:00、火水金 10:00-13:30/15:00-19:00、木・日祝休診</div></div>
+        <div class="cd-item"><div class="cd-label">出生前診断</div><div class="cd-value">順天堂大学医学部順天堂医院と連携するNIPT認証施設。妊娠10週0日〜19週頃まで(推奨12〜16週)、13・18・21トリソミーの3項目、99,000円(非課税・陽性時の羊水検査費用込み)</div></div>
+        <div class="cd-item"><div class="cd-label">連携先(基幹病院)</div><div class="cd-value">順天堂医院、東大病院、愛育病院、賛育会病院、中林病院など計7施設</div></div>
+        <div class="cd-item"><div class="cd-label">特徴</div><div class="cd-value">産婦人科専門医在籍、女医在籍、土曜診療あり、ネット予約・電子決済対応</div></div>
+      </div>
+      <p class="cc-text">「妊娠12週未満〜32・33週まで健診、34週頃から出産予定病院の健診へ移行」という案内が、今回想定している里帰りの時期(32〜35週)とほぼそのまま一致する。押上からは半蔵門線で1駅、徒歩1分と通いやすさも十分(押上〜錦糸町の徒歩所要時間は約22分・1.7kmなので、電車移動が現実的)。</p>
+      <p class="cc-text">口コミは「院長がこれまでの経過を丁寧に聞いてくれた」「会計までスムーズ」という好意的な声がある一方、「医師の対応が素っ気なかった」という声も見られたため、最初の受診で相性を確かめておくと安心。</p>
+    </div>
+
+    <div class="clinic-card">
+      <div class="cc-head">
+        <h3>賛育会病院</h3>
+        <span class="cc-rank">安心感を重視するなら</span>
+      </div>
+      <div class="cc-sub">東京都墨田区太平3-20-2 ／ JR総武線 錦糸町駅 徒歩8分</div>
+      <div class="cc-detail">
+        <div class="cd-item"><div class="cd-label">診療体制</div><div class="cd-value">「東京都地域周産期母子医療センター」指定(NICU6床・GCU13床)。199床の総合病院で、産婦人科専門医・婦人科腫瘍専門医が在籍</div></div>
+        <div class="cd-item"><div class="cd-label">分娩対応</div><div class="cd-value">自然分娩・無痛分娩・帝王切開に対応(里帰り出産の場合は健診のみ利用する形になる)</div></div>
+        <div class="cd-item"><div class="cd-label">里帰り出産</div><div class="cd-value">公式FAQに明記あり:「妊娠34週頃までに当院を受診」、前医からの紹介状が必須(転院希望者も同様)</div></div>
+        <div class="cd-item"><div class="cd-label">注意点</div><div class="cd-value">口コミで「大変混み合っている」との指摘あり。待ち時間は長めを想定しておきたい</div></div>
+      </div>
+      <p class="cc-text">地域周産期母子医療センターとしてNICU(6床)・GCU(13床)を備え、ハイリスク妊娠・分娩にも対応している体制は、何かあったときの安心材料として大きい。心配性なタイプには特に刺さりやすいポイント。「里帰りなら34週までに紹介状を持って受診」という基準が公式に明記されているのも分かりやすい。ただし評価サイトによって点数の差が大きく(4.6点/63件〜3.25点/46件)、混雑の指摘もあるため、待ち時間は覚悟しておくとよい。</p>
+    </div>
+
+    <div class="clinic-card">
+      <div class="cc-head">
+        <h3>のぞみ女性クリニック</h3>
+        <span class="cc-rank">立地の良さでは随一</span>
+      </div>
+      <div class="cc-sub">東京都墨田区業平1-20-2 Twill Narihira 1階 ／ とうきょうスカイツリー駅東口 徒歩3分</div>
+      <div class="cc-detail">
+        <div class="cd-item"><div class="cd-label">診療時間</div><div class="cd-value">9:30-12:30/14:30-17:30、水・日・祝休診</div></div>
+        <div class="cd-item"><div class="cd-label">診療科目</div><div class="cd-value">産科・婦人科・漢方内科。産婦人科専門医と女性ヘルスケア専門医が在籍</div></div>
+        <div class="cd-item"><div class="cd-label">里帰り出産</div><div class="cd-value">産科(妊婦健診)には対応しているが、里帰り出産特有の案内(何週まで診るか等)は公式サイト上では確認できず</div></div>
+      </div>
+      <p class="cc-text">押上・スカイツリー駅からのアクセスは4施設の中で最も良い。ただし口コミの件数が非常に少なく(1件のみ)、実際の評判や里帰り出産への慣れは電話などで直接確認したほうがよい。「まず一番近いところに相談してみる」入り口として悪くない選択肢。</p>
+    </div>
+
+    <div class="clinic-card">
+      <div class="cc-head">
+        <h3>あんずレディースクリニック</h3>
+        <span class="cc-rank">押上から一番近い</span>
+      </div>
+      <div class="cc-sub">東京都墨田区吾妻橋2-3-9 ノエルビル2F ／ 都営浅草線 本所吾妻橋駅 徒歩1分</div>
+      <div class="cc-detail">
+        <div class="cd-item"><div class="cd-label">診療時間</div><div class="cd-value">平日10:00-13:00/15:00-19:00、土9:00-13:00、水・日・祝休診</div></div>
+        <div class="cd-item"><div class="cd-label">産科の特色</div><div class="cd-value">「妊娠診療で豊富な経験」を謳っており、分娩を希望する場合は葛飾赤十字産院・東京リバーサイド病院などへ紹介する体制</div></div>
+        <div class="cd-item"><div class="cd-label">その他の診療</div><div class="cd-value">婦人科(墨田区がん検診含む)、女性内科(アンチエイジング)、不妊治療(タイミング法・人工授精)も同時に扱う</div></div>
+      </div>
+      <p class="cc-text">検索の初期段階では「不妊治療中心のクリニック」という印象を受けたが、公式サイトを確認すると産科(妊婦健診)にもしっかり対応しており、押上からのアクセスは今回調べた中で最も近い(徒歩12〜15分、または都営浅草線で押上から1駅)。里帰り出産に特化した案内は公式サイト上では見当たらなかったため、初診時に直接確認するのが前提になる。</p>
+    </div>
+  </section>
+
+  <section id="excluded" class="section">
+    <div class="section-head">
+      <h2>候補から外した施設</h2>
+      <p>押上駅周辺の検索でヒットしたが、妊婦健診の対象としては外した施設です。</p>
+    </div>
+    <div class="excluded-list">
+      <div class="excluded-item"><strong>大岩医院</strong>(向島、押上駅徒歩10分)：公式サイトで確認したところ、診療は婦人科・女性泌尿器科のみで、産科(妊婦健診)の記載はなかった。</div>
+      <div class="excluded-item"><strong>あいウイメンズクリニック</strong>(錦糸町、駅から西へ約350m)：公式情報で診療は婦人科のみと確認。生殖医療専門医による不妊治療に特化しており、土曜午前のみの診療で妊婦健診は扱っていない。</div>
+    </div>
+  </section>
+
+  <section id="action" class="section">
+    <div class="section-head">
+      <h2>次にやること</h2>
+      <p>実際に転居して初診を受ける前に、済ませておきたいことです。</p>
+    </div>
+    <div class="checklist">
+      <div class="cl-item"><span class="cl-box"></span><span>候補上位の錦糸町駅前レディースクリニックに、里帰り出産前提であることを伝えたうえで初診を予約する</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>初診時に「何週まで診てもらえるか」「紹介状の発行タイミング」「福岡側の産院への引き継ぎ方法」を確認する</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>出生前診断(NIPT)を受けるかどうか、9週までに方針を決めておく(詳細版ガイド「時期別の検討・決断ポイント」参照)</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>相性が合わなければ、賛育会病院・のぞみ女性クリニック・あんずレディースクリニックへの切り替えも早めのうちなら選択肢に残しておく</span></div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <p>本ページは公開されている口コミサイト・公式サイトの情報をもとに調査時点でまとめたものです。診療時間・対応内容・料金は変更されることがあるため、実際の受診前に各施設へ直接ご確認ください。医療機関の選定は最終的にご本人・パートナーの判断で行ってください。</p>
+    <p>作成日：2026年8月22日</p>
+  </footer>
+
+</div>
+<div class="gnav-related">
+  <div class="gnav-related-inner">
+    <h3>🔗 関連ページ</h3>
+    <div class="gnav-related-grid">
+      <a class="gnav-related-card" href="妊娠出産タイムライン.html">
+        <span class="gnav-related-card-title">妊娠〜産後タイムライン</span>
+        <span class="gnav-related-card-desc">妊娠全体のスケジュール概観</span>
+      </a>
+      <a class="gnav-related-card" href="妊娠経過と里帰り出産ガイド.html">
+        <span class="gnav-related-card-title">妊娠経過と里帰り出産ガイド</span>
+        <span class="gnav-related-card-desc">里帰り出産計画の詳細</span>
+      </a>
+      <a class="gnav-related-card" href="../物件選び/物件比較レポート.html">
+        <span class="gnav-related-card-title">物件比較レポート</span>
+        <span class="gnav-related-card-desc">このエリアの引っ越し先候補物件</span>
+      </a>
+      <a class="gnav-related-card" href="../物件選び/ハザードマップ分析.html">
+        <span class="gnav-related-card-title">ハザードマップ分析（防災リスク）</span>
+        <span class="gnav-related-card-desc">同エリアの防災リスク</span>
+      </a>
+    </div>
+    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
+  </div>
+</div>
+<style id="gnav-related-style">
+.gnav-related{margin-top:48px;padding:32px 20px 40px;background:#f6f5f2;border-top:1px solid #e6e3dc;font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.gnav-related-inner{max-width:900px;margin:0 auto;}
+.gnav-related h3{font-size:15px;color:#2b2b28;margin:0 0 14px;font-weight:600;}
+.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
+.gnav-related-card{display:block;background:#ffffff;border:1px solid #e6e3dc;border-radius:10px;padding:14px 16px;text-decoration:none;color:#2b2b28;transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.gnav-related-card:hover{border-color:#7a6a53;transform:translateY(-1px);box-shadow:0 6px 16px rgba(43,43,40,0.06);}
+.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.gnav-related-card-desc{display:block;font-size:12px;color:#6b6b64;line-height:1.5;}
+.gnav-related-home{display:inline-block;font-size:12.5px;color:#7a6a53;text-decoration:none;font-weight:600;}
+.gnav-related-home:hover{text-decoration:underline;}
+</style>
+

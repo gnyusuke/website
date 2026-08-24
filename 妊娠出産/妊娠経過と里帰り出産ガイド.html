@@ -1,0 +1,1015 @@
+<title>妊娠経過と里帰り出産ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4EA;
+    --surface:#FFFFFF;
+    --surface-2:#E8ECDD;
+    --ink:#1E2A20;
+    --ink-soft:#57685A;
+    --ink-faint:#8B9A85;
+    --border:#DBE2CD;
+    --primary:#2F5D45;
+    --primary-soft:#DCE8DD;
+    --accent:#B07F33;
+    --accent-soft:#F1E3C6;
+    --accent2:#8C5A46;
+    --accent2-soft:#EDDCD3;
+    --danger:#AE3B2E;
+    --danger-soft:#F5DAD3;
+    --danger-border:#D99586;
+    --caution:#93691F;
+    --caution-soft:#F1E3C0;
+    --shadow: 0 1px 2px rgba(30,42,32,0.06), 0 8px 24px -12px rgba(30,42,32,0.18);
+    --font-display:'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --font-body:'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12160F;
+      --surface:#191F16;
+      --surface-2:#212A1C;
+      --ink:#E7ECDF;
+      --ink-soft:#A9B79F;
+      --ink-faint:#71806B;
+      --border:#2B3527;
+      --primary:#79B591;
+      --primary-soft:#243328;
+      --accent:#DCAB63;
+      --accent-soft:#3A2F1C;
+      --accent2:#CC9179;
+      --accent2-soft:#332420;
+      --danger:#E2685A;
+      --danger-soft:#3B231F;
+      --danger-border:#7A3A32;
+      --caution:#D9AE5E;
+      --caution-soft:#362C17;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12160F;
+    --surface:#191F16;
+    --surface-2:#212A1C;
+    --ink:#E7ECDF;
+    --ink-soft:#A9B79F;
+    --ink-faint:#71806B;
+    --border:#2B3527;
+    --primary:#79B591;
+    --primary-soft:#243328;
+    --accent:#DCAB63;
+    --accent-soft:#3A2F1C;
+    --accent2:#CC9179;
+    --accent2-soft:#332420;
+    --danger:#E2685A;
+    --danger-soft:#3B231F;
+    --danger-border:#7A3A32;
+    --caution:#D9AE5E;
+    --caution-soft:#362C17;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:16px; line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  .page{ max-width:880px; margin:0 auto; padding:0 20px 96px; }
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding:64px 0 40px; border-bottom:1px solid var(--border); }
+  .eyebrow{
+    font-weight:700; font-size:0.78rem; letter-spacing:0.16em; color:var(--accent);
+    text-transform:uppercase; margin:0 0 18px;
+  }
+  .hero h1{
+    font-family:var(--font-display); font-weight:800; font-size:clamp(2rem, 5vw, 2.9rem);
+    line-height:1.35; margin:0 0 20px; text-wrap:balance;
+  }
+  .lede{ max-width:36em; color:var(--ink-soft); font-size:1.05rem; margin:0 0 20px; }
+  .hero-links{ display:flex; flex-wrap:wrap; gap:10px; }
+  .hero-links a{
+    font-size:0.85rem; font-weight:500; text-decoration:none; color:var(--ink-soft);
+    border:1px solid var(--border); padding:6px 13px; border-radius:999px; background:var(--surface);
+  }
+
+  /* ---------- Nav ---------- */
+  .phase-nav{
+    position:sticky; top:0; z-index:10; display:flex; gap:4px; overflow-x:auto;
+    background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(6px);
+    padding:14px 0; margin-bottom:8px; border-bottom:1px solid var(--border); scrollbar-width:none;
+  }
+  .phase-nav::-webkit-scrollbar{ display:none; }
+  .phase-nav a{
+    flex:0 0 auto; text-decoration:none; font-size:0.85rem; font-weight:500; color:var(--ink-soft);
+    padding:7px 14px; border-radius:999px; white-space:nowrap; transition:background .15s, color .15s;
+  }
+  .phase-nav a:hover{ background:var(--surface-2); color:var(--ink); }
+
+  /* ---------- Section shell ---------- */
+  .section{ padding:52px 0; border-bottom:1px solid var(--border); }
+  .section:last-of-type{ border-bottom:none; }
+  .section > .section-head h2{
+    font-family:var(--font-display); font-weight:700; font-size:1.5rem; margin:0 0 10px; text-wrap:balance;
+  }
+  .section-head p{ color:var(--ink-soft); max-width:40em; margin:0 0 8px; }
+  .section-head{ margin-bottom:30px; }
+
+  /* ---------- Danger quick-reference card ---------- */
+  .alert-card{
+    background:var(--danger-soft); border:1px solid var(--danger-border); border-radius:14px;
+    padding:26px 26px 22px;
+  }
+  .alert-card h2{
+    font-family:var(--font-display); font-weight:800; font-size:1.3rem; color:var(--danger);
+    margin:0 0 6px;
+  }
+  .alert-card > p{ color:var(--ink-soft); margin:0 0 20px; max-width:44em; }
+  .alert-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:12px; }
+  .alert-item{
+    background:var(--surface); border:1px solid var(--danger-border); border-radius:10px;
+    padding:14px 16px; display:flex; flex-direction:column; gap:4px;
+  }
+  .alert-item .ai-title{ font-weight:700; font-size:0.95rem; }
+  .alert-item .ai-body{ color:var(--ink-soft); font-size:0.86rem; }
+  .alert-footer{
+    margin-top:18px; font-size:0.86rem; color:var(--danger); font-weight:700;
+  }
+
+  /* ---------- Phase symptom block ---------- */
+  .symptom-curve{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px;
+  }
+  @media (max-width:600px){ .symptom-curve{ grid-template-columns:1fr; } }
+  .sc-box{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
+  .sc-box .sc-label{ font-size:0.76rem; color:var(--ink-faint); font-weight:700; letter-spacing:0.04em; margin-bottom:6px; }
+  .sc-box .sc-text{ color:var(--ink); }
+
+  .care-block{
+    display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:36px;
+  }
+  @media (max-width:600px){ .care-block{ grid-template-columns:1fr; } }
+  .care-box{ border-radius:12px; padding:18px 20px; border:1px solid var(--border); }
+  .care-box.watch{ background:var(--caution-soft); border-color:color-mix(in srgb, var(--caution) 40%, var(--border)); }
+  .care-box.do{ background:var(--primary-soft); border-color:color-mix(in srgb, var(--primary) 35%, var(--border)); }
+  .care-box h4{ margin:0 0 10px; font-family:var(--font-display); font-size:1rem; }
+  .care-box.watch h4{ color:var(--caution); }
+  .care-box.do h4{ color:var(--primary); }
+  .care-box ul{ margin:0; padding-left:1.15em; color:var(--ink-soft); font-size:0.92rem; }
+  .care-box li{ margin-bottom:6px; }
+  .care-box li:last-child{ margin-bottom:0; }
+
+  /* ---------- Worry Q&A ---------- */
+  .qa-list{ display:flex; flex-direction:column; gap:14px; }
+  .qa-item{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;
+    box-shadow:var(--shadow);
+  }
+  .qa-q{
+    display:flex; gap:10px; align-items:baseline; font-family:var(--font-display); font-weight:700;
+    font-size:1.02rem; margin:0 0 10px;
+  }
+  .qa-q .qa-mark{ color:var(--accent); flex:0 0 auto; }
+  .qa-a{ display:flex; gap:10px; color:var(--ink-soft); margin:0; }
+  .qa-a .qa-mark{ color:var(--primary); flex:0 0 auto; font-weight:700; }
+  .qa-tag{
+    display:inline-block; font-size:0.72rem; font-weight:700; padding:2px 9px; border-radius:999px;
+    margin-left:8px; vertical-align:middle;
+  }
+  .qa-tag.normal{ background:var(--primary-soft); color:var(--primary); }
+  .qa-tag.watch{ background:var(--caution-soft); color:var(--caution); }
+  .qa-tag.danger{ background:var(--danger-soft); color:var(--danger); }
+
+  /* ---------- Tables ---------- */
+  .table-wrap{ overflow-x:auto; border:1px solid var(--border); border-radius:10px; margin:20px 0 8px; }
+  table.sched{ width:100%; border-collapse:collapse; font-size:0.88rem; min-width:620px; }
+  table.sched caption{ text-align:left; padding:14px 16px 0; font-weight:700; font-family:var(--font-display); font-size:1rem; }
+  table.sched th, table.sched td{ padding:11px 16px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top; }
+  table.sched thead th{ font-size:0.75rem; color:var(--ink-faint); font-weight:700; letter-spacing:0.04em; background:var(--surface-2); }
+  table.sched tbody tr:last-child td{ border-bottom:none; }
+  table.sched td.when{ font-variant-numeric:tabular-nums; white-space:nowrap; font-weight:700; }
+  table.sched tbody tr:hover{ background:var(--surface-2); }
+
+  /* ---------- Transport compare ---------- */
+  .compare-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0; }
+  @media (max-width:600px){ .compare-grid{ grid-template-columns:1fr; } }
+  .compare-card{ background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 22px; }
+  .compare-card h4{ font-family:var(--font-display); margin:0 0 4px; font-size:1.05rem; }
+  .compare-card .cc-sub{ color:var(--ink-faint); font-size:0.82rem; margin-bottom:14px; }
+  .compare-card dl{ margin:0; }
+  .compare-card dt{ font-size:0.78rem; color:var(--ink-faint); margin-top:10px; }
+  .compare-card dt:first-child{ margin-top:0; }
+  .compare-card dd{ margin:2px 0 0; color:var(--ink); }
+
+  .callout{
+    margin-top:20px; background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:22px 24px; box-shadow:var(--shadow);
+  }
+  .callout h3{ font-family:var(--font-display); font-size:1.05rem; margin:0 0 14px; }
+  .callout ul{ margin:0; padding-left:1.2em; color:var(--ink-soft); }
+  .callout li{ margin-bottom:10px; }
+  .callout li:last-child{ margin-bottom:0; }
+  .callout li strong{ color:var(--ink); font-weight:700; }
+
+  .option-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+  @media (max-width:600px){ .option-grid{ grid-template-columns:1fr; } }
+  .option-card{ border:1px solid var(--border); border-radius:12px; padding:18px 20px; background:var(--surface); }
+  .option-card .opt-tag{
+    display:inline-block; font-size:0.72rem; font-weight:700; letter-spacing:0.04em;
+    color:var(--accent2); background:var(--accent2-soft); padding:3px 10px; border-radius:999px; margin-bottom:10px;
+  }
+  .option-card h4{ margin:0 0 8px; font-family:var(--font-display); font-size:1rem; }
+  .option-card p{ margin:0 0 8px; color:var(--ink-soft); font-size:0.92rem; }
+  .option-card p:last-child{ margin-bottom:0; }
+
+  /* ---------- Lodging cards ---------- */
+  .lodging-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:14px; margin:24px 0 8px; }
+  .lodging-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:18px 20px; display:flex; flex-direction:column; gap:10px;
+  }
+  .lodging-card .lc-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+  .lodging-card h4{ margin:0; font-family:var(--font-display); font-size:1.02rem; }
+  .lodging-card .lc-cost{
+    font-weight:700; font-variant-numeric:tabular-nums; color:var(--accent);
+    font-size:0.84rem; white-space:nowrap; text-align:right;
+  }
+  .lodging-card .lc-fit{ font-size:0.76rem; color:var(--ink-faint); margin-top:2px; }
+  .lodging-card p{ margin:0; color:var(--ink-soft); font-size:0.9rem; }
+  .lodging-card .lc-note{
+    font-size:0.82rem; color:var(--ink-faint); border-top:1px dashed var(--border);
+    padding-top:8px; margin-top:2px;
+  }
+
+  .duration-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:14px; margin-top:20px; }
+  .duration-card{
+    border:1px solid var(--border); border-radius:12px; padding:18px 20px; background:var(--primary-soft);
+  }
+  .duration-card .dc-when{
+    display:block; font-size:0.76rem; font-weight:700; letter-spacing:0.04em; color:var(--primary); margin-bottom:8px;
+  }
+  .duration-card h4{ margin:0 0 8px; font-family:var(--font-display); font-size:1rem; }
+  .duration-card p{ margin:0; color:var(--ink-soft); font-size:0.9rem; }
+
+  /* ---------- Decision points ---------- */
+  .decision-subhead{ margin:36px 0 16px; }
+  .decision-subhead:first-child{ margin-top:0; }
+  .decision-subhead h3{
+    font-family:var(--font-display); font-size:1.12rem; margin:0 0 4px; display:flex; align-items:baseline; gap:10px;
+  }
+  .decision-subhead .ds-range{ font-size:0.78rem; font-weight:700; color:var(--primary); background:var(--primary-soft); padding:3px 10px; border-radius:999px; }
+  .decision-subhead p{ margin:0; color:var(--ink-soft); font-size:0.92rem; max-width:42em; }
+
+  .decision-list{ display:flex; flex-direction:column; gap:14px; }
+  .decision-item{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px;
+    box-shadow:var(--shadow);
+  }
+  .decision-item .di-head{
+    display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 14px; margin-bottom:10px;
+  }
+  .decision-item h4{ margin:0; font-family:var(--font-display); font-size:1.02rem; }
+  .decision-item .di-deadline{
+    font-size:0.76rem; font-weight:700; color:var(--accent); background:var(--accent-soft);
+    padding:3px 10px; border-radius:999px; white-space:nowrap; font-variant-numeric:tabular-nums;
+  }
+  .decision-item p{ margin:0; color:var(--ink-soft); font-size:0.92rem; }
+  .decision-item p + p{ margin-top:8px; }
+  .decision-item .di-note{
+    margin-top:10px; padding-top:10px; border-top:1px dashed var(--border); font-size:0.85rem; color:var(--ink-faint);
+  }
+
+  .phase-placeholder{
+    border:1px dashed var(--border); border-radius:12px; padding:16px 20px; color:var(--ink-faint); font-size:0.88rem;
+  }
+
+  /* ---------- Checklist ---------- */
+  .checklist{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:600px){ .checklist{ grid-template-columns:1fr; } }
+  .cl-item{
+    display:flex; gap:10px; align-items:flex-start; background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; padding:12px 14px; font-size:0.92rem;
+  }
+  .cl-box{
+    flex:0 0 auto; width:16px; height:16px; border:2px solid var(--primary); border-radius:4px; margin-top:2px;
+  }
+
+  .page-footer{ padding-top:44px; color:var(--ink-faint); font-size:0.85rem; }
+  .page-footer p{ max-width:46em; margin:0 0 10px; }
+</style>
+<div class="gnav-crumb">
+  <a href="../index.html">🏠 資料まとめトップ</a>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-cat">妊娠出産</span>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-here">妊娠経過と里帰り出産ガイド</span>
+</div>
+<style id="gnav-crumb-style">
+.gnav-crumb{font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12.5px;line-height:1.4;padding:10px 20px;background:#2b2b28;color:#d8d5cc;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.gnav-crumb a{color:#f3ede0;text-decoration:none;font-weight:600;white-space:nowrap;}
+.gnav-crumb a:hover{text-decoration:underline;}
+.gnav-crumb-sep{opacity:.5;}
+.gnav-crumb-cat{opacity:.85;white-space:nowrap;}
+.gnav-crumb-here{opacity:.65;white-space:nowrap;}
+</style>
+
+
+<div class="page">
+
+  <header class="hero">
+    <p class="eyebrow">体調の心配ごと ・ 里帰り出産(東京→福岡)</p>
+    <h1>妊娠経過と里帰り出産ガイド</h1>
+    <p class="lede">全体のタイムラインの詳細版として、「いつ・何が・どのくらい心配な状態なのか」を時期ごとに整理し、東京から福岡への里帰り出産のスケジュールを妻・夫それぞれの動きでまとめました。基準日は2026年7月21日(妊娠0日目)、出産予定日は2027年4月27日です。</p>
+    <div class="hero-links">
+      <a href="#alert">危険サイン早見</a>
+      <a href="#early">妊娠初期の体調</a>
+      <a href="#mid">妊娠中期の体調</a>
+      <a href="#late">妊娠後期の体調</a>
+      <a href="#postpartum">産褥期の心と体</a>
+      <a href="#decisions">時期別の検討・決断ポイント</a>
+      <a href="#satogaeri">里帰り出産の計画</a>
+      <a href="#lodging">福岡での住まい方</a>
+      <a href="#checklist">やることチェックリスト</a>
+    </div>
+  </header>
+
+  <nav class="phase-nav">
+    <a href="#alert">危険サイン</a>
+    <a href="#early">初期</a>
+    <a href="#mid">中期</a>
+    <a href="#late">後期</a>
+    <a href="#postpartum">産褥期</a>
+    <a href="#decisions">検討・決断ポイント</a>
+    <a href="#satogaeri">里帰りスケジュール</a>
+    <a href="#transport">移動手段</a>
+    <a href="#lodging">福岡での住まい方</a>
+    <a href="#dad">夫の動き方</a>
+    <a href="#checklist">チェックリスト</a>
+  </nav>
+
+  <section id="alert" class="section">
+    <div class="alert-card">
+      <h2>すぐ病院へ連絡すべきサイン(全期間共通)</h2>
+      <p>迷ったら「様子を見る」より先に電話でいい、という前提のリストです。かかりつけの産院の電話番号と、夜間・休日の連絡先をこのページのブックマークと一緒に控えておくと安心です。</p>
+      <div class="alert-grid">
+        <div class="alert-item">
+          <span class="ai-title">生理より多い出血・鮮血</span>
+          <span class="ai-body">茶色い少量のおりもの程度は珍しくないが、量が多い・赤い血が続く場合はすぐ連絡。</span>
+        </div>
+        <div class="alert-item">
+          <span class="ai-title">規則的なお腹の張り(37週未満)</span>
+          <span class="ai-body">安静にしても治まらない、10分間隔以下で規則的な張り・痛みが続く場合は切迫早産の可能性。</span>
+        </div>
+        <div class="alert-item">
+          <span class="ai-title">破水かもしれない</span>
+          <span class="ai-body">水っぽい液体がドバッと出る、またはチョロチョロ止まらず流れ続ける場合。</span>
+        </div>
+        <div class="alert-item">
+          <span class="ai-title">胎動が急に少ない・感じない</span>
+          <span class="ai-body">胎動を感じ始める時期(18〜20週ごろ)以降、普段よりはっきり少ない・全く感じない場合。</span>
+        </div>
+        <div class="alert-item">
+          <span class="ai-title">経験したことのない激しい頭痛・目のかすみ</span>
+          <span class="ai-body">頭痛に加えてろれつが回りにくい、手足が動かしにくい、普段と違う強い胃の痛みがある場合は特に急ぐ。</span>
+        </div>
+        <div class="alert-item">
+          <span class="ai-title">家庭血圧が160/110mmHgを超える</span>
+          <span class="ai-body">妊娠高血圧症候群が悪化しているサインの可能性。測れる環境があれば定期的にチェック。</span>
+        </div>
+        <div class="alert-item">
+          <span class="ai-title">10分間隔で規則的な痛み(陣痛)</span>
+          <span class="ai-body">間隔が一定になり、徐々に短く強くなってきたら本陣痛の可能性。産院の指示に従って連絡・移動。</span>
+        </div>
+        <div class="alert-item">
+          <span class="ai-title">38度以上の発熱</span>
+          <span class="ai-body">産後であれば乳腺炎などの可能性も。悪寒や強いだるさを伴う場合は早めに相談。</span>
+        </div>
+      </div>
+      <p class="alert-footer">迷ったときの合言葉：「これは様子見でいいか」を自分たちだけで判断せず、まず産院に電話する。</p>
+    </div>
+  </section>
+
+  <section id="early" class="section" data-tone="early">
+    <div class="section-head">
+      <h2>妊娠初期(0〜15週)の体調と心配ごと</h2>
+      <p>つわりの波と、初めての検査・手続きへの不安が中心になる時期です。</p>
+    </div>
+
+    <div class="symptom-curve">
+      <div class="sc-box">
+        <div class="sc-label">いつ辛くなりやすいか</div>
+        <div class="sc-text">生理予定日から1週間ほどたった5週ごろからつわりが始まる人が多く、8〜11週ごろが最も症状が強くなりやすいピーク。</div>
+      </div>
+      <div class="sc-box">
+        <div class="sc-label">いつ楽になりやすいか</div>
+        <div class="sc-text">12週を過ぎると徐々に落ち着き、多くの場合16週ごろまでに軽快する。ただし出産直前まで続く人もいて個人差が大きい。</div>
+      </div>
+    </div>
+
+    <div class="care-block">
+      <div class="care-box watch">
+        <h4>気をつけたいこと</h4>
+        <ul>
+          <li>水分も摂れない・体重が減り続けるほどの嘔吐が続く場合は「妊娠悪阻」の可能性があり、点滴が必要になることもある。我慢せず早めに相談。</li>
+          <li>においに敏感になりやすい。生ゴミ・調理・香水などの匂い要因は事前に把握しておく。</li>
+        </ul>
+      </div>
+      <div class="care-box do">
+        <h4>したほうがいいこと</h4>
+        <ul>
+          <li>3食きちんと、にこだわらず食べられるものを少量・こまめに。</li>
+          <li>家事の匂いが出る作業(揚げ物・生ゴミ出し等)はパパが引き受ける。</li>
+          <li>通院にはできる範囲で付き添い、心拍確認など節目のタイミングを共有する。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-list">
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>少量だけど出血した。大丈夫?<span class="qa-tag watch">要相談</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>茶色い少量のおりもの程度は着床期などによく見られ、それ自体で慌てる必要はないことが多い。ただし生理2日目程度以上の量、鮮やかな赤色の出血、腹痛を伴う出血はすぐに産院へ連絡を。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>まだ心拍が確認できない、と言われた<span class="qa-tag normal">多くは心配なし</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>心拍は一般的に6週前後から確認できるようになる。5週台の健診ではまだ見えないことも珍しくなく、それ自体が異常を意味するわけではない。次回健診で再確認するのが通常の流れ。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>つわりで全く食べられていない<span class="qa-tag watch">要相談</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>水分も取れず体重が減り続ける状態が続くようなら「妊娠悪阻」の可能性があり、点滴などの医療的サポートが必要になることがある。我慢せず産院に相談してよい。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>階段を使った、重い物を少し持ってしまった。流産しないか心配<span class="qa-tag normal">心配しすぎなくてよい</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>妊娠初期の流産の多くは受精卵の染色体異常が原因とされ、日常動作(階段・軽い荷物程度)が直接の原因になることは基本的にない。過度に行動を制限しすぎず、体調に合わせて過ごして問題ない。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mid" class="section" data-tone="mid">
+    <div class="section-head">
+      <h2>妊娠中期(16〜27週)の体調と心配ごと</h2>
+      <p>「安定期」と呼ばれる通り体調面は落ち着きやすい一方、お腹の大きさに伴う不調と、健診での指摘への不安が出てくる時期です。</p>
+    </div>
+
+    <div class="symptom-curve">
+      <div class="sc-box">
+        <div class="sc-label">この時期に出てくる不調</div>
+        <div class="sc-text">16週以降、お腹が大きくなるにつれ腰痛・恥骨のあたりの痛み・こむら返り・便秘が出始める。18〜20週ごろから胎動を感じ始める人が多い。</div>
+      </div>
+      <div class="sc-box">
+        <div class="sc-label">健診で見られるポイント</div>
+        <div class="sc-text">24週ごろに妊娠糖尿病のスクリーニング検査。20週以降は体重増加・むくみ・血圧を毎回チェックし、妊娠高血圧症候群の兆候がないか確認していく。</div>
+      </div>
+    </div>
+
+    <div class="care-block">
+      <div class="care-box watch">
+        <h4>気をつけたいこと</h4>
+        <ul>
+          <li>急な体重増加・むくみ・血圧上昇は妊娠高血圧症候群のサインになりうる。健診の指摘は放置しない。</li>
+          <li>歯周病は早産のリスク因子とされるため、この時期に歯科健診を済ませておくと安心材料になる。</li>
+        </ul>
+      </div>
+      <div class="care-box do">
+        <h4>したほうがいいこと</h4>
+        <ul>
+          <li>医師の許可の範囲でマタニティヨガ・ウォーキングなど適度な運動。</li>
+          <li>抱き枕などで横向きに眠りやすい環境を整える。</li>
+          <li>マタニティ・ベビー用品のリサーチをこの時期から少しずつ始める。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-list">
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>お腹がよく張る気がする<span class="qa-tag watch">見極めが必要</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>動きすぎ・立ちっぱなしなどによる生理的な張りは、横になって休むと治まることが多い。安静にしても治まらない、頻回・規則的な張りが続く場合は切迫早産の可能性があるため受診を。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>胎動が弱い・少ない気がする<span class="qa-tag normal">個人差が大きい</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>この時期はまだ胎動の感じ方の個人差が大きく、胎盤の位置によって感じにくいこともある。心配であれば無理に自己判断せず、次の健診や電話で相談してよい。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>健診で血糖値や尿蛋白の再検査と言われた<span class="qa-tag normal">よくあること</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>24週ごろのスクリーニング検査で再検査になること自体は珍しくなく、直ちに異常というわけではない。指示に従って再検査・食事指導を受ければ問題ないケースが大半。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="late" class="section" data-tone="late">
+    <div class="section-head">
+      <h2>妊娠後期(28〜39週)の体調と心配ごと</h2>
+      <p>体の負担が最も大きくなる時期。前駆陣痛と本陣痛の見分け方、そして「そろそろ生まれるかもしれない」という緊張感への備えがテーマになります。</p>
+    </div>
+
+    <div class="symptom-curve">
+      <div class="sc-box">
+        <div class="sc-label">いつ辛くなりやすいか</div>
+        <div class="sc-text">お腹の重さがピークに近づき、腰痛・恥骨痛・むくみ・頻尿・胃の圧迫感・不眠が増える。34週前後から不規則な前駆陣痛を感じ始める人も多い。</div>
+      </div>
+      <div class="sc-box">
+        <div class="sc-label">正期産の目安</div>
+        <div class="sc-text">37週0日(4/6)〜41週6日(5/10)がいわゆる正期産。この間に生まれれば「早すぎる」「遅すぎる」ということはない。</div>
+      </div>
+    </div>
+
+    <div class="care-block">
+      <div class="care-box watch">
+        <h4>気をつけたいこと</h4>
+        <ul>
+          <li>妊娠高血圧症候群・妊娠糖尿病が悪化しやすい時期。むくみ・頭痛・体重の急増を見逃さない。</li>
+          <li>長距離の移動は32〜35週までに済ませておくのが望ましい(里帰りの場合は特に)。</li>
+        </ul>
+      </div>
+      <div class="care-box do">
+        <h4>したほうがいいこと</h4>
+        <ul>
+          <li>入院バッグの準備とバースプランの整理を早めに終わらせる。</li>
+          <li>陣痛が来たときの動き方(誰が病院に連絡するか、車かタクシーか、実家への連絡順)をパパと具体的に確認しておく。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-list">
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>これは前駆陣痛?それとも本陣痛?<span class="qa-tag watch">見極めが必要</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>前駆陣痛は間隔が不規則でバラバラ、強さも一定か軽度で、安静にすると和らぐことが多い。本陣痛は間隔が一定になり時間とともに短く、強さも徐々に増していき、休んでも治まらないのが特徴。10分間隔で規則的な痛みになったら産院へ連絡するのが目安。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>予定日を過ぎても生まれない。大丈夫?<span class="qa-tag normal">よくあること</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>出産予定日はあくまで目安で、正期産の範囲(37週0日〜41週6日)であれば問題ない。42週に近づきそうな場合は誘発分娩などの対応を医師が判断していく。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>むくみがひどくなってきた<span class="qa-tag watch">組み合わせに注意</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>後期の生理的なむくみはよくあるが、急激な体重増加(目安として1週間で1kg以上など)、頭痛、目のかすみを伴う場合は妊娠高血圧症候群の可能性があるため、むくみ単体よりも「他の症状との組み合わせ」に注意してすぐ相談する。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="postpartum" class="section" data-tone="postpartum">
+    <div class="section-head">
+      <h2>産褥期(産後0〜1ヶ月)の心と体</h2>
+      <p>体の回復と、ホルモンの急激な変化による気持ちの浮き沈みが同時に起こる時期。「マタニティブルー」と「産後うつ」の違いを知っておくと、いざという時に慌てずに動けます。</p>
+    </div>
+
+    <div class="symptom-curve">
+      <div class="sc-box">
+        <div class="sc-label">体の回復</div>
+        <div class="sc-text">悪露(産後の出血)は産後1ヶ月ほど続くのが普通で、量は徐々に減っていく。産後2〜5日目ごろに気分の落ち込みが出やすい。</div>
+      </div>
+      <div class="sc-box">
+        <div class="sc-label">気持ちの回復</div>
+        <div class="sc-text">マタニティブルーは多くの場合3〜4日、長くても2〜3週間でおさまる生理的な変化。3週間以上続く場合は産後うつの可能性があり医療的なケアの対象になる。</div>
+      </div>
+    </div>
+
+    <div class="care-block">
+      <div class="care-box watch">
+        <h4>気をつけたいこと</h4>
+        <ul>
+          <li>気分の落ち込みが3週間以上続く場合は「気の持ちよう」で片付けず、産院・自治体の産後ケア窓口・心療内科への相談を検討する。</li>
+          <li>38度以上の発熱、胸の痛みやしこり(乳腺炎の可能性)、悪露の急な増加や悪臭は早めに受診。</li>
+        </ul>
+      </div>
+      <div class="care-box do">
+        <h4>したほうがいいこと</h4>
+        <ul>
+          <li>パパが家事・上の子のケアを引き受け、ママが横になれる時間を意識的に作る。</li>
+          <li>気分の変化は回復過程の一部として受け止め、変化に気づいたら早めに専門家へつなぐ。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa-list">
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>涙が止まらない、情緒不安定になっている<span class="qa-tag normal">多くは一時的</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>産後2〜5日目ごろに起きやすい「マタニティブルー」は、ホルモンバランスの急激な変化による生理現象。多くの場合3〜4日、長くても2〜3週間でおさまる。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>それが2〜3週間経っても続いている<span class="qa-tag danger">相談を</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>3週間以上続く場合は「産後うつ」の可能性がある。これは生理現象ではなく治療の対象となる精神疾患で、適切なケアが必要。自治体の産後ケア窓口や産院、心療内科に早めに相談を。</p>
+      </div>
+      <div class="qa-item">
+        <p class="qa-q"><span class="qa-mark">Q.</span>悪露がなかなか終わらない<span class="qa-tag normal">多くは正常</span></p>
+        <p class="qa-a"><span class="qa-mark">A.</span>産後1ヶ月ほど続くのが一般的。量が急に増える、レバー状の塊が出る、悪臭がある場合はすぐ受診する。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="decisions" class="section">
+    <div class="section-head">
+      <h2>時期別の検討・決断ポイント</h2>
+      <p>体調の変化とは別に、期限のある「決めごと」も時期ごとに存在します。まずは今いる妊娠初期(0〜15週)の分をまとめました。中期・後期の分は近づいてきたタイミングで追記していきます。</p>
+    </div>
+
+    <div class="decision-subhead">
+      <h3>妊娠初期<span class="ds-range">0〜15週・7/21〜11/9</span></h3>
+      <p>初めての検査や産院選びなど、期限が明確に決まっているものが多い時期です。特に出生前診断は検査の種類ごとに実施できる週数が決まっているため、最初に方針を決めておくと後が楽になります。</p>
+    </div>
+
+    <div class="decision-list">
+      <div class="decision-item">
+        <div class="di-head">
+          <h4>出生前診断を受けるかどうか</h4>
+          <span class="di-deadline">目安：〜9週末(9/28ごろ)までに方針決定</span>
+        </div>
+        <p>NIPTは10週以降、絨毛検査は11〜14週、羊水検査は15〜18週と、それぞれ実施できる時期が決まっている。まず動き出すNIPTの予約に間に合わせるなら、9週末ごろまでに「受けるか受けないか」「受けるなら認証施設(10〜18万円、遺伝カウンセリング必須、検査項目は3つに限定)か非認証施設(9〜30万円、検査範囲が広くオンライン対応も多い)か」を決めておきたい。</p>
+        <p>一番大事なのは検査結果そのものより、<strong>「陽性が出たら自分たちはどうするか」を検査前に夫婦で話しておくこと。</strong>NIPTが陽性の場合は羊水検査などの確定診断が追加で必要になり、費用は認証施設で別途10〜20万円、非認証施設は検査費用に含まれていることが多い。</p>
+        <div class="di-note">受けない、という選択も一つの結論。「情報として知りたいか」「知って何かが変わるか」を軸に話し合うと決めやすい。</div>
+      </div>
+
+      <div class="decision-item">
+        <div class="di-head">
+          <h4>里帰り先(福岡)の産院・無痛分娩の希望</h4>
+          <span class="di-deadline">目安：12〜15週(10/13〜11/9)までに候補へ連絡</span>
+        </div>
+        <p>福岡側の分娩先候補は、人気の産院ほど早く予約が埋まりやすいため2〜3院リストアップしてこの時期のうちに問い合わせておく(詳細は「里帰り出産の計画」セクション参照)。この産院選びのタイミングで、無痛分娩を希望するかどうかも合わせて決めておくと二度手間にならない。</p>
+        <p>無痛分娩は対応している病院が限られるうえ、通常分娩に10〜20万円が上乗せされる。痛みのコントロールや体力温存というメリットがある一方、吸引・鉗子分娩になる確率が上がる面もあるため、産院選びの段階で「対応可能日時」「緊急時の連携体制」を確認しておくと安心材料になる。</p>
+      </div>
+
+      <div class="decision-item">
+        <div class="di-head">
+          <h4>両家への報告タイミング</h4>
+          <span class="di-deadline">目安：心拍確認後(6〜7週・9/1前後)から</span>
+        </div>
+        <p>心拍確認(6週前後)を一つの区切りに報告する夫婦が多いが、絶対的な決まりはない。里帰り出産を予定しているなら、福岡の妻の実家には安定期(16週)を待たず早めに相談しておくと、産院探しや滞在準備の相談がスムーズに進む。</p>
+      </div>
+
+      <div class="decision-item">
+        <div class="di-head">
+          <h4>職場への報告・働き方の相談</h4>
+          <span class="di-deadline">目安：つわりが強まる8〜11週までに制度だけ把握</span>
+        </div>
+        <p>正式な報告は安定期(16週)まで待つ人が多いが、つわりで通勤や勤務がつらい場合は上司や産業医への個別相談を先に行ってよい。その際に使えるのが「母性健康管理指導事項連絡カード」で、医師の指導内容(通勤緩和・休憩・勤務時間短縮など)を会社に伝える公式な仕組みとして知っておくと、いざという時に動きやすい。</p>
+      </div>
+
+      <div class="decision-item">
+        <div class="di-head">
+          <h4>パパの風しん抗体検査・予防接種の検討</h4>
+          <span class="di-deadline">目安：わかったらできるだけ早く</span>
+        </div>
+        <p>妊娠中の女性は風しんの生ワクチンを接種できないため、感染を防ぐ役目は同居家族側にある。夫自身が風しんに対する抗体を十分持っているか、まだ調べていなければ早めに抗体検査を受け、抗体価が低ければ予防接種を検討する。多くの自治体で、妊婦の同居家族を対象にした抗体検査・予防接種の費用助成があるため、居住区(東京)の制度を確認するとよい。</p>
+        <div class="di-note">見落とされがちだが、母体側の初診の血液検査だけではカバーできない「家族側の備え」なので、心配性ならなおさら早めに片付けておきたい項目。</div>
+      </div>
+
+      <div class="decision-item">
+        <div class="di-head">
+          <h4>歯科検診の予約</h4>
+          <span class="di-deadline">目安：お腹が大きくなる前に検診だけでも</span>
+        </div>
+        <p>妊娠中はホルモンの影響で虫歯・歯周病になりやすく、歯周病は早産のリスク因子ともされる。本格的な治療は安定期(中期)に回すことが多いが、虫歯・歯周病の有無を確認する検診自体は、体が動きやすい初期のうちに予約しておくと後がスムーズ。受診時は必ず妊娠中であることを歯科医院に伝える。</p>
+      </div>
+    </div>
+
+    <div class="phase-placeholder">妊娠中期・後期・産褥期の検討事項は、必要なタイミングでこのセクションに追加していきます。</div>
+  </section>
+
+  <section id="satogaeri" class="section">
+    <div class="section-head">
+      <h2>里帰り出産の計画(東京 → 福岡)</h2>
+      <p>東京在住・実家は福岡という前提で、妻側の手続き・移動のスケジュールを時期別にまとめました。福岡は人気の産院が早い時期に分娩予約で埋まることもあるため、「まだ早いかな」と思う時期から動き始めるのが安心です。</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="sched">
+        <caption>妻のスケジュール</caption>
+        <thead>
+          <tr><th>時期</th><th>やること</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="when">10/13〜11/9<br>(12〜15週)</td>
+            <td>福岡側の分娩先候補をリサーチ・問い合わせ。人気の産院は早期に分娩予約が埋まることがあるため、この時期のうちに連絡しておくと安心。</td>
+          </tr>
+          <tr>
+            <td class="when">11/10〜12/7<br>(16〜19週)</td>
+            <td>東京の産院に里帰りの意向を伝え、紹介状を依頼。福岡側の産院に紹介状を提出し、分娩予約を確定させる。</td>
+          </tr>
+          <tr>
+            <td class="when">12/8〜1/4<br>(20〜23週)</td>
+            <td>可能であれば一時帰省し、福岡の産院を一度受診しておく。必須ではないが、当日顔見知りの医師がいる安心感につながる。</td>
+          </tr>
+          <tr>
+            <td class="when">2/2〜3/1<br>(28〜31週)</td>
+            <td>里帰り中の生活用品・入院準備品を揃え始める。実家の受け入れ体制(部屋の準備、上の子がいる場合の預け先など)を確認。</td>
+          </tr>
+          <tr>
+            <td class="when">3/2〜3/29<br>(32〜35週)</td>
+            <td>実家(福岡)へ帰省。長距離移動は体への負担が大きいため、このタイミングが最後のチャンスと考える。</td>
+          </tr>
+          <tr>
+            <td class="when">3/30〜4/26<br>(36〜39週・臨月)</td>
+            <td>福岡で臨月を過ごす。地元の産院での最終確認、入院バッグの最終チェック。</td>
+          </tr>
+          <tr>
+            <td class="when">4/27ごろ</td>
+            <td>出産予定日。福岡の産院で出産。</td>
+          </tr>
+          <tr>
+            <td class="when">5/27ごろ</td>
+            <td>産後1ヶ月健診。これを終えたタイミングで東京の自宅に戻るのが一般的な目安。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <h3>福岡ならではの注意点</h3>
+      <ul>
+        <li><strong>人気の産院は予約が早く埋まりやすい。</strong>特に個人クリニックで分娩数を制限しているところは、12週前後で電話しても「もう埋まっている」ケースがある。候補は2〜3院リストアップしておくと安心。</li>
+        <li><strong>紹介状の内容は早めに確認。</strong>東京での検査結果(血液検査・NIPTなど受けていれば結果)を福岡側にも共有できるよう、紹介状に何が書かれるか産院に確認しておくと二度手間が減る。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="transport" class="section">
+    <div class="section-head">
+      <h2>東京⇔福岡の移動手段</h2>
+      <p>東京・福岡(博多)間は約1,100km。妊婦の長距離移動は「2〜3時間以内」が一つの目安とされることが多く、この区間は新幹線・飛行機どちらを使っても長時間移動になる点は共通です。</p>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card">
+        <h4>新幹線(のぞみ・東京—博多)</h4>
+        <div class="cc-sub">所要時間 約5時間</div>
+        <dl>
+          <dt>メリット</dt>
+          <dd>天候の影響を受けにくい。途中下車やトイレへの移動がしやすい。</dd>
+          <dt>注意点</dt>
+          <dd>目安とされる2〜3時間を大きく超える長時間移動になる。指定席・グリーン車を確保し、こまめな水分補給と足を動かす休憩を。飲食可のため、つわり中はにおいに注意。</dd>
+        </dl>
+      </div>
+      <div class="compare-card">
+        <h4>飛行機(羽田—福岡)</h4>
+        <div class="cc-sub">所要時間 約2時間5分</div>
+        <dl>
+          <dt>メリット</dt>
+          <dd>移動時間そのものは新幹線よりかなり短い。</dd>
+          <dt>注意点(ANAの場合の目安)</dt>
+          <dd>出産予定日を含めて28日以内(目安36週以降)の搭乗には、出発7日以内発行の診断書が必要。14日以内(目安38週以降)は医師の同伴が必要。32〜35週での帰省であればこの条件にかからないことが多いが、必ず利用する航空会社に直前で確認する。</dd>
+        </dl>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>結論</h3>
+      <ul>
+        <li>距離を考えると、体への負担は<strong>飛行機の方が小さい</strong>可能性が高い。32〜35週での帰省であれば、診断書が必要になる36週のラインより前なので、通常の搭乗手続きで問題ないことが多い。</li>
+        <li>ただし出発直前は必ず航空会社の妊婦向けページ・窓口で最新の条件を確認する(規定は変わることがあるため)。</li>
+        <li>産後1ヶ月ごろの赤ちゃんとの復路移動も、短時間で済む飛行機の方が母子の負担が少ない。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="lodging" class="section">
+    <div class="section-head">
+      <h2>福岡滞在中の住まい方</h2>
+      <p>「ずっと義実家に泊まる」のは気を遣うし、「ずっとホテル」は出費がかさむ。実際にはその中間の選択肢が複数あり、滞在日数によって最適解が変わります。まずは4つの選択肢を比較し、そのあと滞在期間別のおすすめを整理します。</p>
+    </div>
+
+    <div class="lodging-grid">
+      <div class="lodging-card">
+        <div class="lc-head">
+          <h4>義実家に泊まる</h4>
+          <span class="lc-cost">実質0円</span>
+        </div>
+        <span class="lc-fit">向いている期間：出産直後の数日だけなど、ごく短期</span>
+        <p>費用はかからず、生活のサポートも受けやすい。一方で気を遣う時間が長く続くと双方の負担になりやすく、「ずっとは避けたい」という感覚は自然なもの。</p>
+        <p class="lc-note">出産直後の数日〜1週間程度に絞り、それ以降は別の選択肢に切り替える、という使い方が現実的。</p>
+      </div>
+
+      <div class="lodging-card">
+        <div class="lc-head">
+          <h4>ビジネスホテル(連泊)</h4>
+          <span class="lc-cost">1泊 目安8,000〜12,000円</span>
+        </div>
+        <span class="lc-fit">向いている期間：数日〜1週間程度</span>
+        <p>予約・キャンセルの手軽さが最大のメリット。福岡市内はインバウンド需要で相場が変動しやすく、繁忙期はさらに上がることもある。</p>
+        <p class="lc-note">1週間で5.6万〜8.4万円、1ヶ月続けると24万〜36万円ほどになり、長期にはあまり向かない。</p>
+      </div>
+
+      <div class="lodging-card">
+        <div class="lc-head">
+          <h4>ウィークリーマンション</h4>
+          <span class="lc-cost">1週間 目安1.0万〜2.7万円</span>
+        </div>
+        <span class="lc-fit">向いている期間：1〜3週間程度</span>
+        <p>家具家電・キッチン付きで、自炊もできる分ホテルより食費を抑えやすい。物件により1日あたり2,000円台〜7,000円弱まで幅があるため複数比較を。</p>
+        <p class="lc-note">1週間なら多くの場合ホテルより割安。滞在が延びそうならマンスリーへの切り替え相談もできることが多い。</p>
+      </div>
+
+      <div class="lodging-card">
+        <div class="lc-head">
+          <h4>マンスリーマンション</h4>
+          <span class="lc-cost">1ヶ月 目安9万〜13万円</span>
+        </div>
+        <span class="lc-fit">向いている期間：3週間〜1ヶ月以上</span>
+        <p>天神・博多エリアの相場は月9万〜13万円(1日あたり3,000〜4,000円換算)。敷金・礼金・仲介手数料は基本不要で、水道光熱費や管理費込みの設定が多い。</p>
+        <p class="lc-note">1ヶ月単位の契約が基本のため、1〜2週間だけの利用だと割高になりやすい点に注意。</p>
+      </div>
+    </div>
+
+    <div class="duration-grid">
+      <div class="duration-card">
+        <span class="dc-when">数日〜1週間程度</span>
+        <h4>ホテル連泊、または義実家</h4>
+        <p>陣痛の連絡を受けて駆けつける(パターンB)場合に現実的。手続きが簡単で、短期なら費用差もそれほど大きくない。</p>
+      </div>
+      <div class="duration-card">
+        <span class="dc-when">1〜3週間程度</span>
+        <h4>ウィークリーマンション</h4>
+        <p>産後パパ育休を1〜2週間だけ使う場合の有力候補。自炊できるぶん食費も含めた総コストを抑えやすい。</p>
+      </div>
+      <div class="duration-card">
+        <span class="dc-when">1ヶ月前後</span>
+        <h4>マンスリーマンション</h4>
+        <p>予定日前から長期滞在する(パターンA)場合や、産後パパ育休をまとめて使う場合はここが最も経済的。同期間のホテル代の半額以下になることも多い。</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>探し方・決め方のコツ</h3>
+      <ul>
+        <li><strong>エリアは義実家の近くで探す。</strong>マンスリー・ウィークリーマンションの検索サイトは駅名やエリアで絞り込めるものが多い。義実家から徒歩・車で行き来しやすい距離にしつつ、寝る場所は別に確保することで、双方の気疲れを減らせる。</li>
+        <li><strong>敷金・礼金は基本不要。</strong>マンスリー・ウィークリーマンションは通常の賃貸と違い初期費用がほぼかからないため、短期利用でも総額が読みやすい。</li>
+        <li><strong>会社の福利厚生を確認する。</strong>宿泊予約サイトの提携割引(福利厚生サービス経由の優待)が使える職場もあるため、契約前に一度確認しておくと出費を抑えられることがある。</li>
+        <li><strong>予定日はずれる前提で、キャンセル・延長条件を確認。</strong>特にホテル・ウィークリーマンションは、出産が早まった/遅れた場合に日程変更できるか、延長時の追加費用がどうなるかを予約時に確認しておくと安心。</li>
+      </ul>
+    </div>
+
+    <div class="section-head" style="margin-top:44px;">
+      <h3 style="font-family:var(--font-display); font-size:1.2rem; margin:0 0 8px;">長者原駅を最寄りとした場合の候補エリア</h3>
+      <p>義実家の最寄りが長者原駅とのことで調べたところ、長者原駅そのものには大手マンスリーマンション業者の物件がほとんど掲載されていません(郊外エリアのため取り扱いが手薄)。ただし長者原駅は福北ゆたか線(篠栗線)で博多駅まで乗り換えなし13分という好立地なので、沿線の駅まで少し足を延ばして探すのが現実的です。</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="sched">
+        <caption>沿線エリア別の候補</caption>
+        <thead>
+          <tr><th>エリア(最寄り駅)</th><th>長者原からの所要時間</th><th>月額の目安</th><th>物件例</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="when">吉塚駅</td>
+            <td>乗り換えなし・約8分</td>
+            <td>7.1万〜16.2万円</td>
+            <td>フォレストテラス県庁口A/B/C(1K・月7.1万円)、グランメール吉塚(1K・月8.3万円)、ユーチャリス21(1K・月10.7万円)など約15物件</td>
+          </tr>
+          <tr>
+            <td class="when">香椎駅</td>
+            <td>乗り換えなし・約18分</td>
+            <td>5.7万〜12.3万円</td>
+            <td>コムルーム松香台(1R・月5.7万円)が特に割安。アルブル香椎宮前2(1K・月8.6万円)など</td>
+          </tr>
+          <tr>
+            <td class="when">千早駅</td>
+            <td>香椎駅からさらに1駅程度</td>
+            <td>8.6万〜15.6万円</td>
+            <td>ルームイン千早シリーズ(1LDK/2K・月15.6万円)など、広めの間取りが中心</td>
+          </tr>
+          <tr>
+            <td class="when">長者原・粕屋町エリア直接</td>
+            <td>―</td>
+            <td>要個別確認</td>
+            <td>大手マンスリーサイトには掲載が見当たらず。地元不動産会社(三好不動産など)への直接問い合わせ、Airbnb等の個人貸し、通常賃貸の短期契約可否の相談が選択肢になる</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <h3>候補の選び方</h3>
+      <ul>
+        <li><strong>コスト優先なら香椎駅エリア。</strong>コムルーム松香台のように月5万円台の物件もあり、4エリアの中では最も安く抑えられる可能性がある。長者原までは乗り換えなし18分。</li>
+        <li><strong>アクセス優先なら吉塚駅エリア。</strong>長者原まで8分、博多駅にも近いため、東京への一時帰宅や羽田便利用時の移動もしやすい。物件数も一番多く選びやすい。</li>
+        <li><strong>掲載価格・空室状況は変動する。</strong>ここに挙げた物件・料金は調査時点の一例。実際の予約時期(出産予定日は2027年4月なのでまだ先)には空室状況も価格も変わっているため、直前に各サイト(MAN3'S、ウィークリー＆マンスリー、グッドマンスリー福岡など)で最新情報を確認してください。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="dad" class="section">
+    <div class="section-head">
+      <h2>夫(パパ)のスケジュール・動き方</h2>
+      <p>妻が福岡に里帰りしている間、夫は東京で仕事を続けるケースを想定した動き方の整理です。立ち会い出産を希望する場合は特に、事前のシミュレーションが安心につながります。</p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="sched">
+        <caption>基本スケジュール</caption>
+        <thead>
+          <tr><th>時期</th><th>やること</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="when">〜3/1ごろ<br>(里帰り前)</td>
+            <td>東京で同居しながら通常勤務。産休・産後パパ育休(出生時育児休業)の取得計画を、この時期から職場に共有し始める。</td>
+          </tr>
+          <tr>
+            <td class="when">3/2〜4/26ごろ<br>(妻が福岡に里帰り中)</td>
+            <td>東京で勤務継続。正期産に入る37週0日(4/6)以降は、いつ連絡が来てもすぐ動けるよう有給・リモートワークの調整をしておく。</td>
+          </tr>
+          <tr>
+            <td class="when">4/27ごろ〜</td>
+            <td>出産。立ち会いを希望する場合は下記の2パターンで事前に方針を決めておく。</td>
+          </tr>
+          <tr>
+            <td class="when">4/27〜6/22ごろ<br>(出生後8週間以内)</td>
+            <td>産後パパ育休(出生時育児休業)の取得可能期間。最大4週間まで、2回に分割して取得できる。</td>
+          </tr>
+          <tr>
+            <td class="when">5/27ごろ</td>
+            <td>妻子の産後1ヶ月健診後、東京へ帰るタイミング。迎えに行くか、妻が一人で移動できるか相談。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="option-grid">
+      <div class="option-card">
+        <span class="opt-tag">パターンA</span>
+        <h4>予定日前から福岡に滞在する</h4>
+        <p>予定日の1〜2週間前(4/13ごろ)から福岡入りし、現地で待機する。</p>
+        <p>確実に立ち会える可能性が高い一方、東京での仕事を長めに離れることになる。予定日が前後する可能性も踏まえ、余裕を持ったスケジュールを組む。</p>
+      </div>
+      <div class="option-card">
+        <span class="opt-tag">パターンB</span>
+        <h4>東京で待機し、連絡が来たら移動</h4>
+        <p>陣痛が始まった連絡を受けてから福岡へ移動する(飛行機なら最短2時間強)。</p>
+        <p>仕事を離れる期間は短く済むが、初産でも陣痛開始から出産まで数時間〜半日程度で進むこともあり、移動が間に合わない可能性は理解しておく必要がある。</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>産後パパ育休の使い方の一案</h3>
+      <ul>
+        <li><strong>2回に分割できる制度を活かす。</strong>例えば「出産直後の1〜2週間は福岡に滞在→一旦東京に戻って仕事→里帰り終了(産後1ヶ月健診後)にもう一度休みを取って妻子を迎えに行く」という使い方も選択肢の一つ。</li>
+        <li><strong>まとまった育休は帰京後に検討。</strong>産後パパ育休とは別に、通常の育児休業をいつ・どのくらいの期間取るかは、東京に妻子が戻ってから改めて相談するのでも遅くない。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="checklist" class="section">
+    <div class="section-head">
+      <h2>今のうちにやることチェックリスト</h2>
+      <p>特に優先度の高い項目だけを抜き出しています。詳細は各セクションを参照してください。</p>
+    </div>
+    <div class="checklist">
+      <div class="cl-item"><span class="cl-box"></span><span>福岡の分娩先候補を2〜3院リストアップし、12〜15週ごろまでに問い合わせる</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>東京の産院に里帰りの意向を伝え、紹介状の依頼時期を確認する</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>かかりつけ産院の緊急連絡先を夫婦それぞれのスマホに登録する</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>職場に産休・産後パパ育休の取得意向を早めに共有する</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>里帰りの移動手段(飛行機/新幹線)と時期(32〜35週)を仮決めする</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>立ち会い出産の希望と、当日の動き方(パターンA/B)を夫婦で話し合う</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>産後パパ育休をいつ・何回に分けて取るかの仮プランを立てる</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>「危険サイン早見」の内容を夫婦で一度読み合わせておく</span></div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <p>本ページは一般的な医学情報・体験談をもとに整理したものであり、個別の医療アドバイスではありません。症状や制度の詳細は必ずかかりつけの産婦人科医、自治体窓口、利用する航空会社・勤務先に確認してください。妊婦健診の頻度や検査時期、里帰り出産の可否は施設ごとに異なります。</p>
+    <p>全体像は「妊娠〜産後タイムライン」ページも合わせてご覧ください。作成日：2026年8月22日</p>
+  </footer>
+
+</div>
+<div class="gnav-related">
+  <div class="gnav-related-inner">
+    <h3>🔗 関連ページ</h3>
+    <div class="gnav-related-grid">
+      <a class="gnav-related-card" href="妊娠出産タイムライン.html">
+        <span class="gnav-related-card-title">妊娠〜産後タイムライン</span>
+        <span class="gnav-related-card-desc">妊娠全体のスケジュール概観</span>
+      </a>
+      <a class="gnav-related-card" href="押上エリアの産婦人科ガイド.html">
+        <span class="gnav-related-card-title">押上エリアの産婦人科ガイド</span>
+        <span class="gnav-related-card-desc">里帰り前の妊婦健診先の検討</span>
+      </a>
+      <a class="gnav-related-card" href="夫の産休育休プランニング.html">
+        <span class="gnav-related-card-title">夫の産休育休プランニング</span>
+        <span class="gnav-related-card-desc">里帰り出産を踏まえた夫の過ごし方・育休計画</span>
+      </a>
+    </div>
+    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
+  </div>
+</div>
+<style id="gnav-related-style">
+.gnav-related{margin-top:48px;padding:32px 20px 40px;background:#f6f5f2;border-top:1px solid #e6e3dc;font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.gnav-related-inner{max-width:900px;margin:0 auto;}
+.gnav-related h3{font-size:15px;color:#2b2b28;margin:0 0 14px;font-weight:600;}
+.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
+.gnav-related-card{display:block;background:#ffffff;border:1px solid #e6e3dc;border-radius:10px;padding:14px 16px;text-decoration:none;color:#2b2b28;transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.gnav-related-card:hover{border-color:#7a6a53;transform:translateY(-1px);box-shadow:0 6px 16px rgba(43,43,40,0.06);}
+.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.gnav-related-card-desc{display:block;font-size:12px;color:#6b6b64;line-height:1.5;}
+.gnav-related-home{display:inline-block;font-size:12.5px;color:#7a6a53;text-decoration:none;font-weight:600;}
+.gnav-related-home:hover{text-decoration:underline;}
+</style>
+

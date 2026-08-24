@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>押上・向島エリア 防災リスク分析</title>
+<style>
+  :root{
+    --bg:#f6f5f2;
+    --card:#ffffff;
+    --card-2:#faf9f6;
+    --ink:#2b2b28;
+    --sub:#6b6b64;
+    --sub-2:#8c8b83;
+    --line:#e6e3dc;
+    --line-strong:#d8d4ca;
+    --accent:#7a6a53;
+    --accent-ink:#5c4f3d;
+
+    --water:#3d6d8a;
+    --water-ink:#2b4f65;
+    --water-bg:#e9f0f3;
+    --water-line:#c7d9e2;
+
+    --rank1:#3a7247;
+    --rank2:#6b7a35;
+    --rank3:#8f631b;
+    --rank4:#a84f24;
+    --rank5:#962c2c;
+
+    --good-bg:#e5f1e6;
+    --good-ink:#2e6b3e;
+    --warn-bg:#fbe9e7;
+    --warn-ink:#a94442;
+
+    --shadow: 0 1px 2px rgba(43,43,40,0.06), 0 4px 14px rgba(43,43,40,0.05);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1b1917;
+      --card:#242220;
+      --card-2:#2a2825;
+      --ink:#f1efe9;
+      --sub:#b6b1a6;
+      --sub-2:#928d81;
+      --line:#3a362f;
+      --line-strong:#48433a;
+      --accent:#cbae87;
+      --accent-ink:#e2c9a6;
+
+      --water:#79aecb;
+      --water-ink:#a9cfe3;
+      --water-bg:#1f2c33;
+      --water-line:#334954;
+
+      --rank1:#5da06c;
+      --rank2:#9aa858;
+      --rank3:#c99a46;
+      --rank4:#cf7c4c;
+      --rank5:#c8595a;
+
+      --good-bg:#20321f;
+      --good-ink:#8fce9b;
+      --warn-bg:#3a2320;
+      --warn-ink:#e19a92;
+
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 18px rgba(0,0,0,0.28);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1b1917;
+    --card:#242220;
+    --card-2:#2a2825;
+    --ink:#f1efe9;
+    --sub:#b6b1a6;
+    --sub-2:#928d81;
+    --line:#3a362f;
+    --line-strong:#48433a;
+    --accent:#cbae87;
+    --accent-ink:#e2c9a6;
+
+    --water:#79aecb;
+    --water-ink:#a9cfe3;
+    --water-bg:#1f2c33;
+    --water-line:#334954;
+
+    --rank1:#5da06c;
+    --rank2:#9aa858;
+    --rank3:#c99a46;
+    --rank4:#cf7c4c;
+    --rank5:#c8595a;
+
+    --good-bg:#20321f;
+    --good-ink:#8fce9b;
+    --warn-bg:#3a2320;
+    --warn-ink:#e19a92;
+
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 6px 18px rgba(0,0,0,0.28);
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+
+  a{color:var(--water-ink);}
+  a:focus-visible, button:focus-visible, th:focus-visible{outline:2px solid var(--water); outline-offset:2px;}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:44px 24px 80px;}
+
+  header.page-head{margin-bottom:36px;}
+  .eyebrow{
+    font-size:12.5px;letter-spacing:.08em;color:var(--sub);
+    text-transform:uppercase;font-weight:600;margin-bottom:10px;
+  }
+  h1{
+    font-size:clamp(26px,4vw,34px);
+    margin:0 0 12px;
+    line-height:1.3;
+    text-wrap:balance;
+    letter-spacing:-0.01em;
+  }
+  .lede{
+    font-size:15.5px;color:var(--sub);max-width:640px;margin:0 0 4px;
+  }
+  .meta-row{
+    display:flex;gap:18px;flex-wrap:wrap;margin-top:18px;
+    font-size:12.5px;color:var(--sub-2);
+  }
+  .meta-row span{white-space:nowrap;}
+
+  h2.section-title{
+    font-size:19px;margin:0 0 6px;letter-spacing:-0.005em;
+    display:flex;align-items:baseline;gap:10px;
+  }
+  h2.section-title .num{
+    font-size:12px;color:var(--sub-2);font-weight:600;letter-spacing:.04em;
+  }
+  p.section-desc{
+    font-size:13.5px;color:var(--sub);margin:0 0 20px;max-width:680px;
+  }
+  section{margin-bottom:48px;}
+
+  /* stat tiles */
+  .stat-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:14px;margin-bottom:8px;
+  }
+  .stat-tile{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;box-shadow:var(--shadow);
+  }
+  .stat-tile .label{font-size:12px;color:var(--sub);margin-bottom:6px;}
+  .stat-tile .value{
+    font-size:22px;font-weight:700;letter-spacing:-0.01em;
+    font-variant-numeric:tabular-nums;
+  }
+  .stat-tile .value small{font-size:13px;font-weight:500;color:var(--sub);}
+  .stat-tile .note{font-size:11.5px;color:var(--sub-2);margin-top:4px;}
+
+  /* hazard type cards */
+  .hz-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:14px;
+  }
+  .hz-card{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px;box-shadow:var(--shadow);
+  }
+  .hz-card .hz-head{
+    display:flex;align-items:center;gap:8px;margin-bottom:8px;
+  }
+  .hz-card .hz-dot{
+    width:9px;height:9px;border-radius:50%;background:var(--water);flex:none;
+  }
+  .hz-card.risk-low .hz-dot{background:var(--good-ink);}
+  .hz-card.risk-none .hz-dot{background:var(--sub-2);}
+  .hz-card h3{font-size:14.5px;margin:0;}
+  .hz-card .hz-body{font-size:13px;color:var(--sub);}
+  .hz-card .hz-body b{color:var(--ink);font-weight:700;}
+  .hz-card .hz-src{font-size:11px;color:var(--sub-2);margin-top:10px;}
+
+  /* rank badge */
+  .rank-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:26px;height:22px;padding:0 7px;border-radius:6px;
+    color:#fff;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;
+  }
+  .rank-1{background:var(--rank1);}
+  .rank-2{background:var(--rank2);}
+  .rank-3{background:var(--rank3);}
+  .rank-4{background:var(--rank4);}
+  .rank-5{background:var(--rank5);}
+
+  .meter{
+    width:100%;max-width:120px;height:6px;border-radius:4px;
+    background:var(--line);position:relative;overflow:hidden;
+  }
+  .meter i{display:block;height:100%;border-radius:4px;}
+  .meter[data-r="1"] i{width:20%;background:var(--rank1);}
+  .meter[data-r="2"] i{width:40%;background:var(--rank2);}
+  .meter[data-r="3"] i{width:60%;background:var(--rank3);}
+  .meter[data-r="4"] i{width:80%;background:var(--rank4);}
+  .meter[data-r="5"] i{width:100%;background:var(--rank5);}
+
+  /* comparison table */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);}
+  table{width:100%;border-collapse:collapse;font-size:13px;background:var(--card);min-width:640px;}
+  thead th{
+    text-align:left;background:var(--ink);color:var(--card);
+    font-weight:600;font-size:12px;padding:12px 14px;white-space:nowrap;
+  }
+  :root:not([data-theme="light"]) thead th{color:var(--bg);}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) thead th{color:var(--bg);}}
+  tbody tr{border-bottom:1px solid var(--line);}
+  tbody tr:last-child{border-bottom:none;}
+  tbody tr:hover{background:var(--card-2);}
+  tbody td{padding:12px 14px;vertical-align:top;}
+  td.pname{font-weight:600;white-space:nowrap;}
+  td.pname .sub{display:block;font-weight:400;color:var(--sub);font-size:11.5px;margin-top:2px;}
+  td.center{text-align:center;}
+  td.small{color:var(--sub);font-size:12px;}
+
+  /* candidate detail cards */
+  .cand{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 24px;box-shadow:var(--shadow);margin-bottom:14px;
+  }
+  .cand-head{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    gap:16px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+  }
+  .cand-head .name{font-size:16px;font-weight:700;}
+  .cand-head .addr{font-size:12.5px;color:var(--sub);margin-top:3px;}
+  .cand-badges{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .badge-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11.5px;padding:4px 10px;border-radius:20px;
+    background:var(--card-2);color:var(--sub);border:1px solid var(--line);
+  }
+  .cand-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media (max-width:600px){.cand-grid{grid-template-columns:1fr;}}
+  .cand-col h4{
+    font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--sub-2);margin:0 0 8px;font-weight:700;
+  }
+  .cand-col p{font-size:13px;color:var(--ink);margin:0 0 8px;}
+  .cand-col p.dim{color:var(--sub);}
+
+  /* checklist */
+  .checklist{
+    background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:22px 24px;box-shadow:var(--shadow);
+  }
+  .checklist ol{margin:0;padding-left:22px;}
+  .checklist li{margin-bottom:12px;font-size:13.5px;}
+  .checklist li b{display:block;font-size:13.5px;margin-bottom:2px;}
+  .checklist li span{color:var(--sub);font-size:12.5px;}
+  .checklist li:last-child{margin-bottom:0;}
+
+  .callout{
+    background:var(--water-bg);border:1px solid var(--water-line);
+    border-radius:12px;padding:16px 20px;font-size:13px;color:var(--ink);
+  }
+  .callout b{color:var(--water-ink);}
+  .callout a{color:var(--water-ink);font-weight:600;}
+
+  footer{
+    margin-top:56px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:11.5px;color:var(--sub-2);
+  }
+  footer h5{font-size:12px;color:var(--sub);margin:0 0 10px;font-weight:700;}
+  footer ul{margin:0 0 18px;padding-left:18px;}
+  footer li{margin-bottom:5px;}
+  footer .disclaimer{
+    background:var(--card-2);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;margin-bottom:20px;color:var(--sub);font-size:12px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="page-head">
+    <div class="eyebrow">新天地調査 &middot; 追加分析</div>
+    <h1>押上・業平・向島・横川エリアの防災リスク分析</h1>
+    <p class="lede">内見予定のTier1〜3候補6物件について、水害（洪水・内水氾濫・高潮）と地震の両面から、公的資料に基づいてハザードマップを読み解きました。</p>
+    <div class="meta-row">
+      <span>対象：墨田区押上・業平・向島・横川エリア（候補6物件）</span>
+      <span>作成日：2026年8月23日</span>
+      <span>出典：墨田区・東京都・国土交通省 ほか（末尾に一覧）</span>
+    </div>
+  </header>
+
+  <section id="overview">
+    <h2 class="section-title"><span class="num">01</span>墨田区の地形リスク：まず押さえておきたい全体像</h2>
+    <p class="section-desc">候補6物件はすべて墨田区内にあり、区の地形特性が共通の前提になります。「浸水しない場所を選ぶ」より「浸水時にどう凌ぐか」で考えるべき立地、という前提を先に共有します。</p>
+    <div class="stat-grid">
+      <div class="stat-tile">
+        <div class="label">区内の標高</div>
+        <div class="value">-1.2m <small>〜 4m</small></div>
+        <div class="note">最低地点はいわゆる「ゼロメートル地帯」</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">荒川氾濫時の想定浸水深</div>
+        <div class="value">最大 3〜5m<small>／場所による</small></div>
+        <div class="note">区の大部分が0.5m以上と想定</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">浸水継続時間の想定</div>
+        <div class="value">1〜2週間<small>以上</small></div>
+        <div class="note">水が引くまで長期化する地形</div>
+      </div>
+      <div class="stat-tile">
+        <div class="label">地盤</div>
+        <div class="value">沖積低地<small>・区全域</small></div>
+        <div class="note">軟弱地盤で揺れが増幅されやすい</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hazard-types">
+    <h2 class="section-title"><span class="num">02</span>災害種別ごとの想定</h2>
+    <p class="section-desc">墨田区が公表・言及している5種類の災害について、区全体の想定をまとめました。地点ごとの正確な数値ではなく、まず知っておくべき「区としての傾向」です。</p>
+    <div class="hz-grid">
+      <div class="hz-card">
+        <div class="hz-head"><span class="hz-dot"></span><h3>洪水（荒川氾濫時）</h3></div>
+        <div class="hz-body">区の<b>ほぼ全域が浸水想定区域</b>。大部分が0.5m以上、北東部（東向島・八広方面）では3m以上、鐘ヶ淵駅周辺ではさらに深いエリアも。浸水継続は1〜2週間以上と長期化想定。</div>
+        <div class="hz-src">出典：墨田区、三井住友トラスト不動産</div>
+      </div>
+      <div class="hz-card">
+        <div class="hz-head"><span class="hz-dot"></span><h3>内水氾濫（局地的豪雨）</h3></div>
+        <div class="hz-body">区全域で発生しうるが、想定区域の多くは<b>0.5m未満</b>。荒川氾濫のような大規模水没ではなく、短時間の局地的な道路冠水がメインの想定。</div>
+        <div class="hz-src">出典：墨田区水害ハザードマップ</div>
+      </div>
+      <div class="hz-card">
+        <div class="hz-head"><span class="hz-dot"></span><h3>高潮</h3></div>
+        <div class="hz-body">想定最大規模の台風でほぼ全域が浸水。多くのエリアで<b>1m以上</b>、海抜0m以下の東部では5m以上の想定。押上・向島エリアは区内では内陸寄り。</div>
+        <div class="hz-src">出典：東京都建設局、三井住友トラスト不動産</div>
+      </div>
+      <div class="hz-card">
+        <div class="hz-head"><span class="hz-dot"></span><h3>液状化</h3></div>
+        <div class="hz-body">区の<b>ほぼ全域が沖積低地</b>で液状化の可能性あり。特にリスクが高いとされるのは東向島・八広・立花方面で、押上・業平・向島1丁目・横川はそれより内陸寄り。</div>
+        <div class="hz-src">出典：イエゼミ（東京都液状化予測図に基づく整理）</div>
+      </div>
+      <div class="hz-card risk-none">
+        <div class="hz-head"><span class="hz-dot"></span><h3>土砂災害</h3></div>
+        <div class="hz-body">墨田区は<b>高低差のない平坦な地形</b>のため、土砂災害の危険性は基本的になし。候補6物件すべてで考慮不要な災害種別です。</div>
+        <div class="hz-src">出典：イエゼミ</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quake-compare">
+    <h2 class="section-title"><span class="num">03</span>候補6物件の地震危険度比較</h2>
+    <p class="section-desc">東京都「地震に関する地域危険度測定調査（第9回・2022年公表）」の町丁目別データです。ランクは1（低い）〜5（高い）の5段階。建物倒壊危険度・火災危険度の2指標から総合危険度が算出されています。押上3丁目・向島4丁目は区内でも最高ランク（5）の代表例として比較用に掲載しています。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>物件名</th>
+            <th>町丁目</th>
+            <th>総合危険度</th>
+            <th>建物倒壊危険度</th>
+            <th>火災危険度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="pname">フロンティアレジデンス錦糸公園<span class="sub">515号室・Tier2</span></td>
+            <td>横川5丁目</td>
+            <td class="center"><span class="rank-badge rank-2">2</span></td>
+            <td class="center"><span class="rank-badge rank-2">2</span></td>
+            <td class="center"><span class="rank-badge rank-1">1</span></td>
+          </tr>
+          <tr>
+            <td class="pname">シーズンフラッツ押上フィオーレ<span class="sub">Tier1</span></td>
+            <td>業平3丁目</td>
+            <td class="center"><span class="rank-badge rank-2">2</span></td>
+            <td class="center"><span class="rank-badge rank-3">3</span></td>
+            <td class="center"><span class="rank-badge rank-2">2</span></td>
+          </tr>
+          <tr>
+            <td class="pname">YHT押上<span class="sub">401号室・Tier2</span></td>
+            <td>押上1丁目</td>
+            <td class="center"><span class="rank-badge rank-2">2</span></td>
+            <td class="center"><span class="rank-badge rank-3">3</span></td>
+            <td class="center"><span class="rank-badge rank-2">2</span></td>
+          </tr>
+          <tr>
+            <td class="pname">Mill押上<span class="sub">0201・0202号室・Tier3</span></td>
+            <td>向島1丁目</td>
+            <td class="center"><span class="rank-badge rank-2">2</span></td>
+            <td class="center"><span class="rank-badge rank-4">4</span></td>
+            <td class="center"><span class="rank-badge rank-2">2</span></td>
+          </tr>
+          <tr>
+            <td class="pname">グランハイツ錦糸町<span class="sub">703・804号室・Tier3</span></td>
+            <td>横川3丁目</td>
+            <td class="center"><span class="rank-badge rank-3">3</span></td>
+            <td class="center"><span class="rank-badge rank-4">4</span></td>
+            <td class="center"><span class="rank-badge rank-3">3</span></td>
+          </tr>
+          <tr>
+            <td class="pname">スカイメゾン押上402<span class="sub">302・402号室・Tier2</span></td>
+            <td>押上2丁目</td>
+            <td class="center"><span class="rank-badge rank-4">4</span></td>
+            <td class="center"><span class="rank-badge rank-4">4</span></td>
+            <td class="center"><span class="rank-badge rank-4">4</span></td>
+          </tr>
+          <tr style="opacity:.7;">
+            <td class="pname">（参考）区内最高ランク地点<span class="sub">候補外・比較用</span></td>
+            <td>押上3丁目 / 向島4丁目</td>
+            <td class="center"><span class="rank-badge rank-5">5</span></td>
+            <td class="center"><span class="rank-badge rank-5">5</span></td>
+            <td class="center"><span class="rank-badge rank-5">5</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="section-desc" style="margin-top:14px;">6候補中では<b style="color:var(--ink);">フロンティア（横川5丁目）・シーズンフラッツ（業平3丁目）・YHT（押上1丁目）が総合ランク2で最も低リスク</b>、逆に<b style="color:var(--ink);">スカイメゾン（押上2丁目）は総合ランク4で候補中もっとも高リスク</b>という結果でした。同じ「押上」でも丁目が1つ違うだけでランクが倍近く変わる点は、内見時の判断材料として押さえておく価値があります。</p>
+  </section>
+
+  <section id="candidates">
+    <h2 class="section-title"><span class="num">04</span>物件別の詳細</h2>
+    <p class="section-desc">地域危険度が低い順に並べています。水害については地点単位の正確な浸水深データが公開されていないため、周辺の実例や町内会情報から傾向を示しています。最終判断の前に、必ず後述の公式ハザードマップで住所を検索してください。</p>
+
+    <div class="cand">
+      <div class="cand-head">
+        <div>
+          <div class="name">フロンティアレジデンス錦糸公園（515号室）</div>
+          <div class="addr">墨田区横川五丁目6-4・Tier2</div>
+        </div>
+        <div class="cand-badges">
+          <span class="badge-pill">地震：総合<b style="color:var(--rank2);margin-left:2px;">ランク2</b></span>
+          <span class="badge-pill">火災危険度 ランク1（候補中最小）</span>
+        </div>
+      </div>
+      <div class="cand-grid">
+        <div class="cand-col">
+          <h4>地震</h4>
+          <p>横川5丁目は建物倒壊危険度・火災危険度ともに候補中もっとも低い水準（各ランク2・1）。6候補の中では地震面でもっとも安心感のある立地です。</p>
+        </div>
+        <div class="cand-col">
+          <h4>水害</h4>
+          <p class="dim">横川エリアは押上より内陸寄り。近隣（錦糸町方面）のマンション実例では想定浸水深1.0〜3.0m程度の事例が見られます。荒川氾濫時は区内全域が対象なので過信は禁物ですが、6候補の中では相対的に穏やかな傾向です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cand">
+      <div class="cand-head">
+        <div>
+          <div class="name">シーズンフラッツ押上フィオーレ</div>
+          <div class="addr">墨田区業平3丁目4-15・Tier1</div>
+        </div>
+        <div class="cand-badges">
+          <span class="badge-pill">地震：総合<b style="color:var(--rank2);margin-left:2px;">ランク2</b></span>
+          <span class="badge-pill">新築・階数選択可</span>
+        </div>
+      </div>
+      <div class="cand-grid">
+        <div class="cand-col">
+          <h4>地震</h4>
+          <p>業平3丁目は総合ランク2、建物倒壊3・火災2。業平1〜5丁目はいずれもランク2〜3の範囲に収まっており、押上エリア全体の中では相対的に落ち着いた数値です。</p>
+        </div>
+        <div class="cand-col">
+          <h4>水害</h4>
+          <p class="dim">業平エリアの近隣物件では想定浸水深0.5〜3.0m程度の事例あり。この物件は低層階（2〜4F）と高層階（10F以上）を選べるため、浸水対策の観点では高層階を選ぶことで居室そのものへの浸水リスクは下げられます（エレベーター停止時の階段避難とはトレードオフ）。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cand">
+      <div class="cand-head">
+        <div>
+          <div class="name">YHT押上</div>
+          <div class="addr">墨田区押上1丁目24-5・401号室・Tier2</div>
+        </div>
+        <div class="cand-badges">
+          <span class="badge-pill">地震：総合<b style="color:var(--rank2);margin-left:2px;">ランク2</b></span>
+        </div>
+      </div>
+      <div class="cand-grid">
+        <div class="cand-col">
+          <h4>地震</h4>
+          <p>押上1丁目は総合ランク2。同じ押上でも2丁目・3丁目とは大きく異なり、押上の中では地震面で相対的に安心感のある丁目です。</p>
+        </div>
+        <div class="cand-col">
+          <h4>水害</h4>
+          <p class="dim">押上エリア全体としては、地元町内会の案内で荒川氾濫時「1〜5mの浸水エリア」に指定されているとの情報があります（幅が広いのは場所による差が大きいため）。401号室が何階相当かを内見時に確認し、可能なら浸水対策上有利な階数かを見ておくと安心です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cand">
+      <div class="cand-head">
+        <div>
+          <div class="name">Mill押上</div>
+          <div class="addr">墨田区向島1丁目24-16・0201/0202号室・Tier3</div>
+        </div>
+        <div class="cand-badges">
+          <span class="badge-pill">地震：総合<b style="color:var(--rank2);margin-left:2px;">ランク2</b></span>
+          <span class="badge-pill">建物倒壊危険度：ランク4に注意</span>
+        </div>
+      </div>
+      <div class="cand-grid">
+        <div class="cand-col">
+          <h4>地震</h4>
+          <p>向島1丁目は総合ランク2ですが、建物倒壊危険度は4とやや高め（火災危険度は2で低い）。総合ランクだけでなく内訳も見ておきたい丁目です。なお同じ向島でも4・5丁目（鐘ヶ淵駅周辺）は総合ランク4〜5と大きく異なるため、「向島」という括りだけで判断しないよう注意してください。</p>
+        </div>
+        <div class="cand-col">
+          <h4>水害</h4>
+          <p class="dim">向島は北東部（4・5丁目、鐘ヶ淵駅周辺）で区内でも特に深い浸水が想定されている一方、1丁目は南西寄りに位置し相対的には軽微な想定です。ただし公式データでの個別確認は必須です。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cand">
+      <div class="cand-head">
+        <div>
+          <div class="name">グランハイツ錦糸町</div>
+          <div class="addr">墨田区横川3-11-16・703/804号室・Tier3</div>
+        </div>
+        <div class="cand-badges">
+          <span class="badge-pill">地震：総合<b style="color:var(--rank3);margin-left:2px;">ランク3</b></span>
+        </div>
+      </div>
+      <div class="cand-grid">
+        <div class="cand-col">
+          <h4>地震</h4>
+          <p>横川3丁目は総合ランク3、建物倒壊4・火災3で、候補6物件の中では中間〜やや高めの水準です。同じ横川でも5丁目（フロンティア）とは総合ランクで1段階の差があります。</p>
+        </div>
+        <div class="cand-col">
+          <h4>水害</h4>
+          <p class="dim">錦糸町方面のマンション実例では想定浸水深1.0〜3.0m程度の事例が見られ、横川5丁目と同程度の傾向と推測されますが、丁目が異なるため個別確認を推奨します。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cand">
+      <div class="cand-head">
+        <div>
+          <div class="name">スカイメゾン押上402</div>
+          <div class="addr">墨田区押上2-4-6・302/402号室・Tier2</div>
+        </div>
+        <div class="cand-badges">
+          <span class="badge-pill">地震：総合<b style="color:var(--rank4);margin-left:2px;">ランク4</b></span>
+          <span class="badge-pill" style="background:var(--warn-bg);color:var(--warn-ink);border-color:transparent;">候補中もっとも地震危険度が高い</span>
+        </div>
+      </div>
+      <div class="cand-grid">
+        <div class="cand-col">
+          <h4>地震</h4>
+          <p>押上2丁目は総合・倒壊・火災のすべてでランク4。候補6物件の中でもっとも地震危険度が高いエリアです。隣接する押上3丁目は区内最高のランク5で、押上エリアの中でも東側に向かうほど数値が上がる傾向が見えます。</p>
+        </div>
+        <div class="cand-col">
+          <h4>水害</h4>
+          <p class="dim">押上エリア全体の「1〜5m浸水エリア」の想定に含まれます。地震・水害の両方でやや注意が必要な立地のため、内見時は建物の免震・耐震性能や設備の設置階を特に確認したい物件です。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="checklist">
+    <h2 class="section-title"><span class="num">05</span>内見・入居判断のためのチェックポイント</h2>
+    <p class="section-desc">墨田区の候補物件はいずれも水害リスクをゼロにはできない立地です。「避けられるリスク」ではなく「備えられるリスク」として、内見時に確認しておきたい点をまとめました。</p>
+    <div class="checklist">
+      <ol>
+        <li><b>電気設備・エレベーター機械室の設置階</b><span>受変電設備が地下や1階にあると、浸水時に長期停電・断水・エレベーター停止につながりやすい構造です。上層階に設置されているかを管理会社に確認しましょう。</span></li>
+        <li><b>居室の階数（垂直避難のしやすさ）</b><span>シーズンフラッツのように階数を選べる物件は、子どものいる家庭ほど3階以上を優先する価値があります。低層階の場合は、浸水想定深と居室の高さの関係を確認してください。</span></li>
+        <li><b>指定避難所までの距離・経路を子連れで歩く</b><span>ベビーカーや抱っこでの移動時間、エレベーターが使えない場合の階段避難ルートを、実際に内見の前後で歩いて確認するのがおすすめです。</span></li>
+        <li><b>宅建業者からの水害リスク説明（重要事項説明）を必ず受ける</b><span>2020年8月以降、不動産取引時に水防法に基づくハザードマップの提示・説明が宅建業者に義務付けられています。物件固有の想定浸水深を書面で確認しましょう。</span></li>
+        <li><b>「重ねるハザードマップ」で住所を個別検索する</b><span>本レポートは町丁目単位の傾向分析です。契約前には国土交通省の公式ツールで、建物の正確な住所を入力して最終確認してください。</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="callout">
+    <b>個別の正確な数値は公式ツールで確認を。</b>
+    このレポートは町丁目単位の統計・地域情報をもとにした傾向分析であり、建物ごとの正確な想定浸水深や避難ルートを保証するものではありません。最終判断の前に、国土交通省「<a href="https://disaportal.gsi.go.jp/" target="_blank" rel="noopener">重ねるハザードマップ</a>」で候補物件の住所を検索し、公式情報を確認してください。
+  </div>
+
+  <footer>
+    <div class="disclaimer">
+      本レポートはAIによる公開情報の整理・要約です。特に洪水浸水深に関する数値は、地図の色分けから抽出した目安や、近隣建物の事例（不動産情報サイト調べ）を含みます。地震危険度（東京都地域危険度測定調査）は町丁目単位の公表データを一次資料と突き合わせて確認していますが、洪水・内水氾濫・高潮の建物単位の数値は含まれていません。重要な意思決定の前には、必ず出典元の一次情報（区・都・国の公式サイト）をご自身でご確認ください。
+    </div>
+    <h5>主な出典</h5>
+    <ul>
+      <li><a href="https://www.city.sumida.lg.jp/anzen_anshin/bousai/suigai/suigai.html" target="_blank" rel="noopener">墨田区水害ハザードマップ（墨田区公式）</a></li>
+      <li><a href="https://www.city.sumida.lg.jp/anzen_anshin/bousai/suigai/takutikatemono.html" target="_blank" rel="noopener">墨田区水害ハザードマップ（宅地建物取引業者向け・説明義務について）</a></li>
+      <li><a href="https://www.city.sumida.lg.jp/anzen_anshin/bousai/keikaku-manual/chiikikikendo.html" target="_blank" rel="noopener">地震に関する地域危険度測定調査結果（墨田区公式）</a></li>
+      <li><a href="https://www.funenka.metro.tokyo.lg.jp/area-hazard-level/regional-risk-list/sumida/" target="_blank" rel="noopener">地震に関する地域危険度一覧表（墨田区）｜東京都都市整備局</a></li>
+      <li><a href="https://tokyo-bosai.com/sumidaku/Oshiage-3" target="_blank" rel="noopener">墨田区押上3丁目の地震・災害危険度｜東京防災データ</a></li>
+      <li><a href="https://oshiage2.com/hazard.html" target="_blank" rel="noopener">ハザードマップ｜墨田区押上二丁目町内会公式サイト</a></li>
+      <li><a href="https://smtrc.jp/drr/city/tokyo-sumida/index.html" target="_blank" rel="noopener">東京都墨田区の防災情報｜三井住友トラスト不動産</a></li>
+      <li><a href="https://hudousan-kounyu.com/hazardmap/tokyo/sumidaku" target="_blank" rel="noopener">墨田区の災害リスク｜イエゼミ</a></li>
+      <li><a href="https://www.kensetsu.metro.tokyo.lg.jp/river/suibo/takashiosoutei" target="_blank" rel="noopener">高潮浸水想定区域図｜東京都建設局</a></li>
+      <li><a href="https://www.ieshil.com/" target="_blank" rel="noopener">IESHIL（洪水リスク・周辺建物の想定浸水深の参照事例）</a></li>
+      <li><a href="https://disaportal.gsi.go.jp/" target="_blank" rel="noopener">重ねるハザードマップ｜国土交通省</a></li>
+    </ul>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>家賃キャッシュフロー比較レポート（26万・28万・30万円）</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-1-soft:  #cde2fb;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+    --accent-bad:     #b3401f;
+    --accent-bad-bg:  #fbe9e2;
+    --stack-life:     #c7c5bb;
+    --stack-rent:     #e0a758;
+    --stack-surplus:  #57c98a;
+    --cf-26:          #2a78d6;
+    --cf-28:          #eb6834;
+    --cf-30:          #1baf7a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-1-soft:  #184f95;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+      --accent-bad:     #e0714f;
+      --accent-bad-bg:  #3a1c10;
+      --stack-life:     #4a4944;
+      --stack-rent:     #c98a3d;
+      --stack-surplus:  #3f9d6e;
+      --cf-26:          #3987e5;
+      --cf-28:          #d95926;
+      --cf-30:          #199e70;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page-plane); color: var(--text-primary); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
+  header.title-block { margin-bottom: 20px; }
+  h1 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .meta { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
+  h2 { font-size: 1.2rem; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
+  h3 { font-size: 1.0rem; margin: 22px 0 10px; }
+  h4 { font-size: 0.85rem; margin: 16px 0 8px; color: var(--text-secondary); letter-spacing: 0.02em; }
+  p { line-height: 1.85; color: var(--text-primary); }
+  ul, ol { line-height: 1.85; padding-left: 1.3em; margin: 6px 0; }
+  li { margin-bottom: 5px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; background: var(--surface-1); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--gridline); vertical-align: top; }
+  thead th { color: var(--text-secondary); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.02em; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--chip-bg); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--series-1); }
+  .badge-good { background: var(--accent-good-bg); color: var(--accent-good); }
+  .badge-warn { background: var(--accent-warn-bg); color: var(--accent-warn); }
+  .badge-bad { background: var(--accent-bad-bg); color: var(--accent-bad); }
+  .insight { margin-top: 12px; padding: 12px 16px; background: var(--chip-bg); border-left: 3px solid var(--series-1); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
+  .insight b { color: var(--text-primary); }
+  .insight.warn { border-left-color: var(--accent-warn); background: var(--accent-warn-bg); }
+  .insight.good { border-left-color: var(--accent-good); background: var(--accent-good-bg); }
+  .note { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.8; margin-top: 10px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 6px; margin-top: 14px; margin-bottom: 8px; }
+  .toc a { font-size: 0.8rem; color: var(--series-1); background: var(--chip-bg); padding: 5px 10px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--gridline); color: var(--text-muted); font-size: 0.8rem; line-height: 1.9; }
+  footer a { color: var(--series-1); }
+  footer ol { padding-left: 1.4em; }
+  footer li { margin-bottom: 4px; }
+  .src { font-size: 0.7rem; color: var(--series-1); text-decoration: none; font-weight: 700; margin-left: 4px; white-space: nowrap; }
+  .src:hover { text-decoration: underline; }
+
+  /* stacked cashflow bar */
+  .stack-wrap { margin-top: 14px; }
+  .stack-row { margin-bottom: 20px; }
+  .stack-title { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .stack-title .name { font-weight: 700; font-size: 0.95rem; }
+  .stack-title .ratio { font-size: 0.8rem; color: var(--text-secondary); }
+  .stack-track { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .stack-seg { display: flex; align-items: center; justify-content: center; font-size: 0.74rem; font-weight: 700; color: #0b0b0b; white-space: nowrap; overflow: hidden; }
+  .stack-seg.life { background: var(--stack-life); }
+  .stack-seg.rent { background: var(--stack-rent); }
+  .stack-seg.surplus { background: var(--stack-surplus); color: #06231a; }
+  .stack-legend { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-secondary); }
+  .stack-legend span.dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+
+  /* horizontal bar for cumulative cost */
+  .box-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .box-bar-label { width: 140px; flex-shrink: 0; font-size: 0.83rem; font-weight: 700; color: var(--text-primary); }
+  .box-bar-track { flex: 1; background: var(--gridline); border-radius: 6px; height: 24px; position: relative; }
+  .box-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; border: 1px solid var(--border); }
+  .box-bar-value { font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
+
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 10px; }
+  .kpi { background: var(--page-plane); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+  .kpi .label { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px; }
+  .kpi .value { font-size: 1.25rem; font-weight: 700; }
+  .kpi .sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* phase timeline bar (44ヶ月シミュレーション) */
+  .phase-track { display: flex; height: 40px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); margin-top: 14px; }
+  .phase-seg { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: #0b0b0b; line-height: 1.3; white-space: nowrap; overflow: hidden; }
+  .phase-seg .m { font-size: 0.66rem; font-weight: 600; opacity: 0.8; }
+  .phase-seg.p1 { background: var(--stack-life); }
+  .phase-seg.p2 { background: var(--accent-bad); color: #fff; }
+  .phase-seg.p3 { background: var(--stack-surplus); color: #06231a; }
+  .phase-legend { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-secondary); }
+  .phase-legend span.dot { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+
+  /* 44ヶ月累計キャッシュフロー チャート */
+  .cf-legend { display: flex; gap: 20px; flex-wrap: wrap; margin: 4px 0 14px; font-size: 0.83rem; color: var(--text-secondary); }
+  .cf-legend .item { display: flex; align-items: center; gap: 7px; }
+  .cf-legend .swatch { width: 16px; height: 3px; border-radius: 2px; display: inline-block; }
+  .cf-legend b { color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .cf-chart-wrap { position: relative; width: 100%; }
+  .cf-chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .cf-tooltip {
+    position: absolute; pointer-events: none; background: var(--surface-1); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; font-size: 0.78rem; line-height: 1.7;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18); white-space: nowrap; opacity: 0; transition: opacity .1s; z-index: 5;
+  }
+  .cf-tooltip.show { opacity: 1; }
+  .cf-tooltip .t-month { font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+  .cf-tooltip .t-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 3px; }
+  .cf-tooltip .t-key { display: flex; align-items: center; gap: 6px; color: var(--text-secondary); }
+  .cf-tooltip .t-key .ln { width: 12px; height: 3px; border-radius: 2px; display: inline-block; flex-shrink: 0; }
+  .cf-tooltip .t-val { font-weight: 700; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+  .cf-chart-note { color: var(--text-muted); font-size: 0.78rem; margin-top: 8px; }
+  svg .cf-axis { font: 11px system-ui, sans-serif; fill: var(--text-muted); }
+  svg .cf-phase-label { font: 700 11.5px system-ui, sans-serif; fill: var(--text-secondary); }
+  svg .cf-gridline { stroke: var(--gridline); stroke-width: 1; }
+  svg .cf-zeroline { stroke: var(--text-muted); stroke-width: 1.4; }
+  svg .cf-crosshair { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0; }
+  svg .cf-age3-line { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 3 3; opacity: 0.55; }
+  svg .cf-line-26 { stroke: var(--cf-26); }
+  svg .cf-line-28 { stroke: var(--cf-28); }
+  svg .cf-line-30 { stroke: var(--cf-30); }
+  svg .cf-dot-26 { fill: var(--cf-26); }
+  svg .cf-dot-28 { fill: var(--cf-28); }
+  svg .cf-dot-30 { fill: var(--cf-30); }
+  svg .cf-band-p2 { fill: var(--accent-bad); opacity: 0.07; }
+  svg .cf-endlabel { font: 700 12px system-ui, sans-serif; fill: var(--text-primary); }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <header class="title-block">
+    <h1>家賃キャッシュフロー比較レポート<span class="badge badge-warn" style="margin-left:8px;">26万／28万／30万円</span></h1>
+    <div class="meta">
+      作成日：2026年8月23日（8月24日：出産〜復職の家計シミュレーションを夫婦同時育休＋W時短復帰プランに基づき精緻化／8月24日 再更新：育休期間の前提と保育料無償化制度の確認レビューを経て、育休は1歳までの12ヶ月に短縮・賞与の二重計上を解消／8月24日 再々更新：分析対象期間を出産後44ヶ月間から、同じ住まいに住み続けて子が小学校に入学するまでの72ヶ月間に延伸／8月24日 全体レビュー：2章の生活費前提（総務省統計ベース25.7万円）を6章の実額ベース内訳20万円に統一し、3・7章の余剰額を再計算）<br>
+      前提条件：夫婦2人・共働き（年収650万円×2、世帯年収約1,300万円）／現在の家賃想定28万円に対し、30万円弱の物件も視野に入ってきたため、26万・28万・30万円の3パターンで家計への影響を試算<br>
+      本レポートは<a href="新天地_駅別家賃相場調査.html">「新天地_駅別家賃相場調査」</a>で確認した実際の物件価格帯（豊洲・東雲・国際展示場などは28〜30万円台の物件が中心）を踏まえ、「予算上限30万円・希望25万円以内」という前提情報の基準に対して、実際にどこまで許容できるかを数値で検証するものです。
+    </div>
+    <div class="toc">
+      <a href="#income">収入モデル</a>
+      <a href="#expense">生活費モデル</a>
+      <a href="#cashflow">3パターン比較</a>
+      <a href="#ratio">家賃比率の目安</a>
+      <a href="#longterm">数年間の累計影響</a>
+      <a href="#future">出産〜小学校入学までの収支</a>
+      <a href="#conclusion">まとめ・推奨</a>
+      <a href="#ref">出典</a>
+    </div>
+  </header>
+
+  <h2 id="income">1. 収入モデル：世帯の手取りはいくらか</h2>
+  <div class="card">
+    <p style="margin-top:0;">前提情報にある「年収650万円×2人（世帯年収約1,300万円）」をもとに、給与計算シミュレーターで手取り額を試算しました。夫婦とも同一条件のため、1人分を2倍して世帯の手取りとしています。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>項目</th><th class="num">1人あたり</th><th class="num">世帯（2人分）</th></tr></thead>
+        <tbody>
+          <tr><td>額面年収</td><td class="num">650万円</td><td class="num">1,300万円</td></tr>
+          <tr><td>社会保険料・所得税・住民税（控除額）</td><td class="num">約151万円/年</td><td class="num">約302万円/年</td></tr>
+          <tr><td><b>年間手取り</b></td><td class="num"><b>約499万円</b></td><td class="num"><b>約998万円</b></td></tr>
+          <tr><td><b>月額手取り（賞与をならした平均）</b></td><td class="num"><b>約41.6万円</b></td><td class="num"><b>約83.2万円</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">複数の給与計算シミュレーターで年収650万円の手取りを確認したところ、いずれも年間496万〜499万円のレンジに収まっており（月41.3万〜41.6万円）、本レポートでは概算値として<b>年499万円・月41.6万円</b>を採用しています。実際は賞与月とそれ以外の月で手取り額に山谷がありますが、本レポートでは年間ならしの「平均月額」で試算し、月々のキャッシュフローの傾向を見ることを目的としています。<a class="src" href="https://www.okane-keisan.net/guide/nenshu-650man-tedori" target="_blank" rel="noopener">出典</a></p>
+    <div class="insight">
+      <b>通勤費について：</b>前提情報のとおり通勤定期代は会社が全額支給するため、以下の生活費モデルには通勤費を含めていません（プライベートでの交通費のみ計上）。
+    </div>
+  </div>
+
+  <h2 id="expense">2. 生活費モデル：家賃以外に毎月いくらかかるか<span class="badge badge-warn" style="margin-left:8px;">2026/8 レビューを経て実額ベースに更新</span></h2>
+  <div class="card">
+    <p style="margin-top:0;"><b>本レポート全体を通して使う生活費の基準額は、総務省「家計調査」の平均値ではなく、ご自身で積み上げた実額ベースの内訳（月20万円）を採用しています。</b>以前の版では総務省統計の平均値を参考に25.7万円という概算値を使っていましたが、6章で使用している実額の内訳の方が精度が高く、かつレポート全体で数字の基準を統一するべきという指摘を踏まえ、本章・3章・7章の生活費前提をこの20万円に置き換えました。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>カテゴリ</th><th class="num">月額</th><th>内訳・根拠</th></tr></thead>
+        <tbody>
+          <tr><td>食費・外食費</td><td class="num">7.5万円</td><td>自炊食材費 約5.0万円（約1,600円/日）＋外食・テイクアウト・カフェ 約2.5万円（週末の外食や在宅時の出前）。在宅8割勤務のため昼食も自炊中心になる一方、育児中は調理の手間を省く中食・テイクアウトの利用頻度が増える点を加味</td></tr>
+          <tr><td>水道・光熱費</td><td class="num">2.8万円</td><td>電気代 約1.6万円＋ガス代 約0.7万円＋水道代 約0.5万円。夫婦とも在宅8割でPCが常時稼働し、加えて子どものためのエアコン24時間連続稼働（夏・冬のピーク時と春秋の平均値）を想定</td></tr>
+          <tr><td>通信費</td><td class="num">1.0万円</td><td>自宅固定回線（光回線）約0.5万円＋スマートフォン（格安SIM/大手サブブランド×2人）約0.5万円。リモートワークに必須の高速回線と、通信費の標準的な最適化を反映</td></tr>
+          <tr><td>日用品・衛生用品</td><td class="num">2.0万円</td><td>洗剤・トイレットペーパー・掃除用品・ドラッグストア購入品。子どもがいる家庭では洗濯回数が1日2〜3回に増え、除菌シート等の消耗品消費が急増するため、通常時（約1.0万円）の2倍で計上</td></tr>
+          <tr><td>育児専用費（乳幼児期）</td><td class="num">1.5万円</td><td>紙オムツ・おしりふき 約0.6万円（1日6〜8枚×月約200枚）＋粉ミルク・離乳食・ベビーフード 約0.6万円＋ベビー用スキンケア・衛生消耗品 約0.3万円。0〜2歳児の平均的な育児消耗品実費</td></tr>
+          <tr><td>医療費・被服・美容費</td><td class="num">2.0万円</td><td>夫婦の衣服・美容室代 約1.5万円＋医療費・一般用医薬品 約0.5万円。都内自治体（江東区・品川区等）の子ども医療費助成により子どもの通院・入院の自己負担は実質0円のため、子どもの医療費は含めていない</td></tr>
+          <tr><td>予備費・娯楽・お小遣い</td><td class="num">3.2万円</td><td>おもちゃ・絵本・家族のお出かけ雑費・突発的な支出。日々の暮らしに窮屈さを感じないためのクッション資金</td></tr>
+          <tr><td><b>合計（家賃・貯蓄を除く生活費）</b></td><td class="num"><b>20.0万円</b></td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">この内訳は「育児専用費（乳幼児期）」を含め、0〜2歳の子どもがいる前提で積み上げたものです。1〜5章（現時点・子どもがいないフェーズ）にもこの20万円を統一基準として使っていますが、育児関連費（育児専用費1.5万円分と、日用品・水道光熱費のうち子ども起因の増額分）は本来、子が生まれるまでは発生しない費用です。<b>子どもがいない現時点だけで見れば、実際の生活費はこれよりやや低い可能性があります</b>（その場合、1〜5章・7章の余剰額は本レポートの試算よりも若干厚くなる方向に働きます）。参考として、総務省「家計調査」（二人以上の勤労者世帯・世帯主60歳未満、消費支出合計は月29.1万円）の平均的な内訳では、食費7.0万〜8.2万円・水道光熱費1.9万〜2.2万円・日用品美容被服（合算）1.0万〜2.2万円などとなっており、上記の実額ベースの内訳と大きくは乖離していません。<a class="src" href="https://energy.rakuten.co.jp/column/posts/20241003_34/" target="_blank" rel="noopener">出典1</a><a class="src" href="https://manekomi.tmn-anshin.co.jp/kakei/17516204" target="_blank" rel="noopener">出典2</a></p>
+  </div>
+
+  <h2 id="cashflow">3. 家賃3パターンのキャッシュフロー比較</h2>
+  <div class="card">
+    <p style="margin-top:0;">上記の世帯手取り（月83.2万円）と生活費（月20.0万円）を固定した上で、家賃を26万・28万・30万円で切り替えたときの毎月の収支を比較します。物件検索サイトの「家賃」表示だけでなく、2年に1回発生する更新料（家賃1ヶ月分が一般的）を24ヶ月で按分した「実質家賃」で計算しています。</p>
+
+    <div class="stack-wrap">
+      <div class="stack-row">
+        <div class="stack-title"><span class="name">26万円ケース</span><span class="ratio">実質家賃/手取り比率　32.6%</span></div>
+        <div class="stack-track">
+          <div class="stack-seg life" style="width:24.0%;">生活費 20.0万</div>
+          <div class="stack-seg rent" style="width:32.6%;">実質家賃 27.1万</div>
+          <div class="stack-seg surplus" style="width:43.4%;">余剰 36.1万</div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-title"><span class="name">28万円ケース</span><span class="ratio">実質家賃/手取り比率　35.1%</span></div>
+        <div class="stack-track">
+          <div class="stack-seg life" style="width:24.0%;">生活費 20.0万</div>
+          <div class="stack-seg rent" style="width:35.1%;">実質家賃 29.2万</div>
+          <div class="stack-seg surplus" style="width:40.9%;">余剰 34.0万</div>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-title"><span class="name">30万円ケース</span><span class="ratio">実質家賃/手取り比率　37.6%</span></div>
+        <div class="stack-track">
+          <div class="stack-seg life" style="width:24.0%;">生活費 20.0万</div>
+          <div class="stack-seg rent" style="width:37.6%;">実質家賃 31.3万</div>
+          <div class="stack-seg surplus" style="width:38.3%;">余剰 31.9万</div>
+        </div>
+      </div>
+      <div class="stack-legend">
+        <div><span class="dot" style="background:var(--stack-life);"></span>生活費（家賃以外）</div>
+        <div><span class="dot" style="background:var(--stack-rent);"></span>実質家賃（更新料按分込み）</div>
+        <div><span class="dot" style="background:var(--stack-surplus);"></span>余剰（貯蓄・投資に回せる額）</div>
+      </div>
+    </div>
+
+    <div class="table-scroll" style="margin-top:20px;">
+      <table>
+        <thead><tr><th>項目</th><th class="num">26万円ケース</th><th class="num">28万円ケース</th><th class="num">30万円ケース</th></tr></thead>
+        <tbody>
+          <tr><td>世帯手取り月収（平均）</td><td class="num">83.2万円</td><td class="num">83.2万円</td><td class="num">83.2万円</td></tr>
+          <tr><td>表示家賃</td><td class="num">26.0万円</td><td class="num">28.0万円</td><td class="num">30.0万円</td></tr>
+          <tr><td>更新料按分（2年に1ヶ月分÷24）</td><td class="num">+1.1万円</td><td class="num">+1.2万円</td><td class="num">+1.3万円</td></tr>
+          <tr><td><b>実質家賃</b></td><td class="num"><b>27.1万円</b></td><td class="num"><b>29.2万円</b></td><td class="num"><b>31.3万円</b></td></tr>
+          <tr><td>生活費（家賃以外）</td><td class="num">20.0万円</td><td class="num">20.0万円</td><td class="num">20.0万円</td></tr>
+          <tr><td><b>毎月の余剰（貯蓄・投資可能額）</b></td><td class="num"><b>36.1万円</b></td><td class="num"><b>34.0万円</b></td><td class="num"><b>31.9万円</b></td></tr>
+          <tr><td>実質家賃／手取り比率</td><td class="num">32.6%</td><td class="num">35.1%</td><td class="num">37.6%</td></tr>
+          <tr><td>年間の貯蓄・投資可能額（概算）</td><td class="num">約433万円</td><td class="num">約408万円</td><td class="num">約383万円</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="insight good">
+      <b>結論の要点：</b>いずれのケースも毎月31万円以上の余剰が残る計算になり、この時点（子どもがいない共働きフェーズ）のキャッシュフローだけを見れば、26万〜30万円のどれを選んでも「生活が立ち行かなくなる」ような無理は生じません。差が出るのは、その余剰をどれだけ厚く確保できるかという「ゆとりの量」の違いです。
+    </div>
+  </div>
+
+  <h2 id="ratio">4. 家賃比率は一般的な目安と比べてどうか</h2>
+  <div class="card">
+    <p style="margin-top:0;">不動産業界でよく使われる目安では、無理のない家賃は「手取り月収の25〜28%程度」とされています（従来の「額面収入の3割」ルールを、手取りベースかつ現代の生活水準に合わせて読み替えたもの）。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>手取り月収</th><th class="num">適正家賃の目安（25〜28%）</th></tr></thead>
+        <tbody>
+          <tr><td>20万円</td><td class="num">5.0万〜6.0万円</td></tr>
+          <tr><td>25万円</td><td class="num">6.3万〜7.5万円</td></tr>
+          <tr><td>30万円</td><td class="num">7.5万〜9.0万円</td></tr>
+          <tr><td>40万円</td><td class="num">10.0万〜12.0万円</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">出典：<a class="src" href="https://ndmr.co.jp/topics/79/" target="_blank" rel="noopener">nodomaru「家賃は手取りの3割では無理？適正家賃の正しい計算法」</a></p>
+    <div class="insight warn">
+      <b>この目安に照らすと：</b>今回の世帯手取り（月83.2万円）に単純に25〜28%を当てはめると、適正家賃は<b>20.8万〜23.3万円</b>となり、26万円ケースの時点で既にこのレンジを超えています（32.6%）。<br><br>
+      ただし、この目安は主に単身〜片働き世帯を想定した一般論です。今回のように<b>共働きで世帯手取りが高く、かつ生活費が収入に比例して増えるわけではない</b>家計では、比率が高めでも実額ベースの余剰（毎月31万円超）が十分に残ります。「比率」だけで判断せず、「実額でいくら残るか」を基準に考えるのが実態に合っています。とはいえ、比率が上がるほど後述の育休・保育料局面での圧迫が大きくなる点は次章で確認します。
+    </div>
+  </div>
+
+  <h2 id="longterm">5. 入居期間で見た累計影響</h2>
+  <div class="card">
+    <p style="margin-top:0;">前提情報では「小学校入学前の引っ越し」を想定しており、妊活・出産のタイミング次第では、この家に3〜7年程度住み続ける可能性があります。家賃差は1ヶ月単位では小さく見えても、複数年住み続けると無視できない金額になります（実質家賃ベースで試算）。</p>
+    <h4>26万円ケースを基準にした、30万円ケースとの累計差額</h4>
+    <div style="margin-top:10px;">
+      <div class="box-bar-row">
+        <div class="box-bar-label">3年間</div>
+        <div class="box-bar-track"><div class="box-bar-fill" style="width:43%; background:#e0a758;"><span class="box-bar-value">+150万円</span></div></div>
+      </div>
+      <div class="box-bar-row">
+        <div class="box-bar-label">5年間</div>
+        <div class="box-bar-track"><div class="box-bar-fill" style="width:71%; background:#e0a758;"><span class="box-bar-value">+250万円</span></div></div>
+      </div>
+      <div class="box-bar-row">
+        <div class="box-bar-label">7年間</div>
+        <div class="box-bar-track"><div class="box-bar-fill" style="width:100%; background:#e0a758;"><span class="box-bar-value">+350万円</span></div></div>
+      </div>
+    </div>
+    <p class="note">28万円ケースと30万円ケースの差額は、同じ期間でそれぞれ約75万円（3年）・約125万円（5年）・約175万円（7年）です。この金額は、将来の教育費や次の住み替え費用の原資になり得る規模であることを念頭に置いておくと判断がしやすくなります。</p>
+  </div>
+
+  <h2 id="future">6. 出産〜小学校入学までの72ヶ月間キャッシュフロー<span class="badge badge-warn" style="margin-left:8px;">2026/8 精緻化・72ヶ月に延伸</span></h2>
+  <div class="card">
+    <p style="margin-top:0;"><b>前提とするプラン（レビューを経て確定した版）：</b>出産直後から夫婦そろってフルで育休を取得し、育児休業給付金の支給率変化（67%→50%）に沿って過ごしますが、育休は<b>子が1歳になるまでの12ヶ月間</b>で終了します。都内在住であれば、認可保育所に入れず認可外保育施設になったとしても補助面で大きな不利がなく、2歳までの再延長（保育所に入所できないことの公的な証明が必要な条件付き延長）を狙う必要が薄いためです。育休明けは夫婦ともに時短勤務（通常の8割勤務）で復職し、そのまま<b>同じ住まいに住み続けて子が小学校に入学するタイミングまで</b>過ごすプランを想定します。</p>
+    <p class="note" style="margin-top:0;">小学校入学は学校教育法上「満6歳に達した日の翌日以後の最初の学年の初め（4月1日）」と定められており、出生月によって入学時点の月齢は生後72ヶ月（4月1日生まれ、6歳ちょうど）〜83ヶ月（4月2日生まれ、6歳11ヶ月）まで幅があります。<a class="src" href="https://www.mext.go.jp/a_menu/shotou/shugaku/detail/1422233.htm" target="_blank" rel="noopener">出典</a> 本試算では最短側（最も保守的）の<b>生後72ヶ月（6年）</b>を採用しています。実際の入学が72ヶ月より後ろにずれる場合、後述のPhase4がその分延びるだけで、傾向自体（黒字方向への回復）は変わりません。</p>
+
+    <h4 style="margin-top:4px;">累計貯蓄の推移（実質家賃ベース・月次）</h4>
+    <p class="note" style="margin-top:0;">下のグラフは、出産からの72ヶ月間（小学校入学まで）、家賃3パターンそれぞれで「貯蓄がどれだけ増減し続けるか」を月単位で積み上げたものです。背景の赤みがかった帯がPhase2（給付率50%・6ヶ月間の赤字期）、点線は3歳到達（Phase3→Phase4の境目）です。線の上にマウスを合わせると、その月の3パターンの数値を確認できます。</p>
+
+    <div class="cf-legend">
+      <div class="item"><span class="swatch" style="background:var(--cf-26);"></span>26万円ケース　最終値 <b>+359万円</b></div>
+      <div class="item"><span class="swatch" style="background:var(--cf-28);"></span>28万円ケース　最終値 <b>+208万円</b></div>
+      <div class="item"><span class="swatch" style="background:var(--cf-30);"></span>30万円ケース　最終値 <b>+56万円</b></div>
+    </div>
+
+    <div class="cf-chart-wrap" id="cfChartWrap">
+      <svg id="cfChart" viewBox="0 0 920 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="出産から72ヶ月間（小学校入学まで）の累計貯蓄推移。26万円ケースは最終的に約359万円の黒字、28万円ケースは約208万円の黒字、30万円ケースは約56万円の黒字となる。いずれもPhase2にあたる出産6〜12ヶ月目に最大の落ち込みを見せた後、Phase3・Phase4（W時短復帰、1歳〜小学校入学）の60ヶ月間で緩やかに回復し、最終的にどの家賃帯でも黒字で終わる。"></svg>
+      <div class="cf-tooltip" id="cfTooltip"></div>
+    </div>
+    <noscript><p class="note">このグラフの表示にはJavaScriptが必要です。同じ数値は下記の表でご確認いただけます。</p></noscript>
+    <p class="cf-chart-note">縦軸：累計貯蓄純増減（万円）／横軸：出産からの経過月数。実質家賃（更新料按分込み）・生活費月20万円（Phase3・Phase4は給食費相当を加味し20.5万円）を反映。復職後賞与は月々の手取りに平均化して織り込み済みのため、別枠の一時金は計上していません。Phase3とPhase4は世帯の手取り・生活費の前提が同一のため、グラフの傾き自体は変わりません（境目は「時短勤務が法律上保証されるか」という前提の違いを示す注記です）。</p>
+
+    <script>
+    (function(){
+      var data = {
+        26: [0.0, 4.9, 9.8, 14.7, 19.6, 24.5, 29.4, 20.3, 11.2, 2.1, -7.0, -16.1, -25.2, -18.8, -12.4, -6.0, 0.4, 6.8, 13.2, 19.6, 26.0, 32.4, 38.8, 45.2, 51.6, 58.0, 64.4, 70.8, 77.2, 83.6, 90.0, 96.4, 102.8, 109.2, 115.6, 122.0, 128.4, 134.8, 141.2, 147.6, 154.0, 160.4, 166.8, 173.2, 179.6, 186.0, 192.4, 198.8, 205.2, 211.6, 218.0, 224.4, 230.8, 237.2, 243.6, 250.0, 256.4, 262.8, 269.2, 275.6, 282.0, 288.4, 294.8, 301.2, 307.6, 314.0, 320.4, 326.8, 333.2, 339.6, 346.0, 352.4, 358.8],
+        28: [0.0, 2.8, 5.6, 8.4, 11.2, 14.0, 16.8, 5.6, -5.6, -16.8, -28.0, -39.2, -50.4, -46.1, -41.8, -37.5, -33.2, -28.9, -24.6, -20.3, -16.0, -11.7, -7.4, -3.1, 1.2, 5.5, 9.8, 14.1, 18.4, 22.7, 27.0, 31.3, 35.6, 39.9, 44.2, 48.5, 52.8, 57.1, 61.4, 65.7, 70.0, 74.3, 78.6, 82.9, 87.2, 91.5, 95.8, 100.1, 104.4, 108.7, 113.0, 117.3, 121.6, 125.9, 130.2, 134.5, 138.8, 143.1, 147.4, 151.7, 156.0, 160.3, 164.6, 168.9, 173.2, 177.5, 181.8, 186.1, 190.4, 194.7, 199.0, 203.3, 207.6],
+        30: [0.0, 0.7, 1.4, 2.1, 2.8, 3.5, 4.2, -9.1, -22.4, -35.7, -49.0, -62.3, -75.6, -73.4, -71.2, -69.0, -66.8, -64.6, -62.4, -60.2, -58.0, -55.8, -53.6, -51.4, -49.2, -47.0, -44.8, -42.6, -40.4, -38.2, -36.0, -33.8, -31.6, -29.4, -27.2, -25.0, -22.8, -20.6, -18.4, -16.2, -14.0, -11.8, -9.6, -7.4, -5.2, -3.0, -0.8, 1.4, 3.6, 5.8, 8.0, 10.2, 12.4, 14.6, 16.8, 19.0, 21.2, 23.4, 25.6, 27.8, 30.0, 32.2, 34.4, 36.6, 38.8, 41.0, 43.2, 45.4, 47.6, 49.8, 52.0, 54.2, 56.4]
+      };
+      var months = data[26].length - 1;
+      var svg = document.getElementById('cfChart');
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var W = 920, H = 400;
+      var marginLeft = 46, marginRight = 108, marginTop = 40, marginBottom = 30;
+      var plotW = W - marginLeft - marginRight;
+      var plotH = H - marginTop - marginBottom;
+      var yMin = -100, yMax = 400;
+
+      function xOf(m){ return marginLeft + (m/months)*plotW; }
+      function yOf(v){ return marginTop + (yMax - v)/(yMax - yMin)*plotH; }
+
+      function el(name, attrs, parent){
+        var e = document.createElementNS(svgNS, name);
+        for (var k in attrs){ e.setAttribute(k, attrs[k]); }
+        (parent||svg).appendChild(e);
+        return e;
+      }
+
+      el('rect', {x:xOf(6).toFixed(1), y:marginTop, width:(xOf(12)-xOf(6)).toFixed(1), height:plotH, class:'cf-band-p2'});
+
+      [-100,0,100,200,300,400].forEach(function(v){
+        var y = yOf(v);
+        el('line', {x1:marginLeft, x2:marginLeft+plotW, y1:y.toFixed(1), y2:y.toFixed(1), class: v===0?'cf-zeroline':'cf-gridline'});
+        var t = el('text', {x:marginLeft-8, y:(y+4).toFixed(1), 'text-anchor':'end', class:'cf-axis'});
+        t.textContent = v + '万円';
+      });
+
+      [6,12].forEach(function(m){
+        el('line', {x1:xOf(m).toFixed(1), x2:xOf(m).toFixed(1), y1:marginTop, y2:marginTop+plotH, class:'cf-gridline'});
+      });
+      el('line', {x1:xOf(36).toFixed(1), x2:xOf(36).toFixed(1), y1:marginTop, y2:marginTop+plotH, class:'cf-age3-line'});
+
+      var phaseNames = ['Phase1', 'Phase2', 'Phase3（1〜3歳・時短が権利）', 'Phase4（3歳〜就学・時短は流動的）'];
+      var phaseBounds = [0,6,12,36,72];
+      for (var i=0;i<4;i++){
+        var xm = (xOf(phaseBounds[i]) + xOf(phaseBounds[i+1]))/2;
+        var anchor = 'middle';
+        var xPos = xm;
+        if (i===2 || i===3){ anchor = 'start'; xPos = xOf(phaseBounds[i]) + 6; }
+        var pt = el('text', {x:xPos.toFixed(1), y:marginTop-16, 'text-anchor':anchor, class:'cf-phase-label'});
+        pt.textContent = phaseNames[i];
+      }
+
+      [0,6,12,36,72].forEach(function(m){
+        var anchor = m===0 ? 'start' : (m===72 ? 'end' : 'middle');
+        var t = el('text', {x:xOf(m).toFixed(1), y:(marginTop+plotH+20).toFixed(1), 'text-anchor':anchor, class:'cf-axis'});
+        t.textContent = m + 'ヶ月目';
+      });
+
+      var seriesMeta = [
+        {key:26, cls:'26', label:'26万円ケース', endLabel:'+359'},
+        {key:28, cls:'28', label:'28万円ケース', endLabel:'+208'},
+        {key:30, cls:'30', label:'30万円ケース', endLabel:'+56'}
+      ];
+
+      seriesMeta.forEach(function(s){
+        var arr = data[s.key];
+        var d = '';
+        for (var m=0;m<=months;m++){
+          var x = xOf(m), y = yOf(arr[m]);
+          d += (m===0?'M':'L') + x.toFixed(1) + ' ' + y.toFixed(1) + ' ';
+        }
+        el('path', {d:d, class:'cf-line-'+s.cls, fill:'none', 'stroke-width':2, 'stroke-linejoin':'round', 'stroke-linecap':'round'});
+
+        var endVal = arr[months];
+        var ey = yOf(endVal);
+        el('circle', {cx:xOf(months).toFixed(1), cy:ey.toFixed(1), r:5, class:'cf-dot-'+s.cls, stroke:'var(--surface-1)', 'stroke-width':2});
+        el('line', {x1:(xOf(months)+9).toFixed(1), x2:(xOf(months)+24).toFixed(1), y1:ey.toFixed(1), y2:ey.toFixed(1), class:'cf-line-'+s.cls, 'stroke-width':2.5});
+        var lbl = el('text', {x:(xOf(months)+28).toFixed(1), y:(ey+4).toFixed(1), class:'cf-endlabel'});
+        lbl.textContent = s.endLabel + '万円';
+      });
+
+      var crosshair = el('line', {x1:xOf(0).toFixed(1), x2:xOf(0).toFixed(1), y1:marginTop, y2:marginTop+plotH, class:'cf-crosshair'});
+      var overlay = el('rect', {x:marginLeft, y:marginTop, width:plotW, height:plotH, fill:'transparent'});
+      overlay.style.cursor = 'crosshair';
+
+      var tooltip = document.getElementById('cfTooltip');
+      var wrap = document.getElementById('cfChartWrap');
+
+      function phaseLabelFor(m){
+        if (m<=6) return 'Phase1・67%給付期（出産から'+m+'ヶ月目）';
+        if (m<=12) return 'Phase2・50%給付期（出産から'+m+'ヶ月目）';
+        if (m<=36) return 'Phase3・W時短復帰期／時短が法律上の権利（出産から'+m+'ヶ月目）';
+        return 'Phase4・W時短復帰期／時短は会社次第（出産から'+m+'ヶ月目）';
+      }
+
+      function handleMove(evt){
+        var rect = svg.getBoundingClientRect();
+        var clientX = (evt.touches ? evt.touches[0].clientX : evt.clientX);
+        var clientY = (evt.touches ? evt.touches[0].clientY : evt.clientY);
+        var xPix = (clientX - rect.left) * (W/rect.width);
+        var m = Math.round((xPix - marginLeft) / plotW * months);
+        if (m<0) m=0; if (m>months) m=months;
+        var xLine = xOf(m).toFixed(1);
+        crosshair.setAttribute('x1', xLine); crosshair.setAttribute('x2', xLine);
+        crosshair.style.opacity = 1;
+
+        while (tooltip.firstChild) tooltip.removeChild(tooltip.firstChild);
+        var mDiv = document.createElement('div');
+        mDiv.className = 't-month';
+        mDiv.textContent = phaseLabelFor(m);
+        tooltip.appendChild(mDiv);
+        seriesMeta.forEach(function(s){
+          var v = data[s.key][m];
+          var rowDiv = document.createElement('div'); rowDiv.className = 't-row';
+          var keyDiv = document.createElement('div'); keyDiv.className = 't-key';
+          var ln = document.createElement('span'); ln.className = 'ln'; ln.style.background = 'var(--cf-'+s.cls+')';
+          var labelSpan = document.createElement('span'); labelSpan.textContent = s.label;
+          keyDiv.appendChild(ln); keyDiv.appendChild(labelSpan);
+          var valDiv = document.createElement('div'); valDiv.className = 't-val';
+          valDiv.textContent = (v>=0?'+':'▲') + Math.abs(v).toFixed(1) + '万円';
+          rowDiv.appendChild(keyDiv); rowDiv.appendChild(valDiv);
+          tooltip.appendChild(rowDiv);
+        });
+
+        var wrapRect = wrap.getBoundingClientRect();
+        var left = (clientX - wrapRect.left) + 16;
+        var top = (clientY - wrapRect.top) - 26;
+        if (left > wrapRect.width - 200) left = (clientX - wrapRect.left) - 210;
+        tooltip.style.left = left+'px';
+        tooltip.style.top = Math.max(0, top)+'px';
+        tooltip.classList.add('show');
+      }
+      function handleLeave(){
+        crosshair.style.opacity = 0;
+        tooltip.classList.remove('show');
+      }
+      overlay.addEventListener('mousemove', handleMove);
+      overlay.addEventListener('touchmove', handleMove, {passive:true});
+      overlay.addEventListener('mouseleave', handleLeave);
+      overlay.addEventListener('touchend', handleLeave);
+    })();
+    </script>
+
+    <h4 style="margin-top:28px;">フェーズ別の世帯手取りと生活費</h4>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>フェーズ</th><th class="num">期間</th><th class="num">世帯手取り（目安）</th><th class="num">生活費（育児費込み）</th><th>備考</th></tr></thead>
+        <tbody>
+          <tr><td>Phase1（67%給付期）</td><td class="num">6ヶ月</td><td class="num">52万円/月</td><td class="num">20万円/月</td><td>子が生後6ヶ月になるまで。育休給付金は非課税・社保免除だが、前年所得に基づく住民税の支払いは継続するため、単純な「額面の67%」より実質の手取りは目減りする</td></tr>
+          <tr><td>Phase2（50%給付期）</td><td class="num">6ヶ月</td><td class="num">38万円/月</td><td class="num">20万円/月</td><td>子が生後6ヶ月〜1歳になるまで。育休はここで終了し、1歳到達をもって復職する前提（都内在住のため、認可外保育施設になっても大きな不利がなく、2歳までの再延長は狙わない）</td></tr>
+          <tr><td>Phase3（W時短復職期・前半）</td><td class="num">24ヶ月</td><td class="num">54万円/月</td><td class="num">20.5万円/月</td><td>子が1歳〜3歳の間、夫婦とも8割勤務で復職。3歳未満の時短勤務は法律上の権利のため、この期間の時短は確実。生活費は東京都の第一子保育料無償化（0〜2歳、2025年9月〜）でほぼ保育料がかからない前提とし、給食費相当（+0.5万円）のみ上乗せ</td></tr>
+          <tr><td>Phase4（W時短復職期・後半）</td><td class="num">36ヶ月</td><td class="num">54万円/月</td><td class="num">20.5万円/月</td><td>子が3歳〜小学校入学（本試算では生後72ヶ月目）まで。2025年4月の法改正で3歳以降は会社に柔軟な働き方の提供義務があるのみで、時短勤務そのものが必ず選べるとは限らない（下記の留意点を参照）。生活費は国の幼児教育・保育無償化（3〜5歳、所得制限なし）でほぼ保育料がかからない前提のまま据え置き</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">育児休業給付金は開始180日目まで休業前賃金の67%、181日目以降は50%（非課税・社会保険料免除）で、支給には賃金日額の上限があります（67%期は上限32.4万円/人・月、50%期は上限24.2万円/人・月）。<a class="src" href="https://biz.moneyforward.com/payroll/basic/113604/" target="_blank" rel="noopener">出典1</a> 上記の世帯手取り(52万円・38万円)はこの上限の範囲内に収まっていることを確認済みです。住民税は前年の所得をもとに課税されるため、育休で収入が下がっている間も従前どおりの納付が続きます。<a class="src" href="https://ikigai.town/ja/columns/zeikin/juminzei/ikukyu.html" target="_blank" rel="noopener">出典2</a></p>
+
+    <h4 style="margin-top:22px;">家賃3パターン別・72ヶ月累計の貯蓄純増減</h4>
+    <p>表示家賃（更新料按分前）ベースで、フェーズごとの月次収支に期間を掛けて積み上げた累計額です。復職後の賞与は月々の手取り（Phase3・Phase4の54万円/月）にすでに平均化して織り込んでいるため、別枠での加算はしていません。</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>フェーズ</th><th class="num">月数</th><th class="num">26万円ケース</th><th class="num">28万円ケース</th><th class="num">30万円ケース</th></tr></thead>
+        <tbody>
+          <tr><td>Phase1（52万円－生活費20万円－家賃）</td><td class="num">6ヶ月</td><td class="num">+36万円</td><td class="num">+24万円</td><td class="num">+12万円</td></tr>
+          <tr><td>Phase2（38万円－生活費20万円－家賃）</td><td class="num">6ヶ月</td><td class="num">▲48万円</td><td class="num">▲60万円</td><td class="num">▲72万円</td></tr>
+          <tr><td>Phase3（54万円－生活費20.5万円－家賃）</td><td class="num">24ヶ月</td><td class="num">+180万円</td><td class="num">+132万円</td><td class="num">+84万円</td></tr>
+          <tr><td>Phase4（54万円－生活費20.5万円－家賃）</td><td class="num">36ヶ月</td><td class="num">+270万円</td><td class="num">+198万円</td><td class="num">+126万円</td></tr>
+          <tr><td><b>72ヶ月累計 貯蓄純増額（表示家賃ベース）</b></td><td class="num"><b>72ヶ月</b></td><td class="num"><b>+438万円</b></td><td class="num"><b>+294万円</b></td><td class="num"><b>+150万円</b></td></tr>
+          <tr><td>参考：更新料按分込み（実質家賃ベース）</td><td class="num"></td><td class="num">約+359万円</td><td class="num">約+208万円</td><td class="num">約+56万円</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="insight good">
+      <b>レビューを経た結論：</b>育休を1歳までの12ヶ月（Phase2は6ヶ月のみ）に短縮したことで赤字期間そのものが大幅に縮み、賞与の二重計上を解消し、さらに分析対象を小学校入学までの72ヶ月間に延ばした結果、実質家賃ベースで<b>26万円ケースは約+359万円、28万円ケースは約+208万円、30万円ケースも約+56万円と、この期間を通しで見ればすべてのケースで黒字着地します。</b>30万円ケースも赤字にならない理由は、Phase2（給付率50%の6ヶ月間）の落ち込み（最大75万円程度）が、その後60ヶ月間続くPhase3・Phase4の黒字（26万円ケースで月+6.4万円、30万円ケースでも月+2.2万円）で十分に相殺されるためです。ただし黒字額の差自体（26万円ケースと30万円ケースで約303万円）は依然として大きく、「赤字にならない」ことと「差がない」ことはイコールではありません。
+    </div>
+
+    <h4 style="margin-top:22px;">この試算で残っている前提・留意点</h4>
+    <ul>
+      <li><b>時短勤務が3歳以降（Phase4・出産から36〜72ヶ月目、全体の半分）も続けられるかは、勤務先の制度次第です。</b>3歳未満の時短勤務は法律上の権利ですが、2025年4月の法改正により、3歳〜就学前の子を養育する従業員に対して会社は「始業時刻の変更・テレワーク・保育施設の設置・新たな休暇・時短勤務」のうち2つ以上を用意する義務を負うのみで、時短勤務そのものが必ず選べるとは限りません。72ヶ月に延伸したことで、この「保証されない前提」に依存する期間がPhase3単体（8ヶ月）よりずっと長い36ヶ月に拡大した点は留意が必要です。ただし、仮に時短勤務が選べずフルタイム復帰になった場合は、その分収入が増える方向に働くため、この試算にとってはリスクではなくむしろ上振れ要因です。</li>
+      <li><b>小学校入学の時期そのものにも幅があります。</b>本試算は最短側の生後72ヶ月（4月1日生まれ）を採用していますが、出生月によっては実際の入学は生後83ヶ月（4月2日生まれ）までずれ込みます。<a class="src" href="https://www.mext.go.jp/a_menu/shotou/shugaku/detail/1422233.htm" target="_blank" rel="noopener">出典</a> 入学が後ろにずれるほどPhase4（黒字期）が延びるため、この点は下振れではなく上振れ方向の不確実性です。</li>
+      <li><b>小学校入学後の学童保育費用はこの試算に含まれていません。</b>72ヶ月目（入学時点）で試算を打ち切っているため、入学後に発生しうる学童保育料や教育費の増加は別途考慮が必要です。</li>
+      <li><b>東京都の第一子保育料無償化（0〜2歳、2025年9月〜、所得制限なし）は東京都独自の制度です。</b>新天地候補駅のうち武蔵小杉のみ神奈川県川崎市に位置するため、この制度の対象外になります（既存の下見メモでも神奈川県は保育関連の補助が東京都より薄いと指摘されており、候補としての優先度はもともと低い駅です）。それ以外の候補駅（豊洲・押上・辰巳・木場・南砂町・品川シーサイド・東雲・国際展示場等）はすべて東京都内のため対象になります。なお3〜5歳の幼児教育・保育無償化（Phase3後半〜Phase4）は国の制度のため、居住地によらず適用されます。</li>
+      <li><b>2歳までの育休延長という選択肢自体は残っています。</b>もし1歳の時点で保育施設に入れず、かつ職場復帰を諦めたくない場合は、市区町村発行の「入所保留通知書」等を提出することで2歳まで延長できる制度もあります。ただし今回は、認可外でも実用上大きな不利がない都内在住という前提から、この延長ルートには乗らない想定としています。</li>
+    </ul>
+  </div>
+
+  <h2 id="conclusion">7. まとめ・推奨</h2>
+  <div class="card">
+    <ul>
+      <li><b>現時点（子どもなし・フルタイム共働き）では：</b>26万・28万・30万円のいずれも、毎月31万円以上の余剰が残る計算になり、キャッシュフロー上「無理」と言えるケースはありません。</li>
+      <li><b>ただし「家賃は手取りの25〜28%」という一般的な目安からは、26万円の時点で既に外れています。</b>これは世帯年収1,300万円クラスの共働き世帯特有の事情（生活費が収入ほど比例して増えない）によるもので、実額ベースで見れば過度に心配する水準ではありません。</li>
+      <li><b>本当に効いてくるのは、出産〜小学校入学までの72ヶ月間（夫婦同時育休＋W時短復帰プラン）を通しで見たときです。</b>育休は子が1歳になるまでの12ヶ月（Phase2にあたる6ヶ月間は給付率50%への低下と住民税の継続負担でどの家賃帯でも赤字）で終え、その後60ヶ月間（1歳〜就学）のW時短復帰期で挽回する前提です。72ヶ月累計・実質家賃ベースで見ると、<b>26万円ケースは約+359万円、28万円ケースは約+208万円、30万円ケースも約+56万円の黒字を確保でき、この期間を通しで見ればどの家賃帯でも赤字にはなりません。</b></li>
+      <li><b>ただし黒字額そのものには家賃帯による大きな差があります。</b>26万円ケースと30万円ケースでは72ヶ月累計で約303万円の差がつき、これは将来の教育費や不測の出費に対する「バッファーの厚さ」の違いとして表れます。特にPhase4（子が3歳以降）は時短勤務の継続が勤務先の制度次第で保証されない期間であり、もし時短が選べずフルタイム復帰になれば収入は上振れしますが、逆に賞与が想定より少ない年があったり突発的な出費（通院・転居・家電の故障など）が重なれば、バッファーの薄い30万円ケースほど影響を受けやすくなります。</li>
+      <li><b>入居期間が3〜7年に及ぶ場合、26万円と30万円の累計家賃差額は150万円台〜350万円台に達します。</b>これは将来の教育費・次の住み替え費用の原資になり得る規模です。</li>
+      <li><b>推奨する考え方：</b>26万円は小学校入学までの72ヶ月を通じて最も安全余地が大きく（黒字約359万円）、事前貯蓄への依存度が低いプランです。28万円は黒字約208万円を確保でき、30万円弱の物件が持つ広さ・立地の魅力を取り込みつつ現実的に選べるラインです。30万円は72ヶ月累計でも黒字にはなるものの、バッファーが最も薄い（約56万円）ため、前提情報の「子育て世帯向けの地域づくり」「保育所の充実度」などmust条件で他物件に対して明確な優位性が確認できる場合に限り、100万円程度の事前貯蓄バッファーとセットで検討する水準と位置づけるのが妥当です。</li>
+    </ul>
+  </div>
+
+  <footer id="ref">
+    本レポートの試算は、以下の一次情報（2026年8月時点でWeb検索により確認）と、プロジェクト内の前提情報・既存調査を組み合わせて作成した概算です。実際の手取り額・保育料・給付金額は、扶養状況・自治体・勤務先の制度によって変動するため、家計の最終判断の前には家計簿ベースでの実績確認や、自治体・勤務先への個別確認を推奨します。
+    <ol>
+      <li><a href="https://www.okane-keisan.net/guide/nenshu-650man-tedori" target="_blank" rel="noopener">お金の計算機「年収650万円の手取りは約499万円」</a></li>
+      <li><a href="https://energy.rakuten.co.jp/column/posts/20241003_34/" target="_blank" rel="noopener">楽天エナジー「夫婦二人暮らしの生活費の平均」（総務省家計調査に基づく）</a></li>
+      <li><a href="https://manekomi.tmn-anshin.co.jp/kakei/17516204" target="_blank" rel="noopener">マネコミ！「2人暮らし夫婦の生活費の平均」</a></li>
+      <li><a href="https://ndmr.co.jp/topics/79/" target="_blank" rel="noopener">nodomaru「家賃は手取りの3割では無理？適正家賃の正しい計算法と手取り別シミュレーション」</a></li>
+      <li><a href="https://biz.moneyforward.com/payroll/basic/113604/" target="_blank" rel="noopener">マネーフォワード クラウド給与「育休中は本当に8割もらえる？育児休業給付と出生後休業支援給付の仕組み」</a></li>
+      <li><a href="https://ikigai.town/ja/columns/zeikin/juminzei/ikukyu.html" target="_blank" rel="noopener">IKIGAI TOWN「育休中の住民税はどうなる？前年所得課税のしくみと復帰後の負担」</a></li>
+      <li><a href="https://clip.8122.jp/1197/" target="_blank" rel="noopener">はいチーズ！クリップ「保育園の保育料は年収で変わる？」</a></li>
+      <li><a href="https://gyomu-keisan.jp/articles/payroll/ikuji-kyufukin-hoho/" target="_blank" rel="noopener">業務計算ポータル「育児休業給付金の計算方法（賃金日額の上限・支給期間）」</a></li>
+      <li><a href="https://www.mhlw.go.jp/content/001269748.pdf" target="_blank" rel="noopener">厚生労働省「育児休業給付金の支給対象期間延長手続き」（2歳までの延長条件）</a></li>
+      <li><a href="https://itsuka-tokushima.co.jp/career_advice/ikujikaigokyugyoho_202504/" target="_blank" rel="noopener">「2025年4月・育児介護休業法改正」（3歳以上の子を養育する労働者への柔軟な働き方の義務化）</a></li>
+      <li><a href="https://hoiku-no-iroha.jp/tokyo-dai1shi-hoikuryou-mushouka/" target="_blank" rel="noopener">「東京都の第一子保育料無償化」（0〜2歳・所得制限なし・2025年9月開始）</a></li>
+      <li><a href="https://www.city.koto.lg.jp/281011/kodomo/kosodate/teate/5844.html" target="_blank" rel="noopener">江東区「子ども医療費助成」（所得制限なし・高校生年代まで）</a></li>
+      <li><a href="https://www.mext.go.jp/a_menu/shotou/shugaku/detail/1422233.htm" target="_blank" rel="noopener">文部科学省「4月1日生まれの児童生徒の学年について」（就学義務・小学校入学時期の考え方）</a></li>
+      <li>プロジェクト内「前提情報」「新天地_駅別家賃相場調査」、および夫婦の出産〜復職プラン（夫婦同時育休＋W時短復帰）に関するユーザー提供の家計試算</li>
+    </ol>
+  </footer>
+
+</div>
+</body>
+</html>

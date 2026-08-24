@@ -1,0 +1,351 @@
+<title>妊娠中の思い出づくりガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F3F1EA;
+    --surface:#FFFFFF;
+    --surface-2:#ECE7DD;
+    --ink:#2A2320;
+    --ink-soft:#6B6055;
+    --ink-faint:#9C9284;
+    --border:#E3DCCF;
+    --primary:#3F6B4F;
+    --primary-soft:#DEE8DD;
+    --accent:#B5486B;
+    --accent-soft:#F6DEE5;
+    --gold:#B0812E;
+    --gold-soft:#F1E3C0;
+    --shadow: 0 1px 2px rgba(42,35,32,0.06), 0 8px 24px -12px rgba(42,35,32,0.18);
+    --font-display:'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --font-body:'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171410;
+      --surface:#1E1A15;
+      --surface-2:#26211A;
+      --ink:#EDE7DD;
+      --ink-soft:#B6AB9C;
+      --ink-faint:#83786A;
+      --border:#332C22;
+      --primary:#7FB794;
+      --primary-soft:#263329;
+      --accent:#E894AC;
+      --accent-soft:#3B2530;
+      --gold:#D9AE5E;
+      --gold-soft:#362C17;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171410;
+    --surface:#1E1A15;
+    --surface-2:#26211A;
+    --ink:#EDE7DD;
+    --ink-soft:#B6AB9C;
+    --ink-faint:#83786A;
+    --border:#332C22;
+    --primary:#7FB794;
+    --primary-soft:#263329;
+    --accent:#E894AC;
+    --accent-soft:#3B2530;
+    --gold:#D9AE5E;
+    --gold-soft:#362C17;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:16px; line-height:1.8; -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  .page{ max-width:840px; margin:0 auto; padding:0 20px 96px; }
+  a{ color:inherit; }
+  a:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+
+  .hero{ padding:60px 0 36px; border-bottom:1px solid var(--border); }
+  .eyebrow{ font-weight:700; font-size:0.78rem; letter-spacing:0.16em; color:var(--accent); text-transform:uppercase; margin:0 0 16px; }
+  .hero h1{ font-family:var(--font-display); font-weight:800; font-size:clamp(2rem, 5vw, 2.8rem); line-height:1.35; margin:0 0 18px; text-wrap:balance; }
+  .lede{ max-width:36em; color:var(--ink-soft); font-size:1.05rem; margin:0; }
+
+  .nav{ position:sticky; top:0; z-index:10; display:flex; gap:4px; overflow-x:auto; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(6px); padding:14px 0; margin-bottom:8px; border-bottom:1px solid var(--border); scrollbar-width:none; }
+  .nav::-webkit-scrollbar{ display:none; }
+  .nav a{ flex:0 0 auto; text-decoration:none; font-size:0.85rem; font-weight:500; color:var(--ink-soft); padding:7px 14px; border-radius:999px; white-space:nowrap; }
+  .nav a:hover{ background:var(--surface-2); color:var(--ink); }
+
+  .section{ padding:52px 0; border-bottom:1px solid var(--border); }
+  .section:last-of-type{ border-bottom:none; }
+  .section-head{ margin-bottom:28px; }
+  .section-head h2{ font-family:var(--font-display); font-weight:700; font-size:1.5rem; margin:0 0 10px; text-wrap:balance; }
+  .section-head p{ color:var(--ink-soft); max-width:40em; margin:0; }
+
+  /* ---- featured 戌の日 card ---- */
+  .feature-card{ background:var(--accent-soft); border:1px solid color-mix(in srgb, var(--accent) 35%, var(--border)); border-radius:16px; padding:28px 28px 26px; }
+  .feature-card .fc-eyebrow{ font-size:0.76rem; font-weight:700; letter-spacing:0.08em; color:var(--accent); margin:0 0 6px; }
+  .feature-card h3{ font-family:var(--font-display); font-weight:800; font-size:1.4rem; margin:0 0 12px; }
+  .feature-card p{ color:var(--ink-soft); margin:0 0 20px; max-width:44em; }
+
+  .date-picks{ display:flex; flex-wrap:wrap; gap:14px; margin-bottom:22px; }
+  .date-pick{ background:var(--surface); border:1px solid color-mix(in srgb, var(--accent) 30%, var(--border)); border-radius:12px; padding:16px 22px; min-width:180px; box-shadow:var(--shadow); }
+  .date-pick .dp-date{ font-family:var(--font-display); font-weight:800; font-size:1.3rem; color:var(--accent); font-variant-numeric:tabular-nums; }
+  .date-pick .dp-note{ font-size:0.82rem; color:var(--ink-faint); margin-top:4px; }
+
+  .feature-detail{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:14px; }
+  .fd-item{ background:var(--surface); border-radius:10px; padding:14px 16px; }
+  .fd-item .fd-label{ font-size:0.74rem; color:var(--ink-faint); font-weight:700; letter-spacing:0.03em; margin-bottom:4px; }
+  .fd-item .fd-value{ font-size:0.92rem; }
+
+  /* ---- ranking ---- */
+  .ranking{ display:flex; flex-direction:column; gap:10px; }
+  .rank-item{ display:flex; align-items:center; gap:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 18px; }
+  .rank-item .r-num{ font-family:var(--font-display); font-weight:800; font-size:1.3rem; color:var(--gold); width:1.6em; text-align:center; flex:0 0 auto; }
+  .rank-item .r-body{ flex:1; }
+  .rank-item .r-title{ font-weight:700; }
+  .rank-item .r-pct{ font-size:0.82rem; color:var(--ink-faint); font-variant-numeric:tabular-nums; }
+  .ranking-note{ margin-top:14px; font-size:0.85rem; color:var(--ink-faint); }
+
+  /* ---- phase timeline ---- */
+  ol.timeline{ list-style:none; margin:0; padding:0 0 0 28px; position:relative; }
+  ol.timeline::before{ content:""; position:absolute; left:5px; top:6px; bottom:6px; width:2px; background:var(--border); }
+  .tl-item{ position:relative; padding-bottom:26px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{ content:""; position:absolute; left:-28px; top:5px; width:11px; height:11px; border-radius:50%; background:var(--surface); border:2px solid var(--primary); }
+  .tl-when{ font-size:0.78rem; color:var(--ink-faint); font-variant-numeric:tabular-nums; margin-bottom:4px; }
+  .tl-title{ font-family:var(--font-display); font-weight:700; font-size:1.02rem; margin:0 0 6px; }
+  .tl-body{ color:var(--ink-soft); margin:0; max-width:40em; font-size:0.94rem; }
+
+  .callout{ margin-top:24px; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 22px; box-shadow:var(--shadow); }
+  .callout h3{ font-family:var(--font-display); font-size:1rem; margin:0 0 12px; }
+  .callout ul{ margin:0; padding-left:1.2em; color:var(--ink-soft); font-size:0.92rem; }
+  .callout li{ margin-bottom:8px; }
+  .callout li:last-child{ margin-bottom:0; }
+  .callout li strong{ color:var(--ink); }
+
+  .page-footer{ padding-top:44px; color:var(--ink-faint); font-size:0.85rem; }
+  .page-footer p{ max-width:46em; margin:0 0 10px; }
+</style>
+<div class="gnav-crumb">
+  <a href="../index.html">🏠 資料まとめトップ</a>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-cat">妊娠出産</span>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-here">妊娠中の思い出づくりガイド</span>
+</div>
+<style id="gnav-crumb-style">
+.gnav-crumb{font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12.5px;line-height:1.4;padding:10px 20px;background:#2b2b28;color:#d8d5cc;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.gnav-crumb a{color:#f3ede0;text-decoration:none;font-weight:600;white-space:nowrap;}
+.gnav-crumb a:hover{text-decoration:underline;}
+.gnav-crumb-sep{opacity:.5;}
+.gnav-crumb-cat{opacity:.85;white-space:nowrap;}
+.gnav-crumb-here{opacity:.65;white-space:nowrap;}
+</style>
+
+
+<div class="page">
+
+  <header class="hero">
+    <p class="eyebrow">やらなきゃいけないこと、ではなく</p>
+    <h1>妊娠中の思い出づくりガイド</h1>
+    <p class="lede">タイムラインや心配ごとの整理とは別に、「やったほうがいい」というより「やると楽しい・記念になる」ことだけを集めました。義務感ゼロで、気が向いたものだけつまみ食いしてください。</p>
+  </header>
+
+  <nav class="nav">
+    <a href="#inunohi">戌の日の安産祈願</a>
+    <a href="#ranking">先輩ママのランキング</a>
+    <a href="#early">初期にできること</a>
+    <a href="#mid">中期にできること</a>
+    <a href="#late">後期にできること</a>
+    <a href="#after">産後の行事</a>
+  </nav>
+
+  <section id="inunohi" class="section">
+    <div class="feature-card">
+      <p class="fc-eyebrow">妊娠5ヶ月(16〜19週)の行事</p>
+      <h3>戌の日の安産祈願・帯祝い</h3>
+      <p>お腹に腹帯を巻き、安産を祈願する日本古来の行事。「戌」は一度にたくさんの子を産み、お産も軽いとされることから、この日が選ばれています。今回の妊娠5ヶ月(11/10〜12/7)に該当する戌の日は2つあります。</p>
+
+      <div class="date-picks">
+        <div class="date-pick">
+          <div class="dp-date">11月20日(金)</div>
+          <div class="dp-note">平日・妊娠5ヶ月に入って最初の戌の日</div>
+        </div>
+        <div class="date-pick">
+          <div class="dp-date">12月2日(水)</div>
+          <div class="dp-note">平日・都合が合わなければこちらでも</div>
+        </div>
+      </div>
+
+      <div class="feature-detail">
+        <div class="fd-item">
+          <div class="fd-label">おすすめの理由</div>
+          <div class="fd-value">どちらも平日。水天宮(東京都中央区日本橋)は土日祝だと妊婦本人のみだが、平日なら夫婦そろって祈祷に参加できる。</div>
+        </div>
+        <div class="fd-item">
+          <div class="fd-label">受付・予約</div>
+          <div class="fd-value">電話予約不可、当日受付順。戌の日の受付は8:30〜、祈祷時間は約15分、待ち時間の目安は平日15〜45分。</div>
+        </div>
+        <div class="fd-item">
+          <div class="fd-label">初穂料</div>
+          <div class="fd-value">安産祈祷のみ1万円〜、腹帯(御子守帯)付きなら1.2万円〜(いずれも「〜御志」でそれ以上も可)。</div>
+        </div>
+        <div class="fd-item">
+          <div class="fd-label">組み合わせアイデア</div>
+          <div class="fd-value">水天宮は日本橋にあり、参拝後にそのまま近くでランチをする、というプチお出かけにもちょうどいい距離感。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ranking" class="section">
+    <div class="section-head">
+      <h2>先輩ママに聞いた「妊娠中にやってよかったこと」</h2>
+      <p>249人へのアンケートで、約8割が「妊娠中にやってよかったことがある」と回答。上位はこの5つでした。</p>
+    </div>
+    <div class="ranking">
+      <div class="rank-item"><span class="r-num">1</span><span class="r-body"><span class="r-title">旅行</span> <span class="r-pct">14.6%</span></span></div>
+      <div class="rank-item"><span class="r-num">2</span><span class="r-body"><span class="r-title">外食</span> <span class="r-pct">11.6%</span></span></div>
+      <div class="rank-item"><span class="r-num">3</span><span class="r-body"><span class="r-title">自分時間を過ごす</span> <span class="r-pct">10.6%</span></span></div>
+      <div class="rank-item"><span class="r-num">4</span><span class="r-body"><span class="r-title">マタニティフォト</span> <span class="r-pct">6.5%</span></span></div>
+      <div class="rank-item"><span class="r-num">5</span><span class="r-body"><span class="r-title">出産後の準備</span> <span class="r-pct">6.5%</span></span></div>
+    </div>
+    <p class="ranking-note">1位の「旅行」は、長距離・体への負担を避けつつ、安定期(中期)のうちに近場〜1泊程度で計画すると良い思い出になりやすい時期です。</p>
+  </section>
+
+  <section id="early" class="section">
+    <div class="section-head">
+      <h2>妊娠初期(0〜15週)にできること</h2>
+      <p>つわりで無理はできない時期。体調が良い日にできる、軽めの記念づくりを。</p>
+    </div>
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when">妊娠判明後、体調の良いタイミングで</div>
+        <h3 class="tl-title">心拍確認のエコー写真を残す</h3>
+        <p class="tl-body">6週前後で確認できる小さな心拍。スマホで撮影しておくと、後で見返したときに実感が一番強く残る記録になる。</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when">つわりが落ち着いてきたら</div>
+        <h3 class="tl-title">お腹の子のニックネームを二人で考える</h3>
+        <p class="tl-body">性別も名前もまだ決まらないこの時期ならではの楽しみ方。「〇〇ちゃん」と呼びかけることで、二人とも実感が湧きやすくなる。</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="mid" class="section">
+    <div class="section-head">
+      <h2>妊娠中期(16〜27週)にできること</h2>
+      <p>いわゆる安定期。体調が一番動きやすく、思い出づくりのゴールデンタイムです。</p>
+    </div>
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when">11/20または12/2</div>
+        <h3 class="tl-title">戌の日の安産祈願(上記参照)</h3>
+        <p class="tl-body">このガイドの目玉行事。夫婦で参拝できる数少ない平日戌の日なので、予定を空けておきたい。</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when">安定期のうち、都合の良いタイミングで</div>
+        <h3 class="tl-title">babymoon(二人旅行)</h3>
+        <p class="tl-body">アンケート1位の「やってよかったこと」。近場の温泉や1泊旅行など、体に負担の少ない範囲で計画すると、赤ちゃんが生まれる前の最後の「二人旅」になる。</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when">両親学級の日程に合わせて</div>
+        <h3 class="tl-title">パパママ学級で沐浴・抱っこ紐を練習</h3>
+        <p class="tl-body">人形を使った実習が多く、義務的な講座というより「二人で予行演習をするイベント」として楽しめたという声が多い。</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when">意識してこの時期に</div>
+        <h3 class="tl-title">外食・自分時間を楽しむ</h3>
+        <p class="tl-body">ランキング2位・3位の「外食」「自分時間」。後期に入ると外出のハードルが上がるため、動きやすい中期のうちに意識して回数を増やしておくと後悔が少ない。</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="late" class="section">
+    <div class="section-head">
+      <h2>妊娠後期(28〜39週)にできること</h2>
+      <p>お腹の大きさが記念になる時期。動ける範囲でしっかり形に残しておきたいフェーズです。</p>
+    </div>
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when">2/2〜3/1ごろ(妊娠8ヶ月・28〜31週)</div>
+        <h3 class="tl-title">マタニティフォト撮影</h3>
+        <p class="tl-body">おすすめは妊娠7〜9ヶ月(24〜35週)で、中でも8ヶ月(28〜31週)は体型のバランスが良く一番人気とされる時期。予約は撮影希望日の1〜2ヶ月前が目安なので、12月頃から候補スタジオを探し始めるとちょうどいい。里帰り(32〜35週〜)前の東京での思い出としても残せる。</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when">臨月に入る前に</div>
+        <h3 class="tl-title">生まれてくる子への手紙を書く</h3>
+        <p class="tl-body">今の気持ちを書いておくと、数年後に読み返したときの価値がとても大きい。難しく考えず、その日思ったことを数行でも。</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when">出産前、最後のタイミングで</div>
+        <h3 class="tl-title">二人だけの時間を意識的に作る</h3>
+        <p class="tl-body">映画館、外食、ドライブなど、しばらく気軽にはできなくなることをあえて予定に入れておく。</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="after" class="section">
+    <div class="section-head">
+      <h2>産後の行事</h2>
+      <p>赤ちゃんを迎えてからの、日本ならではの節目行事です。</p>
+    </div>
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when">生後7日目</div>
+        <h3 class="tl-title">お七夜(命名式)</h3>
+        <p class="tl-body">名前をお披露目する行事。仰々しくやらなくても、命名書を書いて家族写真を撮るだけでも十分記念になる。</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when">生まれた直後〜退院後</div>
+        <h3 class="tl-title">手形・足形アート</h3>
+        <p class="tl-body">今しかない小さな手足のサイズを形に残せる。キット自体は安価で、産院で用意してくれることも多い。</p>
+      </li>
+      <li class="tl-item">
+        <div class="tl-when">生後1ヶ月ごろ</div>
+        <h3 class="tl-title">お宮参り</h3>
+        <p class="tl-body">赤ちゃんの誕生を氏神様に報告し、健やかな成長を祈願する行事。里帰り中であれば福岡の実家近くの神社で、東京に戻ってからであれば地元の神社で、というように場所は柔軟に選んでよい。</p>
+      </li>
+    </ol>
+  </section>
+
+  <footer class="page-footer">
+    <p>ここに挙げたものは「やらないと後悔する」ものではなく、あくまで気が向いたときに取り入れる選択肢です。戌の日の日付・初穂料・受付時間などは調査時点の情報のため、当日は水天宮など各施設の最新情報をご確認ください。</p>
+    <p>作成日：2026年8月22日</p>
+  </footer>
+
+</div>
+<div class="gnav-related">
+  <div class="gnav-related-inner">
+    <h3>🔗 関連ページ</h3>
+    <div class="gnav-related-grid">
+      <a class="gnav-related-card" href="妊娠出産タイムライン.html">
+        <span class="gnav-related-card-title">妊娠〜産後タイムライン</span>
+        <span class="gnav-related-card-desc">妊娠全体のスケジュール概観</span>
+      </a>
+      <a class="gnav-related-card" href="妊娠経過と里帰り出産ガイド.html">
+        <span class="gnav-related-card-title">妊娠経過と里帰り出産ガイド</span>
+        <span class="gnav-related-card-desc">時期ごとの体調・心配ごと</span>
+      </a>
+    </div>
+    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
+  </div>
+</div>
+<style id="gnav-related-style">
+.gnav-related{margin-top:48px;padding:32px 20px 40px;background:#f6f5f2;border-top:1px solid #e6e3dc;font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.gnav-related-inner{max-width:900px;margin:0 auto;}
+.gnav-related h3{font-size:15px;color:#2b2b28;margin:0 0 14px;font-weight:600;}
+.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
+.gnav-related-card{display:block;background:#ffffff;border:1px solid #e6e3dc;border-radius:10px;padding:14px 16px;text-decoration:none;color:#2b2b28;transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.gnav-related-card:hover{border-color:#7a6a53;transform:translateY(-1px);box-shadow:0 6px 16px rgba(43,43,40,0.06);}
+.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.gnav-related-card-desc{display:block;font-size:12px;color:#6b6b64;line-height:1.5;}
+.gnav-related-home{display:inline-block;font-size:12.5px;color:#7a6a53;text-decoration:none;font-weight:600;}
+.gnav-related-home:hover{text-decoration:underline;}
+</style>
+

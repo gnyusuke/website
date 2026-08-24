@@ -1,0 +1,1056 @@
+<title>出生前診断ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+  :root{
+    --paper:#f1f3ee;
+    --paper-raised:#ffffff;
+    --paper-sunken:#e8ebe3;
+    --ink:#1e2b27;
+    --ink-soft:#4c5c55;
+    --ink-faint:#7c8b84;
+    --accent:#2e6b5e;
+    --accent-strong:#1f4e44;
+    --accent-soft:#dce8e3;
+    --warm:#b0602f;
+    --warm-soft:#f3e2d0;
+    --caution:#a2792c;
+    --caution-soft:#f1e4c8;
+    --risk:#a2483c;
+    --risk-soft:#f1dad5;
+    --line:#d7dcd1;
+    --line-strong:#b9c2b7;
+    --shadow:rgba(30,43,39,0.10);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#121917;
+      --paper-raised:#1a2320;
+      --paper-sunken:#0d1311;
+      --ink:#e9efe9;
+      --ink-soft:#aebdb5;
+      --ink-faint:#7e8d86;
+      --accent:#6fbba8;
+      --accent-strong:#8fd0bf;
+      --accent-soft:#223731;
+      --warm:#e0a268;
+      --warm-soft:#33261a;
+      --caution:#d8b36a;
+      --caution-soft:#332c19;
+      --risk:#e08d7f;
+      --risk-soft:#3a211d;
+      --line:#2a342f;
+      --line-strong:#3c4a43;
+      --shadow:rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#121917;
+    --paper-raised:#1a2320;
+    --paper-sunken:#0d1311;
+    --ink:#e9efe9;
+    --ink-soft:#aebdb5;
+    --ink-faint:#7e8d86;
+    --accent:#6fbba8;
+    --accent-strong:#8fd0bf;
+    --accent-soft:#223731;
+    --warm:#e0a268;
+    --warm-soft:#33261a;
+    --caution:#d8b36a;
+    --caution-soft:#332c19;
+    --risk:#e08d7f;
+    --risk-soft:#3a211d;
+    --line:#2a342f;
+    --line-strong:#3c4a43;
+    --shadow:rgba(0,0,0,0.4);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Zen Kaku Gothic New','Hiragino Sans','Noto Sans JP',sans-serif;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .page{max-width:920px;margin:0 auto;padding:0 24px 96px;}
+
+  h1,h2,h3{
+    font-family:'Shippori Mincho','Hiragino Mincho ProN',serif;
+    color:var(--ink);
+    text-wrap:balance;
+    font-weight:600;
+    margin:0;
+  }
+
+  .num{font-family:'IBM Plex Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums;}
+
+  a{color:var(--accent-strong);}
+  a:hover{color:var(--accent);}
+  a:focus-visible, button:focus-visible, .toc a:focus-visible{
+    outline:2px solid var(--accent); outline-offset:3px; border-radius:2px;
+  }
+
+  /* ---------- Header ---------- */
+  header.hero{
+    padding:64px 0 40px;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent-strong);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .kicker::before{
+    content:"";
+    width:22px;height:1px;background:var(--accent-strong);
+    display:inline-block;
+  }
+  h1.title{
+    font-size:clamp(32px,5vw,48px);
+    line-height:1.25;
+    letter-spacing:0.01em;
+  }
+  .dek{
+    margin-top:16px;
+    max-width:56ch;
+    font-size:17px;
+    color:var(--ink-soft);
+  }
+
+  .status-strip{
+    margin-top:32px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .chip{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 16px;
+    box-shadow:0 1px 2px var(--shadow);
+    min-width:150px;
+  }
+  .chip .chip-label{
+    font-size:11.5px;
+    color:var(--ink-faint);
+    letter-spacing:0.05em;
+  }
+  .chip .chip-value{
+    font-family:'IBM Plex Mono',monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:16px;
+    font-weight:600;
+    color:var(--ink);
+    margin-top:3px;
+  }
+  .chip.accent{border-color:var(--accent-soft); background:var(--accent-soft);}
+  .chip.accent .chip-value{color:var(--accent-strong);}
+
+  /* ---------- TOC ---------- */
+  nav.toc{
+    margin:40px 0 8px;
+    padding:20px 22px;
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:12px;
+  }
+  nav.toc .toc-title{
+    font-size:11.5px;
+    letter-spacing:0.1em;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    font-family:'IBM Plex Mono',monospace;
+    margin-bottom:12px;
+  }
+  nav.toc ol{
+    margin:0; padding:0;
+    list-style:none;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px 24px;
+  }
+  nav.toc li{font-size:14.5px;}
+  nav.toc a{
+    color:var(--ink-soft);
+    text-decoration:none;
+    display:flex;
+    gap:8px;
+  }
+  nav.toc a:hover{color:var(--accent-strong);}
+  nav.toc .toc-num{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--accent);
+    font-size:13px;
+    flex-shrink:0;
+  }
+  @media (max-width:640px){
+    nav.toc ol{grid-template-columns:1fr;}
+  }
+
+  /* ---------- Sections ---------- */
+  section{
+    padding:56px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:28px;
+  }
+  .section-head .sec-no{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--accent);
+    border:1px solid var(--accent-soft);
+    background:var(--accent-soft);
+    border-radius:6px;
+    padding:3px 8px;
+  }
+  h2{font-size:26px;}
+  h3{font-size:19px; margin-bottom:10px; color:var(--accent-strong);}
+  p{margin:14px 0; max-width:70ch;}
+  .lede{font-size:16.5px; color:var(--ink-soft);}
+
+  /* ---------- Callouts ---------- */
+  .callout{
+    border-radius:12px;
+    padding:22px 24px;
+    margin:24px 0;
+    border:1px solid var(--line);
+  }
+  .callout h4{
+    margin:0 0 8px;
+    font-family:'Zen Kaku Gothic New',sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .callout p{margin:6px 0; font-size:15px;}
+  .callout.principle{background:var(--accent-soft); border-color:var(--accent-soft);}
+  .callout.principle h4{color:var(--accent-strong);}
+  .callout.note{background:var(--paper-raised);}
+  .callout.note h4{color:var(--ink-soft);}
+  .callout.warm{background:var(--warm-soft); border-color:var(--warm-soft);}
+  .callout.warm h4{color:var(--warm);}
+
+  /* ---------- Timeline ---------- */
+  .timeline-wrap{overflow-x:auto; margin:32px 0 12px; padding-bottom:4px;}
+  .timeline{min-width:680px; position:relative;}
+  .tl-ruler{
+    display:flex;
+    align-items:flex-end;
+    gap:14px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    border-bottom:1px solid var(--line-strong);
+    padding-bottom:6px;
+    height:24px;
+  }
+  .tl-ruler-spacer{width:150px; flex-shrink:0;}
+  .tl-ruler-track{position:relative; flex:1; height:100%;}
+  .tl-tick{position:absolute; bottom:0; transform:translateX(-50%);}
+  .tl-rows{position:relative; padding-top:14px;}
+  .tl-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:14px;
+  }
+  .tl-label{
+    width:150px;
+    flex-shrink:0;
+    font-size:13px;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+  .tl-track{
+    position:relative;
+    flex:1;
+    height:22px;
+    background:var(--paper-sunken);
+    border-radius:6px;
+  }
+  .tl-bar{
+    position:absolute;
+    top:0; bottom:0;
+    border-radius:6px;
+    background:var(--accent-soft);
+    border:1px solid var(--accent);
+  }
+  .tl-bar.strong{background:var(--accent); border-color:var(--accent-strong);}
+  .tl-bar span{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    color:var(--accent-strong);
+    white-space:nowrap;
+  }
+  .tl-bar.strong span{color:var(--paper-raised);}
+  .tl-marker{
+    position:absolute; top:-18px; bottom:-4px;
+    width:0; border-left:2px dashed var(--ink-faint);
+  }
+  .tl-marker.today{border-color:var(--warm); border-style:solid;}
+  .tl-marker.limit{border-color:var(--risk); border-style:solid;}
+  .tl-marker .tl-marker-label{
+    position:absolute; top:-16px; left:4px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    white-space:nowrap;
+  }
+  .tl-marker.today .tl-marker-label{color:var(--warm);}
+  .tl-marker.limit .tl-marker-label{color:var(--risk); left:auto; right:4px;}
+  .tl-legend{display:flex; flex-wrap:wrap; gap:18px; margin-top:20px; font-size:12.5px; color:var(--ink-soft);}
+  .tl-legend span{display:flex; align-items:center; gap:6px;}
+  .tl-legend i{width:12px; height:12px; border-radius:3px; display:inline-block;}
+
+  /* ---------- Risk bars ---------- */
+  .risk-bar-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:10px;
+  }
+  .risk-bar-age{
+    width:64px;
+    flex-shrink:0;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+  .risk-bar-track{
+    position:relative;
+    flex:1;
+    height:20px;
+    background:var(--paper-sunken);
+    border-radius:5px;
+  }
+  .risk-bar-fill{
+    position:absolute;
+    top:0; bottom:0; left:0;
+    border-radius:5px;
+    background:var(--risk-soft);
+    border:1px solid var(--risk);
+  }
+  .risk-bar-row.highlight .risk-bar-fill{background:var(--risk); border-color:var(--risk);}
+  .risk-bar-row.highlight .risk-bar-age{color:var(--risk); font-weight:600;}
+  .risk-bar-value{
+    width:100px;
+    flex-shrink:0;
+    font-family:'IBM Plex Mono',monospace;
+    font-variant-numeric:tabular-nums;
+    font-size:13px;
+    color:var(--ink);
+  }
+  .risk-bar-row.highlight .risk-bar-value{color:var(--risk); font-weight:600;}
+
+  .stat-highlight{
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    align-items:baseline;
+    margin-top:16px;
+  }
+  .stat-highlight .stat{
+    font-family:'IBM Plex Mono',monospace;
+  }
+  .stat-highlight .stat .stat-num{
+    font-size:30px;
+    color:var(--risk);
+    font-weight:600;
+    display:block;
+  }
+  .stat-highlight .stat .stat-cap{
+    font-size:12px;
+    color:var(--ink-faint);
+    letter-spacing:0.03em;
+  }
+
+  /* ---------- Tables ---------- */
+  .table-wrap{overflow-x:auto; margin:20px 0; border:1px solid var(--line); border-radius:10px;}
+  table{border-collapse:collapse; width:100%; min-width:640px; background:var(--paper-raised);}
+  th,td{
+    text-align:left;
+    padding:12px 16px;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+    vertical-align:top;
+  }
+  th{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    background:var(--paper-sunken);
+    font-weight:500;
+  }
+  tr:last-child td{border-bottom:none;}
+  td.mono, th.mono{font-family:'IBM Plex Mono',monospace; font-variant-numeric:tabular-nums;}
+
+  /* ---------- Test cards ---------- */
+  .test-card{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:28px 28px 24px;
+    margin:24px 0;
+  }
+  .test-card-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .test-card-head h3{margin:0;}
+  .badge{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.04em;
+    padding:4px 10px;
+    border-radius:999px;
+    white-space:nowrap;
+    border:1px solid transparent;
+  }
+  .badge.screen{background:var(--accent-soft); color:var(--accent-strong);}
+  .badge.confirm{background:var(--risk-soft); color:var(--risk);}
+  .kv-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:16px 24px;
+    margin-top:18px;
+  }
+  .kv{border-top:1px solid var(--line); padding-top:10px;}
+  .kv dt{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    letter-spacing:0.04em;
+    margin-bottom:4px;
+  }
+  .kv dd{margin:0; font-size:14.5px; color:var(--ink);}
+  .test-note{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px dashed var(--line-strong);
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .test-note strong{color:var(--ink);}
+
+  /* ---------- Checklist ---------- */
+  .checklist{list-style:none; margin:20px 0; padding:0;}
+  .checklist li{
+    display:flex;
+    gap:14px;
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .checklist li:last-child{border-bottom:none;}
+  .checklist .box{
+    flex-shrink:0;
+    width:20px;height:20px;
+    border:1.5px solid var(--line-strong);
+    border-radius:5px;
+    margin-top:2px;
+  }
+
+  /* ---------- Footer / Sources ---------- */
+  .sources ol{padding-left:22px; margin:16px 0;}
+  .sources li{font-size:13.5px; margin:8px 0; color:var(--ink-soft);}
+  .sources a{word-break:break-all;}
+
+  footer{
+    padding:40px 0 10px;
+    font-size:12.5px;
+    color:var(--ink-faint);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .divider-quote{
+    font-family:'Shippori Mincho',serif;
+    font-size:20px;
+    line-height:1.9;
+    color:var(--accent-strong);
+    max-width:52ch;
+    margin:28px 0;
+    padding-left:20px;
+    border-left:3px solid var(--accent);
+  }
+
+  strong{color:var(--ink); font-weight:700;}
+</style>
+<div class="gnav-crumb">
+  <a href="../index.html">🏠 資料まとめトップ</a>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-cat">妊娠出産</span>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-here">出生前診断ガイド</span>
+</div>
+<style id="gnav-crumb-style">
+.gnav-crumb{font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12.5px;line-height:1.4;padding:10px 20px;background:#2b2b28;color:#d8d5cc;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.gnav-crumb a{color:#f3ede0;text-decoration:none;font-weight:600;white-space:nowrap;}
+.gnav-crumb a:hover{text-decoration:underline;}
+.gnav-crumb-sep{opacity:.5;}
+.gnav-crumb-cat{opacity:.85;white-space:nowrap;}
+.gnav-crumb-here{opacity:.65;white-space:nowrap;}
+</style>
+
+
+<div class="page">
+
+  <header class="hero">
+    <div class="kicker">妊娠4週5日時点 &middot; 2026年8月23日</div>
+    <h1 class="title">出生前診断ガイド</h1>
+    <p class="dek">NIPT・母体血清マーカー・絨毛検査・羊水検査――それぞれ何がわかり、何がわからないのか。受けるかどうか、いつまでに決めればいいのかを整理する。</p>
+
+    <div class="status-strip">
+      <div class="chip accent">
+        <div class="chip-label">きょう</div>
+        <div class="chip-value">4週5日</div>
+      </div>
+      <div class="chip">
+        <div class="chip-label">NIPT 最短受検可能日</div>
+        <div class="chip-value">9/29(10週0日)</div>
+      </div>
+      <div class="chip">
+        <div class="chip-label">NIPT 推奨ウィンドウ</div>
+        <div class="chip-value">10/13〜11/10</div>
+      </div>
+      <div class="chip">
+        <div class="chip-label">中絶が可能な法的期限</div>
+        <div class="chip-value">12/21頃(21週6日)</div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="目次">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#stance"><span class="toc-num">01</span>まず知っておきたいこと</span></a></li>
+      <li><a href="#risk-baseline"><span class="toc-num">02</span>染色体異常が起きる確率(29歳基準)</a></li>
+      <li><a href="#overview"><span class="toc-num">03</span>検査の全体像</a></li>
+      <li><a href="#timeline"><span class="toc-num">04</span>検討スケジュール</a></li>
+      <li><a href="#tests"><span class="toc-num">05</span>検査を1つずつ見る</a></li>
+      <li><a href="#nipt-deep"><span class="toc-num">06</span>NIPTをもう少し深掘り</a></li>
+      <li><a href="#risk-data"><span class="toc-num">07</span>確定検査のリスクは今</a></li>
+      <li><a href="#cost"><span class="toc-num">08</span>費用の一覧</a></li>
+      <li><a href="#clinic"><span class="toc-num">09</span>東京での候補</a></li>
+      <li><a href="#talk"><span class="toc-num">10</span>夫婦で話しておきたいこと</a></li>
+      <li><a href="#checklist"><span class="toc-num">11</span>次に決めること</a></li>
+      <li><a href="#sources"><span class="toc-num">12</span>出典</a></li>
+    </ol>
+  </nav>
+
+  <!-- 01 -->
+  <section id="stance">
+    <div class="section-head"><span class="sec-no">01</span><h2>まず知っておきたいこと</h2></div>
+    <p class="lede">出生前診断は「全員が受けるべき検査」ではない。国の専門委員会の報告に基づく指針でも、この検査を妊婦全員に対するマススクリーニングとして実施・推奨することははっきり否定されている。受けるかどうかも、夫婦それぞれの判断に委ねられている。</p>
+
+    <div class="divider-quote">
+      先天性疾患の有無やその程度と、本人および家族の幸・不幸は、本質的には関連がない。
+    </div>
+    <p style="font-size:13.5px;color:var(--ink-faint);margin-top:-16px;">――厚生労働省「NIPT等の出生前検査に関する専門委員会」報告書に基づく基本的考え方より</p>
+
+    <div class="callout principle">
+      <h4>この検査でわかること・わからないこと</h4>
+      <p>出生前診断でわかるのは、あくまで一部の染色体異常(主に21・18・13トリソミー)の可能性、または確定診断のみ。先天性疾患全体のごく一部をカバーするに過ぎず、検査結果が「陰性」だからといって赤ちゃんに何の障害もないことが保証されるわけではない。</p>
+      <p>受けない、という選択も当然ある。受ける場合も「どの検査を」「いつ」「何のために」受けるのかを、二人で先に言葉にしておくと、結果が出たときに慌てずに済む。</p>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section id="risk-baseline">
+    <div class="section-head"><span class="sec-no">02</span><h2>染色体異常が起きる確率(29歳基準)</h2></div>
+    <p class="lede">検査そのものの前に、そもそも今回どのくらいの確率で染色体異常が起こりうるのかを知っておく。妻は現在29歳。以下は代表的な染色体異常(21・18・13トリソミー)について、母体年齢別に整理した目安。</p>
+
+    <div class="callout note">
+      <h4>数字の見方について</h4>
+      <p>低い数字だから検査は不要、高い数字だから受けるべき、という単純な話ではない。あくまで「検査を受けるかどうか」「どの検査を選ぶか」を考えるための材料の一つとして見てほしい。</p>
+    </div>
+
+    <h3 style="margin-top:32px;">母体年齢別の発生率(公的資料に基づく)</h3>
+    <p>こども家庭庁が遺伝カウンセリングの説明資料として公開している、出産時の母体年齢別の染色体疾患の出生率の表。英国の染色体異常登録データ(Morris JK et al., 2002/2005; Savva GM et al., 2010)に基づく。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>母体年齢</th><th class="mono">21トリソミー</th><th class="mono">18トリソミー</th><th class="mono">13トリソミー</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">20歳</td><td class="mono">1/1,441</td><td class="mono">1/10,000</td><td class="mono">1/14,300</td></tr>
+          <tr><td class="mono">25歳</td><td class="mono">1/1,383</td><td class="mono">1/8,300</td><td class="mono">1/12,500</td></tr>
+          <tr style="background:var(--risk-soft);"><td class="mono"><strong>29歳(推定)</strong></td><td class="mono"><strong>約1/1,030</strong></td><td class="mono">約1/7,400</td><td class="mono">約1/11,300</td></tr>
+          <tr><td class="mono">30歳</td><td class="mono">1/959</td><td class="mono">1/7,200</td><td class="mono">1/11,100</td></tr>
+          <tr><td class="mono">31歳</td><td class="mono">1/837</td><td class="mono">1/7,200</td><td class="mono">1/11,100</td></tr>
+          <tr><td class="mono">32歳</td><td class="mono">1/695</td><td class="mono">1/7,200</td><td class="mono">1/11,100</td></tr>
+          <tr><td class="mono">35歳</td><td class="mono">1/338</td><td class="mono">1/3,600</td><td class="mono">1/5,300</td></tr>
+          <tr><td class="mono">40歳</td><td class="mono">1/84</td><td class="mono">1/740</td><td class="mono">1/1,400</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink-faint);">29歳の行は公的資料に直接の記載がないため、25歳と30歳の公表値から対数補間して算出した推定値(概算)。実務上の年齢の目安は「妊娠時点」ではなく「出産予定時点」の年齢で見ることが多い点にも留意。</p>
+
+    <h3 style="margin-top:36px;">21トリソミー(ダウン症)の確率を年齢順に見る</h3>
+    <div style="margin-top:20px;">
+      <div class="risk-bar-row"><div class="risk-bar-age">25歳</div><div class="risk-bar-track"><div class="risk-bar-fill" style="width:6%;"></div></div><div class="risk-bar-value">約1/1,383</div></div>
+      <div class="risk-bar-row highlight"><div class="risk-bar-age">29歳</div><div class="risk-bar-track"><div class="risk-bar-fill" style="width:15%;"></div></div><div class="risk-bar-value">約1/1,030</div></div>
+      <div class="risk-bar-row"><div class="risk-bar-age">30歳</div><div class="risk-bar-track"><div class="risk-bar-fill" style="width:18%;"></div></div><div class="risk-bar-value">約1/959</div></div>
+      <div class="risk-bar-row"><div class="risk-bar-age">32歳</div><div class="risk-bar-track"><div class="risk-bar-fill" style="width:28%;"></div></div><div class="risk-bar-value">約1/695</div></div>
+      <div class="risk-bar-row"><div class="risk-bar-age">35歳</div><div class="risk-bar-track"><div class="risk-bar-fill" style="width:50%;"></div></div><div class="risk-bar-value">約1/338</div></div>
+      <div class="risk-bar-row"><div class="risk-bar-age">40歳</div><div class="risk-bar-track"><div class="risk-bar-fill" style="width:94%;"></div></div><div class="risk-bar-value">約1/84</div></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-faint);">バーの長さは対数スケール(実際の確率差はこれよりずっと大きい)。29歳は「高齢出産」の目安とされる35歳の確率の1/3程度で、20代前半とほぼ変わらない水準。</p>
+
+    <div class="stat-highlight">
+      <div class="stat"><span class="stat-num">約0.1%</span><span class="stat-cap">29歳・21トリソミーの推定確率(約1/1,030)</span></div>
+      <div class="stat"><span class="stat-num">約1/700</span><span class="stat-cap">年齢を問わない一般的なダウン症の出生頻度(参考値)</span></div>
+    </div>
+
+    <div class="callout warm" style="margin-top:28px;">
+      <h4>スクリーニング時期の確率は出生時よりやや高くなる</h4>
+      <p>上の表は「出産時」の確率。染色体異常のある妊娠の一部は自然に流産することがあるため、NIPTやコンバインド検査を受ける妊娠12〜16週頃の時点の確率は、出産時の確率よりもわずかに高くなる。検査結果を見るときは、この時点差も踏まえておくとよい。</p>
+    </div>
+  </section>
+
+  <!-- 03 -->
+  <section id="overview">
+    <div class="section-head"><span class="sec-no">03</span><h2>検査の全体像</h2></div>
+    <p>出生前検査は大きく2種類に分かれる。「可能性の高さ」を調べる<strong>非確定的検査(スクリーニング検査)</strong>と、染色体を直接調べて<strong>確定的検査</strong>に分ける診断そのものを行う検査だ。</p>
+
+    <div class="kv-grid" style="margin-top:24px;">
+      <div class="test-card" style="margin:0;">
+        <span class="badge screen">非確定的検査</span>
+        <h3 style="margin-top:14px;">可能性を調べる</h3>
+        <p style="margin:8px 0 0;font-size:14.5px;">NT測定・コンバインド検査 / 母体血清マーカー(クアトロテスト) / NIPT。採血や超音波のみで母体・胎児への負担やリスクがない。結果は「陽性・陰性」または「1/◯◯」という確率で示され、それ自体は診断ではない。</p>
+      </div>
+      <div class="test-card" style="margin:0;">
+        <span class="badge confirm">確定的検査</span>
+        <h3 style="margin-top:14px;">診断を確定する</h3>
+        <p style="margin:8px 0 0;font-size:14.5px;">絨毛検査 / 羊水検査。胎児由来の組織や細胞を直接採取して染色体を調べるため確定診断が得られる。針を刺す検査のため、わずかながら流産リスクを伴う。</p>
+      </div>
+    </div>
+    <p style="margin-top:20px;font-size:14.5px;color:var(--ink-soft);">非確定的検査で「陽性」や高い確率が出ても、それだけで診断が確定するわけではない。最終的な判断には確定的検査が必要になる。</p>
+  </section>
+
+  <!-- 04 -->
+  <section id="timeline">
+    <div class="section-head"><span class="sec-no">04</span><h2>検討スケジュール(今回の妊娠基準)</h2></div>
+    <p>最終月経開始日を基準(2026/7/21・0週0日)とした、今回の妊娠での各検査の実施可能な週数を暦日に落とし込んだもの。<span class="num">2026/8/23</span>時点の位置(オレンジの縦線)と、母体保護法上の人工妊娠中絶が可能な期限である<span class="num">21週6日</span>(赤の縦線・目安 2026/12/21頃)を重ねて表示している。</p>
+
+    <div class="timeline-wrap">
+      <div class="timeline">
+        <div class="tl-ruler">
+          <div class="tl-ruler-spacer"></div>
+          <div class="tl-ruler-track">
+            <div class="tl-tick" style="left:0%;">0週</div>
+            <div class="tl-tick" style="left:18.18%;">4週</div>
+            <div class="tl-tick" style="left:36.36%;">8週</div>
+            <div class="tl-tick" style="left:54.54%;">12週</div>
+            <div class="tl-tick" style="left:72.72%;">16週</div>
+            <div class="tl-tick" style="left:90.9%;">20週</div>
+          </div>
+        </div>
+        <div class="tl-rows">
+
+          <div class="tl-row">
+            <div class="tl-label">NT・コンバインド検査</div>
+            <div class="tl-track">
+              <div class="tl-bar" style="left:50.0%;width:13.0%;"><span>11w0d–13w6d</span></div>
+              <div class="tl-marker today" style="left:21.4%;"></div>
+              <div class="tl-marker limit" style="left:99.4%;"></div>
+            </div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-label">絨毛検査(CVS)</div>
+            <div class="tl-track">
+              <div class="tl-bar" style="left:50.0%;width:13.6%;"><span>11w0d–14w0d</span></div>
+              <div class="tl-marker today" style="left:21.4%;"></div>
+              <div class="tl-marker limit" style="left:99.4%;"></div>
+            </div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-label">NIPT</div>
+            <div class="tl-track">
+              <div class="tl-bar" style="left:45.5%;width:40.9%;"><span>10w0d–19w頃</span></div>
+              <div class="tl-bar strong" style="left:54.5%;width:18.2%;"><span>推奨 12–16w</span></div>
+              <div class="tl-marker today" style="left:21.4%;"></div>
+              <div class="tl-marker limit" style="left:99.4%;"></div>
+            </div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-label">母体血清マーカー<br>(クアトロテスト)</div>
+            <div class="tl-track">
+              <div class="tl-bar" style="left:68.2%;width:13.6%;"><span>15w–18w</span></div>
+              <div class="tl-marker today" style="left:21.4%;"></div>
+              <div class="tl-marker limit" style="left:99.4%;"></div>
+            </div>
+          </div>
+
+          <div class="tl-row">
+            <div class="tl-label">羊水検査</div>
+            <div class="tl-track">
+              <div class="tl-bar" style="left:68.2%;width:20.4%;"><span>15w以降(実務上16w〜)</span></div>
+              <div class="tl-marker today" style="left:21.4%;"><span class="tl-marker-label">きょう</span></div>
+              <div class="tl-marker limit" style="left:99.4%;"><span class="tl-marker-label">21w6d</span></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="tl-legend">
+          <span><i style="background:var(--accent-soft);border:1px solid var(--accent);"></i>実施可能な期間</span>
+          <span><i style="background:var(--accent);"></i>推奨される期間</span>
+          <span><i style="background:var(--warm);border-radius:0;width:2px;"></i>きょう(2026/8/23)</span>
+          <span><i style="background:var(--risk);border-radius:0;width:2px;"></i>中絶が可能な法的期限の目安</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warm" style="margin-top:28px;">
+      <h4>結果待ちの日数を逆算しておく</h4>
+      <p>確定検査(羊水検査・絨毛検査)は結果が出るまで通常2〜3週間かかる。母体保護法上の期限(21週6日)から逆算すると、「NIPTなどで陽性 → 確定検査を受ける → 結果を待つ → 判断する」という流れ全体を考えた場合、確定検査自体は遅くとも18〜19週頃までに受けておきたい、というのが実務上の目安になる。</p>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section id="tests">
+    <div class="section-head"><span class="sec-no">05</span><h2>検査を1つずつ見る</h2></div>
+    <p class="lede">週数が早い順に並べている。それぞれ「わかること」「精度」「リスク」「費用」が異なるため、単純に新しい検査(NIPT)が常に最善とは限らない。</p>
+
+    <!-- NT/Combined -->
+    <div class="test-card">
+      <div class="test-card-head">
+        <h3>① NT測定・コンバインド検査</h3>
+        <span class="badge screen">非確定的</span>
+      </div>
+      <dl class="kv-grid">
+        <div class="kv"><dt>対象週数</dt><dd class="num">11週0日〜13週6日</dd></div>
+        <div class="kv"><dt>方法</dt><dd>超音波で胎児の後頸部の浮腫(NT)を測定+採血</dd></div>
+        <div class="kv"><dt>対象疾患</dt><dd>21・18・13トリソミー</dd></div>
+        <div class="kv"><dt>検出率の目安</dt><dd class="num">21トリソミーで概ね80〜85%</dd></div>
+        <div class="kv"><dt>リスク</dt><dd>なし(母体・胎児への負担なし)</dd></div>
+        <div class="kv"><dt>費用目安</dt><dd class="num">3万〜5万円</dd></div>
+        <div class="kv"><dt>結果まで</dt><dd class="num">数日〜1週間程度</dd></div>
+      </dl>
+      <div class="test-note">超音波で胎児の形態そのものも確認できるのが特徴。NIPTより早い時期に、より安価に受けられる一次スクリーニングとして選ぶ人もいる。</div>
+    </div>
+
+    <!-- Quad -->
+    <div class="test-card">
+      <div class="test-card-head">
+        <h3>② 母体血清マーカー検査(クアトロテスト)</h3>
+        <span class="badge screen">非確定的</span>
+      </div>
+      <dl class="kv-grid">
+        <div class="kv"><dt>対象週数</dt><dd class="num">15週〜18週(17週頃までの受検が推奨)</dd></div>
+        <div class="kv"><dt>方法</dt><dd>採血のみ。4種類のホルモン・タンパク量を測定</dd></div>
+        <div class="kv"><dt>対象疾患</dt><dd>21トリソミー・18トリソミー・開放性神経管欠損</dd></div>
+        <div class="kv"><dt>検出率</dt><dd class="num">21T 86.7% / 18T 77.3% / 神経管欠損 83.0%<br>(国内19,112例のデータ、全体で約80%)</dd></div>
+        <div class="kv"><dt>偽陽性率</dt><dd class="num">21トリソミーで約9%</dd></div>
+        <div class="kv"><dt>リスク</dt><dd>なし</dd></div>
+        <div class="kv"><dt>費用目安</dt><dd class="num">2万〜3万円</dd></div>
+        <div class="kv"><dt>結果まで</dt><dd class="num">約10日</dd></div>
+      </dl>
+      <div class="test-note">NIPTより精度は落ちるが安価。<strong>開放性神経管欠損(二分脊椎など)</strong>はNIPTでは分からないため、これを含めて調べたい場合の選択肢になる。</div>
+    </div>
+
+    <!-- NIPT -->
+    <div class="test-card">
+      <div class="test-card-head">
+        <h3>③ NIPT(新型出生前検査)</h3>
+        <span class="badge screen">非確定的</span>
+      </div>
+      <dl class="kv-grid">
+        <div class="kv"><dt>対象週数</dt><dd class="num">10週0日以降〜19週頃(推奨12〜16週)</dd></div>
+        <div class="kv"><dt>方法</dt><dd>採血のみ。母体血中の胎児由来cfDNAを解析</dd></div>
+        <div class="kv"><dt>対象疾患</dt><dd>認証施設は21・18・13トリソミーの3つに限定<br>(非認証施設は全染色体・微小欠失等を含むプランもあり)</dd></div>
+        <div class="kv"><dt>感度・特異度</dt><dd class="num">21トリソミーで概ね99%台</dd></div>
+        <div class="kv"><dt>陰性的中率</dt><dd class="num">年齢を問わずほぼ99.99%以上</dd></div>
+        <div class="kv"><dt>判定保留</dt><dd class="num">0.3〜0.4%程度</dd></div>
+        <div class="kv"><dt>リスク</dt><dd>なし(採血のみ)</dd></div>
+        <div class="kv"><dt>費用目安</dt><dd class="num">認証施設 15万〜20万円<br>非認証施設 8万〜25万円(検査範囲で変動)</dd></div>
+        <div class="kv"><dt>結果まで</dt><dd class="num">約1〜2週間</dd></div>
+      </dl>
+      <div class="test-note">感度は高いが、<strong>「陽性的中率(実際に的中している確率)」は感度とは別物で、母体年齢によって大きく変わる</strong>。詳しくは次の章で扱う。非確定的検査である点はほかの検査と同じで、陽性の場合は確定検査での確認が必要。</div>
+    </div>
+
+    <!-- CVS -->
+    <div class="test-card">
+      <div class="test-card-head">
+        <h3>④ 絨毛検査(CVS)</h3>
+        <span class="badge confirm">確定的</span>
+      </div>
+      <dl class="kv-grid">
+        <div class="kv"><dt>対象週数</dt><dd class="num">11週0日〜14週頃</dd></div>
+        <div class="kv"><dt>方法</dt><dd>経腹または経腟で胎盤の絨毛組織を採取</dd></div>
+        <div class="kv"><dt>対象疾患</dt><dd>染色体異常全般(確定診断)</dd></div>
+        <div class="kv"><dt>流産リスク</dt><dd class="num">約0.22%(最新の大規模研究による)</dd></div>
+        <div class="kv"><dt>費用目安</dt><dd class="num">10万〜20万円</dd></div>
+        <div class="kv"><dt>結果まで</dt><dd class="num">2〜3週間(迅速検査で数日〜1週間、参考値扱い)</dd></div>
+      </dl>
+      <div class="test-note">羊水検査より早い時期に確定診断が得られるのが利点。母体保護法の期限を踏まえ、早めに確定させたい場合の選択肢になる。</div>
+    </div>
+
+    <!-- Amnio -->
+    <div class="test-card">
+      <div class="test-card-head">
+        <h3>⑤ 羊水検査</h3>
+        <span class="badge confirm">確定的</span>
+      </div>
+      <dl class="kv-grid">
+        <div class="kv"><dt>対象週数</dt><dd class="num">15週以降(実務上15〜16週以降)</dd></div>
+        <div class="kv"><dt>方法</dt><dd>超音波で位置を確認しながら腹部に針を刺し羊水を採取</dd></div>
+        <div class="kv"><dt>対象疾患</dt><dd>染色体異常全般(確定診断)</dd></div>
+        <div class="kv"><dt>流産リスク</dt><dd class="num">約0.11%(最新の大規模研究による)</dd></div>
+        <div class="kv"><dt>費用目安</dt><dd class="num">10万〜20万円</dd></div>
+        <div class="kv"><dt>結果まで</dt><dd class="num">2〜3週間(迅速検査で1週間以内、参考値扱い)</dd></div>
+      </dl>
+      <div class="test-note">日本国内で最も実施件数が多い確定検査。母体保護法の中絶期限(21週6日)を踏まえると、結果待ちの期間を逆算して受検時期を検討する必要がある。</div>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section id="nipt-deep">
+    <div class="section-head"><span class="sec-no">06</span><h2>NIPTをもう少し深掘り</h2></div>
+
+    <h3>「感度」と「陽性的中率」は別物</h3>
+    <p>NIPTの説明でよく見る「感度99%」は、<strong>実際に疾患がある赤ちゃんのうち何%を正しく陽性と判定できるか</strong>という数字。一方「陽性的中率(PPV)」は<strong>陽性と判定された人のうち実際に疾患がある確率</strong>で、こちらは母体年齢によって大きく変わる。年齢が低いほど、そもそも疾患を持つ確率自体が低いため、同じ「陽性」でも実際に当たっている割合は下がる。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>母体年齢</th><th>21トリソミーの陽性的中率(目安)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="mono">25歳前後</td><td>40〜50%程度</td></tr>
+          <tr><td class="mono">30歳</td><td>約61%</td></tr>
+          <tr><td class="mono">35歳</td><td>約80%</td></tr>
+          <tr><td class="mono">40歳</td><td>約94%</td></tr>
+          <tr><td class="mono">44歳</td><td>約99%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13.5px;color:var(--ink-faint);">18トリソミー・13トリソミーは21トリソミーよりもさらにPPVが低くなる傾向がある(報告例:18トリソミーで約37%、13トリソミーで約49%など、母体年齢や母集団によって幅がある)。<strong>NIPTが「陽性」でも、それ単独で診断が確定するわけではない</strong>――だからこそ、陽性の場合は必ず羊水検査など確定検査での確認が推奨されている。</p>
+
+    <h3 style="margin-top:36px;">認証施設と非認証施設</h3>
+    <p>NIPTは日本医学会の「出生前検査認証制度等運営委員会」による認証制度があり、施設は大きく2つに分かれる。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>項目</th><th>認証施設</th><th>非認証施設</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>対象疾患</td><td>21・18・13トリソミーに限定</td><td>全染色体・微小欠失・単一遺伝子疾患まで拡大したプランもある</td></tr>
+          <tr><td>遺伝カウンセリング</td><td>基幹施設/連携施設/暫定連携施設の3段階体制で、非指示的に30〜45分程度実施</td><td>施設によって体制にばらつきがある</td></tr>
+          <tr><td>陽性時のフォロー</td><td>基幹施設と連携し確定検査や妊娠管理につなぐ体制がある</td><td>施設により対応が異なる</td></tr>
+          <tr><td>費用の目安</td><td class="mono">15万〜20万円</td><td class="mono">8万〜25万円</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:36px;">対象となる妊婦の目安</h3>
+    <p>指針では年齢基準を厳密には定めていないが、以下のような妊婦が対象の目安として挙げられている。</p>
+    <ul style="font-size:15px; color:var(--ink); padding-left:22px;">
+      <li>高年齢の妊婦</li>
+      <li>母体血清マーカー検査などで異常の可能性が示唆された妊婦</li>
+      <li>染色体異常のある子どもを妊娠・分娩した既往のある妊婦</li>
+      <li>両親のいずれかがロバートソン転座を保有している場合</li>
+      <li>胎児超音波検査で異常の可能性が示唆された妊婦</li>
+    </ul>
+    <div class="callout note">
+      <h4>対象に当てはまらなくても</h4>
+      <p>指針は「対象疾患の発生頻度によらず、適切な遺伝カウンセリングを実施しても不安が解消されない妊婦については、十分な情報提供や支援を行った上で本人の意思決定が尊重されるべき」とも明記している。上記に当てはまるかどうかだけで、受ける・受けないを決める必要はない。</p>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section id="risk-data">
+    <div class="section-head"><span class="sec-no">07</span><h2>確定検査のリスクは、実は下がっている</h2></div>
+    <p>羊水検査・絨毛検査というと「流産リスクが1/200〜1/300」という数字を目にすることが多いが、これはやや古いデータに基づく。近年の大規模研究では、次のような数字が報告されている。</p>
+    <div class="kv-grid" style="margin-top:20px;">
+      <div class="test-card" style="margin:0;">
+        <span class="badge confirm">羊水検査</span>
+        <div style="margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:32px;color:var(--risk);">0.11%</div>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--ink-faint);">概ね1/900程度</p>
+      </div>
+      <div class="test-card" style="margin:0;">
+        <span class="badge confirm">絨毛検査</span>
+        <div style="margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:32px;color:var(--risk);">0.22%</div>
+        <p style="margin:6px 0 0;font-size:13.5px;color:var(--ink-faint);">概ね1/450程度</p>
+      </div>
+    </div>
+    <p style="margin-top:20px;">統計的には、この水準のリスクは自然に起こりうる流産の確率と見分けがつかないという指摘もある。ただし数値は研究や施設・術者の経験によって差があるため、実際に検討する際は受検予定施設に実施件数や経験を確認しておくと安心材料になる。</p>
+  </section>
+
+  <!-- 08 -->
+  <section id="cost">
+    <div class="section-head"><span class="sec-no">08</span><h2>費用の一覧</h2></div>
+    <p>出生前診断はすべて保険適用外(全額自己負担)。医療費控除の対象にもならないのが一般的とされている。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>検査</th><th class="mono">費用目安</th><th>備考</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>NT測定・コンバインド検査</td><td class="mono">3万〜5万円</td><td>非確定的</td></tr>
+          <tr><td>母体血清マーカー(クアトロテスト)</td><td class="mono">2万〜3万円</td><td>非確定的</td></tr>
+          <tr><td>NIPT(認証施設)</td><td class="mono">15万〜20万円</td><td>非確定的・対象疾患は3トリソミーに限定</td></tr>
+          <tr><td>NIPT(非認証施設)</td><td class="mono">8万〜25万円</td><td>非確定的・検査範囲は施設ごとに幅が大きい</td></tr>
+          <tr><td>絨毛検査</td><td class="mono">10万〜20万円</td><td>確定的・流産リスクあり</td></tr>
+          <tr><td>羊水検査</td><td class="mono">10万〜20万円</td><td>確定的・流産リスクあり</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13.5px;color:var(--ink-faint);">NIPTで陽性となった場合、確定検査(羊水検査など)の費用がセットになっているプランを用意している施設もある(例:錦糸町駅前レディースクリニックのNIPTは陽性時の羊水検査込みで99,000円・税込)。</p>
+  </section>
+
+  <!-- 09 -->
+  <section id="clinic">
+    <div class="section-head"><span class="sec-no">09</span><h2>東京での候補</h2></div>
+    <p>押上への引っ越し・セミオープンシステムでの妊婦健診を前提にすると、現時点での第一候補は<strong>錦糸町駅前レディースクリニック</strong>(押上から半蔵門線1駅+徒歩1分)。NIPT認証施設で、順天堂医院と連携している。</p>
+    <div class="table-wrap">
+      <table>
+        <tbody>
+          <tr><th style="width:160px;">対象週数</th><td class="mono">10週0日〜19週頃</td></tr>
+          <tr><th>費用</th><td class="mono">99,000円(税込・陽性時の羊水検査込み)</td></tr>
+          <tr><th>連携先</th><td>順天堂医院</td></tr>
+          <tr><th>健診体制</th><td>セミオープンシステムで妊娠12週未満〜32・33週まで健診、34週から出産予定病院(福岡)へ移行</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--ink-soft);">産婦人科そのものの比較(候補4施設・NICU体制・里帰り出産の受け入れ基準など)は、別レポート「押上エリアの産婦人科ガイド」にまとめてある。</p>
+  </section>
+
+  <!-- 10 -->
+  <section id="talk">
+    <div class="section-head"><span class="sec-no">10</span><h2>夫婦で話しておきたいこと</h2></div>
+    <p>検査そのものの仕組みより先に、次のような点を二人の言葉ですり合わせておくと、実際に検査を受ける・受けないの判断がしやすくなる。</p>
+    <div class="kv-grid" style="margin-top:20px;">
+      <div class="test-card" style="margin:0;">
+        <h3 style="font-size:16px;">受ける目的をはっきりさせる</h3>
+        <p style="font-size:14px;margin-top:8px;">「心配だから安心したい」のか「結果によって今後の判断を変える可能性がある」のかで、選ぶべき検査も納得感も変わってくる。</p>
+      </div>
+      <div class="test-card" style="margin:0;">
+        <h3 style="font-size:16px;">陽性・異常所見だった場合をあらかじめ話す</h3>
+        <p style="font-size:14px;margin-top:8px;">結果が出てから初めて話し合うのは負担が大きい。大まかな方針だけでも、事前に言葉にしておく。</p>
+      </div>
+      <div class="test-card" style="margin:0;">
+        <h3 style="font-size:16px;">費用の許容度</h3>
+        <p style="font-size:14px;margin-top:8px;">全額自費で数万円〜20万円台まで幅がある。どこまでかけるかも二人で決めておくこと。</p>
+      </div>
+      <div class="test-card" style="margin:0;">
+        <h3 style="font-size:16px;">里帰りのスケジュールとの兼ね合い</h3>
+        <p style="font-size:14px;margin-top:8px;">押上への引っ越し(10月ごろ)は、ちょうどNIPT・コンバインド検査の実施時期と重なる。東京在住中に受けきる想定でスケジュールを組むと動きやすい。</p>
+      </div>
+    </div>
+    <div class="callout principle" style="margin-top:24px;">
+      <h4>一人で抱え込まない</h4>
+      <p>結果の解釈や次の判断に迷ったときは、遺伝カウンセリングを積極的に使う。認証施設であれば非指示的な立場で30〜45分程度、時間をかけて相談に乗ってもらえる体制が整っている。</p>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section id="checklist">
+    <div class="section-head"><span class="sec-no">11</span><h2>次に決めること</h2></div>
+    <ul class="checklist">
+      <li><span class="box"></span>まず、出生前診断を受けるかどうか自体を二人で話し合う</li>
+      <li><span class="box"></span>受ける場合、NIPT中心にするか、コンバインド検査+クアトロテストの組み合わせにするかを決める</li>
+      <li><span class="box"></span>通院予定の産婦人科がNIPT認証施設かどうかを確認する(候補:錦糸町駅前レディースクリニック)</li>
+      <li><span class="box"></span>受ける場合は9/29(10週0日)以降、遅くとも12月上旬までに検査の予約を入れる</li>
+      <li><span class="box"></span>陽性・異常所見だった場合の大まかな方針を、あらかじめ二人で話しておく</li>
+    </ul>
+  </section>
+
+  <!-- 12 -->
+  <section id="sources" class="sources">
+    <div class="section-head"><span class="sec-no">12</span><h2>出典</h2></div>
+    <p style="font-size:13.5px;color:var(--ink-faint);">2026年8月時点でアクセス可能な情報に基づく。制度や費用は変わる可能性があるため、実際に検査を検討する際は受検施設に最新の情報を確認すること。</p>
+    <ol>
+      <li>厚生労働省「NIPT等の出生前検査に関する専門委員会」報告書に基づく資料 — <a href="https://www.mhlw.go.jp/content/11908000/000901426.pdf" target="_blank" rel="noopener">mhlw.go.jp</a></li>
+      <li>こども家庭庁 出生前検査に関する遺伝カウンセリング説明資料「母体年齢別の染色体疾患の出生率」(引用:Morris JK et al., J Med Screen 9:2-6, 2002 / Morris JK et al., Prenat Diagn 25:275-278, 2005 / Savva GM et al., Prenat Diagn 30:57-64, 2010) — <a href="https://sukoyaka21.cfa.go.jp/media/tools/s02_nin_setsu022.pdf" target="_blank" rel="noopener">sukoyaka21.cfa.go.jp</a></li>
+      <li>出生前検査認証制度等運営委員会「NIPTとは」 — <a href="https://jams-prenatal.jp/testing/nipt/" target="_blank" rel="noopener">jams-prenatal.jp</a></li>
+      <li>出生前検査認証制度等運営委員会「羊水検査とは」 — <a href="https://jams-prenatal.jp/testing/amniocentesis/" target="_blank" rel="noopener">jams-prenatal.jp</a></li>
+      <li>出生前検査認証制度等運営委員会「NIPTを受けた10万人の妊婦さんの追跡調査」 — <a href="https://jams-prenatal.jp/testing/nipt/follow-up-survey/" target="_blank" rel="noopener">jams-prenatal.jp</a></li>
+      <li>こども家庭庁「妊娠中の検査に関する情報サイト」 — <a href="https://prenatal.cfa.go.jp/" target="_blank" rel="noopener">prenatal.cfa.go.jp</a></li>
+      <li>ミネルバクリニック「NIPTの精度・確率は？感度・特異度と陽性的中率」 — <a href="https://minerva-clinic.or.jp/nipt/column/evidence-of-nipt/" target="_blank" rel="noopener">minerva-clinic.or.jp</a></li>
+      <li>ミネルバクリニック「羊水検査・絨毛検査の流産リスク」 — <a href="https://minerva-clinic.or.jp/nipt/column/amniocentesis-cvs-miscarriage-risk-facts/" target="_blank" rel="noopener">minerva-clinic.or.jp</a></li>
+      <li>ミネルバクリニック「NIPT費用はいくら？」 — <a href="https://minerva-clinic.or.jp/nipt/column/nipt-cost-guide/" target="_blank" rel="noopener">minerva-clinic.or.jp</a></li>
+      <li>レディースクリニックなみなみ「出生前診断はいつからいつまで？」 — <a href="https://naminamicl.jp/column/prenatal-testing/until-when-prenatal-testing/" target="_blank" rel="noopener">naminamicl.jp</a></li>
+      <li>レディースクリニックなみなみ「NIPTの費用相場」 — <a href="https://naminamicl.jp/column/nipt/nipt_cost/" target="_blank" rel="noopener">naminamicl.jp</a></li>
+      <li>ヒロクリニック「出生前診断の種類の違いとは」 — <a href="https://www.hiro-clinic.or.jp/nipt/types-of-prenatal-diagnosis-and-how-to-choose-for-pregnant-women/" target="_blank" rel="noopener">hiro-clinic.or.jp</a></li>
+      <li>ヒロクリニック「コンバインド検査とは」 — <a href="https://www.hiro-clinic.or.jp/nipt/combined-inspection/" target="_blank" rel="noopener">hiro-clinic.or.jp</a></li>
+      <li>seeDNA「NIPT(新型出生前診断)の陽性率はどのくらい？」 — <a href="https://seedna.co.jp/information/blog-dna-test/nipt-positive-rate/" target="_blank" rel="noopener">seedna.co.jp</a></li>
+      <li>nipt.ne.jp「母体血清マーカー検査(クアトロテスト)とは」 — <a href="https://nipt.ne.jp/quattro-test/" target="_blank" rel="noopener">nipt.ne.jp</a></li>
+      <li>プロジェクト内レポート「押上エリアの産婦人科ガイド」(錦糸町駅前レディースクリニックの一次情報確認済み)</li>
+    </ol>
+  </section>
+
+  <footer>
+    <span>出生前診断ガイド</span>
+    <span>作成日 2026年8月23日</span>
+  </footer>
+
+</div>
+<div class="gnav-related">
+  <div class="gnav-related-inner">
+    <h3>🔗 関連ページ</h3>
+    <div class="gnav-related-grid">
+      <a class="gnav-related-card" href="妊娠出産タイムライン.html">
+        <span class="gnav-related-card-title">妊娠〜産後タイムライン</span>
+        <span class="gnav-related-card-desc">妊娠全体のスケジュール概観</span>
+      </a>
+      <a class="gnav-related-card" href="押上エリアの産婦人科ガイド.html">
+        <span class="gnav-related-card-title">押上エリアの産婦人科ガイド</span>
+        <span class="gnav-related-card-desc">検査を受けられる医療機関の検討</span>
+      </a>
+    </div>
+    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
+  </div>
+</div>
+<style id="gnav-related-style">
+.gnav-related{margin-top:48px;padding:32px 20px 40px;background:#f6f5f2;border-top:1px solid #e6e3dc;font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.gnav-related-inner{max-width:900px;margin:0 auto;}
+.gnav-related h3{font-size:15px;color:#2b2b28;margin:0 0 14px;font-weight:600;}
+.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
+.gnav-related-card{display:block;background:#ffffff;border:1px solid #e6e3dc;border-radius:10px;padding:14px 16px;text-decoration:none;color:#2b2b28;transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.gnav-related-card:hover{border-color:#7a6a53;transform:translateY(-1px);box-shadow:0 6px 16px rgba(43,43,40,0.06);}
+.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.gnav-related-card-desc{display:block;font-size:12px;color:#6b6b64;line-height:1.5;}
+.gnav-related-home{display:inline-block;font-size:12.5px;color:#7a6a53;text-decoration:none;font-weight:600;}
+.gnav-related-home:hover{text-decoration:underline;}
+</style>
+

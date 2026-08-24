@@ -1,0 +1,673 @@
+<title>妊娠から産後のタイムライン</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4EA;
+    --surface:#FFFFFF;
+    --surface-2:#E8ECDD;
+    --ink:#1E2A20;
+    --ink-soft:#57685A;
+    --ink-faint:#8B9A85;
+    --border:#DBE2CD;
+    --primary:#2F5D45;
+    --primary-soft:#DCE8DD;
+    --accent:#B07F33;
+    --accent-soft:#F1E3C6;
+    --accent2:#8C5A46;
+    --accent2-soft:#EDDCD3;
+    --birth:#B4502E;
+    --birth-soft:#F4DCCF;
+    --shadow: 0 1px 2px rgba(30,42,32,0.06), 0 8px 24px -12px rgba(30,42,32,0.18);
+    --font-display:'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    --font-body:'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#12160F;
+      --surface:#191F16;
+      --surface-2:#212A1C;
+      --ink:#E7ECDF;
+      --ink-soft:#A9B79F;
+      --ink-faint:#71806B;
+      --border:#2B3527;
+      --primary:#79B591;
+      --primary-soft:#243328;
+      --accent:#DCAB63;
+      --accent-soft:#3A2F1C;
+      --accent2:#CC9179;
+      --accent2-soft:#332420;
+      --birth:#E17E56;
+      --birth-soft:#3B2317;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#12160F;
+    --surface:#191F16;
+    --surface-2:#212A1C;
+    --ink:#E7ECDF;
+    --ink-soft:#A9B79F;
+    --ink-faint:#71806B;
+    --border:#2B3527;
+    --primary:#79B591;
+    --primary-soft:#243328;
+    --accent:#DCAB63;
+    --accent-soft:#3A2F1C;
+    --accent2:#CC9179;
+    --accent2-soft:#332420;
+    --birth:#E17E56;
+    --birth-soft:#3B2317;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 12px 28px -14px rgba(0,0,0,0.55);
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:16px;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  .page{ max-width:880px; margin:0 auto; padding:0 20px 96px; }
+
+  a{ color:inherit; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; border-radius:2px; }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding:64px 0 40px; border-bottom:1px solid var(--border); }
+  .eyebrow{
+    font-family:var(--font-body); font-weight:700; font-size:0.78rem; letter-spacing:0.16em;
+    color:var(--accent); text-transform:uppercase; margin:0 0 18px;
+    font-variant-numeric:tabular-nums;
+  }
+  .hero h1{
+    font-family:var(--font-display); font-weight:800; font-size:clamp(2.1rem, 5vw, 3.1rem);
+    line-height:1.3; margin:0 0 20px; color:var(--ink); text-wrap:balance;
+  }
+  .lede{
+    max-width:34em; color:var(--ink-soft); font-size:1.05rem; margin:0 0 32px;
+  }
+  .hero-stats{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
+    background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+  }
+  .stat{ background:var(--surface); padding:18px 20px; display:flex; flex-direction:column; gap:6px; }
+  .stat-label{ font-size:0.76rem; color:var(--ink-faint); letter-spacing:0.04em; }
+  .stat-value{ font-family:var(--font-display); font-weight:600; font-size:1.12rem; font-variant-numeric:tabular-nums; }
+  @media (max-width:640px){ .hero-stats{ grid-template-columns:1fr; } .hero{ padding:44px 0 32px; } }
+
+  /* ---------- Nav ---------- */
+  .phase-nav{
+    position:sticky; top:0; z-index:10; display:flex; gap:4px; overflow-x:auto;
+    background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(6px);
+    padding:14px 0; margin-bottom:8px; border-bottom:1px solid var(--border);
+    scrollbar-width:none;
+  }
+  .phase-nav::-webkit-scrollbar{ display:none; }
+  .phase-nav a{
+    flex:0 0 auto; text-decoration:none; font-size:0.85rem; font-weight:500; color:var(--ink-soft);
+    padding:7px 14px; border-radius:999px; white-space:nowrap; transition:background .15s, color .15s;
+  }
+  .phase-nav a:hover{ background:var(--surface-2); color:var(--ink); }
+
+  /* ---------- Section shell ---------- */
+  .section{ padding:56px 0; border-bottom:1px solid var(--border); }
+  .section:last-of-type{ border-bottom:none; }
+  .section > h2{
+    font-family:var(--font-display); font-weight:700; font-size:1.55rem; margin:0 0 12px; text-wrap:balance;
+  }
+  .section-intro{ color:var(--ink-soft); max-width:38em; margin:0 0 32px; }
+
+  /* ---------- Overview bar ---------- */
+  .overview-note{
+    background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    padding:14px 18px; font-size:0.9rem; color:var(--ink-soft); margin-bottom:36px;
+  }
+  .overview-note strong{ color:var(--ink); font-weight:700; }
+
+  .timeline-bar-wrap{ margin:56px 0 20px; }
+  .timeline-bar{
+    position:relative; display:flex; height:44px; border-radius:8px; overflow:visible;
+    border:1px solid var(--border);
+  }
+  .bar-seg{ height:100%; position:relative; }
+  .bar-seg:first-child{ border-radius:7px 0 0 7px; }
+  .bar-seg:last-child{ border-radius:0 7px 7px 0; }
+  .bar-seg + .bar-seg{ border-left:1px solid var(--bg); }
+  .bar-seg[data-p="early"]{ background:var(--primary-soft); }
+  .bar-seg[data-p="mid"]{ background:var(--primary); opacity:0.85; }
+  .bar-seg[data-p="late"]{ background:var(--primary); }
+  .bar-seg[data-p="postpartum"]{ background:var(--accent2-soft); }
+  .bar-seg[data-p="infant"]{ background:var(--accent-soft); }
+
+  .bar-marker{ position:absolute; top:-10px; bottom:-10px; width:2px; background:var(--birth); z-index:2; }
+  .bar-marker .marker-flag{
+    position:absolute; top:-30px; left:50%; transform:translateX(-50%);
+    font-size:0.72rem; font-weight:700; color:var(--birth); white-space:nowrap;
+  }
+  .bar-marker.today{ background:var(--ink); }
+  .bar-marker.today .marker-flag{ color:var(--ink); top:auto; bottom:-28px; }
+  .bar-marker.today::after{
+    content:""; position:absolute; bottom:-16px; left:50%; transform:translateX(-50%);
+    width:8px; height:8px; border-radius:50%; background:var(--ink);
+  }
+
+  .bar-legend{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:10px;
+    margin-top:44px;
+  }
+  .legend-item{ display:flex; align-items:flex-start; gap:10px; font-size:0.86rem; }
+  .legend-swatch{ width:12px; height:12px; border-radius:3px; margin-top:4px; flex:0 0 auto; }
+  .legend-item[data-p="early"] .legend-swatch{ background:var(--primary-soft); border:1px solid var(--primary); }
+  .legend-item[data-p="mid"] .legend-swatch{ background:var(--primary); opacity:0.85; }
+  .legend-item[data-p="late"] .legend-swatch{ background:var(--primary); }
+  .legend-item[data-p="postpartum"] .legend-swatch{ background:var(--accent2-soft); border:1px solid var(--accent2); }
+  .legend-item[data-p="infant"] .legend-swatch{ background:var(--accent-soft); border:1px solid var(--accent); }
+  .legend-name{ font-weight:700; display:block; }
+  .legend-range{ color:var(--ink-faint); font-variant-numeric:tabular-nums; font-size:0.82rem; }
+
+  .month-table-wrap{ overflow-x:auto; margin-top:48px; border:1px solid var(--border); border-radius:10px; }
+  table.month-table{ width:100%; border-collapse:collapse; font-size:0.88rem; min-width:560px; }
+  table.month-table caption{ text-align:left; padding:14px 16px 0; font-weight:700; font-family:var(--font-display); font-size:1rem; }
+  table.month-table th, table.month-table td{ padding:10px 16px; text-align:left; border-bottom:1px solid var(--border); }
+  table.month-table thead th{ font-size:0.76rem; color:var(--ink-faint); font-weight:700; letter-spacing:0.04em; background:var(--surface-2); }
+  table.month-table tbody tr:last-child td{ border-bottom:none; }
+  table.month-table td.num, table.month-table td.date{ font-variant-numeric:tabular-nums; white-space:nowrap; }
+  table.month-table tbody tr:hover{ background:var(--surface-2); }
+
+  /* ---------- Phase section head ---------- */
+  .phase-head{ margin-bottom:36px; }
+  .phase-tag{
+    display:inline-block; font-size:0.76rem; font-weight:700; letter-spacing:0.06em;
+    padding:5px 12px; border-radius:999px; margin-bottom:14px;
+  }
+  [data-phase="early"] .phase-tag{ background:var(--primary-soft); color:var(--primary); }
+  [data-phase="mid"] .phase-tag{ background:var(--primary-soft); color:var(--primary); }
+  [data-phase="late"] .phase-tag{ background:var(--primary-soft); color:var(--primary); }
+  [data-phase="birth"] .phase-tag{ background:var(--birth-soft); color:var(--birth); }
+  [data-phase="postpartum"] .phase-tag{ background:var(--accent2-soft); color:var(--accent2); }
+  [data-phase="infant"] .phase-tag{ background:var(--accent-soft); color:var(--accent); }
+  .phase-head p{ color:var(--ink-soft); max-width:38em; }
+
+  /* ---------- Timeline list ---------- */
+  ol.timeline{ list-style:none; margin:0; padding:0 0 0 28px; position:relative; }
+  ol.timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:2px; background:var(--border);
+  }
+  .tl-item{ position:relative; padding-bottom:34px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  .tl-item::before{
+    content:""; position:absolute; left:-28px; top:5px; width:11px; height:11px; border-radius:50%;
+    background:var(--surface); border:2px solid var(--primary);
+  }
+  [data-phase="birth"] .tl-item::before{ border-color:var(--birth); background:var(--birth); }
+  [data-phase="postpartum"] .tl-item::before{ border-color:var(--accent2); }
+  [data-phase="infant"] .tl-item::before{ border-color:var(--accent); }
+
+  .tl-when{ display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 12px; margin-bottom:6px; }
+  .tl-date{ font-weight:700; font-variant-numeric:tabular-nums; }
+  .tl-week{
+    font-size:0.78rem; color:var(--ink-faint); font-variant-numeric:tabular-nums;
+    background:var(--surface-2); padding:2px 9px; border-radius:999px;
+  }
+  .tl-title{ font-family:var(--font-display); font-weight:700; font-size:1.08rem; margin:0 0 8px; text-wrap:balance; }
+  .tl-body{ color:var(--ink-soft); margin:0; max-width:40em; }
+  .tl-body + .tl-body{ margin-top:8px; }
+
+  .dad-note{
+    margin-top:12px; display:flex; gap:10px; max-width:40em;
+    border-left:3px solid var(--accent); background:var(--accent-soft); border-radius:0 8px 8px 0;
+    padding:10px 14px; font-size:0.9rem;
+  }
+  .dad-note .dad-label{ font-weight:700; color:var(--accent); flex:0 0 auto; }
+  [data-phase="postpartum"] .dad-note, [data-phase="infant"] .dad-note{
+    border-left-color:var(--accent2); background:var(--accent2-soft);
+  }
+  [data-phase="postpartum"] .dad-note .dad-label, [data-phase="infant"] .dad-note .dad-label{ color:var(--accent2); }
+
+  .callout{
+    margin-top:40px; background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:22px 24px; box-shadow:var(--shadow);
+  }
+  .callout h3{ font-family:var(--font-display); font-size:1.05rem; margin:0 0 14px; }
+  .callout ul{ margin:0; padding-left:1.2em; color:var(--ink-soft); }
+  .callout li{ margin-bottom:10px; }
+  .callout li:last-child{ margin-bottom:0; }
+  .callout li strong{ color:var(--ink); font-weight:700; }
+
+  .single-point{
+    display:flex; flex-wrap:wrap; align-items:center; gap:18px 28px;
+    background:var(--birth-soft); border:1px solid color-mix(in srgb, var(--birth) 35%, var(--border));
+    border-radius:14px; padding:28px 26px;
+  }
+  .single-point .sp-date{ font-family:var(--font-display); font-weight:800; font-size:1.7rem; color:var(--birth); font-variant-numeric:tabular-nums; }
+  .single-point .sp-text{ color:var(--ink-soft); max-width:32em; }
+  .single-point .sp-text strong{ color:var(--ink); }
+
+  /* ---------- Footer ---------- */
+  .page-footer{ padding-top:48px; color:var(--ink-faint); font-size:0.85rem; }
+  .page-footer p{ max-width:44em; margin:0 0 10px; }
+</style>
+<div class="gnav-crumb">
+  <a href="../index.html">🏠 資料まとめトップ</a>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-cat">妊娠出産</span>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-here">妊娠〜産後タイムライン</span>
+</div>
+<style id="gnav-crumb-style">
+.gnav-crumb{font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12.5px;line-height:1.4;padding:10px 20px;background:#2b2b28;color:#d8d5cc;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.gnav-crumb a{color:#f3ede0;text-decoration:none;font-weight:600;white-space:nowrap;}
+.gnav-crumb a:hover{text-decoration:underline;}
+.gnav-crumb-sep{opacity:.5;}
+.gnav-crumb-cat{opacity:.85;white-space:nowrap;}
+.gnav-crumb-here{opacity:.65;white-space:nowrap;}
+</style>
+
+
+<div class="page">
+
+  <header class="hero">
+    <p class="eyebrow">2026年7月21日 → 2028年4月ごろ</p>
+    <h1>妊娠〜産後<br>タイムライン</h1>
+    <p class="lede">2026年7月21日を「妊娠0日目」として、出産予定日、そして産後1年ごろまでの流れを整理しました。全体像をつかんでから、気になる時期の細かいポイントを見てください。</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-label">妊娠0日目(基準日)</span>
+        <span class="stat-value">2026年7月21日</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">出産予定日</span>
+        <span class="stat-value">2027年4月27日</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">作成時点</span>
+        <span class="stat-value">2026年8月22日・妊娠4週4日</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="phase-nav">
+    <a href="#overview">全体像</a>
+    <a href="#early">妊娠初期</a>
+    <a href="#mid">妊娠中期</a>
+    <a href="#late">妊娠後期</a>
+    <a href="#birth">出産</a>
+    <a href="#postpartum">産褥期</a>
+    <a href="#infant">産後〜1歳</a>
+  </nav>
+
+  <section id="overview" class="section">
+    <h2>全体像</h2>
+    <p class="section-intro">妊娠0日目から赤ちゃんの1歳の誕生日ごろまで、約21ヶ月間の流れです。下の帯グラフで今の立ち位置を確認してから、各期間の詳細に進んでください。</p>
+
+    <div class="overview-note">
+      <strong>計算の前提</strong>：最終月経の開始日を「妊娠0週0日」とする一般的な数え方です。出産予定日(40週0日)はあくまで目安で、実際の出産は前後2週間ほどずれるのが普通です。出産日が確定したら、産後以降の日付はそのぶんスライドさせてください。制度や検査の時期・要否は自治体や勤務先、かかりつけの医師の判断が優先します。
+    </div>
+
+    <div class="timeline-bar-wrap">
+      <div class="timeline-bar">
+        <div class="bar-seg" data-p="early" style="width:17.2%"></div>
+        <div class="bar-seg" data-p="mid" style="width:13.0%"></div>
+        <div class="bar-seg" data-p="late" style="width:13.0%"></div>
+        <div class="bar-seg" data-p="postpartum" style="width:4.3%"></div>
+        <div class="bar-seg" data-p="infant" style="width:52.5%"></div>
+
+        <div class="bar-marker today" style="left:5.0%">
+          <span class="marker-flag">現在(作成時点)</span>
+        </div>
+        <div class="bar-marker" style="left:43.2%">
+          <span class="marker-flag">出産予定日</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bar-legend">
+      <div class="legend-item" data-p="early">
+        <span class="legend-swatch"></span>
+        <span><span class="legend-name">妊娠初期</span><span class="legend-range">2026/7/21〜11/9</span></span>
+      </div>
+      <div class="legend-item" data-p="mid">
+        <span class="legend-swatch"></span>
+        <span><span class="legend-name">妊娠中期</span><span class="legend-range">2026/11/10〜2027/2/1</span></span>
+      </div>
+      <div class="legend-item" data-p="late">
+        <span class="legend-swatch"></span>
+        <span><span class="legend-name">妊娠後期</span><span class="legend-range">2027/2/2〜4/26</span></span>
+      </div>
+      <div class="legend-item" data-p="postpartum">
+        <span class="legend-swatch"></span>
+        <span><span class="legend-name">産褥期・新生児期</span><span class="legend-range">出産〜生後1ヶ月ごろ</span></span>
+      </div>
+      <div class="legend-item" data-p="infant">
+        <span class="legend-swatch"></span>
+        <span><span class="legend-name">産後〜1歳(乳児期・育休)</span><span class="legend-range">生後1ヶ月〜1歳ごろ</span></span>
+      </div>
+    </div>
+
+    <div class="month-table-wrap">
+      <table class="month-table">
+        <caption>妊娠月数・早見表</caption>
+        <thead>
+          <tr><th>妊娠月数</th><th>週数</th><th>期間</th><th>時期区分</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">1ヶ月</td><td class="num">0週0日〜3週6日</td><td class="date">7/21〜8/17</td><td>初期</td></tr>
+          <tr><td class="num">2ヶ月</td><td class="num">4週0日〜7週6日</td><td class="date">8/18〜9/14</td><td>初期</td></tr>
+          <tr><td class="num">3ヶ月</td><td class="num">8週0日〜11週6日</td><td class="date">9/15〜10/12</td><td>初期</td></tr>
+          <tr><td class="num">4ヶ月</td><td class="num">12週0日〜15週6日</td><td class="date">10/13〜11/9</td><td>初期</td></tr>
+          <tr><td class="num">5ヶ月</td><td class="num">16週0日〜19週6日</td><td class="date">11/10〜12/7</td><td>中期(安定期入り)</td></tr>
+          <tr><td class="num">6ヶ月</td><td class="num">20週0日〜23週6日</td><td class="date">12/8〜2027/1/4</td><td>中期</td></tr>
+          <tr><td class="num">7ヶ月</td><td class="num">24週0日〜27週6日</td><td class="date">1/5〜2/1</td><td>中期</td></tr>
+          <tr><td class="num">8ヶ月</td><td class="num">28週0日〜31週6日</td><td class="date">2/2〜3/1</td><td>後期</td></tr>
+          <tr><td class="num">9ヶ月</td><td class="num">32週0日〜35週6日</td><td class="date">3/2〜3/29</td><td>後期</td></tr>
+          <tr><td class="num">10ヶ月</td><td class="num">36週0日〜39週6日</td><td class="date">3/30〜4/26</td><td>後期(臨月)</td></tr>
+          <tr><td class="num">出産</td><td class="num">40週0日</td><td class="date">4/27</td><td>出産予定日</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="early" class="section" data-phase="early">
+    <div class="phase-head">
+      <span class="phase-tag">妊娠初期</span>
+      <h2>0週〜15週(妊娠1〜4ヶ月)</h2>
+      <p>体調の変化が大きい一方、周囲にはまだ伝えにくい時期。つわりへの配慮と、通院・検査のスケジュール把握が中心になります。</p>
+    </div>
+
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">7/21〜8/17</span><span class="tl-week">0週0日〜3週6日・妊娠1ヶ月</span></div>
+        <h3 class="tl-title">受精・着床</h3>
+        <p class="tl-body">受精卵が子宮内膜に着床する時期。この段階では市販の妊娠検査薬でもまだ反応が出にくい。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>生活リズムを崩さず、体調の変化に気づきやすい環境をつくる。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">8/18〜9/14</span><span class="tl-week">4週0日〜7週6日・妊娠2ヶ月</span></div>
+        <h3 class="tl-title">産婦人科の初診・妊娠確定</h3>
+        <p class="tl-body">産婦人科を受診し妊娠を確定。6週前後で胎児の心拍が確認できるのが目安。人によりこの頃からつわりが始まる。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>可能な範囲で通院に付き添う。においや家事の負担への配慮を始める。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">9/15ごろ</span><span class="tl-week">8週前後</span></div>
+        <h3 class="tl-title">つわりのピーク目安</h3>
+        <p class="tl-body">個人差が大きいが、つわりの症状が強く出やすい時期の目安。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>無理に食事を勧めず、そのとき食べられるものを一緒に探す。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">9/15〜10/12</span><span class="tl-week">8週0日〜11週6日・妊娠3ヶ月</span></div>
+        <h3 class="tl-title">母子健康手帳の交付・出生前診断の検討</h3>
+        <p class="tl-body">自治体窓口で母子健康手帳が交付される目安時期(9/29〜10/6ごろ)。NIPT(新型出生前診断)を受ける場合、実施できるのは10週以降が一般的な目安。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>母子手帳の交付に同行。出生前診断を受けるかどうかは、結果をどう受け止めるかも含めて事前に二人で話し合っておく。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">10/6〜10/27</span><span class="tl-week">11週〜14週ごろ</span></div>
+        <h3 class="tl-title">絨毛検査が可能な時期の目安</h3>
+        <p class="tl-body">出生前診断のうち確定検査の一つ。受けるかどうか・時期は医師と要相談。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">10/13〜11/9</span><span class="tl-week">12週0日〜15週6日・妊娠4ヶ月</span></div>
+        <h3 class="tl-title">初期の山場を越える</h3>
+        <p class="tl-body">つわりが落ち着いてくる人が多い時期。流産のリスクも徐々に下がっていく。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>里帰り出産をするかどうか、この頃から方針を相談し始めると後がスムーズ。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">11/3〜11/24</span><span class="tl-week">15週〜18週ごろ</span></div>
+        <h3 class="tl-title">羊水検査が可能な時期の目安</h3>
+        <p class="tl-body">絨毛検査と並ぶ確定検査。実施時期・要否は医師と相談のうえで判断。</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="mid" class="section" data-phase="mid">
+    <div class="phase-head">
+      <span class="phase-tag">妊娠中期</span>
+      <h2>16週〜27週(妊娠5〜7ヶ月)</h2>
+      <p>いわゆる「安定期」。体調が比較的落ち着き、性別が判明したり胎動を感じ始めたりと、赤ちゃんの存在がより実感できる時期です。</p>
+    </div>
+
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">11/10</span><span class="tl-week">16週0日・妊娠5ヶ月</span></div>
+        <h3 class="tl-title">安定期入り</h3>
+        <p class="tl-body">妊婦健診は4週に1回のペースが目安。体調が安定してくる人が多い。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>旅行や遠出の計画がしやすくなる時期(体調最優先で)。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">11/24〜12/8</span><span class="tl-week">18週〜20週ごろ</span></div>
+        <h3 class="tl-title">性別の判明・胎動を感じ始める目安</h3>
+        <p class="tl-body">中期の詳細エコーで性別がわかり始める人が多い時期。あわせて胎動を感じ始める目安でもある(個人差が大きい)。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>健診の付き添いやエコー画像・動画の共有で、変化を一緒に感じる機会をつくる。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">12/8〜2027/1/4</span><span class="tl-week">20週0日〜23週6日・妊娠6ヶ月</span></div>
+        <h3 class="tl-title">お腹のふくらみが目立ち始める</h3>
+        <p class="tl-body">マタニティ用品・ベビー用品のリサーチを始めるとよい時期。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">1/5ごろ</span><span class="tl-week">24週前後</span></div>
+        <h3 class="tl-title">健診頻度の切り替え・妊娠糖尿病スクリーニング</h3>
+        <p class="tl-body">妊婦健診が2週に1回のペースに切り替わる目安。あわせて妊娠糖尿病のスクリーニング検査が行われることが多い。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">1/5〜2/1</span><span class="tl-week">24週0日〜27週6日・妊娠7ヶ月</span></div>
+        <h3 class="tl-title">里帰りと産休・育休の相談を本格化</h3>
+        <p class="tl-body">里帰り出産を予定している場合、紹介状の準備や転院先への連絡を始める時期。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>自分の産休・育休(産後パパ育休を含む)の取得計画を職場に相談し始めるタイミング。</span></div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="late" class="section" data-phase="late">
+    <div class="phase-head">
+      <span class="phase-tag">妊娠後期</span>
+      <h2>28週〜39週(妊娠8〜10ヶ月)</h2>
+      <p>お腹が大きくなり、体への負担も増えていく時期。出産・入院の準備を具体化し、いつ生まれても対応できる状態を整えます。</p>
+    </div>
+
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">2/2〜3/1</span><span class="tl-week">28週0日〜31週6日・妊娠8ヶ月</span></div>
+        <h3 class="tl-title">後期スタート</h3>
+        <p class="tl-body">むくみ・腰痛・お腹の張りなどのマイナートラブルが出やすくなる時期。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>保育園の情報収集、入院準備リストの共有を始める。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">3/2〜3/29</span><span class="tl-week">32週0日〜35週6日・妊娠9ヶ月</span></div>
+        <h3 class="tl-title">里帰り・バースプランの具体化</h3>
+        <p class="tl-body">里帰り出産の場合、実家への帰省の目安時期。バースプラン(立ち会いの希望など)や入院準備を具体化する。</p>
+        <p class="tl-body"><strong>3/16(34週0日)</strong>：産前休業を取得できるようになる日(出産予定日の6週間前、双子など多胎の場合は14週間前から)。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>陣痛が来たときの動き方(病院への経路・車の手配・上の子がいる場合の預け先)を具体的にシミュレーションしておく。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">3/23ごろ</span><span class="tl-week">35週前後</span></div>
+        <h3 class="tl-title">健診頻度が週1回に</h3>
+        <p class="tl-body">妊婦健診のペースが週1回に切り替わる目安。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">3/30〜4/26</span><span class="tl-week">36週0日〜39週6日・妊娠10ヶ月(臨月)</span></div>
+        <h3 class="tl-title">臨月・正期産の期間へ</h3>
+        <p class="tl-body">36週0日でいわゆる「臨月」に入り、いつ生まれてもおかしくない時期。入院バッグの最終確認、緊急連絡先の共有を済ませておく。</p>
+        <p class="tl-body"><strong>4/6(37週0日)〜5/10(41週6日)</strong>：正期産の期間。この間に生まれれば「早すぎる」「遅すぎる」ということはない。</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="birth" class="section" data-phase="birth">
+    <div class="phase-head">
+      <span class="phase-tag">出産</span>
+      <h2>出産予定日</h2>
+    </div>
+    <div class="single-point">
+      <div class="sp-date">2027年4月27日</div>
+      <div class="sp-text"><strong>40週0日。</strong>あくまで目安であり、前後2週間ほど前後することは珍しくない。出産日が確定したら、この先の産後スケジュールはその日付を起点にスライドさせてください。</div>
+    </div>
+  </section>
+
+  <section id="postpartum" class="section" data-phase="postpartum">
+    <div class="phase-head">
+      <span class="phase-tag">産褥期・新生児期</span>
+      <h2>出産〜生後1ヶ月</h2>
+      <p>母体の回復と新生児のお世話が最優先になる時期。あわせて期限のある行政手続きが集中します。以下は出産日を予定日(4/27)と仮定した日付です。</p>
+    </div>
+
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">4/27〜5/5</span><span class="tl-week">入院中・出産当日〜4〜8日目</span></div>
+        <h3 class="tl-title">入院・新生児聴覚検査・退院</h3>
+        <p class="tl-body">入院中に新生児聴覚検査を実施。退院は経腟分娩で4〜6日目、帝王切開で6〜8日目が目安。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>上の子や自宅の受け入れ準備、退院時の送迎を担う。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">5/1〜5/4</span><span class="tl-week">生後4〜7日目</span></div>
+        <h3 class="tl-title">新生児マススクリーニング</h3>
+        <p class="tl-body">先天代謝異常などを調べる検査。入院中に実施される。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">〜5/11</span><span class="tl-week">生後14日目まで</span></div>
+        <h3 class="tl-title">出生届の提出期限</h3>
+        <p class="tl-body">生まれた日を含めて14日以内(国内出生の場合)に提出。</p>
+        <div class="dad-note"><span class="dad-label">パパの動き</span><span>出生届の提出は父親が担うことが多いタスク。出生証明書(医師記入欄)の準備状況を早めに確認しておく。</span></div>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">〜5/12ごろ</span><span class="tl-week">生後15日目目安</span></div>
+        <h3 class="tl-title">児童手当・健康保険・医療費助成の手続き</h3>
+        <p class="tl-body">児童手当の認定請求は原則15日以内。あわせて子の健康保険加入、乳幼児医療費助成の申請もこの時期にまとめて行うのが一般的。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">5/11ごろ</span><span class="tl-week">産後2週間健診</span></div>
+        <h3 class="tl-title">産後2週間健診</h3>
+        <p class="tl-body">母子ともに産後の経過を確認する健診。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">5/27ごろ</span><span class="tl-week">産後1ヶ月健診</span></div>
+        <h3 class="tl-title">産後1ヶ月健診</h3>
+        <p class="tl-body">母子ともに大きな節目となる健診。里帰りしている場合、このタイミングで自宅に戻ることが多い。</p>
+      </li>
+    </ol>
+
+    <div class="callout">
+      <h3>この時期に関わる主な制度</h3>
+      <ul>
+        <li><strong>産後休業</strong>：出産翌日から8週間(〜6/22ごろ)は本人の就業が原則禁止。本人が希望し医師が認めた場合に限り、6週間経過後から就業可。</li>
+        <li><strong>産後パパ育休(出生時育児休業)</strong>：子の出生後8週間以内に、最大4週間まで・2回に分割して取得可能(〜6/22ごろまでに取得)。</li>
+        <li><strong>出産育児一時金</strong>：1児あたり50万円。医療機関の直接支払制度を使えば、窓口での支払いは差額分のみで済む。出産前に手続きしておく。</li>
+        <li><strong>出産手当金</strong>：産前42日+産後56日分、給与のおよそ2/3相当が支給される。産後57日目以降(6/23ごろ〜)にまとめて申請するのが一般的。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="infant" class="section" data-phase="infant">
+    <div class="phase-head">
+      <span class="phase-tag">産後〜1歳</span>
+      <h2>生後2ヶ月〜1歳ごろ</h2>
+      <p>予防接種と定期健診のリズムができてくる時期。育休や保育園入園など、今後1年の生活設計に関わる判断もこの間に集中します。</p>
+    </div>
+
+    <ol class="timeline">
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">6/26ごろ〜</span><span class="tl-week">生後2ヶ月</span></div>
+        <h3 class="tl-title">予防接種スタート</h3>
+        <p class="tl-body">ロタウイルス・B型肝炎・五種混合・肺炎球菌など、多くのワクチンがこの時期から同時並行で始まる。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">7/26〜8/25ごろ</span><span class="tl-week">生後3〜4ヶ月</span></div>
+        <h3 class="tl-title">3〜4ヶ月健診</h3>
+        <p class="tl-body">自治体の集団健診。首すわりなど発達の様子を確認する。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">9月ごろ〜</span><span class="tl-week">生後5〜6ヶ月ごろ</span></div>
+        <h3 class="tl-title">離乳食スタートの目安</h3>
+        <p class="tl-body">赤ちゃんの様子を見ながら離乳食を開始する時期の目安。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">生後6〜7ヶ月ごろ</span><span class="tl-week">保活</span></div>
+        <h3 class="tl-title">保育園の申込み準備</h3>
+        <p class="tl-body">保育園入園を検討している場合、多くの自治体で秋ごろに翌年4月入園の本申込みが始まる。早めの情報収集が必要。</p>
+      </li>
+
+      <li class="tl-item">
+        <div class="tl-when"><span class="tl-date">2028/4/27ごろ</span><span class="tl-week">1歳の誕生日前後</span></div>
+        <h3 class="tl-title">育休満了・保育園入園の目安</h3>
+        <p class="tl-body">育休は原則、子が1歳になるまで(2028/4/26まで)。保育園に入れない場合は1歳6ヶ月、最長2歳まで延長可能。1歳の健診と重なることが多い。</p>
+      </li>
+    </ol>
+  </section>
+
+  <footer class="page-footer">
+    <p>このタイムラインは一般的な目安であり、体調・検査結果・自治体や勤務先の制度によって前後します。実際の判断は、かかりつけの産婦人科医や自治体窓口、勤務先の人事担当への確認を優先してください。</p>
+    <p>作成日：2026年8月22日</p>
+  </footer>
+
+</div>
+<div class="gnav-related">
+  <div class="gnav-related-inner">
+    <h3>🔗 関連ページ</h3>
+    <div class="gnav-related-grid">
+      <a class="gnav-related-card" href="妊娠経過と里帰り出産ガイド.html">
+        <span class="gnav-related-card-title">妊娠経過と里帰り出産ガイド</span>
+        <span class="gnav-related-card-desc">時期ごとの体調・心配ごとと里帰り出産計画の詳細版</span>
+      </a>
+      <a class="gnav-related-card" href="出生前診断ガイド.html">
+        <span class="gnav-related-card-title">出生前診断ガイド</span>
+        <span class="gnav-related-card-desc">NIPTなど各検査の実施時期</span>
+      </a>
+      <a class="gnav-related-card" href="妊娠中の思い出づくりガイド.html">
+        <span class="gnav-related-card-title">妊娠中の思い出づくりガイド</span>
+        <span class="gnav-related-card-desc">時期ごとに楽しめる記念づくりアイデア</span>
+      </a>
+      <a class="gnav-related-card" href="押上エリアの産婦人科ガイド.html">
+        <span class="gnav-related-card-title">押上エリアの産婦人科ガイド</span>
+        <span class="gnav-related-card-desc">妊婦健診・分娩先の検討</span>
+      </a>
+      <a class="gnav-related-card" href="夫の産休育休プランニング.html">
+        <span class="gnav-related-card-title">夫の産休育休プランニング</span>
+        <span class="gnav-related-card-desc">出産予定日から逆算した夫の育休取得スケジュール</span>
+      </a>
+    </div>
+    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
+  </div>
+</div>
+<style id="gnav-related-style">
+.gnav-related{margin-top:48px;padding:32px 20px 40px;background:#f6f5f2;border-top:1px solid #e6e3dc;font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.gnav-related-inner{max-width:900px;margin:0 auto;}
+.gnav-related h3{font-size:15px;color:#2b2b28;margin:0 0 14px;font-weight:600;}
+.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
+.gnav-related-card{display:block;background:#ffffff;border:1px solid #e6e3dc;border-radius:10px;padding:14px 16px;text-decoration:none;color:#2b2b28;transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.gnav-related-card:hover{border-color:#7a6a53;transform:translateY(-1px);box-shadow:0 6px 16px rgba(43,43,40,0.06);}
+.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.gnav-related-card-desc{display:block;font-size:12px;color:#6b6b64;line-height:1.5;}
+.gnav-related-home{display:inline-block;font-size:12.5px;color:#7a6a53;text-decoration:none;font-weight:600;}
+.gnav-related-home:hover{text-decoration:underline;}
+</style>
+

@@ -1,0 +1,1772 @@
+<title>夫の産休育休プランニング</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #eef1ec;
+    --paper: #f7f8f5;
+    --surface: #ffffff;
+    --ink: #232a24;
+    --ink-soft: #5c655d;
+    --ink-faint: #8b948a;
+    --line: #d9ddd4;
+    --line-strong: #c2c9bc;
+    --accent: #3b6b54;
+    --accent-strong: #2a4d3d;
+    --accent-soft: #e0ebe2;
+    --accent-soft-2: #cfe0d3;
+    --amber: #b8763a;
+    --amber-strong: #8f5a29;
+    --amber-soft: #f3e6d2;
+    --rose: #a55565;
+    --rose-soft: #f1dde1;
+    --tele: #4d6f8a;
+    --tele-soft: #dfe7ed;
+    --shadow: 0 1px 2px rgba(35,42,36,0.04), 0 8px 24px -12px rgba(35,42,36,0.18);
+    --radius-s: 8px;
+    --radius-m: 14px;
+    --radius-l: 20px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #171b17;
+      --paper: #1c211c;
+      --surface: #222822;
+      --ink: #e9ede7;
+      --ink-soft: #a9b3a5;
+      --ink-faint: #7c877a;
+      --line: #333a32;
+      --line-strong: #454e42;
+      --accent: #7fb597;
+      --accent-strong: #a4cdb2;
+      --accent-soft: #26362c;
+      --accent-soft-2: #2c4034;
+      --amber: #e0a765;
+      --amber-strong: #f0c48c;
+      --amber-soft: #3a2f20;
+      --rose: #d99aa6;
+      --rose-soft: #3a262a;
+      --tele: #8fb4d4;
+      --tele-soft: #253544;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #171b17;
+    --paper: #1c211c;
+    --surface: #222822;
+    --ink: #e9ede7;
+    --ink-soft: #a9b3a5;
+    --ink-faint: #7c877a;
+    --line: #333a32;
+    --line-strong: #454e42;
+    --accent: #7fb597;
+    --accent-strong: #a4cdb2;
+    --accent-soft: #26362c;
+    --accent-soft-2: #2c4034;
+    --amber: #e0a765;
+    --amber-strong: #f0c48c;
+    --amber-soft: #3a2f20;
+    --rose: #d99aa6;
+    --rose-soft: #3a262a;
+    --tele: #8fb4d4;
+    --tele-soft: #253544;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 96px;
+  }
+
+  h1, h2, h3 {
+    font-family: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+    font-weight: 700;
+    color: var(--ink);
+    text-wrap: balance;
+    letter-spacing: 0.01em;
+  }
+
+  a { color: var(--accent-strong); }
+  a:focus-visible, button:focus-visible, .nav-link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .num { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+  .mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Header ---------- */
+
+  header.hero {
+    padding: 56px 20px 40px;
+    background:
+      linear-gradient(180deg, var(--paper) 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    color: var(--accent-strong);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 18px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1.title {
+    font-size: clamp(1.9rem, 4.4vw, 2.6rem);
+    line-height: 1.3;
+    margin: 0 0 12px;
+  }
+
+  .subtitle {
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    max-width: 60ch;
+    margin: 0 0 30px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+  }
+
+  .stat {
+    background: var(--surface);
+    padding: 16px 18px;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+  .stat-value {
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .stat-value.accent { color: var(--accent-strong); }
+
+  .assumption-note {
+    margin-top: 18px;
+    font-size: 0.86rem;
+    color: var(--ink-faint);
+    line-height: 1.7;
+    border-left: 2px solid var(--line-strong);
+    padding-left: 12px;
+  }
+
+  /* ---------- Nav ---------- */
+
+  nav.toc {
+    max-width: 900px;
+    margin: 28px auto 0;
+    padding: 0 20px;
+  }
+  .toc-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 4px;
+    padding: 10px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+  }
+  .nav-link {
+    text-decoration: none;
+    color: var(--ink-soft);
+    font-size: 0.83rem;
+    padding: 7px 12px;
+    border-radius: 100px;
+    transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+  }
+  .nav-link:hover {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+  }
+
+  /* ---------- Sections ---------- */
+
+  section {
+    padding: 52px 0 8px;
+    scroll-margin-top: 20px;
+  }
+  section + section {
+    border-top: 1px solid var(--line);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .section-index {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  h2 {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  h3 {
+    font-size: 1.12rem;
+    margin: 30px 0 10px;
+    font-weight: 600;
+  }
+
+  p { margin: 0 0 16px; color: var(--ink); }
+  .lede { color: var(--ink-soft); font-size: 1rem; }
+
+  .callout {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-soft-2);
+    border-radius: var(--radius-m);
+    padding: 18px 20px;
+    margin: 20px 0;
+    font-size: 0.94rem;
+  }
+  .callout-label {
+    font-weight: 700;
+    color: var(--accent-strong);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .callout.amber {
+    background: var(--amber-soft);
+    border-color: color-mix(in srgb, var(--amber) 35%, var(--amber-soft));
+  }
+  .callout.amber .callout-label { color: var(--amber-strong); }
+  .callout.tele {
+    background: var(--tele-soft);
+    border-color: color-mix(in srgb, var(--tele) 35%, var(--tele-soft));
+  }
+  .callout.tele .callout-label { color: var(--tele); }
+
+  /* ---------- Definition table ---------- */
+
+  .table-scroll { overflow-x: auto; margin: 20px 0; border-radius: var(--radius-m); border: 1px solid var(--line); }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    background: var(--surface);
+    font-size: 0.92rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  thead th {
+    background: var(--paper);
+    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover { background: var(--paper); }
+  td.num, th.num { font-family: "JetBrains Mono", monospace; }
+
+  /* ---------- Pattern cards ---------- */
+
+  .pattern {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    padding: 26px 26px 22px;
+    margin: 24px 0;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .pattern.recommended { border-color: var(--accent); border-width: 1.5px; }
+  .pattern-badge {
+    position: absolute;
+    top: -12px;
+    right: 22px;
+    background: var(--accent);
+    color: var(--surface);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+  }
+  .pattern-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .pattern-name {
+    font-family: "Shippori Mincho", serif;
+    font-size: 1.22rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  .pattern-tagline {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    margin: 4px 0 18px;
+  }
+  /* ---------- Decision points ---------- */
+  .decision-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 22px 0;
+  }
+  .decision-card {
+    display: flex;
+    gap: 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    padding: 18px 20px;
+  }
+  .decision-num {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 0.92rem;
+  }
+  .decision-body h4 {
+    margin: 2px 0 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    color: var(--ink);
+  }
+  .decision-options {
+    margin: 0 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .decision-options .opt {
+    display: inline-block;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    border-radius: 100px;
+    padding: 3px 11px;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .decision-hint {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--ink);
+    border-left: 2px solid var(--accent-soft-2);
+    padding-left: 10px;
+  }
+  .decision-hint b { color: var(--accent-strong); }
+
+  .duration-tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .pattern-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  /* timeline bar */
+  .timeline {
+    margin: 18px 0 10px;
+  }
+  .tl-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; flex-shrink: 0; }
+
+  /* ---------- Gantt-style timeline with real dates ---------- */
+  .gantt { margin: 18px 0 4px; }
+  .gantt-ruler {
+    position: relative;
+    height: 30px;
+    margin-bottom: 6px;
+  }
+  .gantt-ruler .tick {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.66rem;
+    line-height: 1.35;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .gantt-ruler .tick.edge-start { transform: translateX(0); text-align: left; }
+  .gantt-ruler .tick.edge-end { transform: translateX(-100%); text-align: right; }
+  .gantt-ruler .tick small {
+    display: block;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: var(--ink-faint);
+  }
+  .gantt-ruler .tick.birth { color: var(--accent-strong); font-weight: 700; }
+  .gantt-ruler .tick.birth small { color: var(--accent-strong); font-weight: 600; }
+  .gantt-body { position: relative; padding: 2px 0 0; }
+  .gantt-birthline {
+    position: absolute;
+    top: -2px;
+    bottom: 2px;
+    width: 0;
+    border-left: 1.5px dashed var(--accent-strong);
+    opacity: 0.45;
+    z-index: 1;
+  }
+  .gantt-row { margin-bottom: 12px; position: relative; }
+  .gantt-row:last-child { margin-bottom: 0; }
+  .gantt-row-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 4px;
+    flex-wrap: wrap;
+  }
+  .gantt-row-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .gantt-row-dates {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .gantt-track {
+    position: relative;
+    height: 20px;
+    background: var(--paper);
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+  .gantt-bar {
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    border-radius: 4px;
+    background: var(--accent);
+    opacity: 0.9;
+  }
+  .gantt-bar.secondary { background: var(--amber); }
+  .gantt-bar.paid { background: var(--ink-faint); opacity: 0.5; }
+  .gantt-bar.tele {
+    background: repeating-linear-gradient(135deg, var(--tele), var(--tele) 5px, transparent 5px, transparent 10px);
+    background-color: var(--tele-soft);
+    border: 1px solid var(--tele);
+    opacity: 0.85;
+  }
+  .gantt-bar.longtail {
+    background: linear-gradient(90deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 25%, transparent) 100%);
+  }
+  .gantt-bar-arrow {
+    position: absolute;
+    right: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    color: var(--accent-strong);
+    font-weight: 700;
+  }
+
+  .pattern-detail {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 18px;
+  }
+  @media (min-width: 620px) {
+    .pattern-detail { grid-template-columns: 1fr 1fr; }
+  }
+  .detail-block h4 {
+    margin: 0 0 6px;
+    font-size: 0.76rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 700;
+  }
+  .detail-block p, .detail-block ul { margin: 0; font-size: 0.9rem; color: var(--ink); }
+  .detail-block ul { padding-left: 1.1em; }
+  .detail-block li { margin-bottom: 4px; }
+
+  .pattern-figures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .figure-chip {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+  .figure-chip b { color: var(--accent-strong); font-family: "JetBrains Mono", monospace; }
+
+  /* ---------- Comparison summary table ---------- */
+  .fit-good { color: var(--accent-strong); font-weight: 600; }
+  .fit-mid { color: var(--amber-strong); font-weight: 600; }
+  .fit-low { color: var(--rose); font-weight: 600; }
+
+  /* ---------- Checklist ---------- */
+  .checklist {
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .checklist li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-s);
+    padding: 12px 14px;
+    font-size: 0.92rem;
+  }
+  .checklist .chk-mark {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1.5px solid var(--line-strong);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ---------- Countdown ---------- */
+  .countdown-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-m);
+    overflow: hidden;
+    margin: 20px 0;
+    background: var(--surface);
+  }
+  .countdown-item {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.9rem;
+  }
+  .countdown-item:last-child { border-bottom: none; }
+  .countdown-when {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--accent-strong);
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .countdown-what b { display: block; margin-bottom: 2px; }
+  .countdown-what span { color: var(--ink-soft); }
+
+  footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    line-height: 1.9;
+  }
+  footer a { color: var(--ink-faint); text-decoration: underline; }
+  footer h3 { color: var(--ink-soft); font-size: 0.85rem; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 700; margin-bottom: 8px; }
+  footer ul { margin: 0; padding-left: 1.2em; }
+  footer li { margin-bottom: 4px; }
+</style>
+<div class="gnav-crumb">
+  <a href="../index.html">🏠 資料まとめトップ</a>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-cat">妊娠出産</span>
+  <span class="gnav-crumb-sep">›</span>
+  <span class="gnav-crumb-here">夫の産休育休プランニング</span>
+</div>
+<style id="gnav-crumb-style">
+.gnav-crumb{font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12.5px;line-height:1.4;padding:10px 20px;background:#2b2b28;color:#d8d5cc;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.gnav-crumb a{color:#f3ede0;text-decoration:none;font-weight:600;white-space:nowrap;}
+.gnav-crumb a:hover{text-decoration:underline;}
+.gnav-crumb-sep{opacity:.5;}
+.gnav-crumb-cat{opacity:.85;white-space:nowrap;}
+.gnav-crumb-here{opacity:.65;white-space:nowrap;}
+</style>
+
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Paternity Leave Planning</div>
+    <h1 class="title">夫の産休育休プランニング</h1>
+    <p class="subtitle">出産予定日 2027年4月27日を基準に、産後パパ育休・育児休業の制度と、里帰り出産(東京⇄福岡)という事情を踏まえた取得パターンを検討しました。立ち会い出産への希望と、在宅勤務が使えるという条件を踏まえ、「福岡で在宅勤務しながら待機する案」と「休業制度を使って待機する案」を比較したうえで、育休をいつ・どれくらいの期間取るかを整理しています。</p>
+    <div class="stat-row">
+      <div class="stat">
+        <div class="stat-label">出産予定日</div>
+        <div class="stat-value num accent">2027/4/27</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">正期産の範囲目安</div>
+        <div class="stat-value num">4/6〜5/11</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">産後パパ育休の期限</div>
+        <div class="stat-value num">出生後8週間</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">給付金(最大)</div>
+        <div class="stat-value num accent">賃金の80%相当</div>
+      </div>
+    </div>
+    <p class="assumption-note">※ 日付は出産予定日基準の仮の日程です。実際の出産日が確定次第、すべて出生日基準にスライドしてください。妊娠タイムラインのレポートと合わせてご覧ください。里帰り出産(東京在住・里帰り先は福岡)、立ち会い出産を希望、在宅勤務が可能という3つの前提を踏まえて検討しています。</p>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="nav-link" href="#basics">① 制度の基礎知識</a>
+    <a class="nav-link" href="#money">② お金の仕組み</a>
+    <a class="nav-link" href="#wife-leave">③ 妻の産休・育休</a>
+    <a class="nav-link" href="#general-satogaeri">④ 一般的な夫の過ごし方</a>
+    <a class="nav-link" href="#enpou-summary">⑤ 遠方の場合のまとめ</a>
+    <a class="nav-link" href="#satogaeri">⑥ 里帰り出産という事情</a>
+    <a class="nav-link" href="#attend">⑦ 立ち会いの実現方法</a>
+    <a class="nav-link" href="#duration">⑧ いつ・どれくらい取るか</a>
+    <a class="nav-link" href="#decisions">⑨ 検討ポイントまとめ</a>
+    <a class="nav-link" href="#patterns">⑩ 4つの取得パターン</a>
+    <a class="nav-link" href="#compare">⑪ 比較まとめ</a>
+    <a class="nav-link" href="#schedule">⑫ 申出スケジュール</a>
+    <a class="nav-link" href="#todo">⑬ 次に決めること</a>
+    <a class="nav-link" href="#second-child">⑭ 二人目を見据えた検討</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section id="basics">
+    <div class="section-head">
+      <span class="section-index">01</span>
+      <h2>制度の基礎知識</h2>
+    </div>
+    <p class="lede">夫が使える休業制度は大きく3つあります。まずはこの3つの違いを押さえておくと、パターン検討が理解しやすくなります。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>制度</th>
+            <th>対象期間</th>
+            <th>取得可能日数</th>
+            <th>分割</th>
+            <th>申出期限</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>産後パパ育休</strong><br><span style="color:var(--ink-faint);font-size:0.82rem;">(出生時育児休業)</span></td>
+            <td>子の出生後<span class="num">8</span>週間以内</td>
+            <td class="num">最大<span class="num">28</span>日(<span class="num">4</span>週間)</td>
+            <td><span class="num">2</span>回まで</td>
+            <td>原則<span class="num">2</span>週間前<br><span style="color:var(--ink-faint);font-size:0.82rem;">(労使協定があれば1ヶ月前)</span></td>
+          </tr>
+          <tr>
+            <td><strong>通常の育児休業</strong></td>
+            <td>子が<span class="num">1</span>歳になるまで</td>
+            <td>上限なし(期間内自由)</td>
+            <td><span class="num">2</span>回まで</td>
+            <td>原則<span class="num">1</span>ヶ月前</td>
+          </tr>
+          <tr>
+            <td><strong>パパ・ママ育休プラス</strong></td>
+            <td>子が<span class="num">1</span>歳<span class="num">2</span>ヶ月になるまで</td>
+            <td>夫婦合計で一定の枠内</td>
+            <td>通常育休の枠内</td>
+            <td>原則<span class="num">1</span>ヶ月前</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>産後パパ育休と通常育休は、原則としてどちらも取得できます。つまり「出生後8週間以内に産後パパ育休を使い、その後さらに通常の育休に入る」という組み合わせも可能です(パターンDで検討)。</p>
+
+    <div class="callout">
+      <div class="callout-label">産後パパ育休中の就業について</div>
+      会社と労使協定を結んでいれば、休業中でも所定労働日数・所定労働時間の半分以下まで働くことができます。フルで休むか、一部だけ働きながら休むかも選べます。ただし就業した日は、後述する給付金の「14日以上」の要件には算入されません。
+    </div>
+
+    <p style="font-size:0.85rem;color:var(--ink-faint);">※ ここでの記載は雇用保険に加入する一般的な会社員を想定しています。公務員・自営業・勤務先の就業規則によって扱いが異なる場合があるため、詳細は勤務先の人事・労務担当にご確認ください。</p>
+  </section>
+
+  <section id="money">
+    <div class="section-head">
+      <span class="section-index">02</span>
+      <h2>お金の仕組み ― 給付金と社会保険料</h2>
+    </div>
+    <p class="lede">2025年4月の制度改正により、条件を満たせば産後パパ育休中の手取りが「働いていたときとほぼ同水準」になる仕組みが導入されました。</p>
+
+    <h3>出生後休業支援給付金(2025年4月〜)</h3>
+    <p>子の出生後8週間以内に、<strong>夫婦がともに14日以上</strong>の育児休業(産後パパ育休を含む)を取得すると、通常の育児休業給付金(賃金の67%)に加えて<strong>13%が上乗せ</strong>され、合計<strong>最大80%</strong>が支給されます。休業中は社会保険料が免除されるため、額面の80%でも手取りベースではほぼ休業前と同水準(「手取り10割」)になる、というのがこの制度の考え方です。対象は出生後8週間以内・上限28日分です。妻が専業主婦などで元々就業していない場合は、この「夫婦ともに14日以上」の要件は不要です。</p>
+
+    <div class="callout">
+      <div class="callout-label">給付率のイメージ</div>
+      通常の育休給付(67%) + 出生後休業支援給付(13%) = <strong>合計80%</strong>(出生後8週間・上限28日分のみ)
+    </div>
+
+    <h3>育児休業給付金(通常分)</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>期間</th><th class="num">給付率</th><th class="num">月額上限の目安</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>休業開始〜180日目</td><td class="num">67%</td><td class="num">323,811円</td></tr>
+          <tr><td>181日目以降</td><td class="num">50%</td><td class="num">241,650円</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-faint);">上限額は令和7年8月〜令和8年7月適用分。賃金日額の上限は<span class="num">16,110</span>円/日。金額は毎年8月に改定されます。</p>
+
+    <h3>試算イメージ(例:額面月給30万円のケース)</h3>
+    <p style="font-size:0.85rem;color:var(--ink-faint);margin-bottom:10px;">※ 実際の金額は休業開始前6ヶ月の賃金合計÷180で算出される「賃金日額」に基づきます。以下はあくまで目安の一例です。</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>ケース</th><th class="num">賃金日額</th><th class="num">給付率</th><th class="num">給付金額の目安</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>産後パパ育休 28日(要件充足)</td><td class="num">10,000円</td><td class="num">80%</td><td class="num">約224,000円</td></tr>
+          <tr><td>通常育休 1ヶ月(180日目まで)</td><td class="num">10,000円</td><td class="num">67%</td><td class="num">約201,000円/月</td></tr>
+          <tr><td>通常育休 1ヶ月(181日目以降)</td><td class="num">10,000円</td><td class="num">50%</td><td class="num">約150,000円/月</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>社会保険料の免除</h3>
+    <p>育休期間中は健康保険料・厚生年金保険料が本人・会社双方とも全額免除されます。月末を含む形で育休を取ると免除対象になりやすく、ボーナス(賞与)は<strong>1ヶ月を超える育休</strong>を取った月のみ保険料が免除されます。免除中も年金の記録上は保険料を納めたものとして扱われるため、将来の年金額に影響はありません。手続きには会社から年金事務所への届出が必要です。</p>
+
+    <div class="callout amber">
+      <div class="callout-label">復職後の選択肢もある</div>
+      2025年4月には、育休から時短勤務で復職した場合に給与の10%程度が上乗せされる「育児時短就業給付金」も新設されました(2歳未満の子が対象)。長期の育休だけでなく、時短勤務での早期復職+給付金という選択肢も視野に入ります。
+    </div>
+  </section>
+
+  <section id="wife-leave">
+    <div class="section-head">
+      <span class="section-index">03</span>
+      <h2>妻の産休・育休</h2>
+    </div>
+    <p class="lede">ここまでは夫側の制度を中心に見てきましたが、実際の計画は妻の産休・育休とセットで組む必要があります。特に「パパ・ママ育休プラス」の活用や帰京タイミングの検討には、妻側のスケジュールの理解が欠かせません。ここで一度、妻側の制度を整理しておきます。</p>
+
+    <h3>産前産後休業(産休) ― 産後8週間は法律上「就業禁止」</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>区分</th><th>期間</th><th>取得の性質</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>産前休業</td><td>出産予定日の<span class="num">6</span>週間前(多胎妊娠は<span class="num">14</span>週間前)〜出産まで</td><td class="fit-mid">本人が請求すれば取得できる(任意)</td></tr>
+          <tr><td>産後休業</td><td>出産翌日から<span class="num">8</span>週間</td><td class="fit-low">就業禁止(強制)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>産前休業は本人が請求しなければ取得されない任意の休業で、請求しなければ出産直前まで働くことも制度上は可能です。一方、産後休業は労働基準法で就業そのものが禁止される強制休業で、これは夫の「取得するかしないか選べる」産後パパ育休とは性質が異なる点です。ただし産後<span class="num">6</span>週間を経過したあとは、本人が請求し、医師が支障ないと認めた業務に限り就業が可能になります。</p>
+
+    <h3>出産育児一時金 ― 出産費用をまかなう一時金</h3>
+    <p>在胎週数<span class="num">22</span>週以降の出産で1児につき<span class="num">50</span>万円(<span class="num">22</span>週未満や産科医療補償制度未加入の医療機関では<span class="num">48.8</span>万円)が健康保険から支給されます。多くの医療機関が対応する「直接支払制度」を使えば、健康保険から医療機関へ一時金が直接支払われるため、退院時の窓口負担は実際の出産費用と一時金の差額分だけで済みます。</p>
+
+    <h3>出産手当金 ― 産休中の収入を補う給付</h3>
+    <p>健康保険の被保険者本人(会社員・公務員等、国民健康保険加入の自営業者等は対象外)が対象で、出産予定日以前<span class="num">42</span>日(多胎<span class="num">98</span>日)〜出産翌日以後<span class="num">56</span>日の範囲のうち、給与の支払いがなかった日数分について、<strong>標準報酬日額の<span class="num">2/3</span>相当額</strong>が健康保険から支給されます。出産が予定日より遅れた場合は、その遅れた分の日数も対象になります。申請は産後<span class="num">57</span>日以降、勤務先経由で行うのが一般的です。</p>
+
+    <h3>育児休業(育休) ― 産後休業が明けてから子が1歳になるまで</h3>
+    <p>産後休業終了(出産日+<span class="num">8</span>週間)の翌日から、子が1歳になるまで取得できます。保育園に入れない等やむを得ない事情がある場合は<span class="num">1</span>歳<span class="num">6</span>ヶ月まで、それでも事情が解消しない場合はさらに<span class="num">2</span>歳まで延長可能です(<span class="num">2</span>歳までの再延長は<span class="num">1</span>歳の誕生日の<span class="num">2</span>週間前までに申請が必要)。育児休業給付金の給付率は夫の育休と同じ仕組みで、休業開始〜<span class="num">180</span>日目は<span class="num">67</span>%、<span class="num">181</span>日目以降は<span class="num">50</span>%です。</p>
+
+    <h3>パパ・ママ育休プラス ― 夫婦で使うと1歳2ヶ月まで延長</h3>
+    <p>夫婦ともに育児休業を取得し、かつ後から育休を取る側(このケースでは夫)の育休開始日が「妻の育休初日以降」かつ「子の<span class="num">1</span>歳の誕生日より前」であれば、後から取得した側の育休を<span class="num">1</span>歳<span class="num">2</span>ヶ月になるまで延長できます。1人が取得できる休業期間の上限(原則<span class="num">1</span>年)自体は変わらないため、「夫婦どちらかが早めに復職し、もう一方が後ろにずらして取る」ことで、トータルの育休期間に幅を持たせる制度というイメージです。妻が専業主婦(夫)などもともと就業していない場合や、夫婦いずれかが雇用保険未加入の場合は利用できません。</p>
+
+    <h3>妻と夫のスケジュールをどう組み合わせるか</h3>
+    <p>全体像を並べると、妻は「産前休業(任意・<span class="num">6</span>週間前〜)→産後休業(強制・<span class="num">8</span>週間)→育児休業(〜<span class="num">1</span>歳、延長可)」という流れになり、夫は「産後パパ育休(出生後<span class="num">8</span>週間以内・最大<span class="num">28</span>日)→必要に応じて通常育休」という流れになります。よくある組み合わせ方としては、妻が<span class="num">1</span>歳前後での職場復帰を予定している場合に、夫がパパ・ママ育休プラスを使って妻の復帰直前まで育休をずらして取ることで、保育園入園のタイミングまで夫婦どちらかが必ず育児に専念できる状態を作る、という使い方があります。</p>
+
+    <div class="callout tele">
+      <div class="callout-label">保活(保育園探し)との関係</div>
+      多くの自治体では<span class="num">4</span>月入園が中心で、申込み締切は前年の<span class="num">10〜11</span>月頃であることが一般的です。子が<span class="num">0</span>歳の<span class="num">4</span>月入園を目指すのか、育休をフルに使って<span class="num">1</span>歳の<span class="num">4</span>月入園を待つのかで、妻の職場復帰時期・夫のパパ・ママ育休プラスの使いどころが変わってきます。保活のスケジュール感が固まってきたら、本レポートのA〜Dのパターンや⑭の内容と合わせて見直すとよいでしょう。
+    </div>
+  </section>
+
+  <section id="general-satogaeri">
+    <div class="section-head">
+      <span class="section-index">04</span>
+      <h2>一般的な里帰り出産における夫の過ごし方</h2>
+    </div>
+    <p class="lede">具体的な計画を考える前に、多くの家庭で見られる標準的なパターンをまず押さえておきます。今回のケース(在宅勤務が可能・立ち会いを希望)は、この「一般的な型」からどこを変えることになるのかを意識すると検討しやすくなります。</p>
+
+    <h3>里帰り中、夫は基本的に一人暮らしになる</h3>
+    <p>里帰り出産では、里帰り開始から産後の帰京まで、夫は自宅で一人暮らしをしながら仕事を続けるのが標準的なパターンです。期間は家庭によって幅がありますが、出産の数週間前から産後1〜2ヶ月ほどまで、合計で1〜3ヶ月程度に及ぶことも珍しくありません。仕事と身の回りの家事を両立しながら、実家にいる妻子と離れて過ごす期間になります。</p>
+
+    <h3>里帰り先に「一緒に滞在」する夫はどのくらいいるか</h3>
+    <p>「夫が里帰り先(妻の実家)に同居・長期滞在する割合」をピンポイントで示す公的統計は、調べた範囲では見つかりませんでした。里帰り出産の調査は妊産婦側の視点(償還払い手続き、里帰り時期・期間など)を対象にしたものが中心で、夫の同行状況そのものを設問にした調査は多くないのが実情です。</p>
+    <p>ただし、関連するデータからは間接的に傾向を読み取れます。ある調査(<span class="num">2026</span>年)では、里帰り中の夫の来訪頻度は「ほぼ毎日」が<span class="num">28.2</span>%、「週<span class="num">1</span>日程度以下」が約<span class="num">4</span>割で、過ごし方も「普段と変わらず仕事中心」が<span class="num">65.5</span>%という結果でした。この数字から見ても、里帰り先に住み着くのではなく<strong>自宅を拠点にしながら訪問する</strong>のが多数派で、「ほぼ毎日」来訪できる層も実家が近距離(車・電車で通える範囲)であるケースが中心とみられます。</p>
+    <p>実家が新幹線・飛行機が必要な<strong>遠方</strong>の場合、通いでの「ほぼ毎日」来訪はそもそも現実的でないため、夫が里帰り先に長期同行・滞在するのはさらに少数派になると考えられます。夫自身が完全リモートワークで場所を選ばずに働ける、まとまった休暇や育休を取得している、といった条件が揃った家庭に限られるのが実情のようです。逆にいえば、<strong>在宅勤務が可能な今回のケースは、この「少数派だが実現可能な」パターンを選択肢にできる立場</strong>にあるということでもあります。具体的な検討は次のセクション以降で扱います。</p>
+
+    <h3>実家への訪問は週1回程度が目安</h3>
+    <p>アンケートや体験談では、休日に合わせて<strong>週1回程度</strong>実家を訪れ、日帰りまたは1泊で出産準備や赤ちゃんの世話を手伝って自宅に戻る、というのが典型的なペースとして紹介されています。距離が近ければもっと頻繁に、遠方で交通費がかかる場合や実家への気遣いがある場合はもう少し間隔をあける家庭が多いようです。</p>
+
+    <h3>里帰り出産だと、立ち会い出産のハードルは上がるのが実情</h3>
+    <p>出産全体で見ると、立ち会いを経験した夫はまだ多数派とは言えません。あるアンケート(<span class="num">293</span>名対象)では、立ち会いが「なかった」が<span class="num">67.9</span>%、「あった」が<span class="num">32.1</span>%で、立ち会った人の<span class="num">91.5</span>%が夫だったという結果でした。里帰り出産は物理的に離れた場所での出産になるため、通常はこの立ち会いのハードルがさらに上がります。今回、在宅勤務での先乗り待機を検討しているのは、この一般的なハードルを下げるための工夫という位置づけになります。</p>
+
+    <h3>一人暮らし中の生活費は月3〜4万円が相場</h3>
+    <p>里帰り中、自宅に残る夫の生活費は<strong>月3〜4万円程度</strong>が相場とされ、主な内訳は食費(1日<span class="num">1,000</span>〜<span class="num">1,500</span>円程度)です。トイレットペーパーなど消耗品を出発前にストックしておく、冷凍の作り置きおかずを用意しておく、といった工夫をする家庭が多いようです。</p>
+
+    <h3>よくある課題と対策</h3>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>よくある課題</th><th>一般的な対策</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>家事の負担が増える</td><td>事前に役割分担を話し合っておく、家事代行サービスに登録しておく</td></tr>
+          <tr><td>孤独感・疎外感</td><td>こまめな連絡、赤ちゃんの写真・動画の共有、胎動を一緒に感じる機会をつくる</td></tr>
+          <tr><td>父親としての自覚が育ちにくい</td><td>できるだけ早い対面機会、頻繁な連絡</td></tr>
+          <tr><td>帰京後、育児スタイルの確立に時間がかかる</td><td>家族と離れる期間が長くなりすぎないよう、帰京タイミングを事前に検討する</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>実家が遠方の場合ならではの注意点</h3>
+    <p>ここまでの内容は里帰り出産全般の傾向ですが、実家が新幹線や飛行機での移動が必要な<strong>遠方</strong>にある場合は、いくつか事情が変わります。今回のケース(東京⇄福岡)はまさにこの「遠方」パターンに該当するため、特に押さえておきたいポイントです。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>項目</th><th>近距離(車・電車で日帰り圏)</th><th>遠方(新幹線・飛行機が必要)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>夫の訪問頻度</td><td>週<span class="num">1</span>回程度</td><td class="fit-mid">月<span class="num">1〜2</span>回程度に下がりやすい</td></tr>
+          <tr><td>里帰り期間</td><td>産前後で<span class="num">1〜2</span>ヶ月程度</td><td class="fit-mid">産前後で<span class="num">2</span>ヶ月〜半年に及ぶ例も</td></tr>
+          <tr><td>産院</td><td>同じ産院で通しやすい</td><td class="fit-mid">セミオープンシステム等での転院が前提になりやすい</td></tr>
+          <tr><td>出産直後に駆けつける難易度</td><td>比較的容易</td><td class="fit-low">移動時間・費用がハードルになりやすい</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>遠方ならではの特徴として、次のような点がよく挙げられます。</p>
+    <ul style="margin:0 0 16px;padding-left:1.3em;font-size:0.95rem;">
+      <li style="margin-bottom:8px;"><strong>転院手続きが必要になりやすい</strong> — 現在の産院と里帰り先の産院、両方で診察を受ける必要があり(いわゆるセミオープンシステム)、紹介状のやり取りと移動タイミングの調整が発生します。</li>
+      <li style="margin-bottom:8px;"><strong>往復とも移動そのものがリスクを伴う</strong> — 里帰り時は妊婦本人の移動、退院後の帰京時は新生児を連れての移動になるため、どちらのタイミングも医師への事前相談が推奨されます。</li>
+      <li style="margin-bottom:8px;"><strong>訪問時の交通費がかさむ</strong> — 新幹線・飛行機代が毎回発生するため、近距離の「週1回」に比べて訪問頻度が下がり、連休や有給をまとめて使って埋め合わせる家庭が多いようです。</li>
+      <li style="margin-bottom:0;"><strong>手続きの一部は居住地でしか行えない</strong> — 児童手当や乳幼児医療費助成は居住地(東京)側でのみ申請できるため、帰京後にあらためて手続きが必要になります。</li>
+    </ul>
+
+    <div class="callout">
+      <div class="callout-label">出生届は里帰り先でも提出できる</div>
+      出生届は本籍地・住所地に関わらず、里帰り先(福岡)の役所でも提出可能です。届出人として父親の署名があれば、母親自身が窓口に行けなくても、父親が代理で提出することもできます。提出期限は出生日から<span class="num">14</span>日以内です。児童手当申請用に、出生届の写しを複数枚(目安<span class="num">3</span>枚程度)用意しておくと後の手続きがスムーズです。
+    </div>
+
+    <p style="font-size:0.85rem;color:var(--ink-faint);">ここまでは一般的な傾向の紹介です。次のセクションから、今回のケース(東京⇄福岡・在宅勤務が可能・立ち会いを希望)に合わせた具体的な検討に入ります。</p>
+  </section>
+
+  <section id="enpou-summary">
+    <div class="section-head">
+      <span class="section-index">05</span>
+      <h2>遠方の里帰り出産:夫の一般的な過ごし方まとめ</h2>
+    </div>
+    <p class="lede">ここまでの内容から、実家が遠方(新幹線・飛行機での移動が必要)にある場合に夫が一般的にどう過ごすかを、時系列で1枚にまとめました。個別の計画に入る前の土台として使ってください。</p>
+
+    <div class="countdown-list">
+      <div class="countdown-item">
+        <div class="countdown-when">妊娠中(里帰り前)</div>
+        <div class="countdown-what"><b>準備と取り決め</b><span>里帰り時期・期間を妻や実家と早めに相談する(遠方だと産前後で2ヶ月〜半年に及ぶことも)。生活費(月3〜4万円が目安)を渡す・取り決める。冷凍の作り置きや消耗品のストックなど一人暮らしの準備をしておく。転院(セミオープンシステム等)の手続き・タイミングを産院と確認しておく。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">出産が近づいたら</div>
+        <div class="countdown-what"><b>立ち会いへの備え</b><span>「東京から駆けつければ平均的には間に合う」計算にはなるが、急産などで確実ではないため、立ち会いたい場合は現地への先乗り(在宅勤務や有給)を検討するのが一般的に確実。産院に立ち会いの可否・条件を事前確認しておく。緊急時にすぐ動けるよう、交通手段(フライト・新幹線)の情報を把握しておく。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">出産時〜産後(里帰り中)</div>
+        <div class="countdown-what"><b>離れて過ごす期間の過ごし方</b><span>立ち会えないケースも珍しくないため、電話等でこまめに連絡を受け取る体制をつくる。訪問は月1〜2回程度が目安で、連休や有給をまとめて使う家庭が多い。出生届は里帰り先の役所でも提出でき、父親の署名があれば代理提出も可能(立ち会えなくても手続き自体は問題にならない)。赤ちゃんの写真・動画をこまめに共有してもらう、胎動や成長を感じる機会をつくるなど、意識的に接点を増やす。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">帰京後</div>
+        <div class="countdown-what"><b>生活の再構築</b><span>児童手当・乳幼児医療費助成など居住地でしか手続きできないものをまとめて処理する。家族と離れていた期間が長いほど育児スタイルの確立に時間がかかりやすいため、帰京後の役割分担を早めにすり合わせておく。</span></div>
+      </div>
+    </div>
+
+    <p style="font-size:0.85rem;color:var(--ink-faint);">これは一般的な傾向をまとめたものです。次のセクションから、今回のケース(東京⇄福岡・在宅勤務が可能・立ち会いを希望)向けの具体的な検討に入ります。</p>
+  </section>
+
+  <section id="satogaeri">
+    <div class="section-head">
+      <span class="section-index">06</span>
+      <h2>里帰り出産という事情をどう織り込むか</h2>
+    </div>
+    <p class="lede">今回は東京在住・里帰り先が福岡という前提のため、一般的な「産後パパ育休の取得ガイド」だけでは足りない検討ポイントがあります。休みをどのタイミングに重点配分するかが、パターン選びの一番の分かれ目です。</p>
+
+    <p>里帰り出産の場合、出産直後は妻の実家のサポートがあるため、夫が休みを取らなくても生活は回りやすい時期です。一方で、<strong>妻と赤ちゃんが東京に戻ってきた直後</strong>は、実家のサポートが途切れ、いきなりワンオペ育児が始まるタイミングでもあります。つまり「出産に立ち会うための休み」と「帰京後の立ち上げをサポートする休み」は、どちらも大事ですが役割が違います。</p>
+
+    <div class="callout">
+      <div class="callout-label">検討の軸</div>
+      産後パパ育休は最大28日・分割2回まで。この枠を「出産直後」と「帰京後」のどちらに厚めに配分するか、あるいは両方に分けるかが、パターンA〜Dの違いになります。
+    </div>
+
+    <p>なお、里帰りからの帰京時期そのものがまだ未確定です(妊娠タイムラインでは里帰り開始のみ 2027/3/2〜3/29 と設定済み)。一般的には産後1ヶ月健診(生後1ヶ月前後)を目安に帰京するケースが多いため、本レポートでは<strong>生後1ヶ月前後(2027年5月末〜6月上旬ごろ)</strong>を仮の帰京時期として試算しています。実際の帰京日が決まり次第、パターンC・Dの日程は調整してください。</p>
+  </section>
+
+  <section id="attend">
+    <div class="section-head">
+      <span class="section-index">07</span>
+      <h2>立ち会い出産をどう実現するか</h2>
+    </div>
+    <p class="lede">立ち会いたいという気持ちを実現するうえで一番のハードルは、休みの計画そのものより「出産予定日はあくまで目安でしかない」という点です。まずこのブレを踏まえたうえで、在宅勤務という手段をどう活かすかを整理します。</p>
+
+    <h3>出産日は予定日からかなりブレるのが普通</h3>
+    <p>出産予定日ぴったりに生まれる確率は、初産婦で約<span class="num">5.6</span>%、経産婦で約<span class="num">4.8</span>%という統計があり、<span class="num">20</span>人に<span class="num">1</span>人程度にすぎません。医学的に問題のない「正期産」とされる妊娠<span class="num">37</span>週〜<span class="num">41</span>週の間に分娩の<span class="num">9</span>割以上が集中し、目安としては「予定日の<span class="num">3</span>週間前〜<span class="num">2</span>週間後」の範囲でブレると考えておくのが実際的です。今回のケースでは、出産予定日 <span class="num">2027/4/27</span> を基準にすると、正期産の範囲はおおよそ<strong><span class="num">2027/4/6</span>(<span class="num">37</span>週<span class="num">0</span>日)〜<span class="num">2027/5/11</span>(<span class="num">41</span>週<span class="num">0</span>日)</strong>ごろとなります。つまり「予定日ぴったりに休みを合わせる」計画は、外れる可能性の方がずっと高いということです。</p>
+
+    <h3>東京から駆けつける場合、実際どのくらい間に合う可能性があるか</h3>
+    <p>在宅勤務での先乗りができず、東京にいる状態で産気づいた連絡を受けてから福岡へ向かうケースも想定しておきます。陣痛の進み方と移動時間を突き合わせて、現実的な可能性を試算してみます。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>陣痛開始〜出産までの時間</th><th class="num">分娩第1期</th><th class="num">分娩第2期</th><th>合計の目安</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>初産婦(今回該当)</td><td class="num">12〜24時間以上</td><td class="num">1〜7時間</td><td class="fit-good">平均<span class="num">12〜15</span>時間</td></tr>
+          <tr><td>経産婦</td><td class="num">7〜24時間</td><td class="num">30分〜2時間</td><td>平均<span class="num">6〜8</span>時間</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-faint);margin-top:-6px;">分娩第1期=規則的な陣痛(目安<span class="num">10</span>分間隔)の開始〜子宮口全開、分娩第2期=子宮口全開〜誕生。陣痛が<span class="num">10</span>分間隔で規則的になった時点が、一般に病院へ連絡する目安とされています。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>東京⇄福岡の移動手段</th><th class="num">移動そのものの所要時間</th><th>空港・駅アクセス込みの実質時間</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>飛行機(羽田⇄福岡)</td><td class="num">約2時間</td><td class="num">実質4〜4.5時間程度</td></tr>
+          <tr><td>新幹線(東京⇄博多、のぞみ最速)</td><td class="num">約4時間50分</td><td class="num">実質5.5〜6時間程度</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>今回は初産のため、本陣痛の連絡から出産まで平均<strong>12〜15時間</strong>、長ければ丸1日近くかかることも珍しくありません。これを移動の実質時間(<span class="num">4〜6</span>時間程度)と比べると、理論上は連絡を受けてから東京を発っても間に合う可能性は十分にあります。ただし、これはあくまで平均値であり、実際には次のような不確実性が重なります。</p>
+    <ul style="margin:0 0 16px;padding-left:1.3em;font-size:0.95rem;">
+      <li style="margin-bottom:8px;">陣痛の進み方には個人差が大きく、まれに数時間で急速に進む「急産」もある</li>
+      <li style="margin-bottom:8px;">連絡・意思決定・移動手段の手配(フライトの空席、始発・最終便のタイミング)にも時間がかかる</li>
+      <li style="margin-bottom:0;">空港・駅から病院までの最後の移動(タクシー等)の時間も別途かかる</li>
+    </ul>
+
+    <div class="callout amber">
+      <div class="callout-label">平均値どおりに進む保証はない</div>
+      実際の立ち会い出産の体験談では、「痛みのピークでようやく到着」「赤ちゃんの頭が見えた段階で分娩室に到着」といった、ギリギリ・間に合わなかったケースも珍しくありません。「東京から駆けつければ平均的には間に合うはず」という前提だけで計画するのは、リスクが小さくないということです。
+    </div>
+
+    <p>この試算からも、そもそも予定日前から福岡に滞在しておく方が、立ち会いを確実にするうえでは現実的な方法だといえます。次の在宅勤務での先乗り待機は、まさにこのリスクを避けるための工夫です。</p>
+
+    <div class="callout tele">
+      <div class="callout-label">在宅勤務での「先乗り待機」という選択肢</div>
+      在宅勤務ができるのであれば、正期産に入る少し手前(目安<span class="num">36</span>週ごろ、<span class="num">2027/3/30</span>ごろ)から福岡へ移動し、そのまま在宅勤務を続けながら出産を待つ、という方法が有力です。休みを使わずに現地で待機できるため、産気づいたらすぐ病院へ駆けつけられ、給料も減らず、産後パパ育休の<span class="num">28</span>日枠を待機期間に使わずに産後へまるごと温存できます。里帰り(<span class="num">2027/3/2</span>〜)のタイミングに合わせて先に福岡入りしてしまうのも一案です。
+    </div>
+
+    <h3>産後パパ育休は「出生後」しか正式には開始できない</h3>
+    <p>注意したいのは、産後パパ育休はあくまで「子の出生後<span class="num">8</span>週間以内」が対象期間の制度であり、出産前の待機そのものに充てることはできないという点です。待機期間中は次のいずれかで対応することになります。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>待機フェーズの選択肢</th>
+            <th>収入への影響</th>
+            <th>産後パパ育休の温存</th>
+            <th>実現のしやすさ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>在宅勤務で福岡待機</strong><br><span style="color:var(--tele);font-size:0.8rem;">(おすすめ)</span></td>
+            <td class="fit-good">影響なし(給与<span class="num">100</span>%)</td>
+            <td class="fit-good"><span class="num">28</span>日を丸ごと産後に温存できる</td>
+            <td class="fit-mid">上長の理解・テレワーク許可が必要</td>
+          </tr>
+          <tr>
+            <td><strong>有給休暇で福岡待機</strong></td>
+            <td class="fit-good">影響なし(給与<span class="num">100</span>%)</td>
+            <td class="fit-mid">産後の枠は温存できるが有給残日数を消費</td>
+            <td class="fit-mid">有給残日数次第(長期の待機には不足しがち)</td>
+          </tr>
+          <tr>
+            <td><strong>産後パパ育休を出産前から取得</strong></td>
+            <td>―</td>
+            <td>―</td>
+            <td class="fit-low">制度上不可(出生前は対象外)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>早まった場合の申出ルール(1週間前特例)</h3>
+    <p>産後パパ育休の申出は原則「休業開始予定日の<span class="num">2</span>週間前まで」ですが、厚生労働省の制度案内では、<strong>出産予定日より早く子が出生した場合など特別の事情があるときは、休業開始予定日の<span class="num">1</span>週間前までの申出でも希望どおりの日から休業を開始できる</strong>という特例が明記されています。在宅勤務で福岡に滞在していれば、産気づいてすぐに立ち会うこと自体は休みの手続きを待たずに可能です。出産当日〜数日は有給休暇や(会社にあれば)配偶者出産に伴う特別休暇で対応しつつ、その後すぐに正式な産後パパ育休へ切り替える、という流れが現実的です。</p>
+  </section>
+
+  <section id="duration">
+    <div class="section-head">
+      <span class="section-index">08</span>
+      <h2>育休をいつ・どれくらい取るか</h2>
+    </div>
+    <p class="lede">「いつ取るか」は前のセクションの通り出生日基準でしか決められませんが、「どれくらいの期間取るか」は本人の裁量の幅が大きい部分です。他の父親たちの実態も参考にしながら整理します。</p>
+
+    <h3>一般的な傾向(令和7年度の実態)</h3>
+    <p>厚生労働省の雇用均等基本調査によると、令和<span class="num">7</span>年度(<span class="num">2025</span>年度)の男性の育児休業取得率は<strong><span class="num">50.9</span>%</strong>で、前年度比<span class="num">+10.4</span>ポイントと、初めて<span class="num">5</span>割を超えました。取得期間の内訳を見ると、かつては「数日〜<span class="num">2</span>週間未満」の短期取得が主流でしたが、直近では次のように長期化が進んでいます。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>取得期間</th><th class="num">割合</th><th>備考</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1ヶ月〜3ヶ月未満</strong></td><td class="num">30.3%</td><td>最多の層</td></tr>
+          <tr><td><strong>2週間〜1ヶ月未満</strong></td><td class="num">28.0%</td><td>次点</td></tr>
+          <tr><td>その他(5日未満・5日〜2週間未満・3ヶ月以上など)</td><td class="num">41.7%</td><td>短期・長期に分散</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.85rem;color:var(--ink-faint);">参考: 女性(母親)の取得期間は「<span class="num">10</span>ヶ月〜<span class="num">12</span>ヶ月未満」が<span class="num">60.1</span>%と最多で、男女で取得期間の傾向は大きく異なります。</p>
+
+    <h3>期間の考え方</h3>
+    <div class="pattern-detail" style="margin-top:6px;">
+      <div class="detail-block">
+        <h4>短期(〜2週間)</h4>
+        <p>産後パパ育休の1回分に相当。出産直後の入院・退院・出生届などの手続き対応が中心で、育児そのものへの関与は限定的になりやすい層。</p>
+      </div>
+      <div class="detail-block">
+        <h4>中期(2週間〜1ヶ月)</h4>
+        <p>現在2番目に多い層。産後パパ育休をフル(<span class="num">28</span>日)使う、あるいはこれに通常育休を少し足す。</p>
+      </div>
+      <div class="detail-block">
+        <h4>長期(1〜3ヶ月)</h4>
+        <p>現在最も多い層。産後パパ育休+通常育休を組み合わせ、育児の立ち上げから帰京後の生活整備まで一貫してサポートできる。</p>
+      </div>
+      <div class="detail-block">
+        <h4>さらに長期(3ヶ月〜)</h4>
+        <p>まだ少数派。パパ・ママ育休プラスを使えば<span class="num">1</span>歳<span class="num">2</span>ヶ月まで延長可能。保活状況次第で検討の余地。</p>
+      </div>
+    </div>
+    <p>統計上「取りやすい期間」が2週間〜3ヶ月に集まっているのは、産後パパ育休(最大28日)と、それに通常育休を数週間〜数ヶ月足す組み合わせが実務上も選びやすいことの表れと考えられます。次のセクションのパターンB〜Dは、この短期・中期・長期の考え方にそれぞれ対応させています。</p>
+  </section>
+
+  <section id="decisions">
+    <div class="section-head">
+      <span class="section-index">09</span>
+      <h2>検討ポイントまとめ</h2>
+    </div>
+    <p class="lede">ここまでの内容から、具体的な計画を組み立てるために決める必要がある論点だけを抜き出しました。それぞれ独立した選択なので、組み合わせ次第でこの後のパターンA〜D以外のオリジナルな計画も作れます。まずはこの8つを一つずつ検討してみてください。</p>
+
+    <div class="decision-list">
+      <div class="decision-card">
+        <div class="decision-num">1</div>
+        <div class="decision-body">
+          <h4>待機フェーズをどう過ごすか</h4>
+          <div class="decision-options"><span class="opt">在宅勤務で福岡待機</span><span class="opt">有給休暇で待機</span></div>
+          <p class="decision-hint">在宅勤務なら収入減なし・産後パパ育休の<span class="num">28</span>日を丸ごと産後に温存できる。ただし上長のテレワーク許可が前提。<b>→ ③立ち会いの実現方法で詳述</b></p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-num">2</div>
+        <div class="decision-body">
+          <h4>産後パパ育休を一括で取るか、分割するか</h4>
+          <div class="decision-options"><span class="opt">出生直後に一括28日</span><span class="opt">2回に分割(出生直後+帰京時)</span></div>
+          <p class="decision-hint">里帰り出産の事情を踏まえると、分割の方が「出産直後」と「帰京後のワンオペ立ち上げ」の両方に休みを配分できる。ただし会社への申出が2回に増える。</p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-num">3</div>
+        <div class="decision-body">
+          <h4>産後パパ育休(最大28日)だけで終えるか、通常育休まで足すか</h4>
+          <div class="decision-options"><span class="opt">産後パパ育休のみ(〜28日)</span><span class="opt">続けて通常育休を数週間〜数ヶ月</span></div>
+          <p class="decision-hint">令和7年度の実態では「1〜3ヶ月未満」の取得が最多(<span class="num">30.3</span>%)。育児への関わり方・キャリアへの考え方次第で短期〜長期のどこに軸を置くか。</p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-num">4</div>
+        <div class="decision-body">
+          <h4>パパ・ママ育休プラスを使うか</h4>
+          <div class="decision-options"><span class="opt">使わない(通常どおり1歳まで)</span><span class="opt">使う(1歳2ヶ月まで延長)</span></div>
+          <p class="decision-hint">妻の育休取得状況(1歳の誕生日前日までに取得していること)が前提条件。保活(保育園入園)のタイミングとも合わせて検討。<b>→ ③妻の産休・育休で詳述</b></p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-num">5</div>
+        <div class="decision-body">
+          <h4>里帰りからの帰京時期をいつに設定するか</h4>
+          <div class="decision-options"><span class="opt">産後1ヶ月健診の頃</span><span class="opt">もっと早め</span><span class="opt">もっと遅め</span></div>
+          <p class="decision-hint">現時点では未確定(本レポートは生後1ヶ月前後と仮定)。分割2回目の産後パパ育休をいつ配置するかに直結するため、早めに妻と相談して大枠だけでも決めておきたい。</p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-num">6</div>
+        <div class="decision-body">
+          <h4>収入減をどこまで許容するか</h4>
+          <div class="decision-options"><span class="opt">産後28日は80%(要件充足)</span><span class="opt">181日目まで67%</span><span class="opt">181日目以降50%</span></div>
+          <p class="decision-hint">育休が長引くほど給付率は段階的に下がる。生活費・貯蓄計画と照らして、どこまでの期間なら許容できるかを事前に試算しておく。</p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-num">7</div>
+        <div class="decision-body">
+          <h4>予定日からのブレにどう備えるか</h4>
+          <div class="decision-options"><span class="opt">早産(最大3週間前倒し)</span><span class="opt">遅産(最大2週間後ろ倒し)</span></div>
+          <p class="decision-hint">在宅勤務での先乗り待機と、早産時の「1週間前申出」特例を組み合わせれば、多少のブレがあっても計画を大きく崩さずに対応できる。</p>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <div class="decision-num">8</div>
+        <div class="decision-body">
+          <h4>会社とどう調整するか</h4>
+          <div class="decision-options"><span class="opt">労使協定の内容確認</span><span class="opt">上司・チームへの相談タイミング</span></div>
+          <p class="decision-hint">産後パパ育休の申出期限(2週間前 or 1ヶ月前)、休業中の就業可否、在宅勤務の可否は会社ごとに異なる。早めの一次相談が後の調整を楽にする。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-label">使い方</div>
+      1〜8の選択を組み合わせると、そのまま次のセクションのパターンA〜Dのどれかに近い形になるはずです。もし当てはまらない組み合わせがあれば、それが二人にとってのオリジナルな計画ということになります。
+    </div>
+  </section>
+
+  <section id="patterns">
+    <div class="section-head">
+      <span class="section-index">10</span>
+      <h2>4つの取得パターン</h2>
+    </div>
+    <p class="lede">休みの「厚み」が軽い順に並べています。いずれも出産予定日の少し前から福岡で在宅勤務しながら待機し、実際の出生日を境に産後パパ育休へ切り替える前提です(有給待機に置き換えたい場合は各パターンの待機フェーズを有給に読み替えてください)。下の図は出産予定日 <span class="num">2027/4/27</span> を基準に、在宅待機開始(<span class="num">3/30</span>)から産後パパ育休の取得期限(<span class="num">6/22</span>)までを実際の日付で表示しています。行ごとに「何を・いつからいつまで」取得するかが分かるようにしており、色付きバーの部分が休業(または在宅勤務)、空白の部分が通常勤務にあたります。実際の出産日がずれた場合は、ここに挙げた日付もその分スライドさせて読み替えてください。</p>
+
+    <!-- Pattern A -->
+    <div class="pattern">
+      <div class="pattern-head">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="pattern-letter">A</span>
+          <div>
+            <h3 class="pattern-name">ミニマム型(在宅待機+有給中心)</h3>
+          </div>
+        </div>
+        <span class="duration-tag">短期・約1週間</span>
+      </div>
+      <p class="pattern-tagline">育休制度はほぼ使わず、在宅勤務での立ち会いと有給休暇でやりくりする。職場への影響を最小限にしたい場合の比較用パターン。</p>
+
+      <div class="gantt">
+        <div class="gantt-ruler">
+          <span class="tick edge-start" style="left:0%">3/30</span>
+          <span class="tick" style="left:18.2%">4/13</span>
+          <span class="tick birth" style="left:27.3%">4/27<small>出生</small></span>
+          <span class="tick" style="left:45.5%">5/11<small>届出期限</small></span>
+          <span class="tick" style="left:63.6%">5/25</span>
+          <span class="tick" style="left:81.8%">6/8</span>
+          <span class="tick edge-end" style="left:100%">6/22<small>取得期限</small></span>
+        </div>
+        <div class="gantt-body">
+          <div class="gantt-birthline" style="left:27.3%"></div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--tele-soft);border:1px solid var(--tele);"></i>在宅勤務(福岡)</span>
+              <span class="gantt-row-dates">3/30 〜 4/27<span class="num">(29日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar tele" style="left:0%;width:27.3%;"></div></div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--ink-faint);opacity:.5;"></i>有給(立ち会い・出生届)</span>
+              <span class="gantt-row-dates">4/27 〜 5/1<span class="num">(5日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar paid" style="left:27.3%;width:6.5%;"></div></div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--ink-faint);opacity:.5;"></i>有給(帰京前後)</span>
+              <span class="gantt-row-dates">5/26 〜 5/27ごろ<span class="num">(1〜2日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar paid" style="left:64.9%;width:2.6%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-detail">
+        <div class="detail-block">
+          <h4>スケジュール</h4>
+          <ul>
+            <li>正期産入り手前から在宅勤務で福岡待機(目安<span class="num">3</span>週間、<span class="num">3/30</span>〜)</li>
+            <li>出産当日〜<span class="num">5</span>日ほど有給(立ち会い・出生届など)</li>
+            <li>産後パパ育休・通常育休は取得しない</li>
+            <li>帰京タイミングに有給<span class="num">1〜2</span>日</li>
+          </ul>
+        </div>
+        <div class="detail-block">
+          <h4>メリット・デメリット</h4>
+          <ul>
+            <li>在宅勤務のおかげで立ち会い自体は実現しやすい</li>
+            <li>職場の調整負荷・収入への影響が最も小さい</li>
+            <li>産後の育児サポートは手薄(帰京後は特に)になりやすい</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pattern-figures">
+        <div class="figure-chip">育休相当の取得日数 <b>5〜7日</b></div>
+        <div class="figure-chip">給付金 <b>なし(給与100%)</b></div>
+        <div class="figure-chip">職場調整 <b>小</b></div>
+      </div>
+    </div>
+
+    <!-- Pattern B -->
+    <div class="pattern">
+      <div class="pattern-head">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="pattern-letter">B</span>
+          <div><h3 class="pattern-name">一括28日型(在宅待機+産後パパ育休)</h3></div>
+        </div>
+        <span class="duration-tag">中期・28日</span>
+      </div>
+      <p class="pattern-tagline">在宅勤務で立ち会いを確保したうえで、出生直後から産後パパ育休28日間をまとめて休む。</p>
+
+      <div class="gantt">
+        <div class="gantt-ruler">
+          <span class="tick edge-start" style="left:0%">3/30</span>
+          <span class="tick" style="left:18.2%">4/13</span>
+          <span class="tick birth" style="left:27.3%">4/27<small>出生</small></span>
+          <span class="tick" style="left:45.5%">5/11<small>届出期限</small></span>
+          <span class="tick" style="left:63.6%">5/25</span>
+          <span class="tick" style="left:81.8%">6/8</span>
+          <span class="tick edge-end" style="left:100%">6/22<small>取得期限</small></span>
+        </div>
+        <div class="gantt-body">
+          <div class="gantt-birthline" style="left:27.3%"></div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--tele-soft);border:1px solid var(--tele);"></i>在宅勤務(福岡)</span>
+              <span class="gantt-row-dates">3/30 〜 4/27<span class="num">(29日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar tele" style="left:0%;width:27.3%;"></div></div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--accent);"></i>産後パパ育休</span>
+              <span class="gantt-row-dates">4/27 〜 5/24<span class="num">(28日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar" style="left:27.3%;width:36.4%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-detail">
+        <div class="detail-block">
+          <h4>スケジュール</h4>
+          <ul>
+            <li>在宅勤務で福岡待機(<span class="num">3/30</span>〜出生まで)</li>
+            <li>産後パパ育休: <span class="num">4/27</span>〜<span class="num">5/24</span>(<span class="num">28</span>日間)</li>
+            <li>里帰り中盤〜終盤まで福岡に滞在してサポート</li>
+            <li><span class="num">5/24</span>以降は仕事に復帰</li>
+          </ul>
+        </div>
+        <div class="detail-block">
+          <h4>メリット・デメリット</h4>
+          <ul>
+            <li>立ち会いから出産直後まで、まとまった時間を確保できる</li>
+            <li>給付金80%を最大枠まで活用できる</li>
+            <li>帰京後(ワンオペ開始)のタイミングと休みがずれる可能性</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pattern-figures">
+        <div class="figure-chip">取得日数 <b class="num">28日</b></div>
+        <div class="figure-chip">給付金目安 <b class="num">約22.4万円</b>(月給30万円例)</div>
+        <div class="figure-chip">職場調整 <b>中</b></div>
+      </div>
+    </div>
+
+    <!-- Pattern C -->
+    <div class="pattern recommended">
+      <span class="pattern-badge">検討のおすすめ</span>
+      <div class="pattern-head">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="pattern-letter">C</span>
+          <div><h3 class="pattern-name">分割2回型(在宅待機+出生直後+帰京時)</h3></div>
+        </div>
+        <span class="duration-tag">中期・合計28日</span>
+      </div>
+      <p class="pattern-tagline">在宅勤務で立ち会いを確保し、産後パパ育休の「2回まで分割可」を活かして出産直後と帰京直後の両方に休みを配分する。</p>
+
+      <div class="gantt">
+        <div class="gantt-ruler">
+          <span class="tick edge-start" style="left:0%">3/30</span>
+          <span class="tick" style="left:18.2%">4/13</span>
+          <span class="tick birth" style="left:27.3%">4/27<small>出生</small></span>
+          <span class="tick" style="left:45.5%">5/11<small>届出期限</small></span>
+          <span class="tick" style="left:63.6%">5/25</span>
+          <span class="tick" style="left:81.8%">6/8</span>
+          <span class="tick edge-end" style="left:100%">6/22<small>取得期限</small></span>
+        </div>
+        <div class="gantt-body">
+          <div class="gantt-birthline" style="left:27.3%"></div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--tele-soft);border:1px solid var(--tele);"></i>在宅勤務(福岡)</span>
+              <span class="gantt-row-dates">3/30 〜 4/27<span class="num">(29日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar tele" style="left:0%;width:27.3%;"></div></div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--accent);"></i>1回目(出産直後)</span>
+              <span class="gantt-row-dates">4/27 〜 5/3<span class="num">(7日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar" style="left:27.3%;width:9.1%;"></div></div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--amber);"></i>2回目(帰京前後)</span>
+              <span class="gantt-row-dates">5/24 〜 6/13<span class="num">(21日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar secondary" style="left:62.3%;width:27.3%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pattern-detail">
+        <div class="detail-block">
+          <h4>スケジュール(仮)</h4>
+          <ul>
+            <li>在宅勤務で福岡待機(<span class="num">3/30</span>〜出生まで)</li>
+            <li>1回目: <span class="num">4/27</span>〜<span class="num">5/3</span>(<span class="num">7</span>日)立ち会い・出生届・面会</li>
+            <li>いったん仕事に復帰(里帰り中は実家サポートあり)</li>
+            <li>2回目: 帰京前後の<span class="num">3</span>週間(例 <span class="num">5/24</span>〜<span class="num">6/13</span>)</li>
+          </ul>
+        </div>
+        <div class="detail-block">
+          <h4>メリット・デメリット</h4>
+          <ul>
+            <li>立ち会いから出産直後までも、帰京後の立ち上げも両方厚くサポートできる</li>
+            <li>実家のサポートがある時期は仕事を継続できる</li>
+            <li>会社への申出が2回に分かれ、調整の手間がやや増える</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pattern-figures">
+        <div class="figure-chip">取得日数 合計<b class="num">28日</b></div>
+        <div class="figure-chip">給付金目安 <b class="num">約22.4万円</b>(要件充足時)</div>
+        <div class="figure-chip">職場調整 <b>中〜大</b></div>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--ink-faint);margin-top:14px;">※ 2回目の日程は帰京日が確定してから確定させてください。8週間期限(<span class="num">6/22</span>ごろ)を超えないよう、帰京が遅れる場合は2回目の開始日を前倒しする必要があります。</p>
+    </div>
+
+    <!-- Pattern D -->
+    <div class="pattern">
+      <div class="pattern-head">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="pattern-letter">D</span>
+          <div><h3 class="pattern-name">長期型(在宅待機+産後パパ育休+通常育休)</h3></div>
+        </div>
+        <span class="duration-tag">長期・28日+数ヶ月</span>
+      </div>
+      <p class="pattern-tagline">在宅勤務で立ち会いを確保したうえで、産後パパ育休に続けて通常の育休も取得し、育児に本格的に参加する。パパ・ママ育休プラスで1歳2ヶ月まで延長も可能。</p>
+
+      <div class="gantt">
+        <div class="gantt-ruler">
+          <span class="tick edge-start" style="left:0%">3/30</span>
+          <span class="tick" style="left:18.2%">4/13</span>
+          <span class="tick birth" style="left:27.3%">4/27<small>出生</small></span>
+          <span class="tick" style="left:45.5%">5/11<small>届出期限</small></span>
+          <span class="tick" style="left:63.6%">5/25</span>
+          <span class="tick" style="left:81.8%">6/8</span>
+          <span class="tick edge-end" style="left:100%">6/22<small>取得期限</small></span>
+        </div>
+        <div class="gantt-body">
+          <div class="gantt-birthline" style="left:27.3%"></div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--tele-soft);border:1px solid var(--tele);"></i>在宅勤務(福岡)</span>
+              <span class="gantt-row-dates">3/30 〜 4/27<span class="num">(29日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar tele" style="left:0%;width:27.3%;"></div></div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--accent);"></i>産後パパ育休</span>
+              <span class="gantt-row-dates">4/27 〜 5/24<span class="num">(28日)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar" style="left:27.3%;width:36.4%;"></div></div>
+          </div>
+          <div class="gantt-row">
+            <div class="gantt-row-head">
+              <span class="gantt-row-label"><i class="tl-dot" style="background:var(--accent);opacity:.4;"></i>通常育休(継続)</span>
+              <span class="gantt-row-dates">5/25 〜 7月末ごろ<span class="num">(約2ヶ月)</span></span>
+            </div>
+            <div class="gantt-track"><div class="gantt-bar longtail" style="left:63.6%;width:36.4%;"><span class="gantt-bar-arrow">→</span></div></div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:0.8rem;color:var(--ink-faint);margin-top:8px;">※ 通常育休のバーは表示期間(<span class="num">6/22</span>まで)を超えてさらに続くことを示しています。</p>
+
+      <div class="pattern-detail">
+        <div class="detail-block">
+          <h4>スケジュール(例)</h4>
+          <ul>
+            <li>在宅勤務で福岡待機(<span class="num">3/30</span>〜出生まで)</li>
+            <li>産後パパ育休: <span class="num">4/27</span>〜<span class="num">5/24</span>(<span class="num">28</span>日)</li>
+            <li>続けて通常育休: <span class="num">5/25</span>〜<span class="num">7</span>月末ごろ(約<span class="num">2</span>ヶ月、統計上最多の「1〜3ヶ月」帯に相当)</li>
+            <li>妻も育休中であれば「パパ・ママ育休プラス」で最長<span class="num">2028/6/27</span>(<span class="num">1</span>歳<span class="num">2</span>ヶ月)まで延長可</li>
+          </ul>
+        </div>
+        <div class="detail-block">
+          <h4>メリット・デメリット</h4>
+          <ul>
+            <li>立ち会いから育児本格参加まで、切れ目なくサポートできる</li>
+            <li>収入は67%(上限あり)まで下がる期間が発生</li>
+            <li>職場との調整・引き継ぎの負荷が最も大きい</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pattern-figures">
+        <div class="figure-chip">取得日数 <b class="num">28日+2ヶ月〜</b></div>
+        <div class="figure-chip">給付金目安 <b class="num">初28日80%→以降67%</b></div>
+        <div class="figure-chip">職場調整 <b>大</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="compare">
+    <div class="section-head">
+      <span class="section-index">11</span>
+      <h2>比較まとめ</h2>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>パターン</th>
+            <th>期間区分</th>
+            <th>取得日数の目安</th>
+            <th>給付率の目安</th>
+            <th>帰京後サポート</th>
+            <th>職場調整の負荷</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>A</strong> ミニマム型</td>
+            <td>短期</td>
+            <td class="num">5〜7日</td>
+            <td>なし(給与100%)</td>
+            <td class="fit-low">薄い</td>
+            <td class="fit-good">小</td>
+          </tr>
+          <tr>
+            <td><strong>B</strong> 一括28日型</td>
+            <td>中期</td>
+            <td class="num">28日</td>
+            <td class="num">最大80%</td>
+            <td class="fit-mid">タイミング次第</td>
+            <td class="fit-mid">中</td>
+          </tr>
+          <tr>
+            <td><strong>C</strong> 分割2回型</td>
+            <td>中期</td>
+            <td class="num">合計28日</td>
+            <td class="num">最大80%</td>
+            <td class="fit-good">厚い</td>
+            <td class="fit-mid">中〜大</td>
+          </tr>
+          <tr>
+            <td><strong>D</strong> 長期型</td>
+            <td>長期</td>
+            <td class="num">28日+数ヶ月</td>
+            <td class="num">80%→67%</td>
+            <td class="fit-good">厚い(長期)</td>
+            <td class="fit-low">大</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>全パターンとも、出産予定日の少し前から在宅勤務で福岡待機する形を軸にしているため、立ち会いの実現性自体はA〜Dどれでも大きく変わりません。違いが出るのは産後のサポートの厚みです。里帰り出産の事情を踏まえると、実家のサポートが得られる期間と、帰京後にサポートが必要になる期間の両方に休みを配分できる<strong>パターンC(分割2回型)</strong>が、休みの「効き目」という意味ではバランスが良い選択肢です。ただし、まとまった時間で育児にじっくり向き合いたい、保活や生活基盤づくりに時間を使いたいという場合は<strong>パターンD</strong>も十分に検討に値します。最終的には収入への影響の許容度、職場の理解度、キャリアへの考え方次第で選ぶのが実際的です。</p>
+  </section>
+
+  <section id="schedule">
+    <div class="section-head">
+      <span class="section-index">12</span>
+      <h2>会社への申出スケジュール(逆算)</h2>
+    </div>
+    <p class="lede">産後パパ育休は「原則2週間前まで」、通常育休は「原則1ヶ月前まで」に会社へ申し出るのがルールです(労使協定で産後パパ育休の申出期限が1ヶ月前に延長されている会社もあるため要確認)。出産予定日 2027/4/27 を基準にすると、次のようなスケジュール感になります。</p>
+
+    <div class="countdown-list">
+      <div class="countdown-item">
+        <div class="countdown-when">〜2026年秋頃</div>
+        <div class="countdown-what"><b>上司・人事への一次相談</b><span>取得意向に加え、出産予定日前からの在宅勤務(福岡待機)の希望も併せて伝え、繁忙期や引き継ぎ体制を確認しておくと後の調整がスムーズ。法的な申出期限より前でも、早期の相談自体は制度上メリットが大きい。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">2027年1月頃</div>
+        <div class="countdown-what"><b>労使協定の内容を確認</b><span>産後パパ育休の申出期限(2週間前 or 1ヶ月前)、休業中の就業可否、賞与算定への影響、在宅勤務の可否などを人事に確認。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">2027年3月中旬まで</div>
+        <div class="countdown-what"><b>1回目(出産直後)の産後パパ育休を正式申出</b><span>1ヶ月前ルールの会社の場合、出産予定日から逆算して3月中旬までに申出が必要。分割2回を予定している場合は、この時点で2回目の取得予定も併せて伝える必要あり。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">2027年3月30日ごろ〜</div>
+        <div class="countdown-what"><b>在宅勤務での福岡待機を開始</b><span>正期産入り(37週)の少し手前を目安に福岡へ移動し、在宅勤務のまま出産を待つ。産気づいたらすぐ産後パパ育休へ切り替える体制を整えておく。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">出生日+14日以内</div>
+        <div class="countdown-what"><b>出生届の提出</b><span>役所への届出。産後パパ育休の申出とは別の手続き。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">帰京日の2週間〜1ヶ月前</div>
+        <div class="countdown-what"><b>2回目の産後パパ育休を申出(パターンC・Dの場合)</b><span>帰京日が確定し次第、できるだけ早めに会社へ連絡。</span></div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-when">出生日+8週間まで</div>
+        <div class="countdown-what"><b>産後パパ育休の取得期限</b><span>2027年6月22日ごろが目安。この期限を過ぎると産後パパ育休としては取得できず、通常の育休扱いになる。</span></div>
+      </div>
+    </div>
+
+    <div class="callout tele">
+      <div class="callout-label">出産が早まった場合</div>
+      出産予定日より早く生まれた場合など特別の事情があるときは、産後パパ育休は「休業開始予定日の1週間前まで」の申出でも希望どおりの日から取得できます。在宅勤務で福岡に滞在していれば、急な早産でも立ち会い自体は問題なく実現でき、直後の数日を有給等でつなぎながら正式な申出を進める形で対応できます。
+    </div>
+  </section>
+
+  <section id="todo">
+    <div class="section-head">
+      <span class="section-index">13</span>
+      <h2>次に決めること</h2>
+    </div>
+    <ul class="checklist">
+      <li><div class="chk-mark"></div><div>福岡での在宅勤務(先乗り待機)が可能か、上長・人事に確認する</div></li>
+      <li><div class="chk-mark"></div><div>里帰り先の産院に、立ち会い出産の可否と条件(予約・研修の要否など)を確認する</div></li>
+      <li><div class="chk-mark"></div><div>勤務先の労使協定を確認する(産後パパ育休の申出期限・就業可否・分割ルール)</div></li>
+      <li><div class="chk-mark"></div><div>里帰りからの帰京予定日をおおまかにでも決めておく(パターンC・Dの日程確定に必要)</div></li>
+      <li><div class="chk-mark"></div><div>妻の育休・産休の取得予定と合わせて、パパ・ママ育休プラスを使うかどうかを検討する</div></li>
+      <li><div class="chk-mark"></div><div>上司・チームへの一次相談のタイミングを決める(在宅待機の予定も含めて早めに共有)</div></li>
+      <li><div class="chk-mark"></div><div>収入減の許容度(生活費・貯蓄計画)を踏まえてA〜Dのどれを軸にするか仮決めする</div></li>
+      <li><div class="chk-mark"></div><div>出産日が確定したら、本レポートの全日程を出生日基準に引き直す</div></li>
+    </ul>
+  </section>
+
+  <section id="second-child">
+    <div class="section-head">
+      <span class="section-index">14</span>
+      <h2>二人目を見据えた検討</h2>
+    </div>
+    <p class="lede">現時点ではまだ一人目の出産前ですが、将来的に二人目を考える場合、今回の計画がどう変わりうるかを整理しておきます。産休・育休の制度自体は子どもごとに使い直せるため大きな制約にはなりませんが、「上の子をどうするか」という一人目にはなかった論点が新たに加わるのが最大の違いです。</p>
+
+    <h3>制度面は子どもごとに「リセット」される</h3>
+    <p>産後パパ育休(出生時育児休業)・通常の育児休業・パパ・ママ育休プラス・各種給付金は、いずれも子ども1人ごとに新たに取得できる制度です。一人目の産後パパ育休で「2回まで分割可」のルールを使い切っていても、二人目のときにはまた新たに2回分の枠が使えます。育児休業給付金の給付率(80%・67%・50%)や社会保険料免除の仕組みも、二人目の出生を起点に改めて適用されます。「取得できる・できない」という制度上の可否だけを見れば、基本的に一人目のときと同じ土俵で検討できます。</p>
+
+    <h3>一番大きく変わるのは「上の子をどうするか」</h3>
+    <p>二人目の出産では、里帰りする・しないにかかわらず、入院中〜産後しばらくの間、上の子をどう過ごさせるかが最大の論点になります。先輩家庭の体験談を見ても、実家・義実家・保育園継続・上の子を病院に同伴・夫が単独で担う、といった選択肢を家庭の状況に応じて組み合わせているケースが多いようです。今回のケースに当てはめると、里帰りする・しないを軸に、大きく次の4パターンに整理できます。</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>パターン</th><th>上の子への影響</th><th>産後のサポート</th><th>今回のケースでの実現しやすさ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>a</strong> 上の子も連れて里帰り</td><td>保育園を長期離脱(自治体によっては退園リスク)</td><td>実家のサポートを最大限受けられる</td><td class="fit-low">低い(保育園継続が課題)</td></tr>
+          <tr><td><strong>b</strong> 母子のみ里帰り、夫と上の子は自宅に残る</td><td>保育園はそのまま継続</td><td>里帰り中の家事・上の子のケアは夫がほぼ単独</td><td class="fit-mid">夫の働き方次第</td></tr>
+          <tr><td><strong>c</strong> 里帰りせず、実家の親に来てもらう(逆里帰り)</td><td>保育園・生活環境とも変化が少ない</td><td>サポートは親の滞在期間中のみ(数日〜数週間)</td><td class="fit-good">高い(定住後なら現実的)</td></tr>
+          <tr><td><strong>d</strong> 里帰りせず、シッター・家事代行・一時保育を活用</td><td>保育園継続、環境変化も少ない</td><td>サポートは限定的だが日程の融通が利きやすい</td><td class="fit-mid">費用と事前登録の手間次第</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>上の子の保育園「育休退園」に要注意</h3>
+    <div class="callout amber">
+      <div class="callout-label">3ヶ月ルールに注意</div>
+      厚生労働省の考え方としては、育休取得時にすでに保育園を利用している子どもは継続利用できるのが原則です。ただし実際の運用は自治体ごとに異なり、里帰りなどで長期間(目安<span class="num">3</span>ヶ月以上)登園しない状態が続くと、退園扱いになる自治体もあります。二人目の出産で上の子を連れて長期間里帰りする(上表のパターンa)場合、このルールが大きな制約になり得るため、上の子が保育園に入園するタイミングで、居住予定の自治体(墨田区など)の運用をあらかじめ確認しておくと安心です。
+    </div>
+
+    <h3>今回のケースでの見立て(あくまで仮)</h3>
+    <p>押上に定住したあとであれば、二人目の出産は必ずしも里帰りを前提にしなくてもよい可能性があります。一人目で里帰りを検討している大きな理由のひとつは「東京でのかかりつけ産院がまだない」ことですが、二人目の時点では東京の産院にすでに通っている実績があるはずです。その場合、無理に長距離移動をせず東京で出産したうえで、実家の親に一時的に来てもらう(上表のパターンc)、または夫が育休や在宅勤務で上の子のケアを担う(パターンb)という組み合わせの方が、上の子の保育園を継続でき生活環境の変化も少なく済むという意味で、現実的な選択肢になりやすいと考えられます。ただしこれはあくまで現時点での仮の見立てで、実際に二人目を考えるタイミングでの上の子の年齢、保育園や小学校の状況、実家の親の体力などによって変わってきます。</p>
+
+    <h3>今のうちに意識しておきたいこと</h3>
+    <ul style="margin:0;padding-left:1.3em;font-size:0.95rem;">
+      <li style="margin-bottom:8px;">一人目の産休育休を通じて、在宅勤務や休業取得について職場との信頼関係・実績を作っておくと、二人目のときの調整が格段にスムーズになる。</li>
+      <li style="margin-bottom:8px;">一人目の里帰り出産で「東京の産院」と「実家の産院」両方との付き合い方を経験しておくと、二人目で里帰りする・しないを判断する材料になる。</li>
+      <li style="margin-bottom:8px;">上の子の保育園入園時に、自治体の「育休退園」ルールをあらかじめ確認しておくと、二人目のときに慌てずに済む。</li>
+      <li style="margin-bottom:0;">実家の親の年齢・体力も年々変わるため、「二人目のときも一人目と同じようにサポートしてもらえるか」は都度あらためて確認するとよい。</li>
+    </ul>
+  </section>
+
+  <footer>
+    <h3>参考情報(一次情報・専門家記事)</h3>
+    <ul>
+      <li>厚生労働省 育児休業制度特設サイト: <a href="https://www.mhlw.go.jp/seisakunitsuite/bunya/koyou_roudou/koyoukintou/ryouritsu/ikuji/point.html" target="_blank" rel="noopener">mhlw.go.jp</a></li>
+      <li>厚生労働省 産後パパ育休(申出期限の特例を含む): <a href="https://www.mhlw.go.jp/seisakunitsuite/bunya/koyou_roudou/koyoukintou/ryouritsu/ikuji/paternity/" target="_blank" rel="noopener">mhlw.go.jp</a></li>
+      <li>産後パパ育休(出生時育児休業)完全ガイド: <a href="https://www.tis.amano.co.jp/kintai_kanri/4249/" target="_blank" rel="noopener">タヨロウ「頼れる労務ONLINE」</a></li>
+      <li>出生後休業支援給付金の解説: <a href="https://biz.moneyforward.com/payroll/basic/83666/" target="_blank" rel="noopener">マネーフォワード クラウド給与</a></li>
+      <li>育児休業給付金の計算方法(令和8年度版): <a href="https://gyomu-keisan.jp/articles/payroll/ikuji-kyufukin-hoho/" target="_blank" rel="noopener">業務計算ポータル</a></li>
+      <li>パパ・ママ育休プラスの解説: <a href="https://doda.jp/woman/guide/seido/021.html" target="_blank" rel="noopener">doda</a></li>
+      <li>労働基準法における産前産後休業の規定(厚生労働省): <a href="https://www.mhlw.go.jp/bunya/koyoukintou/seisaku05/pdf/seisaku05i_0011.pdf" target="_blank" rel="noopener">mhlw.go.jp</a></li>
+      <li>出産手当金の支給要件・計算方法: <a href="https://www.kyoukaikenpo.or.jp/benefit/childbirth/001/index.html" target="_blank" rel="noopener">全国健康保険協会(協会けんぽ)</a></li>
+      <li>出産育児一時金の金額・直接支払制度: <a href="https://www.kyoukaikenpo.or.jp/benefit/childbirth/002/index.html" target="_blank" rel="noopener">全国健康保険協会(協会けんぽ)</a></li>
+      <li>育児休業の1歳6ヶ月・2歳までの延長要件: <a href="https://biz.moneyforward.com/payroll/basic/83828/" target="_blank" rel="noopener">マネーフォワード クラウド給与</a></li>
+      <li>育児時短就業給付金の解説: <a href="https://siaa.or.jp/column/149" target="_blank" rel="noopener">公的保険アドバイザー協会</a></li>
+      <li>令和7年度 男性の育児休業取得率・取得期間: <a href="https://services.randstad.co.jp/blog/news20260817" target="_blank" rel="noopener">Randstad</a></li>
+      <li>出産予定日ぴったりに生まれる確率・正期産の範囲: <a href="https://nipt.ne.jp/due-date/" target="_blank" rel="noopener">nipt.ne.jp</a></li>
+      <li>配偶者出産に伴う慶弔休暇の一般的な日数: <a href="https://tenshoku.mynavi.jp/knowhow/caripedia/90/" target="_blank" rel="noopener">マイナビ転職</a></li>
+      <li>里帰り出産中の夫の訪問頻度: <a href="https://oggi.jp/7696884" target="_blank" rel="noopener">Oggi.jp</a></li>
+      <li>里帰り出産と夫の育児当事者意識調査2026(来訪頻度・過ごし方の統計): <a href="https://cozre.co.jp/blog/19875/" target="_blank" rel="noopener">Cozre</a></li>
+      <li>里帰り出産中の夫の過ごし方・生活費: <a href="https://kidsna.com/magazine/article/mother-family-181011-00005112" target="_blank" rel="noopener">KIDSNA STYLE</a></li>
+      <li>里帰り出産中の夫の本音・生活費の相場: <a href="https://mamanoko.jp/articles/22603" target="_blank" rel="noopener">ままのて</a></li>
+      <li>立ち会い出産の実施割合の調査: <a href="https://prtimes.jp/main/html/rd/p/000000249.000087626.html" target="_blank" rel="noopener">PR TIMES</a></li>
+      <li>里帰り出産のデメリットと対策: <a href="https://kidsline.me/magazine/ikuji/897" target="_blank" rel="noopener">キッズライン</a></li>
+      <li>実家が遠方の場合の里帰り出産(期間・転院・移動の注意点): <a href="https://hiro-note.com/satogari-enpou/" target="_blank" rel="noopener">さとまに</a></li>
+      <li>里帰り出産時の出生届(提出先・代理提出): <a href="https://domani.shogakukan.co.jp/779384" target="_blank" rel="noopener">Domani</a></li>
+      <li>遠方の場合の里帰り期間の決め方・夫との過ごし方: <a href="https://kidsna.com/magazine/article/birth-knowledge-181004-00005080" target="_blank" rel="noopener">KIDSNA STYLE</a></li>
+      <li>初産婦・経産婦の分娩時間の目安: <a href="https://dna-am.co.jp/media/8768/" target="_blank" rel="noopener">DNA先端医療</a></li>
+      <li>陣痛間隔と分娩の進み方: <a href="https://sola-clinic.jp/column/pregnancy/3463/" target="_blank" rel="noopener">Sola Clinic</a></li>
+      <li>立ち会い出産の体験談(間に合った・間に合わなかった事例): <a href="https://baby-calendar.jp/knowledge/birth/528" target="_blank" rel="noopener">ベビーカレンダー</a></li>
+      <li>羽田⇄福岡のフライト所要時間: <a href="https://www.airlineguide.jp/flight-time/fuk/" target="_blank" rel="noopener">エアラインガイドJP</a></li>
+      <li>東京⇄博多の新幹線(のぞみ)最速所要時間: <a href="https://tetsudo-ch.com/13003302.html" target="_blank" rel="noopener">鉄道チャンネル</a></li>
+      <li>二人目出産時の上の子の預け先(体験談): <a href="https://mamari.jp/24033" target="_blank" rel="noopener">ママリ</a></li>
+      <li>育休中の上の子の保育園継続・自治体差: <a href="https://sitter.kidsna.com/article/child-raising/6238" target="_blank" rel="noopener">KIDSNAキズナシッター</a></li>
+      <li>里帰りしない二人目出産の実体験: <a href="https://sayna-cheerful-life.com/younger-child-birth/" target="_blank" rel="noopener">フルタイムワーママの陽気な生活</a></li>
+    </ul>
+    <p style="margin-top:16px;">本レポートは一般的な制度情報をもとにした検討材料であり、法律・税務・社会保険に関する個別のアドバイスではありません。実際の取得にあたっては、勤務先の就業規則・労使協定、およびハローワーク等の最新情報を必ずご確認ください。</p>
+  </footer>
+
+</div>
+<div class="gnav-related">
+  <div class="gnav-related-inner">
+    <h3>🔗 関連ページ</h3>
+    <div class="gnav-related-grid">
+      <a class="gnav-related-card" href="妊娠出産タイムライン.html">
+        <span class="gnav-related-card-title">妊娠〜産後タイムライン</span>
+        <span class="gnav-related-card-desc">出産予定日など前提スケジュール</span>
+      </a>
+      <a class="gnav-related-card" href="妊娠経過と里帰り出産ガイド.html">
+        <span class="gnav-related-card-title">妊娠経過と里帰り出産ガイド</span>
+        <span class="gnav-related-card-desc">里帰り出産の計画詳細</span>
+      </a>
+      <a class="gnav-related-card" href="../物件選び/家賃キャッシュフロー比較レポート.html">
+        <span class="gnav-related-card-title">家賃キャッシュフロー比較レポート</span>
+        <span class="gnav-related-card-desc">育休中の収入を踏まえた家計試算</span>
+      </a>
+    </div>
+    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
+  </div>
+</div>
+<style id="gnav-related-style">
+.gnav-related{margin-top:48px;padding:32px 20px 40px;background:#f6f5f2;border-top:1px solid #e6e3dc;font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.gnav-related-inner{max-width:900px;margin:0 auto;}
+.gnav-related h3{font-size:15px;color:#2b2b28;margin:0 0 14px;font-weight:600;}
+.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
+.gnav-related-card{display:block;background:#ffffff;border:1px solid #e6e3dc;border-radius:10px;padding:14px 16px;text-decoration:none;color:#2b2b28;transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.gnav-related-card:hover{border-color:#7a6a53;transform:translateY(-1px);box-shadow:0 6px 16px rgba(43,43,40,0.06);}
+.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.gnav-related-card-desc{display:block;font-size:12px;color:#6b6b64;line-height:1.5;}
+.gnav-related-home{display:inline-block;font-size:12.5px;color:#7a6a53;text-decoration:none;font-weight:600;}
+.gnav-related-home:hover{text-decoration:underline;}
+</style>
+

@@ -994,7 +994,7 @@
     </div>
 
     <h3 style="font-size:15px;margin:28px 0 4px;">② 居住年数別：実質月額の推移（1〜10年）</h3>
-    <p class="section-desc">「その時点までに払った総額 ÷ 経過月数」を各年でプロットしたものです。フリーレント・礼金なしの物件は序盤で下がり、礼金・更新料の負担が大きい物件は長く住むほど下がりにくいことが見えてきます。グラフ内の凡例クリックで表示・非表示を切り替えられます。</p>
+    <p class="section-desc">「その時点までに払った総額 ÷ 経過月数」を各年でプロットしたものです。フリーレント・礼金なしの物件は序盤で下がり、礼金・更新料の負担が大きい物件は長く住むほど下がりにくいことが見えてきます。グレーの点線3本は「年数別チェックポイント表」と同じ前提（敷金・礼金各1ヶ月、更新料1ヶ月／2年毎、フリーレントなし）で試算した基準ライン（26万・28万・30万円）です。グラフ内の凡例クリックで表示・非表示を切り替えられます。</p>
     <div class="chart-card">
       <div class="chart-legend" id="lineLegend"></div>
       <div id="lineChartWrap" style="position:relative;"></div>
@@ -1335,11 +1335,18 @@
       var legendEl = document.getElementById('lineLegend');
       var years = [1,2,3,4,5,6,7,8,9,10];
 
-      var W = 900, H = 400, padLeft=64, padRight=20, padTop=16, padBottom=36;
+      // 年数別チェックポイント表の「基準ライン」と同じ前提（敷金・礼金各1ヶ月、更新料1ヶ月／2年毎、フリーレントなし）
+      var BENCHMARK_SERIES = [
+        {key:'bm26', label:'基準 26万円', rent:260000, fee:0, freerent:0, keymoney:260000, renewal:260000, color:'#b5b3a8', isBenchmark:true},
+        {key:'bm28', label:'基準 28万円', rent:280000, fee:0, freerent:0, keymoney:280000, renewal:280000, color:'#8c8a7d', isBenchmark:true},
+        {key:'bm30', label:'基準 30万円', rent:300000, fee:0, freerent:0, keymoney:300000, renewal:300000, color:'#5f5d52', isBenchmark:true}
+      ];
+
+      var W = 900, H = 400, padLeft=64, padRight=58, padTop=16, padBottom=36;
       var plotW = W-padLeft-padRight, plotH = H-padTop-padBottom;
 
       var allVals = [];
-      var data = COST_SERIES.map(function(s){
+      var data = COST_SERIES.concat(BENCHMARK_SERIES).map(function(s){
         var pts = years.map(function(y){ var v=effMonth(s,y); allVals.push(v); return {y:y, v:v}; });
         return {s:s, pts:pts, visible:true};
       });
@@ -1391,21 +1398,51 @@
         path.setAttribute('d', dAttr);
         path.setAttribute('fill','none');
         path.setAttribute('stroke', d.s.color);
-        path.setAttribute('stroke-width','2');
+        path.setAttribute('stroke-width', d.s.isBenchmark ? '1.75' : '2');
         path.setAttribute('stroke-linejoin','round');
         path.setAttribute('stroke-linecap','round');
+        if (d.s.isBenchmark) path.setAttribute('stroke-dasharray','7 4');
         path.dataset.key = d.s.key;
         linesGroup.appendChild(path);
         d.pathEl = path;
 
-        var endDot = document.createElementNS(svgNS,'circle');
-        endDot.setAttribute('cx', xPix(10)); endDot.setAttribute('cy', yPix(d.pts[9].v));
-        endDot.setAttribute('r','4'); endDot.setAttribute('fill', d.s.color);
-        endDot.setAttribute('stroke','#fff'); endDot.setAttribute('stroke-width','2');
-        endDot.dataset.key = d.s.key;
-        linesGroup.appendChild(endDot);
-        d.dotEl = endDot;
+        if (!d.s.isBenchmark) {
+          var endDot = document.createElementNS(svgNS,'circle');
+          endDot.setAttribute('cx', xPix(10)); endDot.setAttribute('cy', yPix(d.pts[9].v));
+          endDot.setAttribute('r','4'); endDot.setAttribute('fill', d.s.color);
+          endDot.setAttribute('stroke','#fff'); endDot.setAttribute('stroke-width','2');
+          endDot.dataset.key = d.s.key;
+          linesGroup.appendChild(endDot);
+          d.dotEl = endDot;
+        }
       });
+
+      // 基準ラインは色だけでは判別しづらいため、右端に直接ラベルを添える（重ならないよう最低14px間隔をあける）
+      var bmLabelGroup = document.createElementNS(svgNS,'g');
+      var bmLabels = data.filter(function(d){ return d.s.isBenchmark; })
+        .map(function(d){ return {d:d, y:yPix(d.pts[9].v)}; })
+        .sort(function(a,b){ return a.y-b.y; });
+      for (var bi=1; bi<bmLabels.length; bi++){
+        if (bmLabels[bi].y - bmLabels[bi-1].y < 14) bmLabels[bi].y = bmLabels[bi-1].y + 14;
+      }
+      bmLabels.forEach(function(item){
+        var tick = document.createElementNS(svgNS,'line');
+        var origY = yPix(item.d.pts[9].v);
+        tick.setAttribute('x1', xPix(10)); tick.setAttribute('x2', xPix(10)+6);
+        tick.setAttribute('y1', origY); tick.setAttribute('y2', item.y);
+        tick.setAttribute('stroke', item.d.s.color); tick.setAttribute('stroke-width','1');
+        bmLabelGroup.appendChild(tick);
+
+        var lbl = document.createElementNS(svgNS,'text');
+        lbl.setAttribute('x', xPix(10)+9); lbl.setAttribute('y', item.y+4);
+        lbl.setAttribute('fill', item.d.s.color); lbl.setAttribute('font-weight','700');
+        lbl.setAttribute('font-size','12');
+        lbl.textContent = item.d.s.label.replace('基準 ','');
+        bmLabelGroup.appendChild(lbl);
+        item.d.labelEl = lbl;
+        item.d.tickEl = tick;
+      });
+      linesGroup.appendChild(bmLabelGroup);
 
       // crosshair
       var crosshair = document.createElementNS(svgNS,'line');
@@ -1461,12 +1498,17 @@
       data.forEach(function(d){
         var chip = document.createElement('span');
         chip.className = 'legend-chip';
-        chip.innerHTML = '<span class="legend-line" style="background:'+d.s.color+'"></span>'+d.s.label;
+        var swatch = d.s.isBenchmark
+          ? '<span class="legend-line" style="background-image:repeating-linear-gradient(to right,'+d.s.color+' 0 4px, transparent 4px 7px);background-color:transparent;"></span>'
+          : '<span class="legend-line" style="background:'+d.s.color+'"></span>';
+        chip.innerHTML = swatch+d.s.label;
         chip.addEventListener('click', function(){
           d.visible = !d.visible;
           chip.classList.toggle('off', !d.visible);
           d.pathEl.style.display = d.visible ? '' : 'none';
-          d.dotEl.style.display = d.visible ? '' : 'none';
+          if (d.dotEl) d.dotEl.style.display = d.visible ? '' : 'none';
+          if (d.labelEl) d.labelEl.style.display = d.visible ? '' : 'none';
+          if (d.tickEl) d.tickEl.style.display = d.visible ? '' : 'none';
         });
         legendEl.appendChild(chip);
       });
