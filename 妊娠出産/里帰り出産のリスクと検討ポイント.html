@@ -1,0 +1,439 @@
+<title>里帰り出産のリスクと検討ポイント</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap');
+
+  :root{
+    --bg: #faf6ee;
+    --bg-raised: #ffffff;
+    --ink: #2c2723;
+    --ink-soft: #6b6156;
+    --line: #e4dbc9;
+    --line-soft: #ece4d4;
+    --accent: #b1502f;       /* 朱土 - 危険/注意 */
+    --accent-soft: #f3e2d8;
+    --teal: #2f6b5e;         /* 深緑 - 検討/対策 */
+    --teal-soft: #dfe9e2;
+    --gold: #a1791f;         /* 手続き/お金 */
+    --gold-soft: #f2e8d2;
+    --card-shadow: 0 1px 2px rgba(44,39,35,.04), 0 6px 20px rgba(44,39,35,.05);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #1c1815;
+      --bg-raised: #262019;
+      --ink: #ece4d8;
+      --ink-soft: #b3a89a;
+      --line: #3a3229;
+      --line-soft: #322b23;
+      --accent: #e08a63;
+      --accent-soft: #3a2820;
+      --teal: #7fbba8;
+      --teal-soft: #223330;
+      --gold: #d8b464;
+      --gold-soft: #332a17;
+      --card-shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #1c1815;
+    --bg-raised: #262019;
+    --ink: #ece4d8;
+    --ink-soft: #b3a89a;
+    --line: #3a3229;
+    --line-soft: #322b23;
+    --accent: #e08a63;
+    --accent-soft: #3a2820;
+    --teal: #7fbba8;
+    --teal-soft: #223330;
+    --gold: #d8b464;
+    --gold-soft: #332a17;
+    --card-shadow: 0 1px 2px rgba(0,0,0,.2), 0 8px 24px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Zen Kaku Gothic New","Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:"Zen Old Mincho",serif;
+    font-weight:700;
+    text-wrap:balance;
+    letter-spacing:.02em;
+  }
+  a{color:var(--teal);}
+  .wrap{max-width:820px; margin:0 auto; padding:0 24px 120px;}
+
+  header.hero{
+    padding:72px 24px 48px;
+    border-bottom:1px solid var(--line);
+    background:
+      radial-gradient(1200px 300px at 15% -10%, var(--accent-soft), transparent 60%),
+      radial-gradient(1000px 260px at 90% -20%, var(--teal-soft), transparent 55%);
+  }
+  .hero-inner{max-width:820px; margin:0 auto;}
+  .eyebrow{
+    font-size:13px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--ink-soft); font-weight:700; margin:0 0 14px;
+  }
+  h1{font-size:clamp(28px,4.2vw,40px); margin:0 0 16px; line-height:1.4;}
+  .lede{font-size:17px; color:var(--ink-soft); max-width:640px; margin:0 0 28px;}
+  .context-card{
+    background:var(--bg-raised); border:1px solid var(--line); border-radius:14px;
+    padding:18px 22px; box-shadow:var(--card-shadow);
+    font-size:14.5px; color:var(--ink-soft);
+    display:flex; flex-wrap:wrap; gap:10px 28px;
+  }
+  .context-card b{color:var(--ink); font-weight:700;}
+
+  nav.toc{
+    max-width:820px; margin:40px auto 0; padding:0 24px;
+  }
+  .toc-title{font-size:13px; letter-spacing:.1em; color:var(--ink-soft); font-weight:700; margin-bottom:12px;}
+  .toc-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:8px 20px;
+    list-style:none; padding:0; margin:0;
+    border-top:1px solid var(--line-soft); padding-top:14px;
+  }
+  .toc-grid a{
+    display:flex; gap:10px; text-decoration:none; color:var(--ink);
+    font-size:14.5px; padding:4px 0;
+  }
+  .toc-grid a:hover{color:var(--teal);}
+  .toc-num{color:var(--ink-soft); font-variant-numeric:tabular-nums; min-width:1.4em;}
+
+  main{max-width:820px; margin:0 auto; padding:56px 24px 0;}
+  section{margin-bottom:64px; scroll-margin-top:24px;}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:6px;}
+  .sec-num{
+    font-family:"Zen Old Mincho",serif; font-size:14px; color:var(--ink-soft);
+    font-variant-numeric:tabular-nums; letter-spacing:.06em;
+  }
+  h2{font-size:23px; margin:0;}
+  .sec-sub{color:var(--ink-soft); font-size:14.5px; margin:6px 0 26px;}
+
+  .card{
+    background:var(--bg-raised); border:1px solid var(--line); border-radius:14px;
+    padding:22px 24px; margin-bottom:14px; box-shadow:var(--card-shadow);
+  }
+  .card h3{font-size:16.5px; margin:0 0 8px; font-weight:700; display:flex; align-items:center; gap:10px;}
+  .card p{margin:0 0 8px; font-size:15px;}
+  .card p:last-child{margin-bottom:0;}
+  .tag{
+    display:inline-flex; align-items:center; font-size:12px; font-weight:700;
+    padding:3px 10px; border-radius:100px; letter-spacing:.02em;
+    font-family:"Zen Kaku Gothic New",sans-serif;
+  }
+  .tag.risk{background:var(--accent-soft); color:var(--accent);}
+  .tag.action{background:var(--teal-soft); color:var(--teal);}
+  .tag.money{background:var(--gold-soft); color:var(--gold);}
+
+  .ours{
+    margin-top:10px; padding:12px 14px; border-radius:10px;
+    background:var(--teal-soft); border-left:3px solid var(--teal);
+    font-size:14px; color:var(--ink);
+  }
+  .ours b{color:var(--teal); font-weight:700;}
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:20px 0 28px;
+  }
+  .stat{
+    background:var(--bg-raised); border:1px solid var(--line); border-radius:12px;
+    padding:16px 16px; text-align:left;
+  }
+  .stat .num{
+    font-family:"Zen Old Mincho",serif; font-size:24px; color:var(--accent);
+    font-variant-numeric:tabular-nums; display:block; margin-bottom:4px;
+  }
+  .stat .label{font-size:12.5px; color:var(--ink-soft); line-height:1.5;}
+
+  table{width:100%; border-collapse:collapse; font-size:14.5px; margin:18px 0;}
+  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line-soft); vertical-align:top;}
+  th{color:var(--ink-soft); font-weight:700; font-size:13px;}
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--bg-raised);}
+  .tbl-wrap table{margin:0;}
+  .tbl-wrap th:first-child, .tbl-wrap td:first-child{padding-left:16px;}
+
+  .checklist{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px;}
+  .checklist li{
+    display:flex; gap:12px; align-items:flex-start;
+    background:var(--bg-raised); border:1px solid var(--line); border-radius:12px;
+    padding:14px 16px; font-size:14.5px;
+  }
+  .checklist li::before{
+    content:""; flex:0 0 18px; width:18px; height:18px; margin-top:2px;
+    border-radius:5px; border:1.5px solid var(--teal); background:transparent;
+  }
+  .checklist .who{color:var(--ink-soft); font-size:12.5px; display:block; margin-top:2px;}
+
+  .divider{
+    border:none; height:1px; background:var(--line-soft); margin:0 0 64px;
+  }
+
+  footer{
+    max-width:820px; margin:0 auto; padding:32px 24px 64px;
+    color:var(--ink-soft); font-size:13px; border-top:1px solid var(--line);
+  }
+  footer a{color:var(--ink-soft); text-decoration:underline; text-decoration-color:var(--line);}
+  footer .src-list{margin:12px 0 0; padding-left:1.2em;}
+  footer .src-list li{margin-bottom:4px;}
+
+  @media (max-width:600px){
+    .toc-grid{grid-template-columns:1fr;}
+    .stat-row{grid-template-columns:1fr;}
+  }
+</style>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">妊娠・出産の記録 — 検討メモ</p>
+    <h1>里帰り出産のリスクと検討ポイント</h1>
+    <p class="lede">
+      東京（押上）から福岡（実家・長者原）への里帰り出産を前提に、医学的・実務的・夫婦関係的なリスクと、
+      今のうちに決めておきたいポイントを整理しました。
+    </p>
+    <div class="context-card">
+      <span><b>予定日</b>：2027/4/27（基準日 2026/7/21）</span>
+      <span><b>移動元</b>：東京・押上（2026年10月ごろ転居）</span>
+      <span><b>実家</b>：福岡・長者原駅周辺</span>
+      <span><b>里帰り目安</b>：2027/3/2〜3/29（妊娠32〜35週）</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <p class="toc-title">目次</p>
+  <ul class="toc-grid">
+    <li><a href="#a"><span class="toc-num">01</span>転院・健診にまつわる医学的リスク</a></li>
+    <li><a href="#b"><span class="toc-num">02</span>移動そのもののリスク</a></li>
+    <li><a href="#c"><span class="toc-num">03</span>立ち会い出産が難しくなるリスク</a></li>
+    <li><a href="#d"><span class="toc-num">04</span>夫婦関係・メンタル面のリスク</a></li>
+    <li><a href="#e"><span class="toc-num">05</span>行政手続き・お金のリスク</a></li>
+    <li><a href="#f"><span class="toc-num">06</span>産院予約・スケジュールのリスク</a></li>
+    <li><a href="#check"><span class="toc-num">07</span>検討すべきポイント一覧</a></li>
+    <li><a href="#src"><span class="toc-num">08</span>出典</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <section id="a">
+    <div class="sec-head"><span class="sec-num">01</span><h2>転院・健診にまつわる医学的リスク</h2></div>
+    <p class="sec-sub">健診先を東京→福岡へ切り替えることで生じる、医療面での注意点。</p>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>受け入れ期限を過ぎると分娩予約自体を断られうる</h3>
+      <p>里帰り先の産院は「初診は◯週まで」「2回目受診は◯週まで」と期限を設けていることが多く、参考にした国立成育医療研究センターの例では初診16週まで・2回目受診34週6日まで（帝王切開歴などがあれば32週6日、前置胎盤などがあれば30週6日）とされています。今回検討中の賛育会病院も「34週頃までに紹介状持参で受診」が公式案内です。期限を過ぎると受け入れ自体を断られたり、他院への転送になるケースがあります。</p>
+      <div class="ours"><b>今回のケース：</b>里帰り目安の32〜35週はこの期限ぎりぎりのラインです。里帰りが少しでも後ろ倒しになると期限超過のリスクが出るため、余裕を持って早め（32週台）の移動を軸に考えるのが安全です。</div>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>健診情報の引き継ぎ漏れ・重複検査</h3>
+      <p>東京の産院で行った検査結果や経過を、紹介状（診療情報提供書）と初期採血の記録などで里帰り先へ正確に渡す必要があります。情報が不足していると、同じ検査をやり直すことになり費用と時間が二重にかかることがあります。胎児スクリーニング超音波（20〜30週が目安）のタイミングが東京・福岡どちらで受けるかも、事前にすり合わせておく必要があります。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>いざという時、かかりつけ医が不在になる</h3>
+      <p>健診を受けていた東京の医師は、実際の分娩には立ち会いません。里帰り先の医師とは対面での付き合いが浅い状態で出産を迎えることになり、体質や経過を深く知る主治医がいない中での分娩になります。合併症やハイリスクの兆候が途中で出た場合、受け入れ先が周産期母子医療センター等へ再度転院を求めるケースもあります（賛育会病院は東京都地域周産期母子医療センターで NICU6床・GCU13床）。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="b">
+    <div class="sec-head"><span class="sec-num">02</span><h2>移動そのもののリスク</h2></div>
+    <p class="sec-sub">東京⇄福岡、新幹線・飛行機での移動に伴うリスク。</p>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>移動時期が遅すぎると早産・機内外での発症リスク</h3>
+      <p>一般的な目安は「妊娠34〜35週までに移動」で、それ以降は早産のリスクが上がるとされています。移動中に破水・陣痛が始まった場合、新幹線・飛行機いずれも医療体制がすぐには整わない環境での長時間移動になります。逆に早すぎる移動は、東京での健診期間を圧縮し、実家での待機期間を長引かせて経済的・精神的負担を増やします。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>移動は一度でなく二度発生する（往復とも別のリスク）</h3>
+      <p>往路（東京→福岡）は妊婦本人の身体的負担、復路（福岡→東京、産後）は新生児を連れての移動という、性質の異なるリスクが2回発生します。復路は生後1ヶ月前後を想定していますが、新生児の体調・気候・混雑状況によって前後する可能性があります。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="c">
+    <div class="sec-head"><span class="sec-num">03</span><h2>立ち会い出産が難しくなるリスク</h2></div>
+    <p class="sec-sub">夫が東京在住のまま里帰り出産をすると、立ち会いのハードルが上がります。</p>
+
+    <div class="stat-row">
+      <div class="stat"><span class="num">約32%</span><span class="label">立ち会い出産の全体的な実施率（うち91.5%が夫）</span></div>
+      <div class="stat"><span class="num">12〜15h</span><span class="label">初産婦の陣痛開始〜出産の目安時間</span></div>
+      <div class="stat"><span class="num">4〜6h</span><span class="label">東京⇄福岡の実質移動時間（飛行機／新幹線）</span></div>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>「間に合うはず」の計算通りにいかない</h3>
+      <p>初産の場合、平均的な所要時間だけを見れば東京から駆けつけても理論上は間に合う可能性があります。ただし急産（想定より早く進む出産）のリスクや、連絡・移動手配の遅延を考慮すると平均値どおりに進む保証はありません。実際の体験談でも「痛みのピークでようやく到着」など、ギリギリ・間に合わなかった例は珍しくありません。</p>
+      <div class="ours"><b>今回のケース：</b>夫が在宅勤務可能なため、出産予定日が近づいたら先に福岡入りして待機する案が有力です（36週ごろ〜を仮の目安として検討中）。この「先乗り待機」が、立ち会い実現の現実的な対策になります。</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="d">
+    <div class="sec-head"><span class="sec-num">04</span><h2>夫婦関係・メンタル面のリスク</h2></div>
+    <p class="sec-sub">里帰り出産は「休める」というメリットの裏に、見落とされがちな関係性のリスクがあります。</p>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>夫の育児参加スタートが遅れる</h3>
+      <p>里帰り期間（産前産後で1〜2ヶ月、遠方だと2ヶ月〜半年に及ぶ例も）は、夫が新生児の世話に日常的に関わる機会が限られます。里帰りから戻った後、育児の役割分担で温度差が生じやすいという指摘があります。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>「自分は必要とされていない」という夫婦間の不和</h3>
+      <p>里帰り中、妻と赤ちゃんが実家で過ごす一方、夫は一人暮らしで仕事中心の生活を送ることが多く（来訪頻度「ほぼ毎日」は28.2%にとどまる）、夫側が孤独感や疎外感を抱くケースが報告されています。「いつまでそっちにいる気？」といった形で衝突する体験談も見られ、里帰りの終了時期をめぐる意見の相違は起こりやすいポイントです。</p>
+      <div class="ours"><b>今回のケース：</b>在宅勤務中に福岡で一定期間過ごせる案があるため、「通いで週1」の一般的なパターンより疎外感は緩和しやすい位置にいます。ただし帰京時期・滞在の頻度は事前にすり合わせておくと安心です。</div>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>実親世代の育児方針とのズレ</h3>
+      <p>授乳・寝かしつけ・生活リズムなどについて、実親世代の経験に基づくアドバイスと、現在推奨されている育児方針にズレが生じることがあります。産後で心身ともに余裕がない時期にこうしたズレが積み重なると、ストレスの原因になりやすい点は認識しておくとよいポイントです。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag action">対策の方向性</span>産後うつのリスクは「軽減される」とは限らない</h3>
+      <p>実母のサポートは産後うつのリスクを下げる要因として語られることが多い一方、上記の夫婦間の温度差や方針のズレがストレス要因として働けば、必ずしも一方的にリスクが下がるとは言えません。産後のメンタルは「里帰りしたから安心」と決めつけず、夫婦でこまめに連絡を取り合う、写真や動画で日々の様子を共有するなど、物理的に離れていても孤立を防ぐ工夫を組み合わせておくのが実務的です。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="e">
+    <div class="sec-head"><span class="sec-num">05</span><h2>行政手続き・お金のリスク</h2></div>
+    <p class="sec-sub">住民票が東京にあるまま福岡で出産することによる、手続き上の注意点。</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>項目</th><th>取り扱い</th><th>注意点</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>出生届</td>
+            <td>里帰り先（福岡）の役所でも提出可</td>
+            <td>父親の署名があれば代理提出も可能。期限は出産日+14日以内。</td>
+          </tr>
+          <tr>
+            <td>児童手当</td>
+            <td>居住地（東京）側でのみ申請可</td>
+            <td>福岡滞在中でも東京の役所・オンライン等での手続きが必要になる想定。</td>
+          </tr>
+          <tr>
+            <td>乳幼児医療費助成</td>
+            <td>居住地（東京）側でのみ申請可</td>
+            <td>同上。福岡滞在中に子どもが受診した場合の扱いも要確認。</td>
+          </tr>
+          <tr>
+            <td>出産育児一時金</td>
+            <td>分娩施設（福岡）で直接支払制度が利用可</td>
+            <td>1児50万円（在胎22週未満等は48.8万円）。窓口負担を軽減できる。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag money">お金</span>二重生活費・重複コスト</h3>
+      <p>夫が東京で一人暮らしをする期間の生活費（月3〜4万円が相場との情報あり）に加え、東京・福岡それぞれでの健診費用、転院に伴う検査の重複、実家への交通費（特に飛行機利用時）など、想定より費用がかさみやすい点は把握しておくと安心です。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="f">
+    <div class="sec-head"><span class="sec-num">06</span><h2>産院予約・スケジュールのリスク</h2></div>
+    <p class="sec-sub">「里帰り先の病院を早めに押さえる」ことが最大の防御策になります。</p>
+
+    <div class="card">
+      <h3><span class="tag risk">リスク</span>人気施設は分娩予約が早期に埋まる</h3>
+      <p>目安としては妊娠20週までに分娩予約を確保するのが望ましいとされます。里帰り出産の受け入れ自体を制限・休止している施設も増えているため、「実家の近くに希望の産院がある」という前提を早い段階で確認しておく必要があります。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="tag action">対策の方向性</span>セミオープンシステムのスケジュールを軸に逆算する</h3>
+      <p>東京側の産院（候補：錦糸町駅前レディースクリニック）は妊娠12週未満〜32・33週まで健診を担当し、34週から里帰り先の産院へ引き継ぐセミオープンシステムを想定しています。この「34週から引き継ぎ」というラインが、そのまま福岡への移動タイムリミットになります。里帰り先候補（賛育会病院など）の受け入れ期限と矛盾しないか、今のうちに両施設に確認しておくと安全です。</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section id="check">
+    <div class="sec-head"><span class="sec-num">07</span><h2>検討すべきポイント一覧</h2></div>
+    <p class="sec-sub">上記のリスクを踏まえて、今のうちに夫婦で話しておきたいこと。</p>
+
+    <ul class="checklist">
+      <li>
+        <div>
+          里帰り先（福岡）の産院に、分娩予約・受け入れ期限（初診／再診の週数）を電話等で確認する
+          <span class="who">目安：妊娠16〜20週ごろまでに</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          東京側の産院（セミオープン利用施設）に、紹介状の発行タイミングと引き継ぎに必要な検査内容を確認する
+          <span class="who">目安：32〜33週の健診移行前</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          里帰りの移動時期を「34週台の早めのタイミング」に固定できないか検討する（期限ぎりぎりを避ける）
+        </div>
+      </li>
+      <li>
+        <div>
+          立ち会い出産の可否・条件を里帰り先の産院に確認し、夫の「先乗り待機」の開始時期を具体化する
+        </div>
+      </li>
+      <li>
+        <div>
+          里帰り中の夫の訪問頻度・滞在の目安（週1回か、在宅勤務での長期滞在か）をすり合わせておく
+        </div>
+      </li>
+      <li>
+        <div>
+          育児方針で親世代とズレそうなポイント（授乳・寝かしつけ等）を事前に軽く共有しておく
+        </div>
+      </li>
+      <li>
+        <div>
+          児童手当・乳幼児医療費助成の申請が居住地（東京）側でのみ可能な点を踏まえ、誰がいつ手続きするか決めておく
+        </div>
+      </li>
+      <li>
+        <div>
+          二重生活費（夫の一人暮らし費・交通費・重複検査費）のおおまかな予算感を共有しておく
+        </div>
+      </li>
+      <li>
+        <div>
+          里帰りからの帰京時期（新生児連れの移動）の目安と、体調次第で前後する可能性を共有しておく
+        </div>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<footer id="src">
+  <p>本ページは一般的な情報源と、既存レポート（里帰り出産ガイド／夫の産休育休プランニング等）の内容をもとに作成した検討メモです。個別の医学的判断は必ず主治医に確認してください。</p>
+  <ol class="src-list">
+    <li><a href="https://www.ncchd.go.jp/hospital/pregnancy/satogaeri.html" target="_blank" rel="noopener">国立成育医療研究センター「里帰り出産を希望される方へ」</a></li>
+    <li><a href="https://nakagawa-iin.net/column/givingbirthbackhome/" target="_blank" rel="noopener">なかがわレディースクリニック「里帰り出産のメリット・デメリット比較」</a></li>
+    <li><a href="https://www.hiro-clinic.or.jp/nipt/satogaeri-shussan-timing-junbi-nipt/" target="_blank" rel="noopener">Hiroクリニック「里帰り出産を検討するタイミングと準備」</a></li>
+    <li><a href="https://ppch-j.com/column/homecoming-birth/" target="_blank" rel="noopener">産前産後ケアホテルぶどうの木「里帰り出産は本当に必要？後悔しないために知るべきデメリットと対策」</a></li>
+    <li><a href="https://st.benesse.ne.jp/ikuji/content/?id=68987" target="_blank" rel="noopener">たまひよ「里帰り中に夫とケンカ…」体験談</a></li>
+    <li>本プロジェクト内の既存レポート（妊娠経過と里帰り出産ガイド／夫の産休育休プランニング）</li>
+  </ol>
+</footer>
