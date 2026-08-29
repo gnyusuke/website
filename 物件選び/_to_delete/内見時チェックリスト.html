@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内見時チェックリスト｜妊娠・子育てを見据えた住戸選び 詳細レポート</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+    --accent-bad:     #c0392b;
+    --accent-bad-bg:  #fbe9e7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+      --accent-bad:     #e07a6e;
+      --accent-bad-bg:  #3a1512;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page-plane); color:var(--text-primary); }
+  .wrap { max-width: 980px; margin:0 auto; padding:40px 24px 80px; }
+  header.title-block { margin-bottom:20px; }
+  h1 { font-size:1.6rem; margin:0 0 8px; letter-spacing:-0.01em; }
+  .meta { color:var(--text-secondary); font-size:0.9rem; line-height:1.8; }
+  h2 { font-size:1.15rem; margin:40px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--gridline); scroll-margin-top: 12px; }
+  h3 { font-size:1rem; margin:22px 0 8px; }
+  h4 { font-size:0.85rem; margin:16px 0 6px; color:var(--text-secondary); letter-spacing:0.02em; }
+  p { line-height:1.85; color:var(--text-primary); }
+  ul { line-height:1.9; padding-left:1.3em; margin:6px 0; }
+  li { margin-bottom:5px; }
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin-bottom:14px; }
+  .why { margin-top:10px; padding:10px 14px; background:var(--chip-bg); border-left:3px solid var(--series-1); border-radius:0 8px 8px 0; font-size:0.85rem; color:var(--text-secondary); line-height:1.8; }
+  .why b { color:var(--text-primary); }
+  .warn-box { margin-top:10px; padding:10px 14px; background:var(--accent-warn-bg); border-left:3px solid var(--accent-warn); border-radius:0 8px 8px 0; font-size:0.85rem; color:var(--text-secondary); line-height:1.8; }
+  .warn-box b { color:var(--accent-warn); }
+  .risk-box { margin-top:10px; padding:10px 14px; background:var(--accent-bad-bg); border-left:3px solid var(--accent-bad); border-radius:0 8px 8px 0; font-size:0.85rem; color:var(--text-secondary); line-height:1.8; }
+  .risk-box b { color:var(--accent-bad); }
+  table { width:100%; border-collapse:collapse; font-size:0.86rem; background:var(--surface-1); }
+  th, td { text-align:left; padding:9px 12px; border-bottom:1px solid var(--gridline); vertical-align:top; }
+  thead th { color:var(--text-secondary); font-weight:600; font-size:0.75rem; letter-spacing:0.02em; }
+  tbody tr:last-child td { border-bottom:none; }
+  .table-scroll { overflow-x:auto; }
+  .badge { display:inline-block; font-size:0.7rem; font-weight:700; padding:3px 10px; border-radius:999px; background:var(--chip-bg); color:var(--series-1); }
+  .badge-must { background:var(--accent-bad-bg); color:var(--accent-bad); }
+  .badge-want { background:var(--accent-good-bg); color:var(--accent-good); }
+  .toc { display:flex; flex-wrap:wrap; gap:8px 6px; margin-top:14px; }
+  .toc a { font-size:0.78rem; color:var(--series-1); background:var(--chip-bg); padding:5px 10px; border-radius:999px; text-decoration:none; font-weight:600; }
+  footer { margin-top:48px; padding-top:20px; border-top:1px solid var(--gridline); color:var(--text-muted); font-size:0.8rem; line-height:1.8; }
+  .checkgrid { display:grid; grid-template-columns: 1fr; gap:4px; }
+  .station-chip { background:var(--page-plane); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-bottom:10px; }
+  .station-chip .name { font-weight:700; font-size:0.95rem; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+  .station-chip .note-sm { font-size:0.85rem; color:var(--text-secondary); line-height:1.85; }
+  .station-chip .note-sm b { color:var(--text-primary); }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <header class="title-block">
+    <h1>内見時チェックリスト</h1>
+    <div class="meta">
+      これまでの「新天地候補駅」の家賃相場調査・現地下見（街の雰囲気）を踏まえ、次の段階である<b>個別物件の内見（室内見学）</b>で確認すべき事項を、お二人の状況——リモートワーク80%・同一勤務先の共働き、賃貸・小学校入学前までの居住想定、転居後に妊活・出産を予定——に合わせて詳細に整理しました。<br>
+      湾岸・臨海エリアの候補駅が多いため、前提情報で「物件選定時に個別確認する」とされていた<b>水害・地盤リスクの確認</b>を中心的なテーマの一つとして扱っています。
+    </div>
+    <div class="toc">
+      <a href="#policy">1. 内見の進め方 全体方針</a>
+      <a href="#layout">2. 間取り・将来の部屋の使い方</a>
+      <a href="#sound">3. 音・振動環境</a>
+      <a href="#net">4. 通信・在宅ワークインフラ</a>
+      <a href="#disaster">5. 防災・地盤リスク</a>
+      <a href="#building">6. 建物・共用部</a>
+      <a href="#water">7. 水回り・設備</a>
+      <a href="#area">8. 周辺環境の実地チェック</a>
+      <a href="#safety">9. 治安・体感環境</a>
+      <a href="#cost">10. 費用・契約条件</a>
+      <a href="#questions">11. 質問リスト</a>
+      <a href="#stations">12. 候補駅別の重点確認</a>
+      <a href="#after">13. 内見後のアクション</a>
+    </div>
+  </header>
+
+  <h2 id="policy">1. 内見の進め方：全体方針</h2>
+  <div class="card">
+    <ul>
+      <li><b>同じ物件を2回以上、時間帯を変えて訪問する。</b>平日の朝の通勤ラッシュ帯（エレベーター混雑・駅までの人流）と、平日夜〜休日昼（生活音・子ども連れの雰囲気）の両方を見る。可能なら仲介の同行なしで自分たちだけで再訪する時間も作る。</li>
+      <li><b>雨の日・曇りの日の内見も候補に入れる。</b>晴天時だけだと日当たりの弱点や、雨天時の駅からの動線（アーケードの有無、傘をさして保育園送迎できる道か）が見えない。</li>
+      <li><b>内見前に自分たちでハザードマップを確認しておく。</b>現地で「浸水想定区域内ですか」「この物件の1階は駐車場ですか」など、具体的な質問ができるようになる。</li>
+      <li>候補は3〜4件程度に絞り、後述12章の比較表フォーマットで横並び評価する。感覚的な「良さそう」だけで決めず、必ずメモを物件間で比較する。</li>
+    </ul>
+    <div class="why"><b>なぜ重要か：</b>前提情報にある通り「小学校入学前までの賃貸」という前提のため、住み替えの回数は限られています。1回の内見の質を上げることが、結果的に住み替えコストの削減につながります。</div>
+  </div>
+
+  <h2 id="layout">2. 間取り・将来の部屋の使い方</h2>
+  <div class="card">
+    <h4>今すぐ確認すること</h4>
+    <ul>
+      <li>2LDKの各部屋の広さと形（正方形に近いか、デッドスペースが多い変形間取りか）。ベッド・デスク2台・収納家具を置いた完成形を頭の中で組み立てる。</li>
+      <li>各洋室の扉の位置・窓の位置。将来「一部屋はベビーベッド＋授乳スペース」「一部屋は夫婦どちらかのワークスペース」に転用する場合、動線が交錯しないか。</li>
+      <li>収納量（クローゼット・シューズインクローク・パントリー）。今は2人分の荷物でも、ベビーカー・チャイルドシート・季節ごとのベビー用品が増えることを見込んで、玄関収納の大きさを重点的に見る。</li>
+      <li>コンセントの数と位置。デスク2台分の電源・モニター・充電器に対して各部屋2〜3口では不足しがち。将来的な加湿器・ベビーモニター・空気清浄機の設置場所も想定する。</li>
+      <li>採光条件（方角・階数・前面建物との距離）。在宅勤務中の照明環境と、乳幼児期の生活リズム（日中に自然光を取り込めるか）の両方に効く。</li>
+    </ul>
+    <div class="why"><b>なぜ重要か：</b>お二人は「今は2人でワークスペースとして使い、将来は子ども部屋に転用する」という2段階の使い方を想定することになります。内見時点では担当者は「2LDKです」としか説明しませんが、実際に転用可能かは部屋の形・窓・扉の位置に大きく左右されます。</div>
+  </div>
+
+  <h2 id="sound">3. 音・振動環境（在宅ワーク前提の重点項目）</h2>
+  <div class="card">
+    <ul>
+      <li><b>建物の構造を確認する。</b>RC造・SRC造（鉄筋コンクリート系）は遮音性が高く、木造・軽量鉄骨造（S造）は生活音が響きやすい傾向。図面や重要事項説明で構造を必ず確認。</li>
+      <li>隣戸との共有壁がどの部屋に面しているか。ワークスペース予定の部屋が隣戸の生活音を拾う位置にないか。</li>
+      <li>上下階の生活音を確認する。<b>音の確認方法と目安は下記コラムを参照。</b></li>
+      <li>幹線道路・高速道路（湾岸エリアは首都高速湾岸線・臨海道路が近い物件が多い）・線路・工場からの距離。窓を閉めた状態と少し開けた状態の両方で騒音レベルを確認する。</li>
+      <li>可能であれば内見中にスマートフォンでオンライン会議アプリのテスト接続を行い、電波状況とあわせて「実際に働ける部屋か」を体感する。</li>
+    </ul>
+    <div class="why">
+      <b>「声の反響・響き方」チェックの具体的なやり方と判断基準：</b><br><br>
+      <b>① 反響（部屋そのものの響き）を見る：</b>部屋の中央で一度手を叩いてみる（拍手1回）。<br>
+      ・音がパンと鳴ってすぐ（1秒以内）に消える → 標準的。カーテン・ラグ・家具を入れれば快適に使える。<br>
+      ・叩いた後に「ワンワン」と尾を引いて残る → 内装が硬い（コンクリート打ちっぱなし・タイル床・ガラス面が多い等）ために反響しやすい部屋。オンライン会議で声がこもって聞こえたり、周囲に音が響きやすい可能性がある。カーテン・ラグ・布製の家具を多めに配置する前提で検討する。<br><br>
+      <b>② 声の伝わり方（遮音性）を見る：</b>一人が部屋の中央で普段の会話くらいの声量で話し続け、もう一人が別の部屋（ワークスペース予定の部屋）やドアを閉めた廊下側に移動して聞こえ方を確認する。<br>
+      ・ドアを閉めた隣室で「話している気配は分かるが、内容までは聞き取れない」程度 → 実用上問題になりにくいレベル。<br>
+      ・ドアを閉めていても「会話の内容がはっきり聞き取れる」 → 二人が同時にオンライン会議をする際にお互いの声が干渉しやすい。間仕切りの建具（引き戸か扉か）や壁の厚みを重ねて確認する。<br><br>
+      同じテストを、可能であれば隣戸との共有壁側の部屋でも行うと、生活音がどの程度外に漏れる／中に入ってくるかの目安になる。
+    </div>
+    <div class="warn-box"><b>共働き夫婦特有の論点：</b>お二人は同時にオンライン会議を行う場面が想定されます。1つの部屋を1人ずつ使う場合でも、リビング越しに音が漏れると双方の会議に支障が出ます。間仕切りが引き戸ではなく建具でしっかり仕切れるか、防音性のある扉かも確認してください。</div>
+  </div>
+
+  <h2 id="net">4. 通信・在宅ワークインフラ</h2>
+  <div class="card">
+    <ul>
+      <li>光回線が既に建物に引き込まれているか（マンション一括契約か、各戸で個別契約が必要か）。個別契約の場合、開通まで数週間〜1ヶ月かかることがあるため、入居時期との兼ね合いを要確認。</li>
+      <li>各キャリアの携帯電波の入り方。特にタワーマンションの低層階・内廊下型の住戸は電波が弱いことがあるため、内見時に実際に電波状況を確認する。</li>
+      <li>ルーター設置場所（LAN配線口の位置）とワークスペース予定の部屋の位置関係。</li>
+      <li><b>ノートパソコンを内見に持参し、実際にLANケーブルで有線接続できるか確認する。</b>各部屋（特にワークスペース予定の部屋）にLANポートがあるか、なければ配線をどこまで延長できそうかをその場で試す。Wi-Fiだけに頼らず、オンライン会議の安定性を高めたい共働きリモートワーク世帯には特に重要な確認項目。</li>
+    </ul>
+  </div>
+
+  <h2 id="disaster">5. 防災・地盤リスク（湾岸エリア特有・最重点確認項目）</h2>
+  <div class="card">
+    <p style="margin-top:0;">前提情報では災害リスクは「スコア評価のみ・単独では除外しない・物件選定時に個別確認する」とされています。候補駅の多く（豊洲・辰巳・木場・南砂町・東雲・国際展示場・天王洲アイル・品川シーサイド・東京テレポート等）は江東区・港区・江戸川区の埋立地に位置するため、まさに<b>「今」がその個別確認のタイミング</b>です。</p>
+    <h4>内見前に自分で調べること</h4>
+    <ul>
+      <li>東京都建設局「東京都浸水予想区域図」・各区のハザードマップで、物件の住所を検索し、想定浸水深（0.5m未満〜5m以上など）を確認する。</li>
+      <li>東京都「地盤の液状化予測図」で当該地域の液状化しやすさのランクを確認する（江東区・江戸川区の埋立地は液状化リスクが比較的高いエリアが多い）。</li>
+      <li>高潮浸水想定区域に該当するか（湾岸部特有のリスク）。</li>
+    </ul>
+    <h4>内見時に現地・担当者に確認すること</h4>
+    <ul>
+      <li>建物の竣工年（1981年の新耐震基準以降か、可能なら2000年基準以降か）。</li>
+      <li>免震・制震構造か、耐震構造のみか。</li>
+      <li>1階が駐車場・ピロティ・自転車置き場になっている場合、浸水時の被害想定と、電気設備（受変電設備）が地下・低層階にないか（浸水で停電・断水に直結するため）。</li>
+      <li>防災備蓄倉庫・自家発電設備・エレベーターの停電時対応の有無（高層階の場合、停電でエレベーターが止まると乳幼児連れでの階段避難・上下移動が非常に困難になる）。</li>
+      <li>避難場所・避難所までの経路と距離（豪雨・高潮時は垂直避難＝建物内の上階避難が基本になることが多いため、その場合の対応方針も確認）。</li>
+    </ul>
+    <div class="risk-box"><b>高層階特有の注意点：</b>タワーマンションは高層階ほど地震時の長周期地震動による揺れが大きくなる傾向があります。乳幼児を抱えての高層階生活は、エレベーター停止時の負担（買い物・ベビーカー移動・保育園送迎）も大きくなるため、「利便性の高い低〜中層階」を優先候補にすることも検討する価値があります。</div>
+  </div>
+
+  <h2 id="building">6. 建物・共用部</h2>
+  <div class="card">
+    <ul>
+      <li>オートロック・防犯カメラの有無と設置範囲（共働きで留守の時間が長いため、防犯性は重要）。</li>
+      <li><b>宅配ボックスの有無と個数。</b>共働き世帯では受け取り忘れが多いため必須級の確認項目。</li>
+      <li>エレベーターの基数と、朝の通勤時間帯の待ち時間。総戸数に対してエレベーターが1基のみの物件は、平日朝に2人がほぼ同時に出勤する場合、待ち時間がボトルネックになりうる。</li>
+      <li>ゴミ出しルール（24時間出せるか、決まった曜日・時間のみか）。共働きで固定曜日のゴミ出しが難しい場合は重要な確認事項。</li>
+      <li>駐輪場の空き状況・料金（保育園の送迎に自転車・電動アシスト自転車を使う想定がある場合、事前に台数枠を確保できるか）。</li>
+      <li>管理形態（常駐管理人がいるか、巡回のみか）とゴミ置き場・共用部の清掃状況（内見時の共用部の清潔さは管理の質を映す）。</li>
+    </ul>
+  </div>
+
+  <h2 id="water">7. 水回り・設備</h2>
+  <div class="card">
+    <ul>
+      <li>実際に蛇口をひねって水圧を確認する（キッチン・洗面・浴室すべて）。特にタワーマンション高層階は水圧が弱くなりやすい。</li>
+      <li>給湯器の号数（16号・20号・24号など）。将来の沐浴・家事同時使用（食洗機＋シャワー等）に十分な湯量か。</li>
+      <li>追い焚き機能・浴室乾燥機の有無（共働きで洗濯物を室内干しする機会が増えることを想定）。</li>
+      <li>窓・サッシ周りの結露やカビの痕跡（特に湾岸エリアは湿度が高く、結露しやすい住戸がある）。</li>
+      <li>洗面台・キッチンの収納量（哺乳瓶・離乳食器具が増えることを見込む）。</li>
+      <li><b>キッチンの換気扇（レンジフード）を実際に作動させ、動作音の大きさを確認する。</b>特にリビング・ダイニングと仕切りのないオープンキッチンの間取りは、換気扇の音がワークスペースやオンライン会議に聞こえてしまう可能性がある。強運転時の音量と、稼働中に隣の部屋で会話や会議がどの程度成立するかをあわせて確認する。</li>
+    </ul>
+  </div>
+
+  <h2 id="area">8. 周辺環境の実地チェック（子育て・共働き視点）</h2>
+  <div class="card">
+    <ul>
+      <li><span class="badge badge-must">must</span> <b>物件から最寄りの保育所・こども園までの距離を実際に歩いてみる。</b>信号の数、坂道の有無、交通量の多い道路の横断が必要かを確認する。内見時に仲介・管理会社に、周辺の保育所の空き状況（できれば区の「保育園入園のしおり」等の資料の有無）を聞いてみる。</li>
+      <li><span class="badge badge-must">must</span> スーパーまでの実際の道のりと営業時間。既存の下見メモにある店舗（イオン・ライフ等）の品揃え・価格帯を踏まえ、物件からの実距離・動線を再確認する。</li>
+      <li><span class="badge badge-want">want</span> 公園・緑地までの距離と、実際の利用状況（時間帯によって子ども連れの多さを見る）。遊具の有無、ベビーカーで入りやすい造りか。</li>
+      <li><span class="badge badge-want">want</span> 小児科・産婦人科・調剤薬局の有無（産後ケア・妊娠期の通院を見据えて）。</li>
+      <li><span class="badge badge-must">must</span> 通勤動線の実地確認：物件から新木場駅・田町駅までの実際の所要時間（乗換含む）を、許容時間（ドアドア1時間、リモート80%のため通勤時許容40分）と照らして確認する。</li>
+      <li><span class="badge badge-must">must</span> 「子育て世帯向けの地域づくり」の手がかりを探す：掲示板の子育てサークル情報、キッズスペースのある商業施設、同世代ファミリーの姿、自治体の子育て支援拠点の看板など。</li>
+    </ul>
+  </div>
+
+  <h2 id="safety">9. 治安・体感環境（時間帯を変える）</h2>
+  <div class="card">
+    <ul>
+      <li>夜間（21時以降）に駅から物件までの帰り道を実際に歩いてみる。街灯の間隔、人通り、見通しの悪い場所（高架下・公園沿いの暗がり等）の有無を確認する。</li>
+      <li>路上駐車・違法駐輪・落書きなど、街の管理状態を観察する（定性的だが治安の体感指標として有効）。</li>
+      <li>前提情報で名前が挙がっている「治安が悪化しているエリア」のような雰囲気がないか、隣接エリアとの境界も含めて歩いてみる。</li>
+    </ul>
+  </div>
+
+  <h2 id="cost">10. 費用・契約条件</h2>
+  <div class="card">
+    <h4>初期費用・月額費用の内訳</h4>
+    <ul>
+      <li>敷金・礼金・仲介手数料・火災保険料・保証会社利用料・鍵交換費用など、初期費用の総額を項目ごとに書面で確認する。</li>
+      <li>管理費・共益費・駐輪場代など、家賃以外の固定費を合算した「実質月額」が上限（30万円、希望25万円以内）に収まるかを必ず確認する。物件検索サイトの「家賃」表示だけで判断しない。</li>
+    </ul>
+    <h4>契約形態・更新条件</h4>
+    <ul>
+      <li><b>普通借家契約か定期借家契約かを必ず確認する。</b>定期借家は契約期間満了で更新できず再契約や退去が必要になる場合があり、「小学校入学前までの数年間住む」という想定と契約期間が噛み合っているかを確認する。</li>
+      <li>更新料の有無・金額（1ヶ月分が一般的だが物件による）。数年住む前提のため、更新料の有無は総コストに影響する。</li>
+      <li>解約予告期間（1ヶ月前・2ヶ月前など）。将来の住み替えタイミングに影響するため確認しておく。</li>
+      <li>原状回復の範囲（国土交通省ガイドライン準拠か、独自の特約があるか）。退去時のトラブル防止のため、入居時の傷・汚れの記録ルールもあわせて確認する。</li>
+    </ul>
+  </div>
+
+  <h2 id="questions">11. 内見時の質問リスト（テンプレート）</h2>
+  <div class="card table-scroll">
+    <table>
+      <thead><tr><th>カテゴリ</th><th>質問例</th></tr></thead>
+      <tbody>
+        <tr><td>保育園</td><td>周辺の保育所・こども園の空き状況について何か情報はありますか／区の窓口を紹介してもらえますか</td></tr>
+        <tr><td>災害</td><td>この地域は浸水想定区域に該当しますか／建物の耐震性能・竣工年・免震制震の有無を教えてください</td></tr>
+        <tr><td>災害</td><td>停電時のエレベーター対応、防災備蓄はありますか</td></tr>
+        <tr><td>インフラ</td><td>光回線は導入済みですか、個別契約の場合どのくらいで開通しますか</td></tr>
+        <tr><td>契約</td><td>定期借家ですか普通借家ですか／更新料はありますか</td></tr>
+        <tr><td>費用</td><td>家賃以外に毎月かかる費用（管理費・共益費・駐輪場代等）を全て教えてください</td></tr>
+        <tr><td>共用部</td><td>宅配ボックスの個数、エレベーターの基数、ゴミ出しルールを教えてください</td></tr>
+        <tr><td>その他</td><td>直近の入居者の退去理由（分かる範囲で）／近隣トラブルの有無</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="stations">12. 候補駅別・内見時の重点確認事項</h2>
+  <div class="card">
+    <p style="margin-top:0;" class="meta">これまでの現地下見メモ・総合Tier評価を踏まえた、駅ごとの内見時の着眼点です。</p>
+
+    <div class="station-chip">
+      <div class="name">押上 <span class="badge">Tier God</span></div>
+      <div class="note-sm">下見メモでは「駅近ならどこでも良い」と生活機能の集約が高評価。内見物件が実際にライフ・スカイツリー周辺の生活圏動線に入っているか、駅からの距離を実測で確認。バス便利用が前提になる場合はバス停までの距離・本数も確認する。</div>
+    </div>
+    <div class="station-chip">
+      <div class="name">木場 <span class="badge">Tier 1</span></div>
+      <div class="note-sm">下見メモに「住むなら駅南（北は公園のみ）、ギャザリア＆木場駅へのアクセスは必須」との所見あり。内見物件が駅南側でギャザリア動線に乗っているかを最優先で確認。東西線の混雑が指摘されているため、平日朝のラッシュ時間帯に一度は訪問したい。</div>
+    </div>
+    <div class="station-chip">
+      <div class="name">東雲 <span class="badge">Tier 1</span></div>
+      <div class="note-sm">下見メモで現地印象が最も高評価だった駅。ただし家賃水準は9駅中トップクラスであり、キャナルコート前提の評価である点に注意。内見物件がUR賃貸ではなく民間物件の場合、UR同等の生活利便性（1階店舗・広場等）があるかを個別確認。埋立地・旧防潮堤付近であるため、5章の水害・液状化リスク確認は特に丁寧に行う。</div>
+    </div>
+    <div class="station-chip">
+      <div class="name">品川シーサイド <span class="badge">Tier 1</span></div>
+      <div class="note-sm">下見メモで「スーパーはイオンが9割」との指摘あり。内見時に周辺を歩き、イオン以外の商業選択肢（ドラッグストア・個人店等）の有無を確認しておくと、日々の買い物の代替手段を把握できる。</div>
+    </div>
+    <div class="station-chip">
+      <div class="name">南砂町 <span class="badge">Tier 2</span></div>
+      <div class="note-sm">下見メモでは「木場の下位互換」「家賃を抑えられそうなら検討余地あり」と評価。内見時は家賃と生活の質のトレードオフを重点確認し、木場・品川シーサイドとの費用差に見合う住環境かを比較する。</div>
+    </div>
+    <div class="station-chip">
+      <div class="name">豊洲・辰巳・国際展示場・天王洲アイル・東京テレポート・汐留 <span class="badge">現地下見メモ薄い／未取得</span></div>
+      <div class="note-sm">これらの駅は現地下見メモが手薄、または未取得のため、内見が実質的な初回の現地体験になります。1〜11章の全項目を特に丁寧に確認してください。特に天王洲アイルは家賃相場自体が未調査のため、内見前に家賃相場の把握から始める必要があります。</div>
+    </div>
+    <div class="station-chip">
+      <div class="name">武蔵小杉 <span class="badge">圏外</span></div>
+      <div class="note-sm">総合Tier評価では優先度が低い（神奈川県は保育園補助が東京都より薄いとの所見あり）。内見する場合も、下見メモで評価が分かれた点（シティタワー周辺は良評価、東急南は評価が低い）を踏まえ、エリアをシティタワー周辺に絞って確認する。</div>
+    </div>
+  </div>
+
+  <h2 id="after">13. 内見後のアクション</h2>
+  <div class="card">
+    <ul>
+      <li>内見直後にスマートフォンで気づいた点を音声メモ・写真で記録する（後で複数物件の記憶が混ざるのを防ぐ）。特に日当たり・音・水回りの状態は写真だけでは伝わりにくいため文字でも残す。</li>
+      <li>物件ごとに「1〜13章の各項目」を◯△×で採点する比較表を作り、候補3〜4件を横並びで見比べる。既存の「新天地_スコアリング」（駅単位の評価）とは別レイヤーの、物件単位の評価表として運用する。</li>
+      <li>特に懸念点（水害リスク・音環境・契約条件）が出た物件は、契約前にもう一段掘り下げる（区のハザードマップ担当窓口への確認、重要事項説明書の該当箇所の再確認等）。</li>
+    </ul>
+  </div>
+
+  <footer>
+    本レポートは「前提情報」「新天地候補駅」「新天地_現地下見メモレポート」の内容をもとに、内見（個別物件見学）段階で確認すべき事項を整理したものです。実際の内見では物件・管理会社によって確認できる情報の範囲が異なるため、本チェックリストを参考にしつつ現地での判断を優先してください。
+  </footer>
+
+</div>
+<div class="gnav-related">
+  <div class="gnav-related-inner">
+    <h3>🔗 関連ページ</h3>
+    <div class="gnav-related-grid">
+      <a class="gnav-related-card" href="物件比較レポート.html">
+        <span class="gnav-related-card-title">物件比較レポート</span>
+        <span class="gnav-related-card-desc">Tier評価を反映した候補物件の比較まとめ</span>
+      </a>
+      <a class="gnav-related-card" href="内見・申込・契約の流れと注意点.html">
+        <span class="gnav-related-card-title">内見・申込・契約の流れと注意点</span>
+        <span class="gnav-related-card-desc">内見予約から入居までの手続き・お金の流れ</span>
+      </a>
+    </div>
+    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
+  </div>
+</div>
+<style id="gnav-related-style">
+.gnav-related{margin-top:48px;padding:32px 20px 40px;background:var(--page-plane);border-top:1px solid var(--border);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+.gnav-related-inner{max-width:900px;margin:0 auto;}
+.gnav-related h3{font-size:15px;color:var(--text-primary);margin:0 0 14px;font-weight:600;}
+.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
+.gnav-related-card{display:block;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--text-primary);transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.gnav-related-card:hover{border-color:var(--accent-warn);transform:translateY(-1px);box-shadow:0 6px 16px rgba(11,11,11,0.06);}
+.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.gnav-related-card-desc{display:block;font-size:12px;color:var(--text-secondary);line-height:1.5;}
+.gnav-related-home{display:inline-block;font-size:12.5px;color:var(--accent-warn);text-decoration:none;font-weight:600;}
+.gnav-related-home:hover{text-decoration:underline;}
+</style>
+</body>
+</html>

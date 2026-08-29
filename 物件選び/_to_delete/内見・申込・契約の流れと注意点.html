@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内見・申込・契約の流れと注意点｜賃貸手続きガイド</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --surface-2:      #f3f2ee;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+    --accent-bad:     #c0392b;
+    --accent-bad-bg:  #fbe9e7;
+    --step-num-bg:    #2a78d6;
+    --step-num-fg:    #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --surface-2:      #212120;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+      --accent-bad:     #e07a6e;
+      --accent-bad-bg:  #3a1512;
+      --step-num-bg:    #3987e5;
+      --step-num-fg:    #0d0d0d;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --surface-2:      #212120;
+    --page-plane:      #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:       #2c2c2a;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+    --chip-bg:        #16233a;
+    --accent-good:    #57c98a;
+    --accent-good-bg: #103822;
+    --accent-warn:    #e0a758;
+    --accent-warn-bg: #3a2b10;
+    --accent-bad:     #e07a6e;
+    --accent-bad-bg:  #3a1512;
+    --step-num-bg:    #3987e5;
+    --step-num-fg:    #0d0d0d;
+  }
+  * { box-sizing: border-box; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body { margin:0; font-family: system-ui,-apple-system,"Segoe UI",sans-serif; background:var(--page-plane); color:var(--text-primary); }
+  .wrap { max-width: 1080px; margin:0 auto; padding:40px 24px 80px; }
+  a { color:var(--series-1); }
+
+  header.title-block { margin-bottom:28px; }
+  h1 { font-size:1.65rem; margin:0 0 10px; letter-spacing:-0.01em; text-wrap:balance; }
+  .meta { color:var(--text-secondary); font-size:0.92rem; line-height:1.85; max-width:70ch; }
+
+  /* layout: sidebar + content */
+  .layout { display:flex; gap:36px; align-items:flex-start; }
+  .sidenav { position:sticky; top:20px; width:196px; flex-shrink:0; display:flex; flex-direction:column; gap:1px; }
+  .sidenav .sidenav-label { font-size:0.68rem; letter-spacing:0.06em; color:var(--text-muted); font-weight:700; padding:0 10px 8px; text-transform:uppercase; }
+  .sidenav a { display:flex; align-items:center; gap:9px; padding:7px 10px; border-radius:8px; font-size:0.82rem; color:var(--text-secondary); text-decoration:none; font-weight:600; }
+  .sidenav a:hover, .sidenav a:focus-visible { background:var(--chip-bg); color:var(--series-1); }
+  .sidenav svg.icon { width:15px; height:15px; flex-shrink:0; }
+  .content { flex:1; min-width:0; max-width:760px; }
+
+  .mobile-toc { display:none; flex-wrap:wrap; gap:6px; margin:16px 0 4px; }
+  .mobile-toc a { font-size:0.76rem; color:var(--series-1); background:var(--chip-bg); padding:5px 10px; border-radius:999px; text-decoration:none; font-weight:600; white-space:nowrap; }
+  @media (max-width: 860px) {
+    .sidenav { display:none; }
+    .mobile-toc { display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; flex-wrap:nowrap; padding-bottom:4px; }
+  }
+
+  h2 { font-size:1.18rem; margin:44px 0 4px; padding-bottom:0; scroll-margin-top: 16px; display:flex; align-items:center; gap:9px; }
+  h2 svg.icon { width:19px; height:19px; color:var(--series-1); flex-shrink:0; }
+  .h2-rule { height:1px; background:var(--gridline); margin:10px 0 14px; }
+  .gist { font-size:0.85rem; color:var(--series-1); font-weight:700; margin:0 0 16px; line-height:1.7; }
+  .gist span.lbl { color:var(--text-muted); font-weight:700; margin-right:6px; }
+  h3 { font-size:1rem; margin:22px 0 8px; }
+  h4 { font-size:0.8rem; margin:20px 0 10px; color:var(--text-muted); letter-spacing:0.03em; font-weight:700; display:flex; align-items:center; gap:6px; }
+  h4:first-of-type { margin-top:4px; }
+  p { line-height:1.85; color:var(--text-primary); }
+  ul { line-height:1.9; padding-left:1.3em; margin:6px 0; }
+  li { margin-bottom:5px; }
+  .card { background:var(--surface-1); border:1px solid var(--border); border-radius:12px; padding:22px 24px; margin-bottom:14px; }
+
+  /* point-card list: scannable title + description rows */
+  .points { display:flex; flex-direction:column; gap:13px; margin:10px 0 4px; }
+  .point { display:grid; grid-template-columns:16px 1fr; gap:10px; }
+  .point .dot { width:7px; height:7px; border-radius:50%; background:var(--series-1); margin-top:7px; }
+  .point.pt-must .dot { background:var(--accent-bad); }
+  .point.pt-want .dot { background:var(--accent-good); }
+  .point .ptitle { font-weight:700; font-size:0.93rem; line-height:1.6; }
+  .point .pdesc { font-size:0.84rem; color:var(--text-secondary); line-height:1.8; margin-top:2px; }
+
+  .why { margin-top:12px; padding:12px 16px; background:var(--chip-bg); border-left:3px solid var(--series-1); border-radius:0 8px 8px 0; font-size:0.85rem; color:var(--text-secondary); line-height:1.8; }
+  .why b { color:var(--text-primary); }
+  .warn-box { margin-top:12px; padding:12px 16px; background:var(--accent-warn-bg); border-left:3px solid var(--accent-warn); border-radius:0 8px 8px 0; font-size:0.85rem; color:var(--text-secondary); line-height:1.8; }
+  .warn-box b { color:var(--accent-warn); }
+  .risk-box { margin-top:12px; padding:12px 16px; background:var(--accent-bad-bg); border-left:3px solid var(--accent-bad); border-radius:0 8px 8px 0; font-size:0.85rem; color:var(--text-secondary); line-height:1.8; }
+  .risk-box b { color:var(--accent-bad); }
+  .good-box { margin-top:12px; padding:12px 16px; background:var(--accent-good-bg); border-left:3px solid var(--accent-good); border-radius:0 8px 8px 0; font-size:0.85rem; color:var(--text-secondary); line-height:1.8; }
+  .good-box b { color:var(--accent-good); }
+
+  table { width:100%; border-collapse:collapse; font-size:0.86rem; background:var(--surface-1); font-variant-numeric:tabular-nums; }
+  th, td { text-align:left; padding:9px 12px; border-bottom:1px solid var(--gridline); vertical-align:top; }
+  thead th { color:var(--text-secondary); font-weight:600; font-size:0.75rem; letter-spacing:0.02em; }
+  tbody tr:nth-child(even) { background:var(--surface-2); }
+  tbody tr:last-child td { border-bottom:none; }
+  .table-scroll { overflow-x:auto; border-radius:10px; }
+  .badge { display:inline-block; font-size:0.68rem; font-weight:700; padding:2px 9px; border-radius:999px; background:var(--chip-bg); color:var(--series-1); flex-shrink:0; }
+  .badge-must { background:var(--accent-bad-bg); color:var(--accent-bad); }
+  .badge-want { background:var(--accent-good-bg); color:var(--accent-good); }
+  footer { margin-top:52px; padding-top:20px; border-top:1px solid var(--gridline); color:var(--text-muted); font-size:0.8rem; line-height:1.8; }
+
+  /* flow diagram */
+  .flow { display:flex; flex-direction:column; gap:0; margin-top:16px; }
+  .flow-step { display:grid; grid-template-columns:auto 1fr; gap:14px; position:relative; padding-bottom:22px; }
+  .flow-step:last-child { padding-bottom:0; }
+  .flow-num-col { display:flex; flex-direction:column; align-items:center; }
+  .flow-num { width:34px; height:34px; border-radius:50%; background:var(--step-num-bg); color:var(--step-num-fg); font-weight:700; font-size:0.9rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .flow-line { flex:1; width:2px; background:var(--gridline); margin-top:4px; min-height:14px; }
+  .flow-step:last-child .flow-line { display:none; }
+  .flow-body { padding-top:4px; }
+  .flow-title-row { display:flex; align-items:center; gap:7px; }
+  .flow-title-row svg.icon { width:15px; height:15px; color:var(--series-1); }
+  .flow-title { font-weight:700; font-size:0.98rem; }
+  .flow-sub { font-size:0.83rem; color:var(--text-secondary); line-height:1.7; margin-top:2px; }
+  .flow-duration { display:inline-block; margin-top:6px; font-size:0.72rem; color:var(--text-muted); background:var(--page-plane); border:1px solid var(--border); padding:2px 8px; border-radius:999px; font-variant-numeric:tabular-nums; }
+
+  .step-head { display:flex; align-items:center; gap:10px; margin-bottom:2px; }
+  .step-head .flow-num { width:28px; height:28px; font-size:0.8rem; }
+  .step-head-text { font-size:1.15rem; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+    <defs>
+      <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></symbol>
+      <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></symbol>
+      <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></symbol>
+      <symbol id="i-pen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></symbol>
+      <symbol id="i-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"></circle><path d="M11 12 20 3"></path><path d="M17 6l3 3"></path><path d="M14 9l2 2"></path></symbol>
+      <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></symbol>
+    </defs>
+  </svg>
+
+  <header class="title-block">
+    <h1>内見・申込・契約の流れと注意点</h1>
+    <div class="meta">
+      内見の予約から鍵の受け渡し（入居）までの一連の手続きの流れと、各段階で気を付けるべきポイントを整理しました。室内で確認すべき項目（間取り・防災・設備など）は「内見時チェックリスト」に譲り、本レポートは<b>手続き・書類・お金・タイミングの流れ</b>に焦点を当てています。共働き・リモートワーク中心・小学校入学前までの賃貸想定という、お二人の状況に合わせた注意点もあわせて記載しています。
+    </div>
+    <nav class="mobile-toc" aria-label="目次">
+      <a href="#overview">全体の流れ</a>
+      <a href="#step1">内見予約</a>
+      <a href="#step2">内見当日</a>
+      <a href="#step3">申込み</a>
+      <a href="#step4">審査</a>
+      <a href="#step5">重要事項説明</a>
+      <a href="#step6">契約締結</a>
+      <a href="#step7">鍵渡し・入居</a>
+      <a href="#our-points">重点ポイント</a>
+      <a href="#timeline">スケジュール</a>
+    </nav>
+  </header>
+
+  <div class="layout">
+    <nav class="sidenav" aria-label="目次">
+      <div class="sidenav-label">目次</div>
+      <a href="#overview"><svg class="icon"><use href="#i-map"></use></svg>全体の流れ</a>
+      <a href="#step1"><svg class="icon"><use href="#i-search"></use></svg>情報収集・内見予約</a>
+      <a href="#step2"><svg class="icon"><use href="#i-eye"></use></svg>内見当日</a>
+      <a href="#step3"><svg class="icon"><use href="#i-file"></use></svg>入居申込み</a>
+      <a href="#step4"><svg class="icon"><use href="#i-shield"></use></svg>入居審査</a>
+      <a href="#step5"><svg class="icon"><use href="#i-book"></use></svg>重要事項説明</a>
+      <a href="#step6"><svg class="icon"><use href="#i-pen"></use></svg>契約締結</a>
+      <a href="#step7"><svg class="icon"><use href="#i-key"></use></svg>鍵渡し・入居</a>
+      <a href="#our-points"><svg class="icon"><use href="#i-users"></use></svg>重点ポイント</a>
+      <a href="#timeline"><svg class="icon"><use href="#i-calendar"></use></svg>スケジュール目安</a>
+    </nav>
+
+    <main class="content">
+
+      <h2 id="overview"><svg class="icon"><use href="#i-map"></use></svg>1. 全体の流れ</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>内見→申込→審査→重説→契約→入居の7段階。人気物件は内見当日〜翌日の申込みスピードが鍵になる。</p>
+      <div class="card">
+        <div class="flow">
+          <div class="flow-step">
+            <div class="flow-num-col"><div class="flow-num">1</div><div class="flow-line"></div></div>
+            <div class="flow-body">
+              <div class="flow-title-row"><svg class="icon"><use href="#i-search"></use></svg><div class="flow-title">情報収集・内見予約</div></div>
+              <div class="flow-sub">ポータルサイト・仲介会社で物件を探し、内見日時を予約する</div>
+              <span class="flow-duration">随時</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num-col"><div class="flow-num">2</div><div class="flow-line"></div></div>
+            <div class="flow-body">
+              <div class="flow-title-row"><svg class="icon"><use href="#i-eye"></use></svg><div class="flow-title">内見</div></div>
+              <div class="flow-sub">現地で室内・共用部・周辺環境を確認する</div>
+              <span class="flow-duration">1件あたり20〜40分</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num-col"><div class="flow-num">3</div><div class="flow-line"></div></div>
+            <div class="flow-body">
+              <div class="flow-title-row"><svg class="icon"><use href="#i-file"></use></svg><div class="flow-title">入居申込み</div></div>
+              <div class="flow-sub">入居申込書を提出し、物件を仮押さえする</div>
+              <span class="flow-duration">内見当日〜数日以内</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num-col"><div class="flow-num">4</div><div class="flow-line"></div></div>
+            <div class="flow-body">
+              <div class="flow-title-row"><svg class="icon"><use href="#i-shield"></use></svg><div class="flow-title">入居審査</div></div>
+              <div class="flow-sub">貸主・管理会社・保証会社が申込者の支払い能力等を確認する</div>
+              <span class="flow-duration">2〜7日程度</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num-col"><div class="flow-num">5</div><div class="flow-line"></div></div>
+            <div class="flow-body">
+              <div class="flow-title-row"><svg class="icon"><use href="#i-book"></use></svg><div class="flow-title">重要事項説明</div></div>
+              <div class="flow-sub">宅地建物取引士が契約前に物件・契約条件を書面で説明する</div>
+              <span class="flow-duration">契約直前・対面 or オンライン</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num-col"><div class="flow-num">6</div><div class="flow-line"></div></div>
+            <div class="flow-body">
+              <div class="flow-title-row"><svg class="icon"><use href="#i-pen"></use></svg><div class="flow-title">契約締結</div></div>
+              <div class="flow-sub">賃貸借契約書に署名・捺印し、初期費用を支払う</div>
+              <span class="flow-duration">重説と同日〜数日以内</span>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num-col"><div class="flow-num">7</div></div>
+            <div class="flow-body">
+              <div class="flow-title-row"><svg class="icon"><use href="#i-key"></use></svg><div class="flow-title">鍵の受け渡し・入居</div></div>
+              <div class="flow-sub">鍵を受け取り、ライフラインを開通させて入居する</div>
+              <span class="flow-duration">契約〜入居希望日</span>
+            </div>
+          </div>
+        </div>
+        <div class="why"><b>ポイント：</b>申込みから審査完了までは「仮押さえ」の状態。先着受付が一般的なため、複数物件を並行検討している場合は申込みのタイミングを一つずつ確定させていくとよい。</div>
+      </div>
+
+      <h2 id="step1"><svg class="icon"><use href="#i-search"></use></svg>2. 情報収集・内見予約</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>1回で3〜4件まとめて予約し、「まだ空いているか」を必ず事前確認する。</p>
+      <div class="card">
+        <div class="step-head"><div class="flow-num">1</div><div class="step-head-text">情報収集・内見予約</div></div>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">条件に合う物件をリストアップする</div><div class="pdesc">SUUMO・アットホーム・ホームズ等で候補駅・条件（2LDK以上、実質家賃25〜30万円）に合う物件を探す。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">1日にまとめて内見予約する</div><div class="pdesc">気になる物件が複数あれば、同じ仲介会社に一括で問い合わせ、1日3〜4件程度をまとめて回れるようにする。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">写真にない情報を先に聞いておく</div><div class="pdesc">空室状況・募集終了の有無・定期借家か普通借家かを、内見予約と同時に電話やメールで確認する。</div></div>
+          </div>
+        </div>
+        <div class="warn-box"><b>おとり物件に注意：</b>実際は成約済み・募集終了なのに掲載が残っている物件が今も一定数あります。「まだ空いていますか」を必ず確認し、返信が曖昧なら他の仲介会社にも同じ物件を当たってみると状況が分かることがあります。</div>
+        <div class="why"><b>繁忙期の注意：</b>1〜3月は物件の動きが早く、良い条件の物件ほど数日〜1週間で申込みが入ります。移住希望時期（2026年末〜2027年3月）が重なる場合は、早めに動き出す準備をしておくと有利です。</div>
+      </div>
+
+      <h2 id="step2"><svg class="icon"><use href="#i-eye"></use></svg>3. 内見当日</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>家具の採寸リストと質問リストを持参し、電波状況もその場で確認する。</p>
+      <div class="card">
+        <div class="step-head"><div class="flow-num">2</div><div class="step-head-text">内見当日</div></div>
+
+        <h4>前日までに準備すること</h4>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">家具・家電の寸法リストを作る</div><div class="pdesc">冷蔵庫・洗濯機・ベッド・ソファ・デスク（2台分）・本棚の幅奥行高さを一覧化してスマホに保存。搬入経路（玄関幅・廊下の曲がり角・エレベーター寸法）や設置スペースをその場で照合できる。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">持ち物を揃える</div><div class="pdesc">メジャー（or 計測アプリ）、方位磁石アプリ、間取り図の控え、内見時チェックリストと質問リスト、筆記用具、スマートフォン。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">1日の回り方を決めておく</div><div class="pdesc">駅からの移動距離が近い順など、1日3〜4件を効率よく回れる順番を組んでもらう。1件見るごとにメモ・写真を整理する時間も確保する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">時間帯を変えた下見も検討する</div><div class="pdesc">通勤ラッシュ帯・夜間・休日昼など複数の時間帯で街を歩く。1回目は仲介会社と回り、気に入った物件だけ後日自分たちで再訪すると効率的。</div></div>
+          </div>
+        </div>
+
+        <h4>当日の立ち回りで気を付けること</h4>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">できる限り二人で内見する</div><div class="pdesc">日程が合わない場合は、片方がビデオ通話で参加できないか事前に仲介会社へ相談する（対応可否は会社による）。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">撮影可否を最初に確認する</div><div class="pdesc">写真・動画撮影が可能かどうかは物件・貸主によって制限がある場合があるため、内見開始時に確認する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">各部屋で電波状況を確認する</div><div class="pdesc">リモートワーク前提の物件選びのため、スマートフォンの電波と、可能であればオンライン会議アプリの接続テストも行う。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">即決を焦らず、判断基準と照合する</div><div class="pdesc">他の希望者の存在を伝えられても焦らない。一方で事前に決めた「申込みの判断基準」（次章）に当てはまるなら、その場で前向きな意思を伝えるとその後がスムーズ。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">質問はその場でまとめて聞く</div><div class="pdesc">保育園の空き情報、浸水想定区域の該当有無、定期借家か普通借家か等。担当者の知識・対応差が大きいため、複数の仲介会社を比較する視点も持っておく。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">内見直後に感想を記録する</div><div class="pdesc">複数物件を回ると記憶が混ざりやすいため、次の物件へ移動する前に音声メモ等で残しておく。</div></div>
+          </div>
+        </div>
+        <div class="why"><b>妊娠・出産を見据えた視点：</b>転居後に妊活を予定されているとのことなので、ベビーカーでの玄関・共用部の通行のしやすさ、エレベーターの有無・台数、水回りの生活動線も軽く意識しておくと将来の暮らしをイメージしやすくなります。</div>
+      </div>
+
+      <h2 id="step3"><svg class="icon"><use href="#i-file"></use></svg>4. 入居申込み</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>「申し込む基準」「緊急連絡先」「契約者名義」を先に二人で決めておくと即決できる。</p>
+      <div class="card">
+        <div class="step-head"><div class="flow-num">3</div><div class="step-head-text">入居申込み</div></div>
+
+        <h4>やること</h4>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">入居申込書を提出する</div><div class="pdesc">申込者と同居者の氏名・現住所・勤務先・年収・緊急連絡先等を記入。運転免許証やマイナンバーカード等の本人確認書類の提示を求められることが多い。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">保証人か保証会社かを確認する</div><div class="pdesc">連帯保証人を立てる契約か保証会社を利用する契約かを確認。保証会社利用の場合、審査書類（源泉徴収票・給与明細等）もあわせて準備する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">申込証拠金の扱いを確認する</div><div class="pdesc">物件によっては数万円程度の申込証拠金が発生する。返金される条件を、口頭ではなく預り証等の書面で確認しておく。</div></div>
+          </div>
+        </div>
+
+        <h4>申込み前に二人で決めておきたいこと</h4>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">「これなら申し込む」基準をリスト化する</div><div class="pdesc">実質月額家賃（管理費等込み25〜30万円）、駅距離、通勤時間、2LDKの部屋の形など must 条件を照合できるようにしておくと、短い判断時間でも迷わない。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">契約者名義をどちらにするか決める</div><div class="pdesc">収入合算で審査できる保証会社なら影響は小さいが、契約者本人が重説・契約時に対応する必要があるため、平日日中に動きやすい方にする等、実務面から決めておく。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">緊急連絡先を誰に頼むか決める</div><div class="pdesc">配偶者とは別に緊急連絡先（親族等）を求められることが多い。親族が遠方在住のため、誰に依頼するか決めて事前に一声かけておく。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">入居希望日を仮決めする</div><div class="pdesc">現住居の解約予告期間（1〜2ヶ月前が一般的）から逆算し、二重家賃をできるだけ短くできる日程を想定しておく。</div></div>
+          </div>
+        </div>
+
+        <h4>事前に揃えておくと早い書類</h4>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">本人確認書類のコピー</div><div class="pdesc">運転免許証・マイナンバーカード等を夫婦それぞれ準備しておく。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">収入証明</div><div class="pdesc">源泉徴収票・直近の給与明細・課税証明書等。収入合算での審査を希望する場合は配偶者分もあわせて必要になることが多い。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">勤務先情報</div><div class="pdesc">会社名・部署・所在地・電話番号を正確に。在籍確認の電話が入ることがあるため、事前に総務・人事へ一声かけておくと当日慌てない。</div></div>
+          </div>
+        </div>
+
+        <h4>進め方で気を付けること</h4>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">同時に複数物件へ申し込まない</div><div class="pdesc">1件ずつ申し込むのがマナー。複数の仲介会社に同時申込みすると、審査が重複して貸主・保証会社の間で混乱が生じることがある。迷う場合は率直に仲介会社へ相談する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">優先順位の決まり方を確認する</div><div class="pdesc">同じ物件に複数申込みが入った場合、先着順か貸主の裁量かを申込み前に仲介会社へ確認しておく。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">キャンセル条件を書面で確認する</div><div class="pdesc">キャンセル料の有無、申込証拠金の返金条件を、口頭ではなく書面（預り証等）で確認してから申込書を提出する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">収入合算の可否を先に確認する</div><div class="pdesc">申込書の記入内容を決める前に、収入合算での審査が可能かを仲介会社・保証会社に確認しておくと二度手間にならない。</div></div>
+          </div>
+        </div>
+
+        <div class="warn-box"><b>申込みの法的な位置づけ：</b>入居申込書の提出は、多くの場合まだ契約ではなく「契約したいという意思表示」の段階。撤回自体は基本的に可能だが、仲介会社によっては事務手数料が発生する場合があるため、申込み前にキャンセル費用を必ず確認する。</div>
+        <div class="why"><b>先着順が基本：</b>気に入った物件は、内見当日〜翌日中に申込みの意思を伝えることが確保の可能性を高める。</div>
+        <div class="warn-box"><b>収入変動を見据えた確認：</b>産休・育休期間中は世帯収入が一時的に変動する。今回の審査自体には現在の収入状況が使われるが、更新時期が育休と重なりそうな場合は更新料や再審査の有無を早めに確認しておく。</div>
+      </div>
+
+      <h2 id="step4"><svg class="icon"><use href="#i-shield"></use></svg>5. 入居審査</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>保証会社の審査基準（年収倍率）と、収入合算の可否を事前に確認しておく。</p>
+      <div class="card">
+        <div class="step-head"><div class="flow-num">4</div><div class="step-head-text">入居審査</div></div>
+        <h4>審査で見られること</h4>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">貸主審査と保証会社審査の2段階</div><div class="pdesc">貸主・管理会社による審査（人柄・勤務先の安定性・緊急連絡先の妥当性等）と、保証会社による審査（支払い能力）が一般的な流れ。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">年収倍率が基準になる</div><div class="pdesc">「家賃の月額に対して年収が何倍あるか」（目安：家賃の30〜36倍程度の年収）で見られることが多い。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">在籍確認の電話が入ることがある</div><div class="pdesc">申込者の勤務先に確認の電話が入る場合がある。本人が出るとは限らず、総務・人事宛にかかることもある。</div></div>
+          </div>
+        </div>
+        <div class="warn-box"><b>共働き世帯で確認したいこと：</b>保証会社によって「契約者本人の収入のみ」か「同居配偶者の収入を合算できる」かが分かれます。家賃25〜30万円はお一人の年収（650万円）だけだと基準ギリギリになり得るため、申込み前に「収入合算での審査は可能か」を確認しておくと安心です。世帯年収（約1300万円）なら基準は十分に満たせる見込みです。</div>
+        <div class="why"><b>審査期間中の心構え：</b>審査には数日かかるのが一般的。「他の物件も内見してよいか」を仲介会社に確認しておくと、万が一の場合の次の動きがスムーズ。</div>
+      </div>
+
+      <h2 id="step5"><svg class="icon"><use href="#i-book"></use></svg>6. 重要事項説明</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>事前に書面をもらって読んでおき、定期借家か普通借家かを最優先で確認する。</p>
+      <div class="card">
+        <div class="step-head"><div class="flow-num">5</div><div class="step-head-text">重要事項説明（重説）</div></div>
+        <h4>制度の概要</h4>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">契約前の説明が法律で義務付けられている</div><div class="pdesc">宅地建物取引士（宅建士）が契約者本人に、重要事項説明書に基づいて物件と契約条件を説明する（宅地建物取引業法）。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">オンライン（IT重説）も選べる</div><div class="pdesc">対面が原則だが、ビデオ通話での説明も認められている。共働きで平日に時間が取れない場合は対応可否を確認するとよい。</div></div>
+          </div>
+        </div>
+        <h4>特に確認したいポイント</h4>
+        <div class="points">
+          <div class="point pt-must">
+            <div class="dot"></div>
+            <div><div class="ptitle"><span class="badge badge-must">最重要</span> 定期借家か普通借家か</div><div class="pdesc">定期借家は契約期間満了で更新できず再契約か退去が必要。「小学校入学前まで住む」想定と契約期間の相性を必ず確認する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">更新料・解約予告期間</div><div class="pdesc">更新料の有無・金額、解約予告期間（1ヶ月前・2ヶ月前等）を確認する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">特約条項</div><div class="pdesc">ペット可否、原状回復の範囲、禁止事項等。国土交通省ガイドラインと異なる独自特約がないか確認する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">家賃改定の条件</div><div class="pdesc">近隣相場の変動で値上げされる規定があるかを確認する。</div></div>
+          </div>
+        </div>
+        <div class="risk-box"><b>「聞いていない」を防ぐには：</b>重要事項説明書は口頭説明だけでなく、必ず事前に書面（PDF等）を受け取り、当日までに一読しておく。疑問点はメモしておき、説明時にまとめて質問すると効率的。</div>
+      </div>
+
+      <h2 id="step6"><svg class="icon"><use href="#i-pen"></use></svg>7. 契約締結</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>署名・初期費用の支払いに加え、「実質月額」が予算内かを最終確認する。</p>
+      <div class="card">
+        <div class="step-head"><div class="flow-num">6</div><div class="step-head-text">契約締結</div></div>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">契約書に署名・捺印する</div><div class="pdesc">契約者本人が行うのが原則。共働きで来店が難しい場合は郵送契約に対応しているか事前に確認する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">初期費用を支払う</div><div class="pdesc">敷金・礼金・仲介手数料・前家賃・火災保険料・保証会社利用料・鍵交換費用等を、指定期日までに振込または現金で支払う。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">火災保険に加入する</div><div class="pdesc">不動産会社の指定保険を勧められることが多いが、任意の保険で代替できる場合もある。既に加入している保険があれば交渉の余地を確認する。</div></div>
+          </div>
+        </div>
+        <div class="table-scroll" style="margin-top:16px;">
+          <table>
+            <thead><tr><th>初期費用の主な内訳</th><th>目安</th></tr></thead>
+            <tbody>
+              <tr><td>敷金</td><td>家賃1〜2ヶ月分</td></tr>
+              <tr><td>礼金</td><td>家賃0〜2ヶ月分</td></tr>
+              <tr><td>仲介手数料</td><td>家賃0.5〜1ヶ月分＋消費税</td></tr>
+              <tr><td>前家賃（当月・翌月分）</td><td>家賃1〜2ヶ月分</td></tr>
+              <tr><td>火災保険料</td><td>2年契約で1.5〜2万円程度</td></tr>
+              <tr><td>保証会社利用料</td><td>家賃の0.5〜1ヶ月分（初回）</td></tr>
+              <tr><td>鍵交換費用</td><td>1.5〜2.5万円程度</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="why"><b>「実質月額」の再確認：</b>管理費・共益費・駐輪場代は家賃と別枠で契約書に記載されることが多く、ポータルサイトの表示家賃には含まれていない場合がある。契約締結の直前に、家賃＋管理費等の合計が予算上限（30万円、希望25万円以内）に収まっているか最終確認する。</div>
+      </div>
+
+      <h2 id="step7"><svg class="icon"><use href="#i-key"></use></svg>8. 鍵の受け渡し・入居</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>入居前の傷・不具合を記録し、ガス開栓は早めに予約する。</p>
+      <div class="card">
+        <div class="step-head"><div class="flow-num">7</div><div class="step-head-text">鍵の受け渡し・入居</div></div>
+        <div class="points">
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">鍵を受け取り、本数・種類を確認する</div><div class="pdesc">玄関・オートロック・宅配ボックス等の鍵の本数・種類を、管理会社または仲介会社でその場で確認する。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">入居前に室内の状態を記録する</div><div class="pdesc">傷・汚れ・設備の不具合を写真・動画で記録し、入居時チェックシートがあれば必ず記入して控えを取っておく（退去時の原状回復トラブルを防ぐため）。</div></div>
+          </div>
+          <div class="point">
+            <div class="dot"></div>
+            <div><div class="ptitle">ライフラインの開始手続きをする</div><div class="pdesc">電気・ガス・水道の使用開始手続きを行う。特にガスは開栓に立ち会いが必要なため、入居日に合わせて早めに予約する（繁忙期は予約が取りづらい）。</div></div>
+          </div>
+        </div>
+        <div class="warn-box"><b>家賃発生日の確認：</b>契約書上の「家賃発生日」は実際の入居日より前に設定されるのが一般的（鍵の受け渡し後、荷物搬入前から家賃が発生する）。日割り家賃の起算日を契約時に確認し、引っ越し業者の手配日と調整すると無駄な家賃負担を避けられる。</div>
+      </div>
+
+      <h2 id="our-points"><svg class="icon"><use href="#i-users"></use></svg>9. お二人の状況に合わせた重点ポイント</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>普通借家＋収入合算＋保証会社利用を軸に、早め早めの確認を。</p>
+      <div class="card">
+        <div class="points">
+          <div class="point pt-must">
+            <div class="dot"></div>
+            <div><div class="ptitle"><span class="badge badge-must">重要</span> 定期借家契約は基本的に避ける方向で検討する</div><div class="pdesc">具体的な退去時期は妊娠・出産のタイミング次第で流動的になり得る。契約満了で強制的に退去・再契約となる定期借家より、更新しながら住み続けられる普通借家の方がライフプランの変化に柔軟に対応できる。</div></div>
+          </div>
+          <div class="point pt-must">
+            <div class="dot"></div>
+            <div><div class="ptitle"><span class="badge badge-must">重要</span> 保証会社の審査は収入合算の可否を事前確認する</div><div class="pdesc">家賃25〜30万円は年収650万円（お一人分）だと保証会社の基準（家賃の30〜36倍程度）にギリギリ収まらない可能性がある。世帯年収（約1300万円）で合算審査できる保証会社を優先する。</div></div>
+          </div>
+          <div class="point pt-want">
+            <div class="dot"></div>
+            <div><div class="ptitle"><span class="badge badge-want">確認</span> 保証会社のみで契約可能な物件かを早めに確認する</div><div class="pdesc">親族が遠方在住のため、連帯保証人ではなく保証会社利用が前提になる可能性が高い。「連帯保証人必須（保証会社は併用のみ）」の物件もあるため、内見予約の時点で確認しておくと後の手戻りを防げる。</div></div>
+          </div>
+          <div class="point pt-want">
+            <div class="dot"></div>
+            <div><div class="ptitle"><span class="badge badge-want">確認</span> IT重説・郵送契約への対応可否を早めに確認する</div><div class="pdesc">共働きで平日の来店が難しい場合、対応している仲介会社であれば土日や勤務時間外でも進められる場合がある。</div></div>
+          </div>
+          <div class="point pt-want">
+            <div class="dot"></div>
+            <div><div class="ptitle"><span class="badge badge-want">確認</span> 更新のタイミングと妊娠・出産の見通しを意識する</div><div class="pdesc">契約から1〜2年後に更新のタイミングが来ることが多い。出産前後の慌ただしい時期と更新手続きが重ならないか頭に入れておく。</div></div>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="timeline"><svg class="icon"><use href="#i-calendar"></use></svg>10. 全体スケジュールの目安</h2>
+      <div class="h2-rule"></div>
+      <p class="gist"><span class="lbl">ひとことで言うと</span>内見〜入居は通常2週間〜1ヶ月。繁忙期はさらに早めの動き出しを。</p>
+      <div class="card">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>段階</th><th>所要日数の目安</th><th>備考</th></tr></thead>
+            <tbody>
+              <tr><td>内見〜申込み</td><td>即日〜数日</td><td>気に入った物件は早めの意思表示が有利</td></tr>
+              <tr><td>申込み〜審査結果</td><td>2〜7日</td><td>収入証明等の書類が揃っているほど早い</td></tr>
+              <tr><td>審査結果〜重要事項説明・契約</td><td>数日〜1週間</td><td>初期費用の振込期日に注意</td></tr>
+              <tr><td>契約〜鍵の受け渡し・入居</td><td>数日〜2週間</td><td>入居希望日に合わせて逆算して調整</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="good-box"><b>逆算の目安：</b>移住希望時期（2026年末〜2027年3月）から逆算すると、本格的な内見・申込み活動は入居希望月の1〜1.5ヶ月前から始めるとゆとりを持って進められる。繁忙期に重なる場合はさらに早め（2ヶ月前程度）の動き出しを検討する。</div>
+      </div>
+
+      <footer>
+        本レポートは「前提情報」の内容をもとに、内見予約から入居までの一般的な手続きの流れと注意点を整理したものです。実際の手続き・費用・審査基準は物件・管理会社・保証会社によって異なるため、個別の物件については仲介会社への確認を優先してください。室内の確認項目については「内見時チェックリスト」もあわせてご参照ください。
+      </footer>
+
+    </main>
+  </div>
+
+</div>
+<div class="gnav-related">
+  <div class="gnav-related-inner">
+    <h3>🔗 関連ページ</h3>
+    <div class="gnav-related-grid">
+      <a class="gnav-related-card" href="内見時チェックリスト.html">
+        <span class="gnav-related-card-title">内見時チェックリスト</span>
+        <span class="gnav-related-card-desc">妊娠・子育てを見据えた住戸選びのポイント</span>
+      </a>
+      <a class="gnav-related-card" href="家賃キャッシュフロー比較レポート.html">
+        <span class="gnav-related-card-title">家賃キャッシュフロー比較レポート</span>
+        <span class="gnav-related-card-desc">家賃26万・28万・30万円での家計試算比較</span>
+      </a>
+    </div>
+    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
+  </div>
+</div>
+<style id="gnav-related-style">
+.gnav-related{margin-top:48px;padding:32px 20px 40px;background:var(--page-plane);border-top:1px solid var(--border);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;}
+.gnav-related-inner{max-width:900px;margin:0 auto;}
+.gnav-related h3{font-size:15px;color:var(--text-primary);margin:0 0 14px;font-weight:600;}
+.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
+.gnav-related-card{display:block;background:var(--surface-1);border:1px solid var(--border);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--text-primary);transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
+.gnav-related-card:hover{border-color:var(--accent-warn);transform:translateY(-1px);box-shadow:0 6px 16px rgba(11,11,11,0.06);}
+.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.gnav-related-card-desc{display:block;font-size:12px;color:var(--text-secondary);line-height:1.5;}
+.gnav-related-home{display:inline-block;font-size:12.5px;color:var(--accent-warn);text-decoration:none;font-weight:600;}
+.gnav-related-home:hover{text-decoration:underline;}
+</style>
+</body>
+</html>

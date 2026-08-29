@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>里帰り出産 意思決定サマリー</title>
+<style>
+  :root{
+    --bg:#f6f5f2;
+    --card:#ffffff;
+    --ink:#2b2b28;
+    --sub:#6b6b64;
+    --line:#e6e3dc;
+    --accent:#7a6a53;
+    --chip:#efece4;
+
+    --good:#e5f1e6;
+    --good-ink:#2e6b3e;
+    --warn:#fbe9e7;
+    --warn-ink:#a94442;
+
+    --pick-bg:#fbf3d9;
+    --pick-line:#e6cd8a;
+    --pick-ink:#93731a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+  }
+  header{max-width:920px;margin:0 auto;padding:36px 24px 16px;}
+  h1{font-size:24px;margin:0 0 8px;letter-spacing:0.02em;}
+  .sub{color:var(--sub);font-size:13.5px;margin:0;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .chip{background:var(--chip);color:var(--ink);padding:6px 12px;border-radius:20px;font-size:12.5px;white-space:nowrap;}
+
+  main{max-width:920px;margin:0 auto;padding:0 24px 60px;}
+  section{margin-top:36px;}
+  h2.section-title{font-size:17px;margin:0 0 4px;}
+  p.section-desc{font-size:13px;color:var(--sub);margin:0 0 16px;}
+
+  .pick-box{background:var(--pick-bg);border:1px solid var(--pick-line);border-radius:12px;padding:22px 24px;}
+  .pick-box .pick-label{font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--pick-ink);text-transform:uppercase;margin-bottom:6px;}
+  .pick-box h2{margin:0 0 8px;font-size:19px;color:var(--ink);}
+  .pick-box p{margin:0;font-size:13.5px;color:#4a4235;}
+
+  .timeline{position:relative;margin:0;padding-left:22px;border-left:2px solid var(--line);}
+  .tl-item{position:relative;padding-bottom:16px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:"";position:absolute;left:-27px;top:3px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--card);box-shadow:0 0 0 1px var(--accent);}
+  .tl-date{font-size:11.5px;font-weight:600;color:var(--accent);letter-spacing:0.02em;}
+  .tl-title{font-size:14px;font-weight:600;margin:2px 0 4px;}
+  .tl-desc{font-size:12.5px;color:var(--sub);margin:0;line-height:1.6;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:14px;}
+  .card h3{font-size:14.5px;margin:0 0 8px;}
+  .card p{font-size:13.5px;margin:0 0 8px;}
+  .card p:last-child{margin-bottom:0;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:640px){.two-col{grid-template-columns:1fr;}}
+
+  .insight{border-radius:10px;padding:12px 16px;font-size:13px;margin-top:10px;}
+  .insight.good{background:var(--good);color:var(--good-ink);}
+  .insight.warn{background:var(--warn);color:var(--warn-ink);}
+
+  .table-wrap{overflow-x:auto;}
+  table{border-collapse:collapse;width:100%;min-width:520px;background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+  thead th{background:#2b2b28;color:#f6f5f2;text-align:left;padding:11px 10px;font-size:12px;font-weight:600;white-space:nowrap;}
+  tbody tr{border-bottom:1px solid var(--line);}
+  tbody tr:last-child{border-bottom:none;}
+  tbody td{padding:11px 10px;font-size:12.5px;vertical-align:top;}
+
+  .risk-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:12px;}
+  .risk-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .risk-card .rt{font-size:13px;font-weight:600;margin-bottom:4px;}
+  .risk-card .rd{font-size:12px;color:var(--sub);line-height:1.6;}
+
+  .checklist{list-style:none;margin:0;padding:0;}
+  .checklist li{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px;}
+  .checklist li:last-child{border-bottom:none;}
+  .checklist .box{flex:0 0 auto;width:16px;height:16px;border:1.5px solid var(--accent);border-radius:4px;margin-top:2px;}
+  .checklist .when{display:inline-block;font-size:11px;color:var(--accent);font-weight:600;margin-right:6px;white-space:nowrap;}
+
+  .detail-links{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;}
+  a.dcard{display:block;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--ink);transition:border-color .15s ease, transform .15s ease;}
+  a.dcard:hover{border-color:var(--accent);transform:translateY(-1px);}
+  a.dcard .t{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
+  a.dcard .d{display:block;font-size:12px;color:var(--sub);line-height:1.5;}
+
+  footer{max-width:920px;margin:20px auto 40px;padding:0 24px;color:var(--sub);font-size:12px;}
+  @media (max-width:700px){
+    header,main,footer{padding-left:16px;padding-right:16px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>里帰り出産 意思決定サマリー</h1>
+  <p class="sub">妊娠経過ガイド・リスク検討・夫の育休プランニング・産婦人科ガイドの4レポートから、判断に直結する結論だけをまとめました。根拠の詳細はページ下部の各レポートへ。</p>
+  <div class="meta-row">
+    <span class="chip">出産予定日：2027年4月27日</span>
+    <span class="chip">移動元：東京・押上（2026年10月ごろ転居）</span>
+    <span class="chip">実家：福岡・長者原駅周辺</span>
+    <span class="chip">里帰り目安：2027/3/2〜3/29（妊娠32〜35週）</span>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <div class="pick-box">
+      <div class="pick-label">現時点の方針</div>
+      <h2>里帰り出産で進める：東京（押上）で健診 → 32〜35週で福岡へ移動 → 福岡の産院で出産</h2>
+      <p>妊婦健診は転居後の押上エリアで受け、32〜35週ごろに福岡へ帰省。出産は福岡の産院で行い、産後1ヶ月健診（目安5月27日ごろ）を終えたタイミングで東京の自宅に戻るプランです。移動は飛行機、滞在期間に応じてホテル〜マンスリーマンションを使い分けます。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">全体スケジュール</h2>
+    <p class="section-desc">妻・夫それぞれの動きを時系列でまとめました。</p>
+    <div class="card">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-date">〜11週ごろ</div>
+          <div class="tl-title">福岡の分娩先候補をリサーチ・問い合わせ</div>
+          <div class="tl-desc">人気の産院は早期に分娩予約が埋まることがあるため、2〜3院リストアップして早めに動く。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">妊娠10〜14週ごろ</div>
+          <div class="tl-title">押上へ転居、東京での妊婦健診を開始</div>
+          <div class="tl-desc">錦糸町駅前レディースクリニックが本命候補（詳細は後述）。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">16〜19週ごろ</div>
+          <div class="tl-title">東京の産院に里帰りの意向を伝え、紹介状を依頼。福岡側の分娩予約を確定</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">32〜33週ごろ</div>
+          <div class="tl-title">東京側の健診から福岡側への引き継ぎ（紹介状の発行タイミング確認）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">3/2〜3/29（32〜35週）</div>
+          <div class="tl-title">福岡へ帰省</div>
+          <div class="tl-desc">長距離移動は体への負担が大きいため、このタイミングが最後のチャンス。飛行機推奨（詳細は後述）。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/27ごろ</div>
+          <div class="tl-title">出産予定日（福岡）</div>
+          <div class="tl-desc">夫は在宅勤務での先乗り待機、または連絡を受けて移動する2パターンで事前に方針を決めておく。</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">4/27〜6/22ごろ</div>
+          <div class="tl-title">夫：産後パパ育休の取得可能期間（出生後8週間以内）</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-date">5/27ごろ</div>
+          <div class="tl-title">産後1ヶ月健診 → 東京へ帰る目安</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">産院：東京と福岡の使い分け</h2>
+    <div class="two-col">
+      <div class="card">
+        <h3>東京側（押上エリア・健診）</h3>
+        <p><b>錦糸町駅前レディースクリニックが総合的に一番おすすめです。</b>「妊娠12週未満〜32・33週まで健診、34週頃から出産予定病院へ移行」という案内が、今回の里帰り時期（32〜35週）とほぼそのまま一致します。押上から半蔵門線で1駅・徒歩1分と通いやすさも十分。</p>
+        <p style="color:var(--sub);font-size:12.5px;">次点：安心感重視なら賛育会病院（NICU・GCU完備の総合病院）、立地重視ならのぞみ女性クリニック。</p>
+      </div>
+      <div class="card">
+        <h3>福岡側（長者原エリア・分娩）</h3>
+        <p>人気の個人クリニックは分娩数を制限しており、12週前後で「もう埋まっている」ケースもあるため、候補は2〜3院リストアップして早期に問い合わせるのが安心です。紹介状の内容（東京での検査結果の引き継ぎ範囲）も産院に事前確認しておくと二度手間が減ります。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">移動と滞在</h2>
+    <div class="card">
+      <p><b>移動手段は飛行機（羽田—福岡・約2時間5分）を推奨します。</b>東京・福岡間は約1,100kmあり、新幹線（約5時間）より飛行機の方が体への負担が小さい可能性が高いためです。32〜35週での帰省であれば、診断書が必要になる36週のラインより前なので通常の搭乗手続きで問題ないことが多い見込みですが、出発直前に必ず航空会社の最新条件を確認してください。産後1ヶ月ごろの新生児連れの復路も、短時間で済む飛行機が母子の負担が少なくなります。</p>
+      <div class="table-wrap" style="margin-top:12px;">
+        <table>
+          <thead><tr><th>滞在期間</th><th>おすすめの住まい方</th><th>費用目安</th></tr></thead>
+          <tbody>
+            <tr><td>数日〜1週間</td><td>ホテル連泊、または義実家</td><td>1泊8,000〜12,000円</td></tr>
+            <tr><td>1〜3週間</td><td>ウィークリーマンション</td><td>1週間1.0万〜2.7万円</td></tr>
+            <tr><td>1ヶ月前後</td><td>マンスリーマンション</td><td>1ヶ月9万〜13万円</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight good">長者原駅周辺は大手マンスリー業者の掲載が手薄なため、沿線まで少し足を延ばすのが現実的です。コスト優先なら<b>香椎駅</b>（長者原から乗り換えなし18分、月5.7万円台〜）、アクセス優先なら<b>吉塚駅</b>（長者原まで8分、博多にも近く物件数も多い）が候補です。</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">夫の育休プラン</h2>
+    <div class="card">
+      <p><b>4パターン中「分割2回型」（出生直後に1〜2週間＋帰京時にもう一度）がバランスの良い選択肢です。</b>実家のサポートが得られる期間と、帰京後にサポートが必要になる期間の両方に休みを配分できるためです。まとまった時間で育児にじっくり向き合いたい場合は「長期型」（産後パパ育休28日＋通常育休数ヶ月）も検討に値します。</p>
+      <p>立ち会いを重視するなら、出産予定日の少し前から福岡で<b>在宅勤務しながら待機</b>する形が、確実性と職場調整の負荷のバランスが取れています。産後パパ育休は「原則2週間前まで」に会社へ申し出るルールのため、2026年秋頃には上司・人事への一次相談を始めておくと安心です。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">主なリスクと対策の方向性</h2>
+    <p class="section-desc">詳細は「里帰り出産のリスクと検討ポイント」を参照。ここでは6分類の要点のみ。</p>
+    <div class="risk-grid">
+      <div class="risk-card"><div class="rt">医学的リスク</div><div class="rd">受け入れ期限を過ぎると分娩予約自体を断られうる。健診情報の引き継ぎ漏れ・重複検査にも注意。</div></div>
+      <div class="risk-card"><div class="rt">移動のリスク</div><div class="rd">移動時期が遅すぎると早産・機内外での発症リスク。往復とも別のリスクとして考える。</div></div>
+      <div class="risk-card"><div class="rt">立ち会いのリスク</div><div class="rd">「間に合うはず」の計算通りにいかないことを前提に、先乗り待機の開始時期を具体化しておく。</div></div>
+      <div class="risk-card"><div class="rt">夫婦関係・メンタル</div><div class="rd">夫の育児参加スタートの遅れ、実親世代の育児方針とのズレに注意。産後うつのリスクは軽減されるとは限らない。</div></div>
+      <div class="risk-card"><div class="rt">行政手続き・お金</div><div class="rd">二重生活費（夫の一人暮らし費・交通費）のおおまかな予算感を事前に共有しておく。</div></div>
+      <div class="risk-card"><div class="rt">産院予約のリスク</div><div class="rd">人気施設は分娩予約が早期に埋まる。セミオープンシステムのスケジュールを軸に逆算する。</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">今すぐやることチェックリスト</h2>
+    <p class="section-desc">2つのレポートのチェックリストを、時期の近い順に1本にまとめました。</p>
+    <div class="card">
+      <ul class="checklist">
+        <li><span class="box"></span><span><span class="when">〜15週</span>福岡の分娩先候補を2〜3院リストアップし、受け入れ期限（初診・再診の週数）を問い合わせる</span></li>
+        <li><span class="box"></span><span><span class="when">早めに</span>職場に産休・産後パパ育休の取得意向を共有する</span></li>
+        <li><span class="box"></span><span><span class="when">早めに</span>かかりつけ産院の緊急連絡先を夫婦それぞれのスマホに登録し、「危険サイン早見」を読み合わせる</span></li>
+        <li><span class="box"></span><span><span class="when">16〜19週</span>東京の産院に里帰りの意向を伝え、紹介状の依頼時期を確認する</span></li>
+        <li><span class="box"></span><span>里帰りの移動手段（飛行機推奨）と時期を「34週台の早め」に固定できないか検討する</span></li>
+        <li><span class="box"></span><span>立ち会い出産の可否を里帰り先の産院に確認し、夫の「先乗り待機」の開始時期・訪問頻度を夫婦で話し合う</span></li>
+        <li><span class="box"></span><span>産後パパ育休をいつ・何回に分けて取るかの仮プランを立てる（分割2回型を軸に）</span></li>
+        <li><span class="box"></span><span>育児方針で親世代とズレそうなポイントを事前に軽く共有しておく</span></li>
+        <li><span class="box"></span><span><span class="when">32〜33週</span>東京側産院に紹介状の発行タイミング・引き継ぎ検査内容を確認する</span></li>
+        <li><span class="box"></span><span>児童手当・乳幼児医療費助成は居住地（東京）側でのみ申請可能な点を踏まえ、誰がいつ手続きするか決めておく</span></li>
+        <li><span class="box"></span><span>里帰りからの帰京時期（産後1ヶ月健診後が目安）を共有しておく</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">詳細レポート</h2>
+    <p class="section-desc">上記の結論の根拠になっている元レポートです。</p>
+    <div class="detail-links">
+      <a class="dcard" href="妊娠経過と里帰り出産ガイド.html">
+        <span class="t">妊娠経過と里帰り出産ガイド</span>
+        <span class="d">時期ごとの体調・心配ごとと、東京→福岡の里帰りスケジュール詳細</span>
+      </a>
+      <a class="dcard" href="里帰り出産のリスクと検討ポイント.html">
+        <span class="t">里帰り出産のリスクと検討ポイント</span>
+        <span class="d">医学的・移動・夫婦関係・手続き面のリスクの詳細</span>
+      </a>
+      <a class="dcard" href="夫の産休育休プランニング.html">
+        <span class="t">夫の産休育休プランニング</span>
+        <span class="d">4パターンの詳細比較と会社への申出スケジュール</span>
+      </a>
+      <a class="dcard" href="押上エリアの産婦人科ガイド.html">
+        <span class="t">押上エリアの産婦人科ガイド</span>
+        <span class="d">4施設の詳細比較</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <a href="../index.html" style="color:var(--accent);text-decoration:none;font-weight:600;">← 資料まとめトップに戻る</a>
+</footer>
+
+</body>
+</html>
