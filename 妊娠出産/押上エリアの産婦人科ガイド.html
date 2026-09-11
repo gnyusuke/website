@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -84,12 +84,14 @@
 
   /* compare table */
   .table-wrap{ overflow-x:auto; border:1px solid var(--border); border-radius:10px; margin:20px 0 8px; }
-  table.cmp{ width:100%; border-collapse:collapse; font-size:0.87rem; min-width:680px; }
+  table.cmp{ width:100%; border-collapse:collapse; font-size:0.87rem; min-width:920px; }
   table.cmp th, table.cmp td{ padding:12px 16px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top; }
   table.cmp thead th{ font-size:0.74rem; color:var(--ink-faint); font-weight:700; letter-spacing:0.03em; background:var(--surface-2); }
   table.cmp tbody tr:last-child td{ border-bottom:none; }
   table.cmp td.name{ font-weight:700; white-space:nowrap; }
   table.cmp tbody tr:hover{ background:var(--surface-2); }
+  table.cmp td.rank{ white-space:nowrap; }
+  .rank-pill{ display:inline-block; font-size:0.72rem; font-weight:700; padding:2px 9px; border-radius:999px; background:var(--accent-soft); color:var(--accent); white-space:nowrap; }
 
   /* clinic cards */
   .clinic-card{ background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:24px 26px; box-shadow:var(--shadow); margin-bottom:20px; }
@@ -101,6 +103,8 @@
   .cc-detail{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px; margin-bottom:14px; }
   .cd-item .cd-label{ font-size:0.74rem; color:var(--ink-faint); font-weight:700; margin-bottom:3px; }
   .cd-item .cd-value{ font-size:0.92rem; }
+  .cd-item.cd-access{ background:var(--primary-soft); border-radius:10px; padding:10px 12px; }
+  .cd-item.cd-access .cd-label{ color:var(--primary); }
   .clinic-card p.cc-text{ margin:10px 0 0; color:var(--ink-soft); font-size:0.93rem; }
   .cc-text + .cc-text{ margin-top:8px; }
 
@@ -114,6 +118,7 @@
   .callout li{ margin-bottom:8px; }
   .callout li:last-child{ margin-bottom:0; }
   .callout li strong{ color:var(--ink); }
+  .callout p.callout-note{ margin:0 0 12px; color:var(--ink-soft); font-size:0.9rem; }
 
   .checklist{ display:flex; flex-direction:column; gap:10px; }
   .cl-item{ display:flex; gap:10px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:12px 14px; font-size:0.92rem; }
@@ -122,31 +127,13 @@
   .page-footer{ padding-top:44px; color:var(--ink-faint); font-size:0.85rem; }
   .page-footer p{ max-width:46em; margin:0 0 10px; }
 </style>
-</head>
-<body>
-<div class="gnav-crumb">
-  <a href="../index.html">🏠 資料まとめトップ</a>
-  <span class="gnav-crumb-sep">›</span>
-  <span class="gnav-crumb-cat">妊娠出産</span>
-  <span class="gnav-crumb-sep">›</span>
-  <span class="gnav-crumb-here">押上エリアの産婦人科ガイド</span>
-</div>
-<style id="gnav-crumb-style">
-.gnav-crumb{font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12.5px;line-height:1.4;padding:10px 20px;background:#2b2b28;color:#d8d5cc;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.gnav-crumb a{color:#f3ede0;text-decoration:none;font-weight:600;white-space:nowrap;}
-.gnav-crumb a:hover{text-decoration:underline;}
-.gnav-crumb-sep{opacity:.5;}
-.gnav-crumb-cat{opacity:.85;white-space:nowrap;}
-.gnav-crumb-here{opacity:.65;white-space:nowrap;}
-</style>
-
 
 <div class="page">
 
   <header class="hero">
-    <p class="eyebrow">2026年10月ごろ 押上引っ越し想定</p>
+    <p class="eyebrow">2026年10月17日〜 押上「シーズンフラッツ押上フィオーレ」入居想定</p>
     <h1>押上エリアの産婦人科ガイド</h1>
-    <p class="lede">押上(東京都墨田区)に引っ越す前提で、里帰り出産(妊婦健診は東京・分娩は福岡)に対応しやすい産婦人科を調べました。「分娩まで診てもらう病院」ではなく「途中まで安心して通える、紹介状もスムーズなクリニック」という基準で選んでいます。</p>
+    <p class="lede">新居のシーズンフラッツ押上フィオーレ(東京都墨田区業平3-4-15)から通う前提で、里帰り出産(妊婦健診は東京・分娩は福岡)に対応しやすい産婦人科を調べました。「分娩まで診てもらう病院」ではなく「途中まで安心して通える、紹介状もスムーズなクリニック」という基準で選んでいます。</p>
   </header>
 
   <nav class="nav">
@@ -164,7 +151,8 @@
     </div>
     <div class="premise-box">
       <dl>
-        <dt>居住予定</dt><dd>2026年10月ごろ、東京都墨田区押上に転居(想定)</dd>
+        <dt>新居</dt><dd>シーズンフラッツ押上フィオーレ301号室(東京都墨田区業平3-4-15)。契約開始日は2026年10月17日</dd>
+        <dt>最寄り駅</dt><dd>押上(スカイツリー前)駅 徒歩4分(半蔵門線・都営浅草線・東武伊勢崎線・京成押上線が利用可能)</dd>
         <dt>出産方針</dt><dd>里帰り出産。妊婦健診は東京(押上)で受け、32〜35週ごろに福岡へ帰省、出産は福岡の産院</dd>
         <dt>転居時の妊娠週数</dt><dd>2026年10月は妊娠10〜14週ごろ(妊娠3〜4ヶ月)に相当</dd>
         <dt>東京での通院期間の目安</dt><dd>転居直後(10〜14週)から、里帰り前(32週前後)までの約4〜5ヶ月間</dd>
@@ -185,8 +173,8 @@
       </div>
       <div class="point-card">
         <div class="pc-num">02</div>
-        <h4>押上からのアクセス</h4>
-        <p>妊婦健診は初期〜中期だけで10回以上通うことになる。つわり中でも通いやすい距離・所要時間かは重要。</p>
+        <h4>新居からのアクセス</h4>
+        <p>妊婦健診は初期〜中期だけで10回以上通うことになる。シーズンフラッツ押上フィオーレからつわり中でも通いやすい距離・所要時間かは重要。</p>
       </div>
       <div class="point-card">
         <div class="pc-num">03</div>
@@ -196,7 +184,7 @@
       <div class="point-card">
         <div class="pc-num">04</div>
         <h4>緊急時のバックアップ体制</h4>
-        <p>切迫早産や出血など、健診と健診の間に何かあったときにすぐ相談できる体制があるか。</p>
+        <p>切迫早産や出血など、健診と健診の間に何かあったときにすぐ相談できる体制があるか。ここは「健診専用クリニック」単体では完結しないため、NICU等を備えた総合病院(近隣では賛育会病院)がどこにあるかも合わせて把握しておきたい。</p>
       </div>
     </div>
   </section>
@@ -204,44 +192,55 @@
   <section id="compare" class="section">
     <div class="section-head">
       <h2>候補の比較</h2>
-      <p>押上駅から通える範囲で、実際に妊婦健診に対応している施設を4つに絞りました。</p>
+      <p>あくまで「東京では妊婦健診だけを受け、出産(分娩)は福岡の産院で行う」という前提で評価しています。この前提に自然に合うのは、そもそも院内に分娩設備を持たず、全ての患者を最初から他院に紹介する形で運営しているクリニックです。新居のシーズンフラッツ押上フィオーレ(業平3-4-15)から通える範囲で、その条件に当てはまる3施設を比較しました。徒歩時間は実際の道路ルートをもとにした概算(分速80m換算)です。</p>
     </div>
     <div class="table-wrap">
       <table class="cmp">
         <thead>
-          <tr><th>施設名</th><th>押上からのアクセス</th><th>タイプ</th><th>里帰り出産への対応</th><th>口コミ評価</th></tr>
+          <tr><th>施設名</th><th>新居からのアクセス</th><th>タイプ</th><th>里帰り出産(健診のみ利用)への対応</th><th>緊急時の提携・バックアップ</th><th>口コミ評価</th></tr>
         </thead>
         <tbody>
           <tr>
             <td class="name">錦糸町駅前レディースクリニック</td>
-            <td>半蔵門線1駅+徒歩1分(電車で約10分)</td>
+            <td>徒歩約16分(約1.3km)。または押上駅まで徒歩4分+半蔵門線1駅+徒歩1分で、電車利用なら実質10分程度</td>
             <td>クリニック(分娩なし)</td>
-            <td>妊娠12週未満〜32・33週まで健診、34週から出産予定病院へ移行。夜間・休日バックアップあり</td>
+            <td>妊娠12週未満〜32・33週まで健診、34週から出産予定病院(福岡)へ移行、という案内が公式サイトに明記。夜間・休日バックアップあり</td>
+            <td><span class="rank-pill">情報あり</span> セミオープンシステムの連携先(基幹病院)として順天堂医院・東大病院・愛育病院・賛育会病院・中林病院など計7施設を公式に明記。夜間・休日の相談体制もあり</td>
             <td>3.45/5(6件)</td>
           </tr>
           <tr>
-            <td class="name">賛育会病院</td>
-            <td>徒歩20分強、または電車1駅+徒歩8分</td>
-            <td>総合病院(分娩あり)</td>
-            <td>里帰り出産の対応をサービスとして明記</td>
-            <td>4.6/5(63件)〜3.25/5(46件)※サイトにより差</td>
-          </tr>
-          <tr>
             <td class="name">のぞみ女性クリニック</td>
-            <td>とうきょうスカイツリー駅徒歩3分(押上と同エリア)</td>
+            <td>徒歩約10分(約0.8km)。3施設の中で新居から最も近い</td>
             <td>クリニック(分娩なし)</td>
-            <td>個別要確認(産科対応はあるが情報少)</td>
+            <td>個別要確認(産科対応はあるが、健診→他院で出産という流れの案内は情報少)</td>
+            <td>情報なし。公式サイト・口コミともに提携病院や緊急時対応についての記載が見当たらず、初診時の確認が必須</td>
             <td>3.40/5(1件、母数少)</td>
           </tr>
           <tr>
             <td class="name">あんずレディースクリニック</td>
-            <td>本所吾妻橋駅徒歩1分(押上から徒歩約12〜15分、または都営浅草線1駅)</td>
+            <td>徒歩約16分(約1.2km)。または押上駅まで徒歩4分+都営浅草線1駅+徒歩1分で、電車利用なら実質10分程度</td>
             <td>クリニック(分娩なし)</td>
-            <td>分娩希望者は葛飾赤十字産院・東京リバーサイド病院等へ紹介(里帰り出産特有の案内は要問い合わせ)</td>
+            <td>紹介先として案内されているのは葛飾赤十字産院・東京リバーサイド病院など(いずれも東京で出産する場合の紹介先)。今回のように福岡の産院を指定しての紹介状発行が可能かは要問い合わせ</td>
+            <td>分娩の紹介先として葛飾赤十字産院・東京リバーサイド病院の2院を公式に明記。ただし「異常時に即搬送」といった緊急対応としての明記ではないため、体制の詳細は要確認</td>
             <td>3.40/5(11件)</td>
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="callout">
+      <h3>「産後」より心配すべきは「移動前に何かあった場合」</h3>
+      <p class="callout-note">里帰り出産のリスクとしてまず気にすべきは、産後よりも<strong>32〜35週で福岡へ移動する前に、切迫早産・出血・妊娠高血圧症候群などで急に分娩が必要になるケース</strong>です。産後の入院・回復は福岡の産院で完結する想定なので、東京のクリニック選びが直接効いてくるのは主にこの「移動前」の期間になります。</p>
+      <p class="callout-note">上の3施設はいずれも分娩設備を持たないクリニックなので、こうした事態になれば必ずどこかの病院へ緊急搬送・紹介されます。その受け皿がどれだけはっきりしているかは施設によって差があり、錦糸町駅前レディースクリニックは連携先(基幹病院)が7施設と公式に明記されているのに対し、のぞみ女性クリニック・あんずレディースクリニックは情報が薄いのが実情です。徒歩距離だけで選ぶと、この「もしもの受け皿」の差を見落としやすいので、初診時には「健診中に異常があった場合、どちらの病院に紹介されるか」を必ず確認しておくと安心です。</p>
+    </div>
+    <div class="callout">
+      <h3>賛育会病院はこの比較から外しました</h3>
+      <p class="callout-note">以前のバージョンでは賛育会病院も候補の1つとして比較表に含めていましたが、「別の医院(福岡)で里帰り出産する」という前提に立つと、位置づけが上の3施設とは根本的に異なるため、比較表から外しました。</p>
+      <ul>
+        <li><strong>分娩まで自院で完結させる総合病院である：</strong>賛育会病院は199床の総合病院で、自然分娩・無痛分娩・帝王切開まで自院で行う病院。上の3施設のように「最初から他院へ紹介する前提」の運営ではない。</li>
+        <li><strong>公式の「里帰り出産」案内は逆方向：</strong>同院のFAQにある「里帰り分娩を希望する場合は妊娠34週頃までに当院を受診」は、<strong>当院で出産することを希望する人</strong>向けの案内で、東京で健診→福岡で出産という今回の流れとは向きが逆。</li>
+        <li><strong>実際の役回りはむしろバックアップ側：</strong>錦糸町駅前レディースクリニックのセミオープンシステムの連携先(基幹病院)にも賛育会病院が挙がっており、緊急時・ハイリスク時に紹介される側の病院という位置づけが実態に近い。</li>
+      </ul>
+      <p class="callout-note">新居からは徒歩約12分(約0.9km)で、NICU(6床)・GCU(13床)を備えた地域周産期母子医療センターが近くにあるという意味では安心材料になる。ただし「健診だけ受けて紹介状で福岡へ引き継ぐ」という今回の使い方に対応してもらえるかは、この病院の一般的な運用とは別に直接確認が必要で、上の3施設ほど確実に噛み合う候補ではない。</p>
     </div>
   </section>
 
@@ -257,56 +256,59 @@
       </div>
       <div class="cc-sub">東京都墨田区江東橋4-27-14 楽天地ビル7階 ／ 総武線・半蔵門線 錦糸町駅 徒歩1分</div>
       <div class="cc-detail">
+        <div class="cd-item cd-access"><div class="cd-label">新居からのアクセス</div><div class="cd-value">徒歩約16分(約1.3km)。押上駅まで徒歩4分+半蔵門線1駅+徒歩1分の乗り継ぎなら実質10分程度</div></div>
         <div class="cd-item"><div class="cd-label">診療時間</div><div class="cd-value">月・土 9:00-12:30/14:00-18:00、火水金 10:00-13:30/15:00-19:00、木・日祝休診</div></div>
         <div class="cd-item"><div class="cd-label">出生前診断</div><div class="cd-value">順天堂大学医学部順天堂医院と連携するNIPT認証施設。妊娠10週0日〜19週頃まで(推奨12〜16週)、13・18・21トリソミーの3項目、99,000円(非課税・陽性時の羊水検査費用込み)</div></div>
         <div class="cd-item"><div class="cd-label">連携先(基幹病院)</div><div class="cd-value">順天堂医院、東大病院、愛育病院、賛育会病院、中林病院など計7施設</div></div>
         <div class="cd-item"><div class="cd-label">特徴</div><div class="cd-value">産婦人科専門医在籍、女医在籍、土曜診療あり、ネット予約・電子決済対応</div></div>
       </div>
-      <p class="cc-text">「妊娠12週未満〜32・33週まで健診、34週頃から出産予定病院の健診へ移行」という案内が、今回想定している里帰りの時期(32〜35週)とほぼそのまま一致する。押上からは半蔵門線で1駅、徒歩1分と通いやすさも十分(押上〜錦糸町の徒歩所要時間は約22分・1.7kmなので、電車移動が現実的)。</p>
+      <p class="cc-text">「妊娠12週未満〜32・33週まで健診、34週頃から出産予定病院の健診へ移行」という案内が、今回想定している里帰りの時期(32〜35週)とほぼそのまま一致する。新居から直接歩くと約16分・1.3kmとやや距離があるが、押上駅まで徒歩4分+半蔵門線1駅+徒歩1分と乗り継げば実質10分程度。妊婦健診で毎回歩くには少し遠いので、基本は電車移動と考えておくのが現実的。</p>
       <p class="cc-text">口コミは「院長がこれまでの経過を丁寧に聞いてくれた」「会計までスムーズ」という好意的な声がある一方、「医師の対応が素っ気なかった」という声も見られたため、最初の受診で相性を確かめておくと安心。</p>
     </div>
 
     <div class="clinic-card">
       <div class="cc-head">
-        <h3>賛育会病院</h3>
-        <span class="cc-rank">安心感を重視するなら</span>
-      </div>
-      <div class="cc-sub">東京都墨田区太平3-20-2 ／ JR総武線 錦糸町駅 徒歩8分</div>
-      <div class="cc-detail">
-        <div class="cd-item"><div class="cd-label">診療体制</div><div class="cd-value">「東京都地域周産期母子医療センター」指定(NICU6床・GCU13床)。199床の総合病院で、産婦人科専門医・婦人科腫瘍専門医が在籍</div></div>
-        <div class="cd-item"><div class="cd-label">分娩対応</div><div class="cd-value">自然分娩・無痛分娩・帝王切開に対応(里帰り出産の場合は健診のみ利用する形になる)</div></div>
-        <div class="cd-item"><div class="cd-label">里帰り出産</div><div class="cd-value">公式FAQに明記あり:「妊娠34週頃までに当院を受診」、前医からの紹介状が必須(転院希望者も同様)</div></div>
-        <div class="cd-item"><div class="cd-label">注意点</div><div class="cd-value">口コミで「大変混み合っている」との指摘あり。待ち時間は長めを想定しておきたい</div></div>
-      </div>
-      <p class="cc-text">地域周産期母子医療センターとしてNICU(6床)・GCU(13床)を備え、ハイリスク妊娠・分娩にも対応している体制は、何かあったときの安心材料として大きい。心配性なタイプには特に刺さりやすいポイント。「里帰りなら34週までに紹介状を持って受診」という基準が公式に明記されているのも分かりやすい。ただし評価サイトによって点数の差が大きく(4.6点/63件〜3.25点/46件)、混雑の指摘もあるため、待ち時間は覚悟しておくとよい。</p>
-    </div>
-
-    <div class="clinic-card">
-      <div class="cc-head">
         <h3>のぞみ女性クリニック</h3>
-        <span class="cc-rank">立地の良さでは随一</span>
+        <span class="cc-rank">新居から一番近い</span>
       </div>
       <div class="cc-sub">東京都墨田区業平1-20-2 Twill Narihira 1階 ／ とうきょうスカイツリー駅東口 徒歩3分</div>
       <div class="cc-detail">
+        <div class="cd-item cd-access"><div class="cd-label">新居からのアクセス</div><div class="cd-value">徒歩約10分(約0.8km)。3施設の中で新居から最も近い</div></div>
         <div class="cd-item"><div class="cd-label">診療時間</div><div class="cd-value">9:30-12:30/14:30-17:30、水・日・祝休診</div></div>
         <div class="cd-item"><div class="cd-label">診療科目</div><div class="cd-value">産科・婦人科・漢方内科。産婦人科専門医と女性ヘルスケア専門医が在籍</div></div>
         <div class="cd-item"><div class="cd-label">里帰り出産</div><div class="cd-value">産科(妊婦健診)には対応しているが、里帰り出産特有の案内(何週まで診るか等)は公式サイト上では確認できず</div></div>
+        <div class="cd-item"><div class="cd-label">緊急時の提携・バックアップ</div><div class="cd-value">公式サイト・口コミともに提携病院や異常時の紹介先についての記載が見当たらない。規模の小さいクリニックのため、初診時に体制を直接確認しておきたい</div></div>
       </div>
-      <p class="cc-text">押上・スカイツリー駅からのアクセスは4施設の中で最も良い。ただし口コミの件数が非常に少なく(1件のみ)、実際の評判や里帰り出産への慣れは電話などで直接確認したほうがよい。「まず一番近いところに相談してみる」入り口として悪くない選択肢。</p>
+      <p class="cc-text">新居のシーズンフラッツ押上フィオーレからも徒歩約10分・0.8kmで、3施設の中では引き続き最も近い候補。ただし口コミの件数が非常に少なく(1件のみ)、実際の評判や里帰り出産への慣れは電話などで直接確認したほうがよい。特に、切迫早産などで急に分娩が必要になった場合にどの病院と連携しているかが公開情報からは分からないため、「まず一番近いところに相談してみる」にしても、緊急時の搬送先は初診時に必ず確認しておきたい。</p>
     </div>
 
     <div class="clinic-card">
       <div class="cc-head">
         <h3>あんずレディースクリニック</h3>
-        <span class="cc-rank">押上から一番近い</span>
+        <span class="cc-rank">婦人科・不妊治療も一体で相談できる</span>
       </div>
       <div class="cc-sub">東京都墨田区吾妻橋2-3-9 ノエルビル2F ／ 都営浅草線 本所吾妻橋駅 徒歩1分</div>
       <div class="cc-detail">
+        <div class="cd-item cd-access"><div class="cd-label">新居からのアクセス</div><div class="cd-value">徒歩約16分(約1.2km)。押上駅まで徒歩4分+都営浅草線1駅+徒歩1分の乗り継ぎなら実質10分程度</div></div>
         <div class="cd-item"><div class="cd-label">診療時間</div><div class="cd-value">平日10:00-13:00/15:00-19:00、土9:00-13:00、水・日・祝休診</div></div>
-        <div class="cd-item"><div class="cd-label">産科の特色</div><div class="cd-value">「妊娠診療で豊富な経験」を謳っており、分娩を希望する場合は葛飾赤十字産院・東京リバーサイド病院などへ紹介する体制</div></div>
+        <div class="cd-item"><div class="cd-label">産科の特色</div><div class="cd-value">「妊娠診療で豊富な経験」を謳っており、分娩を希望する場合は葛飾赤十字産院・東京リバーサイド病院などへ紹介する体制(いずれも東京で出産する場合の紹介先。今回のように福岡の産院を指定した紹介状を書いてもらえるかは別途確認が必要)</div></div>
         <div class="cd-item"><div class="cd-label">その他の診療</div><div class="cd-value">婦人科(墨田区がん検診含む)、女性内科(アンチエイジング)、不妊治療(タイミング法・人工授精)も同時に扱う</div></div>
       </div>
-      <p class="cc-text">検索の初期段階では「不妊治療中心のクリニック」という印象を受けたが、公式サイトを確認すると産科(妊婦健診)にもしっかり対応しており、押上からのアクセスは今回調べた中で最も近い(徒歩12〜15分、または都営浅草線で押上から1駅)。里帰り出産に特化した案内は公式サイト上では見当たらなかったため、初診時に直接確認するのが前提になる。</p>
+      <p class="cc-text">検索の初期段階では「不妊治療中心のクリニック」という印象を受けたが、公式サイトを確認すると産科(妊婦健診)にもしっかり対応している。押上駅基準では「押上から一番近い」候補だったが、新居(業平3-4-15)からは徒歩約16分・1.2kmとやや距離があり、押上駅まで徒歩4分+都営浅草線1駅+徒歩1分の乗り継ぎで実質10分程度というのが現実的なアクセス。公式サイトに載っている紹介先(葛飾赤十字産院など)は東京で出産する人向けのものなので、福岡で出産する今回のケースでは関係なく、「健診だけ受けて、福岡の産院宛てに紹介状を書いてもらえるか」を初診時に直接確認するのが前提になる。</p>
+    </div>
+
+    <div class="clinic-card">
+      <div class="cc-head">
+        <h3>賛育会病院 <span style="font-weight:400;color:var(--ink-faint);font-size:0.8rem;">(参考：健診の候補ではなくバックアップ病院)</span></h3>
+        <span class="cc-rank">緊急時の受け皿として把握</span>
+      </div>
+      <div class="cc-sub">東京都墨田区太平3-20-2 ／ JR総武線 錦糸町駅 徒歩8分 ／ 新居から徒歩約12分(約0.9km)</div>
+      <div class="cc-detail">
+        <div class="cd-item"><div class="cd-label">位置づけ</div><div class="cd-value">分娩まで自院で完結させる総合病院で、上の3施設のような「最初から他院に紹介する前提の健診専用クリニック」ではない。比較表から外した理由は上記コールアウトの通り</div></div>
+        <div class="cd-item"><div class="cd-label">診療体制</div><div class="cd-value">「東京都地域周産期母子医療センター」指定(NICU6床・GCU13床)。199床の総合病院で、産婦人科専門医・婦人科腫瘍専門医が在籍</div></div>
+        <div class="cd-item"><div class="cd-label">注意点</div><div class="cd-value">評価サイトによって口コミ点数の差が大きい(4.6点/63件〜3.25点/46件)。「大変混み合っている」との指摘もあり</div></div>
+      </div>
+      <p class="cc-text">健診専用クリニックの候補としては前提が合わないため比較表・候補からは外したが、NICU・GCUを備えた地域周産期母子医療センターが新居から徒歩12分の距離にあるという事実は、切迫早産などの緊急時にどこへ搬送・紹介され得るかの心づもりとして知っておく価値がある。実際、錦糸町駅前レディースクリニックの連携先(基幹病院)の1つでもあり、健診中に何かあった場合はこうした病院を紹介される可能性がある、という位置づけで捉えておくのが実態に近い。</p>
     </div>
   </section>
 
@@ -329,56 +331,19 @@
     <div class="checklist">
       <div class="cl-item"><span class="cl-box"></span><span>候補上位の錦糸町駅前レディースクリニックに、里帰り出産前提であることを伝えたうえで初診を予約する</span></div>
       <div class="cl-item"><span class="cl-box"></span><span>初診時に「何週まで診てもらえるか」「紹介状の発行タイミング」「福岡側の産院への引き継ぎ方法」を確認する</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>あわせて「健診中に切迫早産・出血などの異常が出た場合、どの病院に紹介・搬送されるか」を必ず確認する(のぞみ女性クリニック・あんずレディースクリニックを検討する場合は特に重要)</span></div>
       <div class="cl-item"><span class="cl-box"></span><span>出生前診断(NIPT)を受けるかどうか、9週までに方針を決めておく(詳細版ガイド「時期別の検討・決断ポイント」参照)</span></div>
-      <div class="cl-item"><span class="cl-box"></span><span>相性が合わなければ、賛育会病院・のぞみ女性クリニック・あんずレディースクリニックへの切り替えも早めのうちなら選択肢に残しておく</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>相性が合わなければ、新居から徒歩圏内ののぞみ女性クリニック、または電車1駅のあんずレディースクリニックへの切り替えも早めのうちなら選択肢に残しておく</span></div>
+      <div class="cl-item"><span class="cl-box"></span><span>賛育会病院は健診の候補としてではなく、NICU・GCU完備の緊急時バックアップ病院として場所(新居から徒歩約12分)だけ把握しておく</span></div>
     </div>
   </section>
 
   <footer class="page-footer">
-    <p>本ページは公開されている口コミサイト・公式サイトの情報をもとに調査時点でまとめたものです。診療時間・対応内容・料金は変更されることがあるため、実際の受診前に各施設へ直接ご確認ください。医療機関の選定は最終的にご本人・パートナーの判断で行ってください。</p>
-    <p>作成日：2026年8月22日</p>
+    <p>本ページは公開されている口コミサイト・公式サイトの情報をもとに調査時点でまとめたものです。診療時間・対応内容・料金は変更されることがあるため、実際の受診前に各施設へ直接ご確認ください。徒歩時間は道路ルートに基づく概算(分速80m換算)であり、実際の所要時間は経路や信号待ちにより前後します。医療機関の選定は最終的にご本人・パートナーの判断で行ってください。</p>
+    <p>作成日：2026年8月22日／更新日：2026年9月11日(新居確定にともないアクセス情報を更新。「福岡の別の産院で里帰り出産する」前提を徹底し、分娩まで自院で完結させる賛育会病院は健診の候補から外してバックアップ病院として整理。あわせて、移動前に異常が出た場合の緊急時バックアップ体制を比較表に追加しました)</p>
   </footer>
 
 </div>
-<div class="gnav-related">
-  <div class="gnav-related-inner">
-    <h3>🔗 関連ページ</h3>
-    <div class="gnav-related-grid">
-      <a class="gnav-related-card" href="里帰り出産 意思決定サマリー.html">
-        <span class="gnav-related-card-title">里帰り出産 意思決定サマリー</span>
-        <span class="gnav-related-card-desc">4レポートの結論をまとめた1枚</span>
-      </a>
-      <a class="gnav-related-card" href="妊娠出産タイムライン.html">
-        <span class="gnav-related-card-title">妊娠〜産後タイムライン</span>
-        <span class="gnav-related-card-desc">妊娠全体のスケジュール概観</span>
-      </a>
-      <a class="gnav-related-card" href="妊娠経過と里帰り出産ガイド.html">
-        <span class="gnav-related-card-title">妊娠経過と里帰り出産ガイド</span>
-        <span class="gnav-related-card-desc">里帰り出産計画の詳細</span>
-      </a>
-      <a class="gnav-related-card" href="../物件選び/物件比較レポート.html">
-        <span class="gnav-related-card-title">物件比較レポート</span>
-        <span class="gnav-related-card-desc">このエリアの引っ越し先候補物件</span>
-      </a>
-      <a class="gnav-related-card" href="../物件選び/ハザードマップ分析.html">
-        <span class="gnav-related-card-title">ハザードマップ分析（防災リスク）</span>
-        <span class="gnav-related-card-desc">同エリアの防災リスク</span>
-      </a>
-    </div>
-    <a class="gnav-related-home" href="../index.html">← 資料まとめトップに戻る</a>
-  </div>
-</div>
-<style id="gnav-related-style">
-.gnav-related{margin-top:48px;padding:32px 20px 40px;background:#f6f5f2;border-top:1px solid #e6e3dc;font-family:"Hiragino Sans","Yu Gothic",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
-.gnav-related-inner{max-width:900px;margin:0 auto;}
-.gnav-related h3{font-size:15px;color:#2b2b28;margin:0 0 14px;font-weight:600;}
-.gnav-related-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:12px;margin-bottom:20px;}
-.gnav-related-card{display:block;background:#ffffff;border:1px solid #e6e3dc;border-radius:10px;padding:14px 16px;text-decoration:none;color:#2b2b28;transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;}
-.gnav-related-card:hover{border-color:#7a6a53;transform:translateY(-1px);box-shadow:0 6px 16px rgba(43,43,40,0.06);}
-.gnav-related-card-title{display:block;font-size:13.5px;font-weight:600;margin-bottom:4px;}
-.gnav-related-card-desc{display:block;font-size:12px;color:#6b6b64;line-height:1.5;}
-.gnav-related-home{display:inline-block;font-size:12.5px;color:#7a6a53;text-decoration:none;font-weight:600;}
-.gnav-related-home:hover{text-decoration:underline;}
-</style>
+
 </body>
 </html>

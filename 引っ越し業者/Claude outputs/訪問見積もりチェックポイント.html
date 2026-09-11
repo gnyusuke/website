@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>訪問見積もり チェックポイント（当日携行用・3社共通）</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-1-soft:  #cde2fb;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+    --accent-bad:     #b3401f;
+    --accent-bad-bg:  #fbe9e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-1-soft:  #184f95;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+      --accent-bad:     #e0745a;
+      --accent-bad-bg:  #3a1a10;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page-plane); color: var(--text-primary); }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 40px 24px 80px; }
+  header.title-block { margin-bottom: 20px; }
+  h1 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .meta { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
+  h2 { font-size: 1.18rem; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
+  h3 { font-size: 1.0rem; margin: 22px 0 10px; }
+  h4 { font-size: 0.85rem; margin: 16px 0 8px; color: var(--text-secondary); letter-spacing: 0.02em; }
+  p { line-height: 1.8; color: var(--text-primary); }
+  ul, ol { line-height: 1.85; padding-left: 1.3em; margin: 6px 0; }
+  li { margin-bottom: 5px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; background: var(--surface-1); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--gridline); vertical-align: top; }
+  thead th { color: var(--text-secondary); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.02em; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--chip-bg); }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--series-1); }
+  .badge-good { background: var(--accent-good-bg); color: var(--accent-good); }
+  .badge-muted { background: var(--gridline); color: var(--text-muted); }
+  .badge-warn { background: var(--accent-warn-bg); color: var(--accent-warn); }
+  .badge-bad { background: var(--accent-bad-bg); color: var(--accent-bad); }
+  .insight { margin-top: 12px; padding: 12px 16px; background: var(--chip-bg); border-left: 3px solid var(--series-1); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
+  .insight b { color: var(--text-primary); }
+  .insight.warn { border-left-color: var(--accent-warn); background: var(--accent-warn-bg); }
+  .insight.good { border-left-color: var(--accent-good); background: var(--accent-good-bg); }
+  .note { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.8; margin-top: 10px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 6px; margin-top: 14px; margin-bottom: 8px; }
+  .toc a { font-size: 0.8rem; color: var(--series-1); background: var(--chip-bg); padding: 5px 10px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--gridline); color: var(--text-muted); font-size: 0.8rem; line-height: 1.9; }
+  .catblock { border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; background: var(--surface-1); }
+  .catblock .cathead { display:flex; align-items:baseline; gap:10px; margin-bottom:8px; }
+  .catblock .catnum { font-weight:700; color: var(--series-1); font-size: 0.95rem; }
+  .catblock .cattitle { font-weight:700; font-size: 0.98rem; }
+  .chk-list { list-style: none; padding-left: 0; margin: 8px 0 0; }
+  .chk-list li { display:flex; align-items:flex-start; gap:8px; margin-bottom:9px; font-size:0.88rem; line-height:1.7; }
+  .chk-list input[type="checkbox"] { margin-top:4px; width:15px; height:15px; flex-shrink:0; accent-color: var(--series-1); }
+  .chk-list .companies { display:flex; gap:6px; margin-left:auto; flex-shrink:0; }
+  .chk-list .companies label { display:flex; align-items:center; gap:2px; font-size:0.7rem; color: var(--text-muted); }
+  .chk-list .companies input { width:13px; height:13px; margin:0; }
+  .writein { font-size:0.78rem; color: var(--text-muted); margin-top:2px; }
+  .matrix th, .matrix td { text-align:center; }
+  .matrix td:first-child, .matrix th:first-child { text-align:left; }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <header class="title-block">
+    <h1>訪問見積もり チェックポイント<span class="badge badge-good" style="margin-left:8px;">当日携行用・3社共通</span></h1>
+    <div class="meta">
+      作成日：2026年9月11日<br>
+      <a href="claude_見積もり比較_確認ポイントと3社比較.html">見積もり比較の確認ポイント（10項目）</a>のうち、訪問見積もり当日にその場で確認・記録すべき事項だけを抜き出し、チェックボックス形式にしたものです。<b>3社（サカイ・アート・ライフリンク）それぞれの訪問時に同じ質問・同じ基準で確認する</b>ことを想定しています。各項目右側の3つのチェックボックスは「1社目／2社目／3社目」に対応しており、確認できた社にチェックを入れて使ってください。<br>
+      当日の時間割・交渉トーク・断り方は<a href="claude_見積もり対策.html">訪問見積もり対策</a>を、金額そのものの相場感は<a href="claude_引っ越し業者比較レポート_更新版.html">業者比較レポート</a>を参照してください。
+    </div>
+    <div class="toc">
+      <a href="#howto">使い方</a>
+      <a href="#c1">①会社の信頼性・体制</a>
+      <a href="#c2">②見積もりの出し方・精度</a>
+      <a href="#c3">③資材・梱包サービス</a>
+      <a href="#c4">④補償・保険の範囲</a>
+      <a href="#c5">⑤オプション対応力</a>
+      <a href="#c6">⑥追加料金の発生条件</a>
+      <a href="#c7">⑦キャンセル・日程変更</a>
+      <a href="#c8">⑧支払い方法</a>
+      <a href="#c9">⑨対応エリア・柔軟性</a>
+      <a href="#c10">⑩その場での見極め</a>
+      <a href="#matrix">総合判定シート</a>
+    </div>
+  </header>
+
+  <h2 id="howto">使い方</h2>
+  <div class="card">
+    <ul>
+      <li>訪問直前に本ページを開く（またはPDF印刷して1社ごとに1枚）。担当者が来る前に、②〜⑧の質問文にざっと目を通しておく。</li>
+      <li>チェックは「口頭で確認できた」ではなく、<b>「見積書または別紙に書いてもらえた／数字で確認できた」</b>時点で入れる。口頭のみで濁された項目はチェックを入れずに空欄のまま残す＝そのまま「要注意ポイント」として残る設計。</li>
+      <li>全項目を埋めようとして訪問時間を無駄に延ばさない。特に①⑨⑩は事前調査（<a href="claude_見積もり比較_確認ポイントと3社比較.html#three-basic">3社基本プロフィール</a>）で概ね分かっているため、訪問時は主に②〜⑧の確認に時間を使う。</li>
+      <li>訪問直後、まだ記憶が新しいうちに「総合判定シート」（本ページ末尾）にその社の◯△×を転記する。</li>
+    </ul>
+  </div>
+
+  <h2 id="c1">①会社の信頼性・体制</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>一般貨物自動車運送事業の許可番号が名刺・見積書・パンフレットのいずれかに明記されているか<div class="writein">記入欄：許可番号＿＿＿＿＿＿＿＿＿＿</div></div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>Gマーク（安全性優良事業所）認定の有無を尋ねた</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>当日作業するスタッフが自社社員か外部委託か、経験年数の目安を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>担当者の名刺（氏名・所属・連絡先）を受け取った</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c2">②見積もりの出し方・精度</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>荷物量（クローゼット・押入れ・玄関収納・ベランダ含む）を実際に見た上で金額を出した（現地確認なしの即答ではない）</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>見積書に事業者名・所在地・担当者氏名・電話番号・許可番号が明記されている</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>基本運賃・人件費・資材費・オプション費が「一式」でなく項目ごとに分かれている</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>見積もりの有効期限が明記されている<div class="writein">記入欄：有効期限＿＿月＿＿日まで</div></div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c3">③資材・梱包サービス</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>ダンボールの無料支給枚数を数字で確認した<div class="writein">記入欄：＿＿＿枚まで無料</div></div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>使用済み資材の回収が無料か有料か、有料なら1回あたりの金額を確認した<div class="writein">記入欄：＿＿＿＿円／回　or　無料</div></div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>布団袋・ハンガーボックス等の特殊資材の有無・無料範囲を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>荷造り・荷解き代行オプションの有無と料金を確認した（利用予定がなくても参考に聞く）</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c4">④補償・保険の範囲</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>標準引越運送約款に基づく基本補償の内容（自社過失による損害）を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>名称付きの上乗せ補償パックの有無、料金、補償上限額を確認した<div class="writein">記入欄：上限＿＿＿＿円／パック料金＿＿＿＿円</div></div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>補償の対象外品目（美術品・現金・データ類等）を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>破損時の事故証明書の発行可否・対応スピードを確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c5">⑤オプション対応力</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>エアコン等の電気工事（取付・取外し）の対応可否と料金を確認した<div class="writein">記入欄：エアコン工事＿＿＿＿円</div></div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>家電リサイクル法対象品の引き取り対応と、リサイクル料金・収集運搬料金の扱いを確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>不用品買取・回収サービスの有無を確認した（旧ベッド・私物エアコンの処分状況とあわせて要否を判断）</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>新居での家具再配置サービスの有無・無料か有料か・期限と回数制限を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c6">⑥追加料金の発生条件</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>作業延長時の課金単位（15分／30分刻み等）と単価を数字で確認した<div class="writein">記入欄：＿＿＿分ごとに＿＿＿＿円</div></div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>旧居（2階・内階段・エレベーターなし）の階段作業割増の有無を確認した。大型家具（冷蔵庫・洗濯機・ソファ・新ベッド）が内階段を通らない場合の対応方法も確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>駐車位置が離れる場合の割増条件を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>見積もり後に荷物が増えた場合の当日の扱い・連絡方法を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c7">⑦キャンセル・日程変更の条件</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>キャンセル料率が標準引越運送約款どおりか確認した（目安：前々日20%以内・前日30%以内・当日50%以内）<div class="writein">記入欄：前々日＿＿％／前日＿＿％／当日＿＿％</div></div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>独自の一律キャンセル料（約款より高い定額料金等）を設定していないか確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>日程変更時の条件・手数料の有無を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c8">⑧支払い方法</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>当日の支払い方法（現金・クレジットカード一括／分割・二次元コード決済等）の対応状況を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>支払いタイミング（作業前・作業後・後日振込等）を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c9">⑨対応エリア・スケジュールの柔軟性</h2>
+  <div class="catblock">
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>希望日候補（2つ）での予約可否を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>直前の日程変更・急な依頼への対応可否を確認した</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+  </div>
+
+  <h2 id="c10">⑩その場での見極め（要注意サイン）</h2>
+  <div class="catblock">
+    <p class="note" style="margin-top:0;">口コミの傾向（<a href="claude_見積もり比較_確認ポイントと3社比較.html#three-review">既存レポート参照</a>）は事前調査済みだが、以下は訪問当日その場でしか見極められないサイン。1つでも当てはまれば要注意として比較シートに残す。</p>
+    <ul class="chk-list">
+      <li><input type="checkbox"><div>現地条件（搬出経路・階段・駐車位置）を確認せず即座に金額を出していないか</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>「一式◯万円」以外の内訳を出そうとしない、聞いても濁されないか</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>会社名・所在地・許可番号の提示を渋られないか</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+      <li><input type="checkbox"><div>他社の悪口を言う、必要以上にしつこく即決を迫られないか</div><div class="companies"><label>1<input type="checkbox"></label><label>2<input type="checkbox"></label><label>3<input type="checkbox"></label></div></li>
+    </ul>
+    <div class="insight warn"><b>ライフリンクを訪問する場合の重点確認：</b>公式情報の開示が薄く、口コミでも「契約内容と当日の対応が食い違う」「補償対応で不利な扱いを受けた」という指摘があるため、①作業員数・④補償の上限額と実際の対応実績・②料金内訳・⑦キャンセル規定の4点は、口頭でなく<b>必ず見積書に書面で残してもらう</b>こと。</div>
+  </div>
+
+  <h2 id="matrix">総合判定シート（訪問直後に記入）</h2>
+  <div class="card table-scroll">
+    <p style="margin-top:0;">上記①〜⑩それぞれについて、記憶が新しいうちに◯（明確に回答・書面化された）／△（口頭のみ・やや曖昧）／×（回答を渋った・確認できず）で記入する。</p>
+    <table class="matrix">
+      <thead><tr><th>項目</th><th>1社目</th><th>2社目</th><th>3社目（本命）</th></tr></thead>
+      <tbody>
+        <tr><td>①会社の信頼性・体制</td><td></td><td></td><td></td></tr>
+        <tr><td>②見積もりの出し方・精度</td><td></td><td></td><td></td></tr>
+        <tr><td>③資材・梱包サービス</td><td></td><td></td><td></td></tr>
+        <tr><td>④補償・保険の範囲</td><td></td><td></td><td></td></tr>
+        <tr><td>⑤オプション対応力</td><td></td><td></td><td></td></tr>
+        <tr><td>⑥追加料金の発生条件</td><td></td><td></td><td></td></tr>
+        <tr><td>⑦キャンセル・日程変更</td><td></td><td></td><td></td></tr>
+        <tr><td>⑧支払い方法</td><td></td><td></td><td></td></tr>
+        <tr><td>⑨対応エリア・柔軟性</td><td></td><td></td><td></td></tr>
+        <tr><td>⑩その場での見極め</td><td></td><td></td><td></td></tr>
+        <tr><td><b>見積額（総額）</b></td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="insight good"><b>判断の目安：</b>×が2つ以上ついた社は、金額が安くても契約後のトラブルリスクが高いと考え、本命候補から外すか、契約前にもう一段の書面確認を求める。3社ともに大きな差がない場合は、金額と担当者の印象（A社型／B社型）で最終判断する。</div>
+  </div>
+
+  <footer>
+    本チェックリストは、既存の<a href="claude_見積もり比較_確認ポイントと3社比較.html">見積もり比較の確認ポイントと3社比較</a>および<a href="claude_見積もり対策.html">訪問見積もり対策</a>の内容を、訪問当日にその場でチェックできる形式に再構成したものです。金額・サービス内容は業者や時期により変動するため、実際の確認内容を優先してください。
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3社プラン詳細比較（サカイ・アート・ライフリンク）</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-1-soft:  #cde2fb;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+    --accent-bad:     #b3401f;
+    --accent-bad-bg:  #fbe9e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-1-soft:  #184f95;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+      --accent-bad:     #e0745a;
+      --accent-bad-bg:  #3a1a10;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page-plane); color: var(--text-primary); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 40px 24px 80px; }
+  header.title-block { margin-bottom: 20px; }
+  h1 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .meta { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
+  h2 { font-size: 1.18rem; margin: 40px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
+  h3 { font-size: 1.02rem; margin: 24px 0 10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  h4 { font-size: 0.85rem; margin: 16px 0 8px; color: var(--text-secondary); letter-spacing: 0.02em; }
+  p { line-height: 1.8; color: var(--text-primary); }
+  ul, ol { line-height: 1.85; padding-left: 1.3em; margin: 6px 0; }
+  li { margin-bottom: 5px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; background: var(--surface-1); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--gridline); vertical-align: top; }
+  thead th { color: var(--text-secondary); font-weight: 600; font-size: 0.75rem; letter-spacing: 0.02em; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--chip-bg); }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--series-1); }
+  .badge-good { background: var(--accent-good-bg); color: var(--accent-good); }
+  .badge-muted { background: var(--gridline); color: var(--text-muted); }
+  .badge-warn { background: var(--accent-warn-bg); color: var(--accent-warn); }
+  .badge-bad { background: var(--accent-bad-bg); color: var(--accent-bad); }
+  .insight { margin-top: 12px; padding: 12px 16px; background: var(--chip-bg); border-left: 3px solid var(--series-1); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
+  .insight b { color: var(--text-primary); }
+  .insight.warn { border-left-color: var(--accent-warn); background: var(--accent-warn-bg); }
+  .insight.good { border-left-color: var(--accent-good); background: var(--accent-good-bg); }
+  .insight.bad { border-left-color: var(--accent-bad); background: var(--accent-bad-bg); }
+  .note { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.8; margin-top: 10px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 6px; margin-top: 14px; margin-bottom: 8px; }
+  .toc a { font-size: 0.8rem; color: var(--series-1); background: var(--chip-bg); padding: 5px 10px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--gridline); color: var(--text-muted); font-size: 0.8rem; line-height: 1.9; }
+  footer a { color: var(--series-1); }
+  footer ol { padding-left: 1.4em; }
+  footer li { margin-bottom: 4px; }
+  .src { font-size: 0.7rem; color: var(--series-1); text-decoration: none; font-weight: 700; margin-left: 4px; white-space: nowrap; }
+  .src:hover { text-decoration: underline; }
+
+  .tier-grid { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  .tier { flex:1 1 260px; background:var(--page-plane); border:1px solid var(--border); border-radius:10px; padding:16px 18px; }
+  .tier .tname { font-weight:700; font-size:0.98rem; margin-bottom:4px; }
+  .tier .talias { font-size:0.74rem; color:var(--text-muted); margin-bottom:8px; }
+  .tier .ttarget { font-size:0.8rem; color:var(--series-1); font-weight:700; margin-bottom:8px; }
+  .tier ul { margin:0; padding-left:1.1em; font-size:0.83rem; color:var(--text-secondary); }
+  .tier li { margin-bottom:6px; }
+  .tier .tprice { margin-top:10px; font-size:0.78rem; font-weight:700; color:var(--text-primary); background:var(--chip-bg); padding:6px 10px; border-radius:6px; display:inline-block; }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <header class="title-block">
+    <h1>3社プラン詳細比較<span class="badge badge-good" style="margin-left:8px;">サカイ・アート・ライフリンク</span></h1>
+    <div class="meta">
+      作成日：2026年9月11日<br>
+      <a href="claude_見積もり比較_確認ポイントと3社比較.html">見積もり比較の確認ポイント＆3社比較</a>の続編として、各社が公式に用意している<b>作業範囲別のプラン（コース）構成</b>を深掘りしました。「同じ総額でも、どこまでプロに任せられるか」がプラン選びの本質のため、プランごとの中身の違いを中心にまとめています。<br>
+      前提：夫婦2人・2LDK相当の家財量／蒲田→押上、9〜11月想定（<a href="claude_引っ越し業者比較レポート_更新版.html">業者比較レポート</a>と同一）
+    </div>
+    <div class="toc">
+      <a href="#concept">プラン構成の基本的な考え方</a>
+      <a href="#sakai">サカイ引越センターのプラン</a>
+      <a href="#art">アート引越センターのプラン</a>
+      <a href="#lifelink">ライフリンク引越センターのプラン</a>
+      <a href="#pricegap">プラン間の価格差まとめ</a>
+      <a href="#matrix">3社プラン対応表</a>
+      <a href="#special">特別プラン（対象者限定）</a>
+      <a href="#choose">今回のケースでの選び方</a>
+      <a href="#ref">出典</a>
+    </div>
+  </header>
+
+  <h2 id="concept">プラン構成の基本的な考え方</h2>
+  <div class="card">
+    <p style="margin-top:0;">引っ越し業者の「プラン」は、突き詰めると<b>「荷造り」と「荷解き」をどこまで業者に任せるか</b>の組み合わせで決まります。3社とも呼び方は違いますが、構造はほぼ共通しており、次の3段階に整理できます。</p>
+    <ul>
+      <li><b>①自分でやる（最安）：</b>荷造り・荷解きとも自分で行い、業者は大型家具・家電の梱包・搬出入・輸送のみ担当。</li>
+      <li><b>②荷造りだけ任せる（中間）：</b>荷造りは業者に依頼し、荷解き・片付けは自分のペースで行う。準備時間を大きく短縮できる、最も選ばれやすい構成。</li>
+      <li><b>③すべて任せる（フルサービス）：</b>荷造りから荷解き・収納までを業者が担当。費用は最も高いが身体的・時間的負担が最小。</li>
+    </ul>
+    <div class="insight"><b>比較のポイント：</b>見積もりの総額だけを見ると「A社が安い／高い」に見えても、実は比較しているプランの段階（①〜③）が違うだけ、ということがよくあります。3社に見積もりを依頼する際は、<b>同じ段階のプラン同士で金額を揃えてから比較する</b>のが基本です。</div>
+  </div>
+
+  <h2 id="sakai">サカイ引越センターのプラン</h2>
+  <div class="card">
+    <p style="margin-top:0;">サカイ引越センターは、実際には比較サイトの調査で<b>5段階</b>のコースがあることが分かりました。前回レポートでは3段階に単純化していましたが、荷造り・荷解き・資材回収の組み合わせで、より細かく分かれています。</p>
+    <div class="tier-grid">
+      <div class="tier">
+        <div class="tname">せつやくコース</div>
+        <div class="talias">＝エコノミープラン</div>
+        <div class="ttarget">費用最優先の方向け</div>
+        <ul>
+          <li>荷造り・荷解きとも自分で実施</li>
+          <li>大型家具・家電の梱包・搬出入・輸送のみ業者が担当</li>
+          <li>5段階の中で最も安い</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tname">らくらくCコース</div>
+        <div class="ttarget">食器の梱包だけ任せたい方向け</div>
+        <ul>
+          <li>食器類の梱包のみ業者が対応（繁忙期3/15〜4/15は対象外の情報あり）</li>
+          <li>それ以外の荷造り・荷解きは自分で実施</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tname">らくらくBコース</div>
+        <div class="talias">＝スタンダードプラン</div>
+        <div class="ttarget">準備時間を短縮したい方向け</div>
+        <ul>
+          <li>荷造り（食器含む）はすべて業者が実施</li>
+          <li>荷解き・当日の資材回収は対象外</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tname">らくらくAコース</div>
+        <div class="talias">＝フルサービスプラン</div>
+        <div class="ttarget">忙しい方・身体的負担を避けたい方向け</div>
+        <ul>
+          <li>荷造りから荷解きまで業者が実施</li>
+          <li>資材（ダンボール等）の当日回収も対応</li>
+        </ul>
+        <div class="tprice">目安（近距離・二人暮らし）：約12.8万円</div>
+      </div>
+      <div class="tier">
+        <div class="tname">プレミアムコース</div>
+        <div class="ttarget">最上位・最も手厚いプラン</div>
+        <ul>
+          <li>らくらくAコースの内容に加え、新居でのダスキンによる清掃サービス（3回分）が付帯</li>
+          <li>5段階の中で最も高い</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">上記の料金目安・コース区分は比較サイトの調査記事によるもので、公式サイト上での正式名称・区分と表現が異なる場合があります<a class="src" href="https://hikkosi-tetuduki.info/archives/3160" target="_blank" rel="noopener">出典</a><a class="src" href="https://hikkosi-ryoukin.com/archives/23" target="_blank" rel="noopener">出典</a>。見積もり時に「うちの場合、どのコースに当たるか」を確認するのが確実です。</p>
+    <div class="insight"><b>長距離向けの別プラン「ご一緒便」：</b>サカイには他の利用者と同じトラックに荷物を混載する「ご一緒便」という割安プランもありますが、これは主に長距離・県外間の引っ越しで使われる仕組みで、日程の融通が利きにくい（相手の都合で時間が読みにくい）という制約があります<a class="src" href="https://www.hikkoshi-sakai.co.jp/plan/goisyo.html" target="_blank" rel="noopener">出典</a>。今回の蒲田→押上のような都内近距離では対象外、または効果が薄いと考えられます。</div>
+  </div>
+
+  <h2 id="art">アート引越センターのプラン</h2>
+  <div class="card">
+    <p style="margin-top:0;">アート引越センターも同様に3段階のコースを用意しています。</p>
+    <div class="tier-grid">
+      <div class="tier">
+        <div class="tname">基本コース</div>
+        <div class="ttarget">最も経済的なプランを希望する方向け</div>
+        <ul>
+          <li>大型家具・家電の梱包、搬出、輸送、搬入・セッティングは業者が担当</li>
+          <li>小物類の荷造り・荷解きは自分で実施</li>
+        </ul>
+        <div class="tprice">目安：約5万〜6万円（基準）</div>
+      </div>
+      <div class="tier">
+        <div class="tname">ハーフコース</div>
+        <div class="ttarget">荷造りが苦手・新居の片付けは自分でやりたい方向け</div>
+        <ul>
+          <li>小物類を含む荷造りは業者が実施</li>
+          <li>荷解きは自分で実施</li>
+          <li>人気の高いバランス型プラン</li>
+        </ul>
+        <div class="tprice">目安：約6万〜9万円（基本コースの目安1.25倍程度）</div>
+      </div>
+      <div class="tier">
+        <div class="tname">フルコース</div>
+        <div class="ttarget">身体的負担を避けたい方・忙しい方向け</div>
+        <ul>
+          <li>荷造りから荷解きまでほとんどの作業を業者が実施</li>
+          <li>3段階の中で最も手厚く、最も高額</li>
+        </ul>
+        <div class="tprice">目安：約7万〜12万円（基本コースの目安1.5倍程度）</div>
+      </div>
+    </div>
+    <div class="insight good"><b>料金差の目安：</b>比較サイトの試算では、基本コースを1とすると<b>ハーフコースは約1.25倍、フルコースは約1.5倍</b>という倍率が紹介されています。金額差にすると、基本→ハーフで約1万〜3万円増、ハーフ→フルでさらに約1万〜3万円増という目安です<a class="src" href="https://www.hikoshi-lab.com/19544" target="_blank" rel="noopener">出典</a>。別の調査では、ハーフコースの通常期の料金レンジとして単身4.0万〜12.6万円、二人暮らし7.0万〜20.0万円、4人暮らし9.0万〜32.0万円という、より幅の広い数字も紹介されています<a class="src" href="https://hikkoshi-ryoukin.com/archives/979" target="_blank" rel="noopener">出典</a>。いずれも荷物量・距離・時期で大きく変動するため、あくまで「どのくらいの倍率・差額感か」の参考値として捉えてください。</div>
+  </div>
+
+  <h2 id="lifelink">ライフリンク引越センターのプラン</h2>
+  <div class="card">
+    <p style="margin-top:0;">ライフリンクは公式サイト上で「通常コース」「おまかせコース」「カーゴコース」の3コースを案内していますが、大手2社と比べて各コースの内容説明が薄く、比較サイト経由でも詳細until確認できたのは以下の範囲にとどまります。</p>
+    <div class="tier-grid">
+      <div class="tier">
+        <div class="tname">通常コース</div>
+        <div class="ttarget">費用を抑えたい方向け（推定）</div>
+        <ul>
+          <li>荷造りは自分で実施すると見られる</li>
+          <li>無料サービス（資材支給・洗濯機脱着等）は全コース共通<a class="src" href="https://www.tenkyo-smart.com/movers/life-link" target="_blank" rel="noopener">出典</a></li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tname">おまかせコース</div>
+        <div class="ttarget">3コース中もっとも人気<a class="src" href="https://www.tenkyo-smart.com/movers/life-link" target="_blank" rel="noopener">出典</a></div>
+        <ul>
+          <li>荷造りを業者に依頼できる（サカイ・アートの中間〜上位コース相当と推定）</li>
+          <li>「荷作りか荷ほどきが選べる」との記載もあり、依頼範囲を選べる可能性がある</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tname">カーゴコース</div>
+        <div class="ttarget"><span class="badge badge-warn">要確認</span> 混載便に近い割安プランの可能性</div>
+        <ul>
+          <li>公式の説明が確認できず、詳細不明</li>
+          <li>名称から、他の利用者の荷物と同じ車両に混載する「混載便」タイプの割安プランである可能性が高いが未確認</li>
+        </ul>
+      </div>
+    </div>
+    <div class="insight warn"><b>情報の限界：</b>ライフリンクは公式サイトへの直接アクセスができず（アクセス制限）、3コースの正式な内容・料金差を裏付ける一次情報が得られませんでした。特に「カーゴコース」は、一般的な「混載便」（同方面の他の利用者と同じトラックに混載し、通常より3〜5割程度安くなる代わりに、到着時間が相手の状況に左右され日程指定がしづらい仕組み<a class="src" href="https://xn--u9jy51hi2icqfcm0cu5n.jp/mix-transport.html" target="_blank" rel="noopener">出典</a>）と同種のものである可能性がありますが、確証はありません。<b>見積もり依頼時に、3コースそれぞれの「荷造り・荷解きの範囲」「日時指定の可否」「カーゴコースの具体的な仕組みと制約」を必ず質問してください。</b></div>
+    <p class="note">参考：ライフリンク固有の数字ではありませんが、荷造り代行サービス一般の相場としては「単身2万円台、家族・繁忙期で3万円台〜」という目安が紹介されています<a class="src" href="https://hikkoshi.suumo.jp/oyakudachi/14502.html" target="_blank" rel="noopener">出典</a>。「通常コース」から「おまかせコース」への追加費用も、この水準（数千円〜3万円程度）に近いと推測されますが、確認は必須です。</p>
+  </div>
+
+  <h2 id="pricegap">プラン間の価格差まとめ</h2>
+  <div class="card table-scroll">
+    <p style="margin-top:0;">各社・各プランの金額そのものは荷物量・距離・時期で変動するため単純比較はできませんが、「1段階上のプランに上げると、どのくらい価格が上がるか」という<b>倍率・差額の目安</b>を横並びにすると、次のようになります。</p>
+    <table>
+      <thead><tr><th>業者</th><th>①→②の値上がり目安<br><span class="note" style="margin:0;">（自分で→荷造りだけ任せる）</span></th><th>②→③の値上がり目安<br><span class="note" style="margin:0;">（荷造りだけ→フル）</span></th><th>根拠の確からしさ</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>サカイ引越センター</b></td>
+          <td>せつやく→らくらくB：具体的な倍率の記載は見つからず（金額は要見積もり）</td>
+          <td>らくらくB→らくらくA：具体的な倍率の記載は見つからず。参考として、らくらくAコースは二人暮らし近距離で約12.8万円、プレミアムコースは二人暮らしで8.5万〜14.0万円という調査結果があり、上位コースほど数万円単位で上がる傾向<a class="src" href="https://hikkosi-tetuduki.info/archives/3160" target="_blank" rel="noopener">出典</a><a class="src" href="https://hikkosi-ryoukin.com/archives/23" target="_blank" rel="noopener">出典</a></td>
+          <td><span class="badge badge-warn">中</span>（二次情報のみ、公式の料金表なし）</td>
+        </tr>
+        <tr>
+          <td><b>アート引越センター</b></td>
+          <td>基本→ハーフ：<b>約1.25倍</b>（金額差の目安は+1万〜3万円程度）</td>
+          <td>ハーフ→フル：<b>約1.2倍</b>（基本→フルで見ると約1.5倍、金額差の目安はさらに+1万〜3万円程度）</td>
+          <td><span class="badge badge-warn">中</span>（複数の比較サイトの試算値。公式の倍率発表ではない）</td>
+        </tr>
+        <tr>
+          <td><b>ライフリンク引越センター</b></td>
+          <td>通常→おまかせ：具体的な金額差の情報なし。荷造り代行の一般相場（数千円〜3万円程度）から推測されるが未確認</td>
+          <td>該当プラン（フル相当）の存在自体が未確認</td>
+          <td><span class="badge badge-bad">低</span>（公式情報が乏しく、二次情報でも数字が見つからず）</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="insight warn"><b>総括：</b>3社とも「上位プランほど高くなる」という方向性は共通していますが、<b>公式に倍率・差額を明示しているのはアート引越センターの比較サイト試算（1.25倍・1.5倍）のみ</b>で、サカイは金額例はあるものの倍率の記載がなく、ライフリンクに至っては具体的な情報がほぼありません。プラン間の価格差は、最終的には<b>3社とも見積もり時に「①のプランだといくら、②のプランに上げるといくら増えるか」を同じ形式で質問し、実額で比較する</b>のが最も確実です。</div>
+  </div>
+
+  <h2 id="matrix">3社プラン対応表（作業範囲での整理）</h2>
+  <div class="card table-scroll">
+    <table>
+      <thead><tr><th>作業範囲の段階</th><th>サカイ引越センター</th><th>アート引越センター</th><th>ライフリンク引越センター</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>①自分でやる（最安）</b><br><span class="note" style="margin:0;">荷造り・荷解きとも自分で</span></td>
+          <td>せつやくコース（エコノミープラン）</td>
+          <td>基本コース<br><span class="note" style="margin:0;">目安：約5万〜6万円</span></td>
+          <td>通常コース（推定）</td>
+        </tr>
+        <tr>
+          <td><b>②荷造りだけ任せる</b><br><span class="note" style="margin:0;">荷解きは自分で</span></td>
+          <td>らくらくBコース（スタンダードプラン）</td>
+          <td>ハーフコース<br><span class="note" style="margin:0;">目安：約6万〜9万円（基本の1.25倍）</span></td>
+          <td>おまかせコース（人気・推定）</td>
+        </tr>
+        <tr>
+          <td><b>③すべて任せる（フル）</b><br><span class="note" style="margin:0;">荷造り〜荷解きまで</span></td>
+          <td>らくらくAコース（フルサービスプラン）<br><span class="note" style="margin:0;">目安：二人暮らし近距離 約12.8万円</span></td>
+          <td>フルコース<br><span class="note" style="margin:0;">目安：約7万〜12万円（基本の1.5倍）</span></td>
+          <td>該当プランの明記なし（要確認）</td>
+        </tr>
+        <tr>
+          <td><b>最上位・付加サービス込み</b></td>
+          <td>プレミアムコース（Aコース＋清掃3回分）<br><span class="note" style="margin:0;">目安：二人暮らし 約8.5万〜14.0万円</span></td>
+          <td>該当なし</td>
+          <td>該当なし</td>
+        </tr>
+        <tr>
+          <td><b>割安・特殊便</b><br><span class="note" style="margin:0;">混載・条件付き格安</span></td>
+          <td>ご一緒便（主に長距離向け）</td>
+          <td>公式での明記は確認できず</td>
+          <td>カーゴコース（内容未確認）</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="insight"><b>今回のケース（都内近距離・夫婦2人）への当てはめ：</b>「①自分でやる」「②荷造りだけ任せる」の2段階が現実的な選択肢になります。3社とも、この2段階に相当するプランがあるため、<b>見積もり時に「②荷造りだけ任せるプランでいくらか」を統一して聞く</b>と、3社をフェアに比較しやすくなります。表中の金額は荷物量・時期・距離が異なる調査記事からの引用のため、あくまで大まかな水準感の参考値としてご覧ください。</div>
+  </div>
+
+  <h2 id="special">特別プラン（対象者限定・参考）</h2>
+  <div class="card table-scroll">
+    <p style="margin-top:0;">今回は夫婦2人のため対象外の可能性が高いですが、参考までにアート引越センターが用意している属性限定プランを紹介します。</p>
+    <table>
+      <thead><tr><th>プラン名</th><th>対象</th><th>特徴</th></tr></thead>
+      <tbody>
+        <tr><td>レディースパック</td><td>女性の依頼者</td><td>女性スタッフを中心に対応</td></tr>
+        <tr><td>シニアパック</td><td>60歳以上</td><td>整理整頓のアドバイス付き</td></tr>
+        <tr><td>学割パック</td><td>学生限定</td><td>新生活に役立つカーテンのプレゼント等の特典</td></tr>
+      </tbody>
+    </table>
+    <p class="note">サカイ・ライフリンクについては、公式サイト上でこれに相当する属性限定プランの明記は確認できませんでした（学生・女性向けの割引キャンペーンが期間限定で実施される場合はあります）。</p>
+  </div>
+
+  <h2 id="choose">今回のケースでの選び方（考え方の整理）</h2>
+  <div class="card">
+    <ul>
+      <li><b>時間に余裕があり、費用を最優先したい場合：</b>3社とも「①自分でやる」プラン（エコノミー／基本コース／通常コース）が候補。ただし荷造りの手間・時間は自分で確保する必要がある。</li>
+      <li><b>準備の負担を減らしつつ費用も抑えたい場合：</b>3社とも「②荷造りだけ任せる」プラン（スタンダード／ハーフコース／おまかせコース）が中間的な選択肢。多くの比較記事で「最も選ばれやすい」プランとして紹介されている。</li>
+      <li><b>体力的な負担を最小限にしたい場合：</b>サカイ・アートは「③すべて任せる」フルサービス系プランが明確に用意されている。ライフリンクは該当プランの有無を見積もり時に確認する必要がある。</li>
+    </ul>
+    <div class="insight good"><b>実務的な進め方：</b>3社への見積もり依頼時に「②のプラン（荷造りだけ業者に依頼するプラン）で、荷物量はこのくらいの場合いくらになるか」を統一質問として投げると、プラン段階を揃えた状態で金額比較ができます。あわせて、<a href="claude_見積もり比較_確認ポイントと3社比較.html#checkpoints">確認ポイント一覧</a>の項目（補償・資材・オプション等）も同じプラン内で何が含まれるかを確認すると、総合的な比較がしやすくなります。</div>
+  </div>
+
+  <footer id="ref">
+    本レポートは、以下の公式サイト・比較サイト（2026年9月時点でWeb検索により確認）を参照して作成しました。ライフリンクの「おまかせコース」「カーゴコース」の内容は公式の一次情報で裏付けが取れておらず、他社の構成からの類推・比較サイトの記述に基づく推定が含まれます。プラン名称・料金は変更される可能性が高いため、実際の依頼前に必ず各社に直接確認してください。
+    <ol>
+      <li><a href="https://www.hikkoshi-sakai.co.jp/plan/index.html" target="_blank" rel="noopener">サカイ引越センター公式「引っ越しプラン」</a></li>
+      <li><a href="https://www.hikkoshi-sakai.co.jp/plan/goisyo.html" target="_blank" rel="noopener">サカイ引越センター公式「ご一緒便プラン」</a></li>
+      <li><a href="https://hikkoshi-hikaku-navi.com/2026/02/15/sakai-moving-services-price/" target="_blank" rel="noopener">引越し比較なび「サカイ引越センターのサービス一覧」</a></li>
+      <li><a href="https://hikkoshi-hikaku-navi.com/2026/02/15/sakai-price-average-guide/" target="_blank" rel="noopener">引越し比較なび「サカイ引越センターの価格はいくら？」</a></li>
+      <li><a href="https://hikkoshi-hikaku-navi.com/2026/02/15/art-hikkoshi-price-complete-guide/" target="_blank" rel="noopener">引越し比較なび「アート引越センターの料金を完全ガイド」</a></li>
+      <li><a href="https://hikkoshi-ryoukin.com/archives/979" target="_blank" rel="noopener">「アート引越センターのハーフコースとは？料金相場も解説」</a></li>
+      <li><a href="https://www.hikoshi-lab.com/19544" target="_blank" rel="noopener">「アート引越センターの料金相場はいくら？最安で引越す方法」（コース別倍率の試算）</a></li>
+      <li><a href="https://www.the0123.com/plan/ladies/" target="_blank" rel="noopener">アート引越センター公式「レディースパック」</a></li>
+      <li><a href="https://hikkosi-tetuduki.info/archives/3160" target="_blank" rel="noopener">「サカイ引越センターのらくらくコースの違いは何？A/B/C/プレミアム別に比較」</a></li>
+      <li><a href="https://hikkosi-ryoukin.com/archives/23" target="_blank" rel="noopener">「サカイ引越センターのらくらくAコースって何？料金の相場は？」</a></li>
+      <li><a href="https://www.tenkyo-smart.com/movers/life-link" target="_blank" rel="noopener">「54,819円安くできた転勤族がライフリンク引越センターを解説」（コース構成の言及）</a></li>
+      <li><a href="https://xn--u9jy51hi2icqfcm0cu5n.jp/mix-transport.html" target="_blank" rel="noopener">「引越し混載便って料金が安くなるの？相場やデメリットを詳しく解説！」</a></li>
+      <li><a href="https://hikkoshi.suumo.jp/oyakudachi/14502.html" target="_blank" rel="noopener">SUUMO引越し見積もり「引越しの荷造り代行をしてもらう方法3選！費用は？」</a></li>
+    </ol>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一括見積もりサイト 入力情報シート（押上フィオーレ301号室）</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-1-soft:  #cde2fb;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-1-soft:  #184f95;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page-plane); color: var(--text-primary); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
+  header.title-block { margin-bottom: 20px; }
+  h1 { font-size: 1.55rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .meta { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
+  h2 { font-size: 1.15rem; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
+  h3 { font-size: 1.0rem; margin: 22px 0 10px; }
+  h4 { font-size: 0.85rem; margin: 16px 0 8px; color: var(--text-secondary); letter-spacing: 0.02em; }
+  p { line-height: 1.8; color: var(--text-primary); }
+  ul, ol { line-height: 1.85; padding-left: 1.3em; margin: 6px 0; }
+  li { margin-bottom: 5px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; background: var(--surface-1); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--gridline); vertical-align: top; }
+  thead th { color: var(--text-secondary); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.02em; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--series-1); }
+  .badge-good { background: var(--accent-good-bg); color: var(--accent-good); }
+  .badge-warn { background: var(--accent-warn-bg); color: var(--accent-warn); }
+  .insight { margin-top: 12px; padding: 12px 16px; background: var(--chip-bg); border-left: 3px solid var(--series-1); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
+  .insight b { color: var(--text-primary); }
+  .insight.warn { border-left-color: var(--accent-warn); background: var(--accent-warn-bg); }
+  .insight.good { border-left-color: var(--accent-good); background: var(--accent-good-bg); }
+  .note { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.8; margin-top: 10px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 6px; margin-top: 14px; margin-bottom: 8px; }
+  .toc a { font-size: 0.8rem; color: var(--series-1); background: var(--chip-bg); padding: 5px 10px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--gridline); color: var(--text-muted); font-size: 0.8rem; line-height: 1.9; }
+  ol.steps { line-height: 2; padding-left: 1.3em; }
+  .fillin { color: var(--accent-warn); font-weight: 700; }
+  .copybox { background: var(--chip-bg); border: 1px dashed var(--border); border-radius: 8px; padding: 12px 14px; font-size: 0.85rem; line-height: 1.85; margin-top: 8px; white-space: pre-wrap; }
+  .copybox .label { font-size: 0.68rem; font-weight: 700; color: var(--series-1); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; display:block; }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <header class="title-block">
+    <h1>一括見積もりサイト 入力情報シート<br>（蒲田→押上「シーズンフラッツ押上フィオーレ」301号室）</h1>
+    <div class="meta">
+      作成日：2026年8月31日<br>
+      対象サイト：SUUMO引越し見積もり／引越し侍／価格.com引っ越し<br>
+      本シートは「引っ越し業者比較レポート_更新版.html」の申し込み実践ガイド（SUUMOは受け身の観察・引越し侍は能動的な統一質問）を、実際の新居情報に当てはめて具体化したものです。<span class="fillin">オレンジ字の項目</span>はご本人でのご記入が必要です。
+    </div>
+    <div class="toc">
+      <a href="#new-home">新居情報</a>
+      <a href="#old-home">旧居情報</a>
+      <a href="#basic">共通の基本入力項目</a>
+      <a href="#suumo">SUUMO用</a>
+      <a href="#samurai">引越し侍用</a>
+      <a href="#kakaku">価格.com用</a>
+    </div>
+  </header>
+
+  <h2 id="new-home">新居情報（シーズンフラッツ押上フィオーレ 301号室）</h2>
+  <div class="card table-scroll">
+    <table>
+      <tbody>
+        <tr><td style="width:180px;"><b>物件名</b></td><td>シーズンフラッツ押上フィオーレ（SEASON FLATS OSHIAGE Fiore）／新築賃貸マンション・地上12階建て</td></tr>
+        <tr><td><b>号室・間取り</b></td><td>301号室／Aタイプ 2LDK・専有面積 53.76㎡（3階）</td></tr>
+        <tr><td><b>最寄り駅</b></td><td>京成押上線・都営浅草線・東京メトロ半蔵門線「押上」駅 徒歩4分／東京メトロ半蔵門線「錦糸町」駅 徒歩14分</td></tr>
+        <tr><td><b>郵便番号</b></td><td class="fillin">〒131-00xx（同じ押上1丁目にある管理会社の郵便番号は131-0045ですが、建物自体の番地違いで異なる可能性があるため契約書でご確認ください）</td></tr>
+        <tr><td><b>住所</b></td><td class="fillin">〒131-00xx 東京都墨田区押上1丁目xx-x（契約書・重要事項説明書に記載の正式な番地をご記入ください）</td></tr>
+        <tr><td><b>建物タイプ</b></td><td>マンション（新築賃貸マンション）</td></tr>
+        <tr><td><b>エレベーター</b></td><td><span class="badge badge-good">あり</span>（物件設備一覧に記載あり）</td></tr>
+        <tr><td><b>建物階数</b></td><td>地上12階建て（301号室は3階）</td></tr>
+        <tr><td><b>駐車場</b></td><td class="fillin">物件設備一覧に駐車場の記載なし。敷地内に来客用・搬入用スペースがあるか、管理会社（CJS TOKYO）に事前確認しておくと安心です。</td></tr>
+        <tr><td><b>その他設備</b></td><td>オートロック・宅配ボックス・防犯カメラ・モニター付インターホン・システムキッチン・追い焚き浴槽・浴室乾燥機・エアコン（備え付け）など</td></tr>
+        <tr><td><b>管理会社</b></td><td>株式会社CJS TOKYO 賃貸住宅サービスFC押上スカイツリー前店<br>〒131-0045 東京都墨田区押上1丁目23-3 ムサビル1階／TEL 03-3626-4146</td></tr>
+        <tr><td><b>入居可能日・契約開始日</b></td><td class="fillin">要記入（契約書に記載の鍵引き渡し予定日）</td></tr>
+      </tbody>
+    </table>
+    <div class="insight warn"><b>要確認：</b>物件資料からは道路幅・トラックの駐車スペースまでは分かりません。押上1丁目付近は下町エリアで道幅が狭い区画もあるため、訪問見積もり時またはフォーム申込み時に「駐車位置から玄関までの距離」を業者側に確認してもらうのがおすすめです（管理会社に事前確認しておくとスムーズです）。</div>
+    <div class="insight good"><b>備考：</b>エアコン・追い焚き浴槽・浴室乾燥機・温水洗浄便座は新居に備え付けのため、旧居で同等の設備をご自身で設置されている場合は、運搬対象から外れる可能性があります（処分 or 譲渡の要否をご検討ください）。</div>
+  </div>
+
+  <h2 id="old-home">旧居情報（蒲田・大田区）<span class="fillin">要記入</span></h2>
+  <div class="card table-scroll">
+    <table>
+      <tbody>
+        <tr><td style="width:180px;"><b>郵便番号</b></td><td class="fillin">要記入</td></tr>
+        <tr><td><b>住所</b></td><td class="fillin">東京都大田区蒲田x丁目x-x（現在お住まいの正式な住所をご記入ください）</td></tr>
+        <tr><td><b>建物名・部屋番号</b></td><td class="fillin">要記入（訪問見積もり時に業者が特定するために必要）</td></tr>
+        <tr><td><b>建物タイプ</b></td><td class="fillin">（マンション／アパート／一戸建て　のいずれか）</td></tr>
+        <tr><td><b>建物階数・部屋の階</b></td><td class="fillin">（例：5階建ての3階　など）</td></tr>
+        <tr><td><b>エレベーター</b></td><td class="fillin">（あり／なし）</td></tr>
+        <tr><td><b>間取り</b></td><td>2LDK（前提情報より）</td></tr>
+        <tr><td><b>駅からの距離</b></td><td>最寄り駅まで徒歩15分（前提情報より）</td></tr>
+        <tr><td><b>退去期日</b></td><td class="fillin">要記入（賃貸契約の解約通知期限・退去日）</td></tr>
+      </tbody>
+    </table>
+    <p class="note">旧居側にエレベーターがない場合、搬出側の階段作業割増（1階あたり1,000〜2,000円程度）が発生する可能性があります。フォーム入力前に確認しておいてください。</p>
+  </div>
+
+  <h2 id="basic">共通の基本入力項目（3サイト共通）</h2>
+  <div class="card table-scroll">
+    <p style="margin-top:0;">以下はどのサイトでも基本的に必須となる項目です。まず埋めておくと、各サイトのフォーム入力がスムーズになります。</p>
+    <table>
+      <tbody>
+        <tr><td style="width:200px;"><b>引っ越し元</b></td><td>東京都大田区蒲田（<span class="fillin">丁目まで要記入</span>）</td></tr>
+        <tr><td><b>引っ越し先</b></td><td>東京都墨田区押上1丁目（シーズンフラッツ押上フィオーレ 301号室）</td></tr>
+        <tr><td><b>世帯人数</b></td><td>2人（夫婦）</td></tr>
+        <tr><td><b>間取り（現在→新居）</b></td><td>2LDK → 2LDK</td></tr>
+        <tr><td><b>希望時期</b></td><td>2027年9月〜11月（できれば月の中旬・平日・フリー便）</td></tr>
+        <tr><td><b>引っ越し希望日（第一候補・第二候補）</b></td><td class="fillin">要記入。日付が固まっていない場合は「時期のみで概算希望」を選べるサイトが多いので、その旨を自由記入欄に書き添える。</td></tr>
+        <tr><td><b>建物条件</b></td><td>旧居：<span class="fillin">要記入</span>／新居：マンション・エレベーターあり・3階</td></tr>
+        <tr><td><b>荷物量の目安</b></td><td>2LDK・夫婦2人分の一般的な家財一式（下記「荷物チェックリスト」参照）</td></tr>
+        <tr><td><b>訪問見積もりの希望</b></td><td>希望する（チェック欄がある場合は必ずチェック。以前の検討の通り、電話・Web概算だけでは精度が保てないため）</td></tr>
+        <tr><td><b>申込者氏名</b></td><td class="fillin">要記入</td></tr>
+        <tr><td><b>連絡先メールアドレス</b></td><td class="fillin">要記入（yuusuke.kkso@gmail.com 等、日頃確認できるアドレス）</td></tr>
+        <tr><td><b>連絡先電話番号</b></td><td class="fillin">要記入。SUUMOでは意図的に空欄にする運用（後述）、引越し侍・価格.comでは入力必須</td></tr>
+      </tbody>
+    </table>
+
+    <h4>荷物チェックリスト（個数を記入して各サイトの「荷物量」欄・自由記入欄に転記）</h4>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>大型家具・家電</th><th>個数</th><th>大型家具・家電</th><th>個数</th></tr></thead>
+        <tbody>
+          <tr><td>ベッド（サイズ：<span class="fillin">　　</span>）</td><td class="fillin"></td><td>冷蔵庫（サイズ：<span class="fillin">　　</span>）</td><td class="fillin"></td></tr>
+          <tr><td>洗濯機</td><td class="fillin"></td><td>テレビ（サイズ：<span class="fillin">　　</span>）</td><td class="fillin"></td></tr>
+          <tr><td>ソファ</td><td class="fillin"></td><td>ダイニングテーブル・椅子</td><td class="fillin"></td></tr>
+          <tr><td>タンス・クローゼット収納</td><td class="fillin"></td><td>本棚・書棚</td><td class="fillin"></td></tr>
+          <tr><td>デスク・チェア</td><td class="fillin"></td><td>電子レンジ・オーブン</td><td class="fillin"></td></tr>
+          <tr><td>掃除機</td><td class="fillin"></td><td>段ボール想定個数</td><td class="fillin"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <table style="margin-top:10px;">
+      <tbody>
+        <tr><td style="width:220px;"><b>特殊・大型荷物の有無</b></td><td class="fillin">要記入（ピアノ、大型水槽、金庫、エアロバイク、観葉植物の大鉢など、通常の家財と別料金になりやすいもの）</td></tr>
+        <tr><td><b>不用品の処分希望</b></td><td class="fillin">要記入（あり／なし。粗大ゴミ回収を業者オプションで頼むか、事前に自分で処分するか）</td></tr>
+        <tr><td><b>梱包プランの希望</b></td><td class="fillin">自分で梱包／一部お任せ／全部お任せ　のいずれか</td></tr>
+        <tr><td><b>当日の立会い予定者</b></td><td class="fillin">要記入（本人／配偶者／代理人）</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="suumo">SUUMO引越し見積もり用：あえて出し切らない入力</h2>
+  <div class="card">
+    <p style="margin-top:0;">レポートの申し込みガイドの通り、SUUMOは<b>電話番号を空欄</b>にして、業者が自発的に聞いてくるかを観察する使い方を想定しています。そのため、フォームには基本情報のみを入れ、現地条件の細部はあえて書きません。</p>
+    <table>
+      <thead><tr><th>入力項目</th><th>入力する内容</th></tr></thead>
+      <tbody>
+        <tr><td>電話番号</td><td><span class="badge badge-good">空欄</span>（動きを観察する目的のため）</td></tr>
+        <tr><td>引っ越し元</td><td>東京都大田区蒲田（丁目まで）</td></tr>
+        <tr><td>引っ越し先</td><td>東京都墨田区押上1丁目</td></tr>
+        <tr><td>時期</td><td>2027年9月〜11月（中旬希望）</td></tr>
+        <tr><td>世帯人数・間取り</td><td>2人・2LDK→2LDK</td></tr>
+        <tr><td>荷物量（大まかな選択肢がある場合）</td><td>「普通〜やや多め」程度を選択（大型家具・家電の個数程度は伝えてOK）</td></tr>
+        <tr><td><b>あえて書かない項目</b></td><td>新居のエレベーター有無・階数、旧居の階数・エレベーター有無、駐車位置・距離、特殊大型荷物の詳細</td></tr>
+      </tbody>
+    </table>
+    <div class="copybox"><span class="label">自由記入欄コピペ用</span>大田区蒲田から墨田区押上への引っ越しを予定しています（2027年9〜11月・夫婦2人・2LDK→2LDK）。搬出入経路の詳細（エレベーターの有無・駐車スペース等）は個別にご相談させてください。</div>
+    <p class="note">返信メールが来たら、①内訳が分かれているか、②書いていない項目（エレベーター等）を聞いてきたか、③金額が「概算」か「訪問前提」か明記されているか、の3点をチェックしてください（詳しくはレポート本編の申し込み実践ガイドを参照）。</p>
+  </div>
+
+  <h2 id="samurai">引越し侍用：出し惜しみせず、統一質問で試す</h2>
+  <div class="card">
+    <p style="margin-top:0;">引越し侍は電話番号が必須で、業者から直接電話がかかってきます。SUUMOと違い書面での駆け引きに意味が薄いため、フォームには詳細まで正直に入力し、電話口では全社共通の質問をぶつけて回答の質を比較します。</p>
+    <table>
+      <thead><tr><th>入力項目</th><th>入力する内容</th></tr></thead>
+      <tbody>
+        <tr><td>電話番号</td><td><span class="badge badge-warn">必須のため入力</span>（対応できる時間帯にまとめて申し込むのがおすすめ）</td></tr>
+        <tr><td>引っ越し元</td><td>東京都大田区蒲田（丁目まで）／<span class="fillin">階数・エレベーター有無</span></td></tr>
+        <tr><td>引っ越し先</td><td>東京都墨田区押上1丁目　シーズンフラッツ押上フィオーレ301号室（3階・エレベーターあり）</td></tr>
+        <tr><td>時期</td><td>2027年9月〜11月（中旬希望・平日フリー便を優先したい旨も伝える）</td></tr>
+        <tr><td>世帯人数・間取り</td><td>2人・2LDK→2LDK</td></tr>
+        <tr><td>荷物量</td><td>大型家具・家電の個数まで具体的に伝える（ベッド・冷蔵庫・洗濯機・ソファ等）</td></tr>
+      </tbody>
+    </table>
+    <h4>電話口で全社に投げる「統一チェック質問」</h4>
+    <ol class="steps">
+      <li>「新居は3階・エレベーターありですが、階段作業や高層階の追加料金はかかりますか？」</li>
+      <li>「延長料金は何分刻み・いくらですか？」</li>
+      <li>「押上駅周辺は道幅が狭い区画もあるようですが、駐車位置から玄関までの距離で追加料金が発生する条件はありますか？」</li>
+      <li>「見積もりの内訳（運賃・人件費・資材費・オプション）を教えてもらえますか？」</li>
+      <li>「荷物が当日増えた場合／キャンセルの場合の条件を教えてください」</li>
+    </ol>
+    <p class="note">電話直後に「聞かれた内容」「上記質問への回答の具体性」「内訳の説明有無」「しつこさ」を同じフォーマットでメモし、後で横並び比較してください（詳しくはレポート本編参照）。</p>
+  </div>
+
+  <h2 id="kakaku">価格.com 引っ越し用</h2>
+  <div class="card">
+    <p style="margin-top:0;">価格.comは電話番号必須で引越し侍と近い性質のため、入力項目・統一質問は引越し侍用と同じもので構いません。加えて、申し込み前に候補業者名で口コミを検索し、事前スクリーニングを行うのがこのサイトならではのポイントです。</p>
+    <div class="insight good"><b>申し込み前の一手間：</b>候補になりそうな業者名＋「見積もり 内訳 雑」「見積もり 実額 違った」のキーワードで検索し、明らかに評判の悪い業者があれば事前に候補から外してから申し込むと、電話対応の負荷を減らせます。</div>
+  </div>
+
+  <footer>
+    本シートは「シーズンフラッツ押上フィオーレ」の物件資料（フォルダ内PDF）と、プロジェクトの前提情報ドキュメント、および「引っ越し業者比較レポート_更新版.html」の申し込み実践ガイドを元に作成しました。<span class="fillin">オレンジ字</span>の項目はご自身の状況に合わせてご記入・修正のうえご利用ください。
+  </footer>
+
+</div>
+</body>
+</html>

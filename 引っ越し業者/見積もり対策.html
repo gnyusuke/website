@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>引っ越し 訪問見積もり対策（蒲田→押上・3社訪問想定）</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-1-soft:  #cde2fb;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+    --accent-bad:     #b3401f;
+    --accent-bad-bg:  #fbe9e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-1-soft:  #184f95;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+      --accent-bad:     #e0745a;
+      --accent-bad-bg:  #3a1a10;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page-plane); color: var(--text-primary); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
+  header.title-block { margin-bottom: 20px; }
+  h1 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .meta { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
+  h2 { font-size: 1.18rem; margin: 38px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
+  h3 { font-size: 1.0rem; margin: 22px 0 10px; }
+  h4 { font-size: 0.85rem; margin: 16px 0 8px; color: var(--text-secondary); letter-spacing: 0.02em; }
+  p { line-height: 1.8; color: var(--text-primary); }
+  ul, ol { line-height: 1.85; padding-left: 1.3em; margin: 6px 0; }
+  li { margin-bottom: 5px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; background: var(--surface-1); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--gridline); vertical-align: top; }
+  thead th { color: var(--text-secondary); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.02em; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--chip-bg); }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--series-1); }
+  .badge-good { background: var(--accent-good-bg); color: var(--accent-good); }
+  .badge-muted { background: var(--gridline); color: var(--text-muted); }
+  .badge-warn { background: var(--accent-warn-bg); color: var(--accent-warn); }
+  .badge-bad { background: var(--accent-bad-bg); color: var(--accent-bad); }
+  .insight { margin-top: 12px; padding: 12px 16px; background: var(--chip-bg); border-left: 3px solid var(--series-1); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
+  .insight b { color: var(--text-primary); }
+  .insight.warn { border-left-color: var(--accent-warn); background: var(--accent-warn-bg); }
+  .insight.good { border-left-color: var(--accent-good); background: var(--accent-good-bg); }
+  .insight.bad { border-left-color: var(--accent-bad); background: var(--accent-bad-bg); }
+  .note { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.8; margin-top: 10px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 6px; margin-top: 14px; margin-bottom: 8px; }
+  .toc a { font-size: 0.8rem; color: var(--series-1); background: var(--chip-bg); padding: 5px 10px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--gridline); color: var(--text-muted); font-size: 0.8rem; line-height: 1.9; }
+  footer a { color: var(--series-1); }
+  footer ol { padding-left: 1.4em; }
+  footer li { margin-bottom: 4px; }
+  ol.steps { line-height: 2; padding-left: 1.3em; }
+  .copybox { background: var(--chip-bg); border: 1px dashed var(--border); border-radius: 8px; padding: 12px 14px; font-size: 0.85rem; line-height: 1.85; margin-top: 10px; white-space: pre-wrap; }
+  .copybox .label { font-size: 0.68rem; font-weight: 700; color: var(--series-1); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; display:block; }
+  .checkgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px; }
+  .checkcol { background: var(--page-plane); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .checkcol .ctitle { font-weight: 700; font-size: 0.88rem; margin-bottom: 8px; }
+  .checkcol ul { margin: 0; padding-left: 1.1em; font-size: 0.83rem; color: var(--text-secondary); }
+  .checkcol li { margin-bottom: 6px; }
+  .tl-order { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; }
+  .tl-order .slot { flex:1 1 220px; background:var(--page-plane); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .tl-order .slot .rank { font-size:0.7rem; font-weight:700; color:var(--series-1); text-transform:uppercase; letter-spacing:.04em; }
+  .tl-order .slot .role { font-weight:700; font-size:0.95rem; margin:4px 0 6px; }
+  .tl-order .slot .desc { font-size:0.82rem; color:var(--text-secondary); line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <header class="title-block">
+    <h1>引っ越し 訪問見積もり対策<span class="badge badge-good" style="margin-left:8px;">蒲田→押上・3社訪問版</span></h1>
+    <div class="meta">
+      作成日：2026年9月10日<br>
+      前提：一括見積もり（概算）を経て、<b>候補3社の訪問見積もりを1日でまとめて実施</b>する方針。本命業者を最後に配置し、先行2社の見積もりを交渉材料にする戦略はすでに確定済み。<br>
+      本ガイドは「いつ・何を準備するか」を扱う<a href="claude_引っ越し事前準備ガイド.html">事前準備ガイド</a>、「業者選び・費用相場」を扱う<a href="claude_引っ越し業者比較レポート_更新版.html">業者比較レポート</a>の実務編として、<b>訪問見積もり当日の立ち回り</b>に絞ってまとめたもの。
+    </div>
+    <div class="toc">
+      <a href="#premise">前提の確認</a>
+      <a href="#before">前日までの最終チェック</a>
+      <a href="#schedule">当日の時間割</a>
+      <a href="#questions">統一チェック質問</a>
+      <a href="#writein">見積書で書面化すべき項目</a>
+      <a href="#negotiate">価格交渉の進め方</a>
+      <a href="#redflags">当日の要注意サイン</a>
+      <a href="#decline">断る2社への連絡</a>
+      <a href="#compare">3社比較シート</a>
+      <a href="#summary">まとめ</a>
+      <a href="claude_引っ越し費用相場_旧居階段条件反映版.html" style="background:var(--accent-good-bg); color:var(--accent-good);">→ 費用相場の再分析はこちら</a>
+    </div>
+  </header>
+
+  <h2 id="premise">前提の確認：今回のケースの基本情報</h2>
+  <div class="card table-scroll">
+    <table>
+      <tbody>
+        <tr><td style="width:200px;"><b>旧居</b></td><td>東京都大田区蒲田／2LDK・2階（内階段）・<span class="badge badge-warn">エレベーターなし</span></td></tr>
+        <tr><td><b>新居</b></td><td>シーズンフラッツ押上フィオーレ301号室／2LDK・53.76㎡・3階／エレベーターあり（12階建て）</td></tr>
+        <tr><td><b>世帯</b></td><td>夫婦2人</td></tr>
+        <tr><td><b>荷物量の変動要素</b></td><td>私物エアコン・旧ベッドを訪問見積もり前に処分予定（運搬対象から外れる）／新ベッドを新規購入・搬入方法は要決定</td></tr>
+        <tr><td><b>希望時期</b></td><td>10月中旬以降。候補日を2つに絞り込んでから訪問見積もりを依頼するのが理想</td></tr>
+      </tbody>
+    </table>
+    <div class="insight good"><b>この前提が崩れていないか、訪問見積もりを依頼する直前に必ず確認：</b>エアコン・旧ベッドの処分が完了しているか、新ベッドの搬入方法（新居直送／引っ越し業者搬入）が決まっているか。ここが未確定のまま訪問を受けると、荷物量の申告がぶれて追加料金の原因になる（詳細は事前準備ガイド参照）。</div>
+    <div class="insight warn"><b>旧居の階段条件について：</b>2階・エレベーターなしは一般的な相場では追加料金が発生しないケースが多いが、内階段の幅や踊り場の有無によっては大型家具（冷蔵庫・洗濯機・ソファ・新ベッド）の搬出に制約が出る可能性がある。数字の根拠は<a href="claude_引っ越し費用相場_旧居階段条件反映版.html">費用相場の再分析</a>を参照。</div>
+  </div>
+
+  <h2 id="before">訪問前日までの最終チェックリスト</h2>
+  <div class="card">
+    <p style="margin-top:0;">訪問見積もりの所要時間は1社あたり30分〜1時間程度が目安。荷物量の把握に時間がかかるほど長引くため、事前準備で短縮できる部分は済ませておく。</p>
+    <div class="checkgrid">
+      <div class="checkcol">
+        <div class="ctitle">① 部屋の見せ方</div>
+        <ul>
+          <li>クローゼット・押入れ・玄関収納・ベランダの物置をすべて開けておく（担当者が全収納を確認するため、閉まっていると時間もロスし、荷物量の見落としにもつながる）</li>
+          <li>各部屋の扉を開放し、動線を塞ぐ荷物をどけておく</li>
+          <li>見られたくない私物は事前に別室・箱にまとめておく</li>
+        </ul>
+      </div>
+      <div class="checkcol">
+        <div class="ctitle">② 伝える情報の準備</div>
+        <ul>
+          <li>新居：3階・エレベーターあり・12階建て、301号室（2LDK・53.76㎡）</li>
+          <li>旧居：大田区蒲田・2階（内階段）・エレベーターなし</li>
+          <li>旧居の階段幅・踊り場の有無（大型家具が曲がりきれるかの目安になる）</li>
+          <li>希望日の候補を2つに絞っておく（幅を持たせすぎない）</li>
+        </ul>
+      </div>
+      <div class="checkcol">
+        <div class="ctitle">③ 荷物量の確定状況</div>
+        <ul>
+          <li>エアコン・旧ベッドの処分が完了しているか（未完了なら「◯月◯日までに搬出完了予定」と伝えられる状態に）</li>
+          <li>新ベッドの搬入方法・サイズを確定させておく</li>
+          <li>大型家具・家電（冷蔵庫・洗濯機・ソファ等）の個数を把握しておく</li>
+          <li>冷蔵庫・洗濯機・ソファなど大型品のサイズを測り、旧居の内階段（幅・曲がり角）を通るか目視で確認しておく</li>
+        </ul>
+      </div>
+      <div class="checkcol">
+        <div class="ctitle">④ 交渉の準備</div>
+        <ul>
+          <li>自分の中での予算上限を先に決めておく（即決を求められても迷わないため）</li>
+          <li>下記「統一チェック質問」を印刷・メモしておく</li>
+          <li>各社の回答を書き込むメモ or スマホを用意</li>
+        </ul>
+      </div>
+    </div>
+    <div class="insight"><b>時間の確保：</b>担当者の到着から見積書の受け取りまで、1社あたり1時間は見ておく。荷物が多い・特殊荷物がある・交渉が長引く場合はさらに延びることがあるため、3社を1日で回す場合は各社の間に十分な余裕を持たせる（次項）。</div>
+  </div>
+
+  <h2 id="schedule">当日の時間割：3社を1日で回す場合</h2>
+  <div class="card">
+    <p style="margin-top:0;">3社比較で交渉を有利に進める基本形は「1社目＝相場確認、2社目＝比較、3社目＝本命（契約候補）」の順番。本命を最後にすることで、先行2社の金額を手元に持った状態で交渉できる。</p>
+    <div class="tl-order">
+      <div class="slot">
+        <div class="rank">1社目・午前</div>
+        <div class="role">相場確認用</div>
+        <div class="desc">まずは相場感をつかむ位置づけ。統一質問を投げて回答の丁寧さも記録しておく。ここでは即決しない。</div>
+      </div>
+      <div class="slot">
+        <div class="rank">2社目・午後早め</div>
+        <div class="role">比較用</div>
+        <div class="desc">1社目の金額・回答内容と比べる。ここでも即決せず、「本命業者と比較してから決めます」で通す。</div>
+      </div>
+      <div class="slot">
+        <div class="rank">3社目・夕方</div>
+        <div class="role">本命・契約候補</div>
+        <div class="desc">先行2社の金額を交渉材料として提示できる状態にしておく。ここで納得できる条件が出れば、その日のうちに決めてもよい。</div>
+      </div>
+    </div>
+    <div class="insight good"><b>時間の空け方：</b>1社あたり最低1時間、社間の移動・記入時間に30分〜1時間の余裕を見て、例えば10:00・13:00・16:00頃の3枠に組むとゆとりが持てる。訪問見積もりは18〜19時頃までが対応可能時間帯になっている業者が多いため、最終枠は遅くとも16〜17時台に収めるのが無難。</div>
+    <div class="note">先に受けた業者の見積書はしまわず手元に残しておく。次の業者との交渉、特に本命業者との交渉でそのまま使う。</div>
+  </div>
+
+  <h2 id="questions">全社共通で聞く「統一チェック質問」</h2>
+  <div class="card table-scroll">
+    <p style="margin-top:0;">同じ質問を3社全てに投げることで、回答の具体性・丁寧さを公平に比較できる。曖昧に答える／答えを濁す業者は要注意（後述）。</p>
+    <table>
+      <thead><tr><th>カテゴリ</th><th>質問例</th><th>チェックの視点</th></tr></thead>
+      <tbody>
+        <tr><td><b>作業体制</b></td><td>作業員は何人、トラックのサイズは何を想定していますか</td><td>荷物量に対して妥当な人数・車格か</td></tr>
+        <tr><td><b>階段・駐車</b></td><td>旧居（2階・内階段・エレベーターなし）の階段作業料は発生しますか／大型家具が内階段を通らない場合はどう対応しますか／駐車位置が離れる場合の割増はありますか</td><td>2階は無料になる業者が多いが、内階段の幅・大型家具次第では加算や別対応（窓からの搬出等）があり得るため必ず確認。新居側（3階・エレベーターあり）は通常不要</td></tr>
+        <tr><td><b>延長料金</b></td><td>作業が延びた場合、何分刻み・いくらの追加料金になりますか</td><td>当日の高額請求で最も多い原因とされる項目。単位と単価を必ず数字で聞く</td></tr>
+        <tr><td><b>荷物追加</b></td><td>見積もり後に荷物が増えた場合、当日どう扱われますか</td><td>追加申告のタイミング・連絡方法を確認</td></tr>
+        <tr><td><b>資材</b></td><td>ダンボールは何枚まで無料ですか／使用後の回収は有料ですか</td><td>枚数・回収条件を数字で確認</td></tr>
+        <tr><td><b>補償</b></td><td>家具・壁等の破損時の補償範囲はどうなっていますか</td><td>標準引越運送約款に基づく基本補償の有無を確認</td></tr>
+        <tr><td><b>支払い</b></td><td>支払い方法は何に対応していますか（現金・カード等）</td><td>当日精算の方法を事前に把握</td></tr>
+        <tr><td><b>キャンセル・変更</b></td><td>日程変更・キャンセルの条件と料率を教えてください</td><td>標準引越運送約款どおりか（下記参照）。独自に上乗せしていないか</td></tr>
+      </tbody>
+    </table>
+    <div class="insight"><b>参考：標準引越運送約款のキャンセル料率の目安</b>――3日前までの連絡なら無料、前々日は運賃の20%以内、前日は30%以内、当日は50%以内が上限（国土交通省が定める約款に多くの大手業者が準拠）。これより高い料率や、独自の一律キャンセル料を提示された場合は要確認。</div>
+  </div>
+
+  <h2 id="writein">見積書でその場に確認・書面化してもらう項目</h2>
+  <div class="card">
+    <ul>
+      <li>事業者名・所在地・担当者氏名・電話番号・許可番号が明記されているか</li>
+      <li>基本運賃・人件費・資材費・オプション費が<b>項目ごとに分かれているか</b>（「一式◯万円」の一括表記は避けてもらう）</li>
+      <li>延長料金・階段/駐車割増など、追加料金が発生し得る項目の<b>単価と発生条件</b>が数字で記載されているか</li>
+      <li>キャンセル・日程変更時の料率が明記されているか</li>
+      <li>見積もりの有効期限（いつまでこの金額が有効か）</li>
+    </ul>
+    <div class="insight warn">「担当者の口頭説明」だけで終わらせず、上記は見積書または別紙に書いてもらう。口約束のままだと、当日の追加請求時に確認しようがなくなる。</div>
+  </div>
+
+  <h2 id="negotiate">価格交渉の進め方</h2>
+  <div class="card">
+    <h4>訪問開始時に先手を打つ</h4>
+    <div class="copybox"><span class="label">開始時のひとこと</span>「他社さんとも比較させていただいているので、今日この場ではまだ決められません。一通りお伺いしてから検討します。」</div>
+    <p class="note">最初にこう伝えておくと、営業側も「即決を取れない訪問」と認識した上で見積もりを進めるため、後半で無理に即決を迫られにくくなる。</p>
+
+    <h4>決定権を分散させる</h4>
+    <div class="copybox"><span class="label">決定権が自分にないように見せる一言</span>「最終的には夫婦2人で相談して決めるので、今日はいったん持ち帰ります。」</div>
+    <p class="note">交渉相手に決定権がないと分かると、営業側もそれ以上は強く迫れなくなる。</p>
+
+    <h4>本命業者（3社目）への交渉トーク</h4>
+    <div class="copybox"><span class="label">他社の金額を提示する</span>「1社目さんは◯万円、2社目さんは◯万円でした。御社にお願いしたい気持ちが一番強いので、同等かそれ以下になるなら今日決めたいです。」</div>
+    <p class="note">単に「安くして」ではなく、その業者を評価している姿勢とセットで伝える方が印象がよく、交渉も進みやすいとされる。</p>
+
+    <h4>即決を強く迫られた場合</h4>
+    <div class="copybox"><span class="label">切り返しの一言</span>「その条件は魅力的ですが、一度持ち帰って検討させてください。」</div>
+    <p class="note">「今日だけの特別価格」と言われても、契約する法的義務はない。日程が逼迫していない限り値引きの余地は残っているとされるため、焦って即決する必要はない。</p>
+
+    <div class="insight good"><b>予算の出し方：</b>予算を先に明かさない方が下がりやすいという意見が一般的だが、本命業者に限っては「◯円なら即決できます」と上限を宣言する方法も効果的とされる（担当者が社内稟議を通しやすくなるため）。どちらを使うかは、金額交渉を続けたいか・その場で決め切りたいかで選ぶ。</div>
+  </div>
+
+  <h2 id="redflags">当日の要注意サイン</h2>
+  <div class="card">
+    <p style="margin-top:0;">詳しい「A社型・B社型」の見分け方は<a href="claude_引っ越し業者比較レポート_更新版.html#companies">業者比較レポート</a>にまとめ済み。ここでは<b>訪問当日その場で</b>出やすいサインだけ抜粋する。</p>
+    <table>
+      <thead><tr><th>サイン</th><th>見方</th></tr></thead>
+      <tbody>
+        <tr><td>現地条件（エレベーター・駐車位置・搬出経路等）を確認せず即座に金額を出す</td><td>荷物量の実測なしでの即答は、当日の追加料金リスクが高い</td></tr>
+        <tr><td>内訳のない「一式◯万円」の見積もりしか出さない</td><td>後から何が加算されたか検証できなくなる</td></tr>
+        <tr><td>会社名・所在地・許可番号などの記載を渋る／聞いても答えを濁す</td><td>書面化の基本を守らない業者は避ける</td></tr>
+        <tr><td>他社の悪口を言う、必要以上にしつこく即決を迫る</td><td>営業姿勢として不誠実な兆候</td></tr>
+        <tr><td>名刺や身分の提示を渋る</td><td>担当者の身元が不明確なまま契約しない</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="decline">訪問見積もり後、断る2社への連絡</h2>
+  <div class="card">
+    <p style="margin-top:0;">本命業者に決めたら、先行2社にはできるだけ早く連絡する。訪問日の2日以上前に予定自体をキャンセルする場合はメールでも問題ないが、<b>訪問を受けたあとに断る場合は電話が基本</b>（確実に伝わり、印象も悪くなりにくい）。理由は正直に話す必要はなく、当たり障りのない表現で十分。</p>
+
+    <h4>電話で断る場合</h4>
+    <div class="copybox"><span class="label">電話での一言</span>「先日はお見積もりありがとうございました。他社に決めましたので、今回は見送らせていただきます。」</div>
+
+    <h4>メールで断る場合</h4>
+    <div class="copybox"><span class="label">メール本文</span>いつもお世話になっております。
+先日お見積もりをいただきました◯◯（自分の名前）です。
+検討した結果、今回は他社にお願いすることにいたしましたので、見送らせていただきます。
+お時間をいただきありがとうございました。今後ともよろしくお願いいたします。</div>
+    <div class="insight"><b>ポイント：</b>理由を詳しく説明する必要はない。「総合的に検討した結果」で十分。値引き交渉に応じるかどうか迷っている段階でこの連絡をすると話がこじれやすいため、断ると決めてから連絡する。</div>
+  </div>
+
+  <h2 id="compare">3社比較シート（訪問直後に記入）</h2>
+  <div class="card table-scroll">
+    <p style="margin-top:0;">各社の訪問直後、記憶が新しいうちに同じ項目で記入する。次の交渉・最終判断の材料になる。</p>
+    <table>
+      <thead><tr><th>項目</th><th>1社目</th><th>2社目</th><th>3社目（本命）</th></tr></thead>
+      <tbody>
+        <tr><td>見積額（総額）</td><td></td><td></td><td></td></tr>
+        <tr><td>内訳の分かりやすさ</td><td></td><td></td><td></td></tr>
+        <tr><td>作業員数・トラックサイズ</td><td></td><td></td><td></td></tr>
+        <tr><td>延長料金の単位・単価</td><td></td><td></td><td></td></tr>
+        <tr><td>キャンセル規定</td><td></td><td></td><td></td></tr>
+        <tr><td>担当者の印象（A社型／B社型）</td><td></td><td></td><td></td></tr>
+        <tr><td>見積もり有効期限</td><td></td><td></td><td></td></tr>
+        <tr><td>その他メモ</td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="summary">まとめ：訪問見積もり当日までの流れ</h2>
+  <div class="card">
+    <ol class="steps">
+      <li>荷物量を確定させる（エアコン・旧ベッド処分完了、新ベッド搬入方法決定）</li>
+      <li>希望日を2候補に絞り、旧居のエレベーター有無・階数を自分で確認しておく</li>
+      <li>候補3社に訪問見積もりを依頼し、本命を最後の枠に配置する</li>
+      <li>前日までに部屋・情報・交渉準備（本ガイドの各チェックリスト）を済ませる</li>
+      <li>当日は統一質問を全社に投げ、比較シートにその場で記入する</li>
+      <li>本命業者との交渉で先行2社の金額を提示し、条件が合えば契約</li>
+      <li>断る2社には速やかに連絡する</li>
+    </ol>
+  </div>
+
+  <footer>
+    本レポートは、以下の一次情報・解説記事（2026年9月時点でWeb検索により確認）を横断的に参照して作成しました。所要時間・キャンセル料率・交渉手法等は業者や状況により異なるため、実際の依頼時に各社の最新情報を確認してください。
+    <ol>
+      <li><a href="https://hikkoshizamurai.jp/estimate/required-time/" target="_blank" rel="noopener">引越し侍「訪問見積もりの所要時間はどのくらい？」</a></li>
+      <li><a href="https://hikkoshi-hikaku-navi.com/2026/02/15/moving-in-home-estimate-guide/" target="_blank" rel="noopener">引越し比較なび「訪問見積もりにかかる時間は？当日の流れと準備」</a></li>
+      <li><a href="https://www.hikkoshi-line.com/navi/decision/moving-service-estimate.html" target="_blank" rel="noopener">引っ越しの窓口「訪問見積もりはメリット大！依頼の手順、準備、当日の流れ、注意点」</a></li>
+      <li><a href="https://hikkoshizamurai.jp/estimate/prompt/" target="_blank" rel="noopener">引越し侍「見積もりの即決は価格が安い？その場でサインしても損しない方法」</a></li>
+      <li><a href="https://hikkoshi.suumo.jp/oyakudachi/8437.html" target="_blank" rel="noopener">SUUMO引越し見積もり「引越し見積もりはその場で契約しないほうがいい？」</a></li>
+      <li><a href="https://hikkoshizamurai.jp/estimate/technique/" target="_blank" rel="noopener">引越し侍「見積もりの値切りと複数業者への値引き交渉テクニック」</a></li>
+      <li><a href="https://hikkoshi.mota-home.net/howto/price/estimate-decision/" target="_blank" rel="noopener">「引越し見積もりで即決しない方が正解？後悔しない判断基準」（訪問順番の考え方）</a></li>
+      <li><a href="https://www.sagitomi.com/28/" target="_blank" rel="noopener">「引っ越し見積もりを安くする交渉のコツと、料金相場」（交渉トーク例）</a></li>
+      <li><a href="https://hikkoshi.mota-home.net/howto/price/discount/" target="_blank" rel="noopener">「引越し見積もり 値切りのコツ7選！交渉術と会話例」</a></li>
+      <li><a href="https://u-p-date.com/move/moving-haggling-lie/" target="_blank" rel="noopener">「引っ越し業者は見積もりで嘘をつく？値切るためのコツ」（決定権を分散させる交渉法）</a></li>
+      <li><a href="https://www.kokusen.go.jp/t_box/data/t_box-faq_qa2018_23.html" target="_blank" rel="noopener">国民生活センター「引っ越しのキャンセル料が高い！」（標準引越運送約款の解説）</a></li>
+      <li><a href="https://ultra-hikkosi.net/toraburujirei/kyanseru.html" target="_blank" rel="noopener">「引越しをキャンセル！かかる料金と正しい断り方」（キャンセル料率一覧）</a></li>
+      <li><a href="https://life.toyger.co.jp/decline/" target="_blank" rel="noopener">「引越し見積もり後の断り方｜電話・メール例文とスムーズに断るコツ」</a></li>
+      <li><a href="https://crexgroup.com/ja/hikkoshi/mover-comparison/how-to-decline-moving-estimate/" target="_blank" rel="noopener">「引っ越し訪問見積もりの上手な断り方 連絡手段別の例文」</a></li>
+      <li><a href="https://hikkoshi.suumo.jp/oyakudachi/7739.html" target="_blank" rel="noopener">SUUMO引越し見積もり「訪問見積もり『良い営業』の見分け方やトラブル回避方法」</a></li>
+    </ol>
+  </footer>
+
+</div>
+</body>
+</html>

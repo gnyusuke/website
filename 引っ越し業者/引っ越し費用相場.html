@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>引っ越し費用相場 再分析（旧居：内階段2階・エレベーターなし）</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:      #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:       #e1e0d9;
+    --border:         rgba(11,11,11,0.10);
+    --series-1:       #2a78d6;
+    --series-1-soft:  #cde2fb;
+    --chip-bg:        #eef4fc;
+    --accent-good:    #2f8a5b;
+    --accent-good-bg: #e6f4ec;
+    --accent-warn:    #b3711f;
+    --accent-warn-bg: #faf0e0;
+    --accent-bad:     #b3401f;
+    --accent-bad-bg:  #fbe9e2;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:      #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:       #2c2c2a;
+      --border:         rgba(255,255,255,0.10);
+      --series-1:       #3987e5;
+      --series-1-soft:  #184f95;
+      --chip-bg:        #16233a;
+      --accent-good:    #57c98a;
+      --accent-good-bg: #103822;
+      --accent-warn:    #e0a758;
+      --accent-warn-bg: #3a2b10;
+      --accent-bad:     #e0745a;
+      --accent-bad-bg:  #3a1a10;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page-plane); color: var(--text-primary); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
+  header.title-block { margin-bottom: 20px; }
+  h1 { font-size: 1.55rem; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .meta { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; }
+  h2 { font-size: 1.15rem; margin: 36px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--gridline); }
+  h3 { font-size: 1.0rem; margin: 22px 0 10px; }
+  h4 { font-size: 0.85rem; margin: 16px 0 8px; color: var(--text-secondary); letter-spacing: 0.02em; }
+  p { line-height: 1.8; color: var(--text-primary); }
+  ul, ol { line-height: 1.85; padding-left: 1.3em; margin: 6px 0; }
+  li { margin-bottom: 5px; }
+  .card { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87rem; background: var(--surface-1); }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--gridline); vertical-align: top; }
+  thead th { color: var(--text-secondary); font-weight: 600; font-size: 0.76rem; letter-spacing: 0.02em; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:hover td { background: var(--chip-bg); }
+  .table-scroll { overflow-x: auto; }
+  .badge { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--series-1); }
+  .badge-good { background: var(--accent-good-bg); color: var(--accent-good); }
+  .badge-muted { background: var(--gridline); color: var(--text-muted); }
+  .badge-warn { background: var(--accent-warn-bg); color: var(--accent-warn); }
+  .badge-bad { background: var(--accent-bad-bg); color: var(--accent-bad); }
+  .insight { margin-top: 12px; padding: 12px 16px; background: var(--chip-bg); border-left: 3px solid var(--series-1); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.8; }
+  .insight b { color: var(--text-primary); }
+  .insight.warn { border-left-color: var(--accent-warn); background: var(--accent-warn-bg); }
+  .insight.good { border-left-color: var(--accent-good); background: var(--accent-good-bg); }
+  .insight.bad { border-left-color: var(--accent-bad); background: var(--accent-bad-bg); }
+  .note { color: var(--text-secondary); font-size: 0.82rem; line-height: 1.8; margin-top: 10px; }
+  .toc { display: flex; flex-wrap: wrap; gap: 8px 6px; margin-top: 14px; margin-bottom: 8px; }
+  .toc a { font-size: 0.8rem; color: var(--series-1); background: var(--chip-bg); padding: 5px 10px; border-radius: 999px; text-decoration: none; font-weight: 600; }
+  footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--gridline); color: var(--text-muted); font-size: 0.8rem; line-height: 1.9; }
+  footer a { color: var(--series-1); }
+  footer ol { padding-left: 1.4em; }
+  footer li { margin-bottom: 4px; }
+  .src { font-size: 0.7rem; color: var(--series-1); text-decoration: none; font-weight: 700; margin-left: 4px; white-space: nowrap; }
+  .src:hover { text-decoration: underline; }
+
+  .price-bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .price-bar-label { width: 168px; flex-shrink: 0; font-size: 0.83rem; font-weight: 700; color: var(--text-primary); }
+  .price-bar-track { flex: 1; background: var(--gridline); border-radius: 6px; height: 24px; position: relative; }
+  .price-bar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; border: 1px solid var(--border); }
+  .price-bar-value { font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
+  .heat-1 { background: #cde2fb; color: #0b0b0b; }
+  .heat-2 { background: #9cc4ef; color: #0b0b0b; }
+  .heat-3 { background: #5f96de; color: #ffffff; }
+  .heat-target { background: #57c98a; color: #ffffff; }
+  .heat-warn { background: #e0a758; color: #0b0b0b; }
+  .heat-bad { background: #e0745a; color: #ffffff; }
+</style>
+</head>
+<body>
+<div class="viz-root wrap">
+
+  <header class="title-block">
+    <h1>引っ越し費用相場 再分析<span class="badge badge-warn" style="margin-left:8px;">旧居：内階段2階・エレベーターなし</span></h1>
+    <div class="meta">
+      作成日：2026年9月10日<br>
+      <b>前提修正の経緯：</b><a href="claude_引っ越し業者比較レポート_更新版.html">業者比較レポート</a>の費用試算は「新居・旧居ともにエレベーターあり」という前提で計算していたが、実際は<b>旧居（大田区蒲田）はエレベーターなし・2階・内階段</b>であることが判明。本レポートはこの点だけを補正し、費用レンジへの影響を分析する。新居（押上フィオーレ301・3階・エレベーターあり）の前提は変更なし。
+    </div>
+    <div class="toc">
+      <a href="#change">前提の変更点</a>
+      <a href="#rule">階数加算の基本ルール</a>
+      <a href="#apply">今回への当てはめ</a>
+      <a href="#risk">例外リスク（大型荷物）</a>
+      <a href="#time">時間制運賃との関係</a>
+      <a href="#range">更新後の費用レンジ</a>
+      <a href="#check">訪問見積もり時の確認事項</a>
+      <a href="#ref">出典</a>
+    </div>
+  </header>
+
+  <h2 id="change">前提の変更点</h2>
+  <div class="card table-scroll">
+    <table>
+      <thead><tr><th>項目</th><th>従来の前提（業者比較レポート）</th><th>実際の状況</th></tr></thead>
+      <tbody>
+        <tr><td><b>旧居（大田区蒲田）</b></td><td>エレベーターあり</td><td><span class="badge badge-warn">エレベーターなし・2階・内階段</span></td></tr>
+        <tr><td><b>新居（押上フィオーレ301）</b></td><td>3階・エレベーターあり</td><td>変更なし（3階・エレベーターあり・12階建て）</td></tr>
+      </tbody>
+    </table>
+    <div class="insight warn">従来のレポートは「エレベーターありのため階段作業割増は基本的に発生しない」という前提で費用レンジ（8万〜15万円）を出していた。旧居側にエレベーターがないため、この前提の一部が崩れている。ただし後述のとおり、<b>2階は多くの業者で無料になるケースが多い</b>ため、影響は限定的とみられる。</div>
+  </div>
+
+  <h2 id="rule">階数加算の基本ルール（一般的な相場）</h2>
+  <div class="card">
+    <p style="margin-top:0;">エレベーターなし物件の階段作業料は、複数の解説記事で共通して次のように説明されている。</p>
+    <ul>
+      <li><b>1階上がるごとに1,000〜2,000円前後が加算相場</b>というのが全国的な目安<a class="src" href="https://www.hikoshi-lab.com/1636" target="_blank" rel="noopener">出典</a><a class="src" href="https://www.hikkosi-yoihouhou.com/movingelevator/" target="_blank" rel="noopener">出典</a></li>
+      <li>ただし<b>1〜2階までは追加料金を設定していない業者が多く</b>、加算が始まるのは3階以上からというケースが目立つ<a class="src" href="https://www.chintaistyle.jp/article/hikkoshi-elevater-ryoukin/" target="_blank" rel="noopener">出典</a><a class="src" href="https://www.homes.co.jp/hikkoshi/cont/estimation/elevator/" target="_blank" rel="noopener">出典</a><a class="src" href="https://www.hikkosi-yoihouhou.com/movingelevator/" target="_blank" rel="noopener">出典</a></li>
+      <li>一方で、階段や踊り場などの共用部が狭い場合や、サイズの大きい家具・家電がある場合は、1〜2階であっても別途料金が発生することがある<a class="src" href="https://hikkoshi0515.com/gimon/elevator.html" target="_blank" rel="noopener">出典</a></li>
+      <li>中小規模の業者では2階からでも階段作業料（例：2,200円〜）を設定している例もあり、料金設定は業者ごとに差がある<a class="src" href="https://sl-service.jp/quoterequest" target="_blank" rel="noopener">出典</a></li>
+    </ul>
+    <div class="insight">まとめると、<b>「2階・エレベーターなし」は追加料金なしになる可能性が高いが、無料と保証されているわけではない</b>。最終的には各業者の料金体系と、実際の荷物量・階段の寸法次第という位置づけ。</div>
+  </div>
+
+  <h2 id="apply">今回のケースへの当てはめ</h2>
+  <div class="card table-scroll">
+    <table>
+      <thead><tr><th>拠点</th><th>階数・エレベーター</th><th>加算の可能性</th></tr></thead>
+      <tbody>
+        <tr><td>旧居（搬出側）</td><td>2階・内階段・エレベーターなし</td><td><span class="badge badge-good">低い</span>（多くの業者で無料の範囲。ただし業者・荷物次第で例外あり）</td></tr>
+        <tr><td>新居（搬入側）</td><td>3階・エレベーターあり</td><td><span class="badge badge-good">なし</span>（エレベーター利用のため通常不要）</td></tr>
+      </tbody>
+    </table>
+    <div class="insight good"><b>結論：</b>基本ケースでは、旧居・新居とも階段作業による追加料金は発生しない可能性が高い。従来の費用レンジ（8万〜15万円）を大きく崩す要因にはならないとみられる。ただし次項の例外リスクは残るため、訪問見積もりで必ず確認する。</div>
+  </div>
+
+  <h2 id="risk">例外リスク：大型荷物が内階段を通らない場合</h2>
+  <div class="card">
+    <p style="margin-top:0;">内階段は幅や踊り場の曲がり角が狭いことがあり、大型・重量物がそのままでは通らないケースがある。この場合、通常の階段搬出より高額な対応が必要になることがある。</p>
+    <ul>
+      <li>冷蔵庫を窓から吊り上げる「吊り作業」は、それだけで<b>最低3万円程度</b>かかる例が紹介されている<a class="src" href="https://www.homes.co.jp/hikkoshi/cont/estimation/elevator/" target="_blank" rel="noopener">出典</a></li>
+      <li>対象になりやすいのは、冷蔵庫・洗濯機・大型ソファ・ベッドフレーム（新ベッドを含む）など、旧居からの搬出が必要な大型品</li>
+      <li>戸建て・室内階段のケースでは、階数ごとの搬入作業料として2階で4,400円・3階で5,500円という料金例も参考として紹介されている（内階段の建物という条件が今回と近い）<a class="src" href="https://www.homes.co.jp/hikkoshi/cont/estimation/elevator/" target="_blank" rel="noopener">出典</a></li>
+    </ul>
+    <div class="insight bad"><b>該当した場合の費用インパクト：</b>吊り作業や特殊搬出が必要になった品目だけで数千円〜3万円超の追加が生じ得る。該当するかどうかは、内階段の実測（幅・踊り場の寸法）と家具・家電のサイズを照らし合わせないと判断できないため、訪問見積もり時に必ず確認する（後述）。</div>
+  </div>
+
+  <h2 id="time">時間制運賃との関係</h2>
+  <div class="card">
+    <p style="margin-top:0;"><a href="claude_引っ越し業者比較レポート_更新版.html#price">業者比較レポート</a>で触れた通り、近距離の引っ越しは「作業時間」で料金が決まる時間制運賃（4時間制・8時間制など）が主流。階段を使った搬出はエレベーター利用より時間がかかるため、契約したプランの制限時間を超えると延長料金が発生するリスクがある。</p>
+    <div class="insight warn">階段作業そのものに定額の加算がなくても、<b>作業時間が延びた分だけ延長料金という形でコストが上乗せされる可能性がある</b>。延長料金の課金単位・単価を事前に確認しておくことが、階段条件がある今回はより重要になる（<a href="claude_訪問見積もり対策.html#questions">訪問見積もり対策の統一チェック質問</a>に含めている）。</div>
+  </div>
+
+  <h2 id="range">更新後の費用レンジ</h2>
+  <div class="card">
+    <h4>ベースの目安（変更なし）</h4>
+    <div style="margin-top:10px;">
+      <div class="price-bar-row">
+        <div class="price-bar-label">2人家族・近距離・通常期</div>
+        <div class="price-bar-track"><div class="price-bar-fill heat-target" style="width:57%;"><span class="price-bar-value">約8.6万円</span></div></div>
+      </div>
+    </div>
+    <p class="note">出典：SUUMO引越し見積もり近距離データ（業者比較レポートと同一）。この基準額自体は今回の階段条件による変更なし。</p>
+
+    <h4 style="margin-top:20px;">階段条件を踏まえた3つのシナリオ</h4>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>シナリオ</th><th>内容</th><th>追加費用の目安</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-good">基本ケース</span></td>
+            <td>2階・エレベーターなしで加算なし、作業時間もプラン内に収まる</td>
+            <td>±0円（従来の8万〜15万円レンジ内）</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-warn">中間ケース</span></td>
+            <td>一部業者が2階からの階段作業料を設定している、または作業時間がプランを超えて延長料金が発生する</td>
+            <td>+2,000円〜1万円程度</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-bad">例外ケース</span></td>
+            <td>冷蔵庫等の大型品が内階段を通らず、吊り作業・窓からの搬出が必要になる（該当品目のみ）</td>
+            <td>+3万円〜（該当品目がある場合のみ）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="insight"><b>総合すると：</b>従来の目安レンジ「8万〜15万円」は据え置きで問題ない可能性が高いが、内階段の実測をせずに訪問見積もりへ進むと、例外ケースに該当した場合に想定外の上振れ（+3万円〜）が起こり得る。事前に階段の寸法と大型品のサイズを照らし合わせておくことが、レンジを保つための最も確実な対策。</div>
+  </div>
+
+  <h2 id="check">訪問見積もり時に追加で確認すべきこと</h2>
+  <div class="card">
+    <ol>
+      <li>旧居の内階段の幅・踊り場の寸法をあらかじめ伝える（可能なら写真も用意）</li>
+      <li>冷蔵庫・洗濯機・ソファ・新ベッドなど大型品のサイズを伝え、搬出可否をその場で判断してもらう</li>
+      <li>旧居側の階段作業料の有無・金額を明確な数字で確認する</li>
+      <li>大型品が通らない場合の代替手段（吊り作業・窓からの搬出等）とその費用を確認する</li>
+      <li>作業時間の見込みと契約プランの制限時間、延長料金の単位・単価を確認する</li>
+    </ol>
+    <p class="note">これらは<a href="claude_訪問見積もり対策.html">訪問見積もり対策</a>の統一チェック質問・前提テーブルにすでに反映済み。3社とも同じ内容を伝えて、回答を比較シートに記録する。</p>
+  </div>
+
+  <footer id="ref">
+    本レポートは、以下の一次情報・解説記事（2026年9月時点でWeb検索により確認）を参照して作成しました。階段作業料の金額・要否は業者・建物条件によって異なるため、実際の訪問見積もりで最終確認してください。
+    <ol>
+      <li><a href="https://www.chintaistyle.jp/article/hikkoshi-elevater-ryoukin/" target="_blank" rel="noopener">賃貸スタイルコラム「引っ越しの際エレベーターの有無で料金は変わるの？費用相場と階数の関係」</a></li>
+      <li><a href="https://www.homes.co.jp/hikkoshi/cont/estimation/elevator/" target="_blank" rel="noopener">LIFULL HOME'S「引越し先、エレベーターのあるなし、階数で変わること＆注意点とは」</a></li>
+      <li><a href="https://www.hikkosi-yoihouhou.com/movingelevator/" target="_blank" rel="noopener">「引越しでエレベーターがなし！３階、４階、５階の追加料金はいくら？」</a></li>
+      <li><a href="https://hikkoshi0515.com/gimon/elevator.html" target="_blank" rel="noopener">「引越しでエレベーターがないマンションは料金が高くなる？3階・4階・5階で費用は違う？」</a></li>
+      <li><a href="https://yattewaikenai.com/additional-fee/" target="_blank" rel="noopener">「追加料金かかる？『エレベーターなしマンション』の引越し費用」</a></li>
+      <li><a href="https://www.hikoshi-lab.com/1636" target="_blank" rel="noopener">「エレベーター有無で変わる引越し料金！追加費用相場は？格安料金にするには？」</a></li>
+      <li><a href="https://sl-service.jp/quoterequest" target="_blank" rel="noopener">引越し・単品配送業者 オンライン見積り（階段作業料の実料金例）</a></li>
+      <li><a href="https://hikkoshi.suumo.jp/oyakudachi/8092.html" target="_blank" rel="noopener">SUUMO引越し見積もり「近距離の引越し見積もり相場」（ベース額の出典・業者比較レポートと同一）</a></li>
+    </ol>
+  </footer>
+
+</div>
+</body>
+</html>
