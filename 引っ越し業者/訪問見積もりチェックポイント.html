@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>訪問見積もり チェックポイント（当日携行用・3社共通）</title>
 <style>
-  .viz-root {
+  :root {
     color-scheme: light;
     --surface-1:      #fcfcfb;
     --page-plane:      #f9f9f7;
@@ -25,7 +25,7 @@
     --accent-bad-bg:  #fbe9e2;
   }
   @media (prefers-color-scheme: dark) {
-    :root:where(:not([data-theme="light"])) .viz-root {
+    :root:not([data-theme="light"]) {
       color-scheme: dark;
       --surface-1:      #1a1a19;
       --page-plane:      #0d0d0d;
@@ -45,8 +45,28 @@
       --accent-bad-bg:  #3a1a10;
     }
   }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --page-plane:      #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:       #2c2c2a;
+    --border:         rgba(255,255,255,0.10);
+    --series-1:       #3987e5;
+    --series-1-soft:  #184f95;
+    --chip-bg:        #16233a;
+    --accent-good:    #57c98a;
+    --accent-good-bg: #103822;
+    --accent-warn:    #e0a758;
+    --accent-warn-bg: #3a2b10;
+    --accent-bad:     #e0745a;
+    --accent-bad-bg:  #3a1a10;
+  }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--page-plane); color: var(--text-primary); }
+  html, body { background: var(--page-plane); }
+  body { margin: 0; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--text-primary); }
   .wrap { max-width: 1020px; margin: 0 auto; padding: 40px 24px 80px; }
   header.title-block { margin-bottom: 20px; }
   h1 { font-size: 1.6rem; margin: 0 0 8px; letter-spacing: -0.01em; }
